@@ -1,4 +1,4 @@
-@extends('site.layout.master')
+@extends('site.layout.master', ['header' => 'transparent'])
 
 @section('content')
     {{--
