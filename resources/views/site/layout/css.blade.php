@@ -9,8 +9,4 @@
     @endif
     <link rel="stylesheet" href="{{ asset('asset/css/responsive.css') }}">
 
-
-{{--        <link rel="stylesheet" href="{{ asset('asset/css/bootstrap-rtl-min.css') }}">--}}
-{{--    @else--}}
-        <link rel="stylesheet" href="{{ asset('asset/css/app.css') }}">
-{{--    @endif--}}
+    <link rel="stylesheet" href="{{ asset('asset/css/app.css') }}">

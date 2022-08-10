@@ -204,6 +204,8 @@
                             <i class="material-icons mat-icon-lg primary-color">public</i>
                             <h3 class="primary-color py-1">{{__('visit_us_title')}} :</h3>
                             <a class="text-muted fw-500" href="{{ $website }}">{{ $website }}</a>
+
+                            @include('site.sections.socials')
                         </div>
                     </div>
                     <div class="col-xs-12 mt-3 px-3 p-relative">
@@ -215,51 +217,74 @@
                         @csrf
                         <div class="col-xs-12 col-sm-12 col-md-4 p-2">
                             <div class="mdc-text-field mdc-text-field--outlined w-100">
-                                <input class="mdc-text-field__input" placeholder="{{__('your_name')}}">
+                                <input class="mdc-text-field__input @error('name') is-invalid @enderror" placeholder="{{__('your_name')}}" @if(auth()->check()) value="{{auth()->user()->name}}" @endif value="{{ old('name') }}" required>
                                 <div class="mdc-notched-outline">
                                     <div class="mdc-notched-outline__leading"></div>
                                     <div class="mdc-notched-outline__notch">
-                                        <label class="mdc-floating-label">{{__('full_name_title')}} <span class="warn-color">*</span></label>
+                                        <label class="mdc-floating-label">{{__('full_name_title')}}</label>
+{{--                                        <label class="mdc-floating-label">{{__('full_name_title')}} <span class="warn-color">*</span></label>--}}
                                     </div>
                                     <div class="mdc-notched-outline__trailing"></div>
                                 </div>
+
+{{--                                <input data-error="{{__('name_required')}}">--}}
                             </div>
+                            @error('name')
+                                <span class="invalid-feedback warn-color">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-4 p-2">
                             <div class="mdc-text-field mdc-text-field--outlined w-100">
-                                <input class="mdc-text-field__input" placeholder="{{__('your_email')}}">
+                                <input type="email" name="email" id="email"  class="mdc-text-field__input @error('email') is-invalid @enderror" required data-error="{{__('email_required')}}" placeholder="{{__('your_email')}}" @if(auth()->check()) value="{{auth()->user()->email}}" @endif value="{{ old('email') }}">
                                 <div class="mdc-notched-outline">
                                     <div class="mdc-notched-outline__leading"></div>
                                     <div class="mdc-notched-outline__notch">
-                                        <label class="mdc-floating-label">{{__('email_us')}} <span class="warn-color">*</span></label>
+                                        <label class="mdc-floating-label">{{__('email_us')}}</label>
                                     </div>
                                     <div class="mdc-notched-outline__trailing"></div>
                                 </div>
                             </div>
+                            @error('email')
+                            <span class="invalid-feedback warn-color">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-4 p-2">
                             <div class="mdc-text-field mdc-text-field--outlined w-100">
-                                <input class="mdc-text-field__input" placeholder="{{__('your_phone')}}">
+                                <input type="text" name="phone_number" id="phone_number"  class="mdc-text-field__input @error('phone_number') is-invalid @enderror" required data-error="{{__('phone_required')}}" placeholder="{{__('your_phone')}}"  @if(auth()->check()) value="{{auth()->user()->mobile}}" @endif value="{{ old('phone_number') }}">
                                 <div class="mdc-notched-outline">
                                     <div class="mdc-notched-outline__leading"></div>
                                     <div class="mdc-notched-outline__notch">
-                                        <label class="mdc-floating-label">{{__('phone_number_title')}} <span class="warn-color">*</span></label>
+                                        <label class="mdc-floating-label">{{__('phone_number_title')}}</label>
                                     </div>
                                     <div class="mdc-notched-outline__trailing"></div>
                                 </div>
                             </div>
+                            @error('phone_number')
+                            <span class="invalid-feedback warn-color">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                         <div class="col-xs-12 p-2">
                             <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--textarea w-100">
-                                <textarea class="mdc-text-field__input" rows="5" placeholder="{{__('write_your_message')}}"></textarea>
+                                <textarea class="mdc-text-field__input" name="message" id="message" rows="5" required data-error="Please enter your message"  placeholder="{{__('write_your_message')}}"></textarea>
                                 <div class="mdc-notched-outline mdc-notched-outline--upgraded">
                                     <div class="mdc-notched-outline__leading"></div>
                                     <div class="mdc-notched-outline__notch">
-                                        <label class="mdc-floating-label">{{__('your_message_title')}} <span class="warn-color">*</span></label>
+                                        <label class="mdc-floating-label">{{__('your_message_title')}}</label>
                                     </div>
                                     <div class="mdc-notched-outline__trailing"></div>
                                 </div>
                             </div>
+                            @error('message')
+                            <span class="invalid-feedback warn-color">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                         <div class="col-xs-12 w-100 py-3 text-center">
                             <button class="mdc-button mdc-button--raised" type="submit">
@@ -269,6 +294,7 @@
                         </div>
                     </form>
                 </div>
+                {{-- todo site: map --}}
                 <div class="mt-5">
                     <div id="contact-map"></div>
                 </div>
