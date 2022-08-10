@@ -65,8 +65,8 @@ class AdvertisingController extends Controller
         if (isset($request->venue_type) && !is_null($request->venue_type)) {
             $advertising = $advertising->where("venue_type", $request->venue_type);
         }
-        if (isset($request->rse) && !is_null($request->rse)) {
-            $advertising = $advertising->where("rse", $request->rse);
+        if (isset($request->purpose) && !is_null($request->purpose)) {
+            $advertising = $advertising->where("purpose", $request->purpose);
         }
         if (isset($request->keyword) && !is_null($request->keyword)) {
             $advertising = $advertising->where(function ($r) use ($request) {
@@ -639,7 +639,7 @@ class AdvertisingController extends Controller
         $advertising->area_id = $request->area_id;
         $advertising->type = $request->type;
         $advertising->venue_type = $request->venue_type;
-        $advertising->rse = $request->rse;
+        $advertising->purpose = $request->purpose;
         $advertising->advertising_type = $request->advertising_type;
         $advertising->description = $request->description;
         $advertising->price = $request->price;

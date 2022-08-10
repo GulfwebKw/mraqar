@@ -76,9 +76,9 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="name" class="col-sm-3 col-form-label"> {{__('rse')}}</label>
+                            <label for="name" class="col-sm-3 col-form-label"> {{__('purpose')}}</label>
                             <div class="col-sm-3">
-                                <label class="col-form-label text-info">{{$advertising->rse}}</label>
+                                <label class="col-form-label text-info">{{$advertising->purpose}}</label>
                             </div>
                         </div>
                         <div class="form-group row">

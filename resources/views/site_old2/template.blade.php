@@ -18,7 +18,7 @@
     @yield('scripts')
     <script>
         $('#search').on('click', function () {
-            window.location.href = '/{{app()->getLocale()}}' + '/search?keyword=' + $('#keyword').val() + '&&area=' + $('#area').val() + '&&venue_type=' + $('#venueType').val() + '&&rse=' + $('#rse').val() + '&&type=' + $('#type').val()
+            window.location.href = '/{{app()->getLocale()}}' + '/search?keyword=' + $('#keyword').val() + '&&area=' + $('#area').val() + '&&venue_type=' + $('#venueType').val() + '&&purpose=' + $('#purpose').val() + '&&type=' + $('#type').val()
         })
 
         function changeLng(locale) {
