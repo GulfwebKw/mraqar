@@ -15,9 +15,6 @@ use Illuminate\Support\Facades\Route;
 /*/
 
 
-
-
-
 ////////////// index page
 Route::get('/','MainController@index')->name('Main.index');
 Route::get('/aboutus','MainController@aboutus')->name('Main.aboutus');

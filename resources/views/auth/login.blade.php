@@ -1,120 +1,88 @@
-<!doctype html>
-<html lang="zxx">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+@extends('site.layout.master')
 
-    <!-- Links of CSS files -->
-    <link rel="stylesheet" href="{{ asset('css/main/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/main/jquery-ui.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/main/animate.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/main/boxicons.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/main/flaticon.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/main/magnific-popup.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/main/odometer.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/main/nice-select.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/main/owl.carousel.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/main/slick.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/main/rangeSlider.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/main/meanmenu.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/main/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/main/responsive.css') }}">
+@section('content')
 
-    <title>Ajrnii - Buy & Sell Properties</title>
-
-    <link rel="icon" type="image/png" href="{{ asset('images/main/favicon.png') }}">
-</head>
-<body>
-
-<!-- Start Login Area -->
-<section class="login-area">
-    <div class="row m-0">
-        <div class="col-lg-6 col-md-12 p-0">
-            <div class="login-image">
-                <img src="{{ asset('images/main/login-bg.jpg') }}" alt="image">
-            </div>
-        </div>
-
-        <div class="col-lg-6 col-md-12 p-0">
-            <div class="login-content">
-                <div class="d-table">
-                    <div class="d-table-cell">
-                        <div class="login-form">
-                            <div class="logo">
-                                <a href="{{ route('Main.index',app()->getLocale()) }}"><img src="{{ asset('images/main/logo.png') }}" alt="image"></a>
-                            </div>
-
-                            <h3>{{__('welcome_back')}}</h3>
-                            <p @if(app()->getLocale() == "ar") style="direction: rtl" @endif >{{__('new_to_ajrnii')}}
-                                <a href="{{ route('register',app()->getLocale()) }}">{{__('sign_up')}}</a>
-                            </p>
-
-                            <form method="POST" action="{{ route('login',app()->getLocale()) }}">
-                                @csrf
-
-                                <div class="form-group">
-                                    <input id="mobile" type="tel" placeholder="{{__('phone_number_title')}}" class="form-control form-control-lg @error('mobile') is-invalid @enderror" name="mobile" value="{{ old('mobile') }}" required autofocus>
-                                    @error('mobile')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <input id="password" type="password" placeholder="{{__('password')}}" class="form-control form-control-lg @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-                                    @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                    @enderror
-                                </div>
-                                <div class="checkbox p-0">
-                                    <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                    <label for="remember">{{ __('remember_me') }}</label>
-                                </div>
-
-
-                                <div class="form-group form-row mt-3 mb-0">
-                                    <div class="col-md-12">
-                                        <button type="submit" class="btn btn-secondary">{{__('login')}}</button>
+    <main>
+        <div class="px-3">
+            <div class="theme-container">
+                <div class="row center-xs middle-xs my-5">
+                    <div class="mdc-card p-3 p-relative mw-500px">
+                        <div class="column center-xs middle-xs text-center">
+                            <h1 class="uppercase">{{__('welcome_back')}}</h1>
+                            <a href="{{ route('register',app()->getLocale()) }}" class="mdc-button mdc-ripple-surface mdc-ripple-surface--accent normal w-100">
+                                {{__('new_to_ajrnii')}}
+                                {{__('sign_up')}}
+                            </a>
+                        </div>
+                        <form method="post" action="{{ route('login',app()->getLocale()) }}">
+                            @csrf
+                            <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon w-100 mt-3 custom-field ">
+                                <i class="material-icons mdc-text-field__icon text-muted">phone</i>
+                                <input id="mobile" type="tel" placeholder="{{__('phone_number_title')}}" class="mdc-text-field__input @error('mobile') is-invalid @enderror" name="mobile" value="{{ old('mobile') }}" required autofocus>
+                                <div class="mdc-notched-outline">
+                                    <div class="mdc-notched-outline__leading"></div>
+                                    <div class="mdc-notched-outline__notch">
+                                        <label class="mdc-floating-label">{{__('phone_number_title')}}</label>
                                     </div>
+                                    <div class="mdc-notched-outline__trailing"></div>
                                 </div>
-
-
-                                <div class="forgot-password">
-                                    <a href="{{ route('password.request',app()->getLocale()) }}">{{__('forgot_password')}}</a>
+                            </div>
+                            @error('mobile')
+                            <span class="invalid-feedback warn-color d-inline-block">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                            <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon mdc-text-field--with-trailing-icon w-100 custom-field mt-4 custom-field">
+                                <i class="material-icons mdc-text-field__icon text-muted">lock</i>
+                                <i class="material-icons mdc-text-field__icon text-muted password-toggle" tabindex="1">visibility_off</i>
+                                <input  name="password" id="password" type="password" placeholder="{{__('password')}}" class="mdc-text-field__input @error('password') is-invalid @enderror" type="password" required autocomplete="current-password">
+                                <div class="mdc-notched-outline">
+                                    <div class="mdc-notched-outline__leading"></div>
+                                    <div class="mdc-notched-outline__notch">
+                                        <label class="mdc-floating-label">{{__('password')}}</label>
+                                    </div>
+                                    <div class="mdc-notched-outline__trailing"></div>
                                 </div>
-                            </form>
+                            </div>
+                            @error('password')
+                            <span class="invalid-feedback warn-color d-inline-block">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                            <div class="mdc-form-field mt-3 w-100">
+                                <div class="mdc-checkbox">
+                                    <input type="checkbox" class="mdc-checkbox__native-control" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}/>
+                                    <div class="mdc-checkbox__background">
+                                        <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+                                            <path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+                                        </svg>
+                                        <div class="mdc-checkbox__mixedmark"></div>
+                                    </div>
+                                    <div class="mdc-checkbox__ripple"></div>
+                                </div>
+                                <label for="keep" class="text-muted fw-500">{{ __('remember_me') }}</label>
+                            </div>
+                            <div class="text-center mt-2">
+                                <button class="mdc-button mdc-button--raised" type="submit">
+                                    <span class="mdc-button__ripple"></span>
+                                    <span class="mdc-button__label">{{__('login')}}</span>
+                                </button>
+                            </div>
+                        </form>
+                        <div class="row my-4 px-3 p-relative">
+                            <div class="divider w-100"></div>
+                        </div>
+                        <div class="row end-xs middle-xs">
+                            <a href="#" class="mdc-button normal"> {{-- todo site: forgot password link --}}
+                                <span class="mdc-button__ripple"></span>
+                                <i class="material-icons mdc-button__icon">vpn_key</i>
+                                <span class="mdc-button__label">{{__('forgot_password')}}</span>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<!-- End Login Area -->
+    </main>
 
-<!-- Links of JS files -->
-<script src="{{ asset('js/main/jquery.min.js') }}"></script>
-<script src="{{ asset('js/main/popper.min.js') }}"></script>
-<script src="{{ asset('js/main/bootstrap.min.js') }}"></script>
-<script src="{{ asset('js/main/owl.carousel.min.js') }}"></script>
-<script src="{{ asset('js/main/magnific-popup.min.js') }}"></script>
-<script src="{{ asset('js/main/appear.min.js') }}"></script>
-<script src="{{ asset('js/main/odometer.min.js') }}"></script>
-<script src="{{ asset('js/main/jquery-ui.min.js') }}"></script>
-<script src="{{ asset('js/main/parallax.min.js') }}"></script>
-<script src="{{ asset('js/main/slick.min.js') }}"></script>
-<script src="{{ asset('js/main/rangeSlider.min.js') }}"></script>
-<script src="{{ asset('js/main/nice-select.min.js') }}"></script>
-<script src="{{ asset('js/main/isotope.pkgd.min.js') }}"></script>
-<script src="{{ asset('js/main/meanmenu.min.js') }}"></script>
-<script src="{{ asset('js/main/wow.min.js') }}"></script>
-<script src="{{ asset('js/main/form-validator.min.js') }}"></script>
-<script src="{{ asset('js/main/contact-form-script.js') }}"></script>
-<script src="{{ asset('js/main/ajaxchimp.min.js') }}"></script>
-<script src="{{ asset('js/main/main.js') }}"></script>
-
-</body>
-</html>
+@endsection
