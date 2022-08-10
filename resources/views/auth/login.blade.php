@@ -9,7 +9,7 @@
                     <div class="mdc-card p-3 p-relative mw-500px">
                         <div class="column center-xs middle-xs text-center">
                             <h1 class="uppercase">{{__('welcome_back')}}</h1>
-                            <a href="{{ route('register',app()->getLocale()) }}" class="mdc-button mdc-ripple-surface mdc-ripple-surface--accent normal w-100">
+                            <a href="{{ route('register',app()->getLocale()) }}" class="mdc-button mdc-ripple-surface mdc-ripple-surface--primary normal w-100">
                                 {{__('new_to_ajrnii')}}
                                 {{__('sign_up')}}
                             </a>
@@ -35,7 +35,7 @@
                             <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon mdc-text-field--with-trailing-icon w-100 custom-field mt-4 custom-field">
                                 <i class="material-icons mdc-text-field__icon text-muted">lock</i>
                                 <i class="material-icons mdc-text-field__icon text-muted password-toggle" tabindex="1">visibility_off</i>
-                                <input  name="password" id="password" type="password" placeholder="{{__('password')}}" class="mdc-text-field__input @error('password') is-invalid @enderror" type="password" required autocomplete="current-password">
+                                <input  name="password" id="password" type="password" placeholder="{{__('password')}}" class="mdc-text-field__input @error('password') is-invalid @enderror" required autocomplete="current-password">
                                 <div class="mdc-notched-outline">
                                     <div class="mdc-notched-outline__leading"></div>
                                     <div class="mdc-notched-outline__notch">
