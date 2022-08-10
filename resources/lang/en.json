@@ -193,5 +193,10 @@
     "sell": "Sell",
     "exchange": "Exchange",
     "required_for_rent": "Required For Rent",
-    "companies": "Companies"
+    "companies": "Companies",
+    "passcode": "Enter verification code",
+    "resend_code": "Resend sms verification code!",
+    "validate_resend": "Validation code re-send to your mobile.",
+    "validate_send": "Validation code send to your mobile.",
+    "invalidOTP" : "Validation code is invalid."
 	}
