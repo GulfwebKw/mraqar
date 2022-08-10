@@ -318,9 +318,9 @@
    "write_your_message": "اکتب رسالتک ...",
    "welcome_back": "مرحبا مجددا",
    "new_to_ajrnii": "جدید فی اجرنی؟",
-    "already_registered": "Already registered?",
+    "already_registered": "مسجل بالفعل؟",
    "sign_up": "الاشتراک",
-   "sign_in": "Sign in",
+   "sign_in": "تسجيل الدخول",
    "password": "کلمة المرور",
    "remember_me": "تذکرنی",
    "login": "الدخول",
@@ -363,5 +363,10 @@
     "sell": "باع",
     "exchange": "تبادل",
     "required_for_rent": "مطلوب للایجار",
-    "companies": "الشرکات"
+    "companies": "الشرکات",
+    "passcode": "أدخل رمز التحقق",
+    "resend_code": "إعادة إرسال رمز التحقق من الرسائل القصيرة!",
+    "validate_resend": "إعادة إرسال رمز التحقق إلى هاتفك المحمول.",
+    "validate_send": "يتم إرسال رمز التحقق إلى هاتفك المحمول.",
+    "invalidOTP" : "رمز التحقق غير صالح."
 }

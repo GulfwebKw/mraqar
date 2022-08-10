@@ -10,6 +10,7 @@ use App\Models\PackageHistory;
 use App\Models\Setting;
 use App\Providers\RouteServiceProvider;
 use App\User;
+use GuzzleHttp\Client;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -62,15 +63,30 @@ class RegisterController extends Controller
     // first : user inputs validation and sending sms code
     /**
      * @param RegisterRequest|Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function register(RegisterRequest $request)
+    public function register(Request $request)
     {
        dd($request->all());
         try{
 
             DB::beginTransaction();
+            if ( $request->has('resend') ){
+                $otp = rand(10000, 99999);
+                $this->sendOtp($otp, $request->mobile);
+                $request->merge(['code' => $otp ,'codeValidation' => Hash::make($otp . " : Erfan Ebrahimi : ".$request->mobile )]);
+                return redirect()->back()->withInput()->with('success', __('validate_resend'));
+            }
+            if ( ! $request->has('code') ){
+                $otp = rand(10000, 99999);
+                $this->sendOtp($otp, $request->mobile);
+                $request->merge(['code' => $otp ,'codeValidation' => Hash::make($otp . " : Erfan Ebrahimi : ".$request->mobile )]);
+                return redirect()->back()->withInput()->with('success', __('validate_send'));
+            } elseif ( ! Hash::check($request->code ." : Erfan Ebrahimi : ".$request->mobile  , $request->codeValidation) )
+                return redirect()->back()->withInput()->withErrors(__('invalidOTP'));
 
+
+            $request->merge(['type_usage' => 'individual']);
             $package=Package::where("title_en","gift credit")->first();
             $package_id = $package->id ;
 
@@ -180,5 +196,29 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+
+    protected function sendOtp($otp, $mobile) {
+        $client = new Client(); //GuzzleHttp\Client
+//        $res = $client->get('http://smsbox.com/smsgateway/services/messaging.asmx/Http_SendSMS', [
+//            'headers' => [
+//                'Content-Type' => 'application/x-www-form-urlencoded'
+//            ],
+//            'query' => [
+//                'username' => env('SMS_USERNAME'),
+//                'password' => env('SMS_PASSWORD'),
+//                'customerid' => env('SMS_CUSTOMERID'),
+//                'sendertext' => env('SMS_SENDERTEXT'),
+//                'messagebody' => $otp,
+//                'recipientnumbers' => \Illuminate\Support\Str::startsWith($mobile, '965') ? $mobile : '965' . $mobile,
+//                'defdate' => "",
+//                'isblink' => false,
+//                'isflash' => false,
+//            ],
+//        ]);
+//      $xml = $res->getBody()->getContents();
+        //$json = json_decode($xml, true);
+        //return $json['Message'];
     }
 }
