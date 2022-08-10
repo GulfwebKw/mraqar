@@ -28,7 +28,7 @@ class StoreRequest extends FormRequest
 //            'title_ar' => 'nullable|max:250',
 //            'type' => 'required|in:residential,commercial,industrial',
 //            'venue_type' => 'required',
-//            'rse' => 'required|in:rent,sell,exchange',
+//            'rse' => 'required|in:rent,sell,exchange,required_for_rent',
 //            'advertising_type' => 'required|in:normal,premium',
 //            'city_id' => 'required',
 //            'area_id' => 'required',

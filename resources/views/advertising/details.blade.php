@@ -118,6 +118,7 @@
                                         <option @if($advertising->rse=='rent') selected @endif value="rent">{{__('rent')}}</option>
                                         <option @if($advertising->rse=='sell') selected @endif value="sell">{{__('sell')}}</option>
                                         <option @if($advertising->rse=='exchange') selected @endif value="exchange">{{__('exchange')}}</option>
+                                        <option @if($advertising->rse=='required_for_rent') selected @endif value="required_for_rent">{{__('required_for_rent')}}</option>
                                     </select>
                                     @error('rse')
                                     <div class="help-block text-danger">{{ $message }}</div>

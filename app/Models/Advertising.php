@@ -24,6 +24,7 @@ class Advertising extends Model implements Feedable
         'Rent' => 'rent',
         'Sell' => 'sell',
         'Exchange' => 'exchange',
+        'Required_for_rent' => 'required_for_rent',
     ];
     const RESIDENTIALS = [
         'Apartment' => 'apartment',
