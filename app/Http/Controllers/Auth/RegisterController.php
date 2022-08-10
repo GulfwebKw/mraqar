@@ -66,7 +66,7 @@ class RegisterController extends Controller
      */
     public function register(RegisterRequest $request)
     {
-//        dd($request->all());
+       dd($request->all());
         try{
 
             DB::beginTransaction();

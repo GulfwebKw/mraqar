@@ -15,7 +15,8 @@
                             </a>
                         </div>
                         <form method="post" action="{{ route('register',app()->getLocale()) }}">
-                            @csrf {{-- todo site: put user_types Individual/Company field? --}}
+                            @csrf
+                            <input type="hidden" name="type_usage" value="individual">
                             <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon w-100 mt-3 custom-field ">
                                 <i class="material-icons mdc-text-field__icon text-muted">phone</i>
                                 <input id="mobile" type="tel" placeholder="{{__('phone_number_title')}}" class="mdc-text-field__input @error('mobile') is-invalid @enderror" name="mobile" value="{{ old('mobile') }}" required autofocus>

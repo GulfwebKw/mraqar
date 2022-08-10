@@ -24,12 +24,12 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'name' => 'nullable',
             'mobile' => 'required|digits:8|unique:users',
             'password' => ['required','min:8','confirmed'],
-            'email' => 'required|email|unique:users',
-            'type_usage'=>'required|in:company,individual',
-            'language'=>'required|in:ar,en',
+            'email' => 'nullable|email|unique:users',
+            'type_usage'=>'nullable|in:company,individual',
+            'language'=>'nullable|in:ar,en',
         ];
     }
 }
