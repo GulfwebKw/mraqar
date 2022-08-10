@@ -112,15 +112,15 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="rse" class="col-sm-2 col-form-label"><span class="text-danger"></span> {{__('rse')}}</label>
+                                <label for="purpose" class="col-sm-2 col-form-label"><span class="text-danger"></span> {{__('purpose')}}</label>
                                 <div class="col-sm-6">
-                                    <select id="rse" name="rse" class="form-control  ">
-                                        <option @if($advertising->rse=='rent') selected @endif value="rent">{{__('rent')}}</option>
-                                        <option @if($advertising->rse=='sell') selected @endif value="sell">{{__('sell')}}</option>
-                                        <option @if($advertising->rse=='exchange') selected @endif value="exchange">{{__('exchange')}}</option>
-                                        <option @if($advertising->rse=='required_for_rent') selected @endif value="required_for_rent">{{__('required_for_rent')}}</option>
+                                    <select id="purpose" name="purpose" class="form-control  ">
+                                        <option @if($advertising->purpose=='rent') selected @endif value="rent">{{__('rent')}}</option>
+                                        <option @if($advertising->purpose=='sell') selected @endif value="sell">{{__('sell')}}</option>
+                                        <option @if($advertising->purpose=='exchange') selected @endif value="exchange">{{__('exchange')}}</option>
+                                        <option @if($advertising->purpose=='required_for_rent') selected @endif value="required_for_rent">{{__('required_for_rent')}}</option>
                                     </select>
-                                    @error('rse')
+                                    @error('purpose')
                                     <div class="help-block text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>

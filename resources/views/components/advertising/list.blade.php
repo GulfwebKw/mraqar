@@ -29,7 +29,7 @@
                 <td>
                 <strong>{{__('Venue Type')}}:</strong> {{$item->venue_type}}
                 <br />
-                <strong>{{__('rse')}}:</strong> {{$item->rse}}
+                <strong>{{__('purpose')}}:</strong> {{$item->purpose}}
                 <br />
                 <strong>City:</strong> {{optional($item->city)->name_en??'--'}}
                 <br />

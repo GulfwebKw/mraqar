@@ -29,7 +29,7 @@
                                 <td>{{$item->id}}</td>
                                 <td>{{optional($item->user)->name}}</td>
                                 <td>{{optional($item->advertising)->title_en}}</td>
-                                <td>{{optional($item->advertising)->city->name_en }} -->  {{optional($item->advertising)->area->name_en }} --> {{optional($item->advertising)->type  }} --> {{optional($item->advertising)->venue_type}} --> {{optional($item->advertising)->rse}}  </td>
+                                <td>{{optional($item->advertising)->city->name_en }} -->  {{optional($item->advertising)->area->name_en }} --> {{optional($item->advertising)->type  }} --> {{optional($item->advertising)->venue_type}} --> {{optional($item->advertising)->purpose}}  </td>
                                 <td>{{$item->comment}}</td>
                                 {{--                                    <td>{{$item->status}}</td>--}}
                                 <td>{{$item->created_at}}</td>

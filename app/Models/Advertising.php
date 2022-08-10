@@ -20,7 +20,7 @@ class Advertising extends Model implements Feedable
         'COMMERCIAL' => 'commercial',
         'INDUSTRIAL' => 'industrial',
     ];
-    const RSE = [
+    const purpose = [
         'Rent' => 'rent',
         'Sell' => 'sell',
         'Exchange' => 'exchange',

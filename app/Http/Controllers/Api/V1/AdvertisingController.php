@@ -38,7 +38,7 @@ class AdvertisingController extends ApiBaseController
     public function similarAdvertising($id)
     {
         $advertising=Advertising::with(["user","area","city","amenities"])->find($id);
-        $list=Advertising::getValidAdvertising()->where('type',$advertising->type)->where("venue_type",$advertising->venue_type)->where("rse",$advertising->rse)->paginate(10);
+        $list=Advertising::getValidAdvertising()->where('type',$advertising->type)->where("venue_type",$advertising->venue_type)->where("purpose",$advertising->purpose)->paginate(10);
         return $this->success("aaa",$list);
     }
     public function getAdvertising($id)
@@ -675,8 +675,8 @@ class AdvertisingController extends ApiBaseController
         if (isset($request->venue_type)) {
             $advertising = $advertising->where("venue_type", $request->venue_type);
         }
-        if (isset($request->rse)) {
-            $advertising = $advertising->where("rse", $request->rse);
+        if (isset($request->purpose)) {
+            $advertising = $advertising->where("purpose", $request->purpose);
         }
         if (isset($request->keyword)&&$request->keyword!="") {
             $advertising = $advertising->where(function ($r)use($request){
@@ -726,7 +726,7 @@ class AdvertisingController extends ApiBaseController
                 'title_ar' => 'nullable|max:250',
                 'type' => 'required|in:residential,commercial,industrial',
                 'venue_type' => 'required',
-                'rse' => 'required|in:rent,sell,exchange,required_for_rent',
+                'purpose' => 'required|in:rent,sell,exchange,required_for_rent',
                 'advertising_type' => 'required|in:normal,premium',
                 'city_id' => 'required',
                 'area_id' => 'required',
@@ -750,7 +750,7 @@ class AdvertisingController extends ApiBaseController
             'title_ar' => 'nullable|max:250',
             'type' => 'required|in:residential,commercial,industrial',
             'venue_type' => 'required',
-            'rse' => 'required|in:rent,sell,exchange,required_for_rent',
+            'purpose' => 'required|in:rent,sell,exchange,required_for_rent',
             'advertising_type' => 'required|in:normal,premium',
             'city_id' => 'required',
             'area_id' => 'required',
@@ -775,7 +775,7 @@ class AdvertisingController extends ApiBaseController
         $advertising->area_id = $request->area_id;
         $advertising->type = $request->type;
         $advertising->venue_type = $request->venue_type;
-        $advertising->rse = $request->rse;
+        $advertising->purpose = $request->purpose;
         $advertising->advertising_type = $request->advertising_type;
         $advertising->description = $request->description;
         $advertising->price = $request->price;
@@ -868,7 +868,7 @@ class AdvertisingController extends ApiBaseController
         if($request->device_token!=null&&$request->device_token!="" && $request->device_token!="null"){
             $cityId=$request->city_id!=-1??0;
             $area_id=$request->area_id!=-1??0;
-            DB::table("search_history")->insert(['area_id'=>$area_id,'city_id'=>$cityId,'advertising_type'=>$request->advertising_type,'type'=>$request->type,'venue_type'=>$request->venue_type,'rse'=>$request->rse,'main_price'=>floatval($request->main_price),'max_price'=>floatval($request->max_price),'device_token'=>$request->device_token]);
+            DB::table("search_history")->insert(['area_id'=>$area_id,'city_id'=>$cityId,'advertising_type'=>$request->advertising_type,'type'=>$request->type,'venue_type'=>$request->venue_type,'purpose'=>$request->purpose,'main_price'=>floatval($request->main_price),'max_price'=>floatval($request->max_price),'device_token'=>$request->device_token]);
         }
     }
     private function hasLikeUser($device_token,$id)
