@@ -2,7 +2,23 @@
 
 @section('content')
 
-    {{-- todo site: here was an alert success for buying package. --}}
+@if((session('status')) == 'success')
+    <div class="alert alert-success">
+        <strong>{{ __('success_title') }}!</strong> {{__('packageSuccessBuy')}}!
+    </div>
+@elseif((session('status')) == 'validation_failed')
+    <div class="alert alert-danger">
+        <strong>{{__('un_success_title')}}!</strong> {{__('wrongInput')}} !
+    </div>
+@elseif((session('status')) == 'ads_remaining')
+    <div class="alert alert-danger">
+        <strong>{{__('un_success_title')}}!</strong> {{__('packageNotFinished')}} !
+    </div>
+@elseif((session('status')) == 'unsuccess')
+    <div class="alert alert-danger">
+        <strong>{{__('un_success_title')}}!</strong> {{__('un_success_alert_title')}}!
+    </div>
+@endif
 
 <main>
     <div class="px-3">

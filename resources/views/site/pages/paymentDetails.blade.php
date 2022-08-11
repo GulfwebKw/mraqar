@@ -11,7 +11,7 @@
     @endphp
     @if((session('status')) == 'package_bought')
         <div class="alert alert-success">
-            <strong>{{ __('success_title') }}!</strong> {{ __('packageSuccess') }}
+            <strong>{{ __('success_title') }}!</strong> {{ __('packageSuccess') }} !
         </div>
     @endif
 
