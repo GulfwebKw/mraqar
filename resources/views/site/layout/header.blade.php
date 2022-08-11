@@ -196,7 +196,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('Main.changePassword',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "changePassword") background-color: #088dd3; color: white; @endif">
+                                    <a href="{{ route('Main.changePassword',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "changepassword") background-color: #088dd3; color: white; @endif">
                                         <i class="material-icons mat-icon-sm text-muted">lock</i>
                                         <span class="mdc-list-item__text px-3">{{__('change_password_title')}}</span>
                                     </a>
