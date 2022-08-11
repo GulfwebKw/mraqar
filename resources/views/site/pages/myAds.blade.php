@@ -27,7 +27,7 @@
         @foreach($ads as $ad)
         <tr class="mdc-data-table__row">
             <td class="mdc-data-table__cell">
-                <img src="{{ asset($ad->main_image) }}" width="100" class="d-block py-3">
+                <img src="{{ is_file(public_path($ad->main_image)) ? asset($ad->main_image) : asset('no-image.png')  }}" width="100" class="d-block py-3">
             </td>
             <td class="mdc-data-table__cell">
                 <a href="{{ '/'.app()->getLocale().'/advertising/' . $ad->hash_number . '/details' }}" class="mdc-button mdc-ripple-surface mdc-ripple-surface--primary normal">
