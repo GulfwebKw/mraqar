@@ -155,12 +155,16 @@
                             <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical" tabindex="-1">
                                 <li class="user-info row start-xs middle-xs">
                                     <img src="{{ asset('asset/assets/images/others/user.jpg') }}" alt="user-image" width="50">
-                                    <p class="m-0">{{ auth()->user()->name }} <br>
-                                        <a href="{{url(app()->getLocale().'/paymenthistory')}}" class="text_blue" style="color:#088dd3; ">
+                                    <p class="m-0">@if(auth()->user()->name){{ auth()->user()->name }}@else<a href="{{ route('Main.profile',app()->getLocale()) }}">{{ __('update_name') }}</a>@endif<br>
+                                        <a href="{{url(app()->getLocale().'/paymenthistory')}}" class="text_blue" style="color:#088dd3;text-decoration:none;">
                                             @if($balance == 0) 0 {{__('ads_title')}}
                                             @else
-                                                {{ $balance['available'] }} {{__('Regular_title')}} {{__('ads_title')}} + {{ $balance['available_premium'] }} {{__('premium_title')}}
-                                                {{__('ads_title')}} {{__('remaining_title')}}
+                                                    <span class="">
+                                                        {{ $balance['available'] }} {{__('ads_title')}}
+                                                    </span>
+                                                    <span class="@if( app()->getLocale() == "ar" ) mr-3 @else ml-3  @endif">
+                                                        {{ $balance['available_premium'] }} {{__('premium_short')}}
+                                                    </span>
                                             @endif
                                         </a>
                                     </p>
