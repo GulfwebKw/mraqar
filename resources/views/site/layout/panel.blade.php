@@ -20,7 +20,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('Main.myAds',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "myAds") background-color: #088dd3; color: white; @endif">
+                                    <a href="{{ route('Main.myAds',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "myads") background-color: #088dd3; color: white; @endif">
                                         <i class="mdc-list-item__graphic material-icons text-muted mx-3">home</i>
                                         <span class="mdc-list-item__text">{{__('my_ads_title')}}</span>
                                     </a>

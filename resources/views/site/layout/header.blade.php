@@ -178,7 +178,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('Main.myAds',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "myAds") background-color: #088dd3; color: white; @endif">
+                                    <a href="{{ route('Main.myAds',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "myads") background-color: #088dd3; color: white; @endif">
                                         <i class="material-icons mat-icon-sm text-muted">home</i>
                                         <span class="mdc-list-item__text px-3">{{__('my_ads_title')}}</span>
                                     </a>
