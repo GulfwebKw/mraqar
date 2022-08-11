@@ -42,163 +42,72 @@
                     <div class="tab-content tab-content--active">
                         <div class="row">
                             @foreach($normals as $normal)
-                            <div class="col-xs-12 col-sm-6 col-md-3 p-2">
-                                <div class="mdc-card pricing-card text-center border-accent p-0 h-100">
-                                    <h2 class="pricing-title my-3">free</h2>
-                                    <div class="bg-accent pricing-header p-3">
-                                        <h1>$ {{__('kd_title')}} <small><strike>{{ $normal->old_price }}</strike></small>{{ $normal->price }}<small> /{{ $normal->count_day }} {{__('days')}}</small></h1>
-                                        <p class="desc mb-2">@if(app()->getLocale()=="en"){{$normal->title_en}}@else{{$normal->title_ar}}@endif</p>
-                                    </div>
-                                    <div class="p-3">
-                                        <p class="py-2"><span class="mx-2 fw-500">10</span>Properties</p>
-                                        <p class="py-2"><span class="mx-2 fw-500">1</span>Agent Profile</p>
-                                        <p class="py-2 del text-muted">Agency Profiles</p>
-                                        <p class="py-2 del text-muted">Featured Properties</p>
-                                        <button type="submit" class="mdc-button mdc-button--raised">
-                                            <span class="mdc-button__ripple"></span>
-                                            <span class="mdc-button__label">Buy now</span>
-                                        </button>
+                                <div class="col-xs-12 col-sm-6 col-md-3 p-2">
+                                    <div class="mdc-card pricing-card text-center border-accent p-0 h-100">
+                                        <div class="bg-accent pricing-header p-3">
+                                            <h1>{{__('kd_title')}} <small><span class="del opacity-70">{{ $normal->old_price }} </span></small>{{ $normal->price }}<small> /{{ $normal->count_day }} {{__('days')}}</small></h1>
+                                            <p class="desc mb-2">@if(app()->getLocale()=="en"){{$normal->title_en}}@else{{$normal->title_ar}}@endif</p>
+                                        </div>
+                                        <div class="p-3">
+                                            <p class="py-2">
+                                                <!--<span class="mx-2 fw-500">10</span>-->
+                                                @if(app()->getLocale()=="en"){{$normal->description_en}}@else{{$normal->description_ar}}@endif
+                                            </p>
+
+                                            <form method="post" action="{{ route('Main.buyPackageOrCredit',app()->getLocale()) }}" >
+                                                @csrf
+                                                <input type="hidden" class="form-control" name="payment_type" value="Knet" >
+                                                <input type="hidden" name="type" value="normal" >
+                                                <input type="hidden" name="package_id" value="{{ $normal->id }}">
+                                                <button type="submit" class="mdc-button mdc-button--raised">
+                                                    <span class="mdc-button__ripple"></span>
+                                                    <span class="mdc-button__label">{{__('buy')}}</span>
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             @endforeach
-                            <div class="col-xs-12 col-sm-6 col-md-3 p-2">
-                                <div class="mdc-card pricing-card text-center border-accent p-0 h-100">
-                                    <h2 class="pricing-title my-3">basic</h2>
-                                    <div class="bg-accent pricing-header p-3">
-                                        <h1>$ 49<small> /mo</small></h1>
-                                        <p class="desc mb-2">The most popular package we offer</p>
-                                    </div>
-                                    <div class="p-3">
-                                        <p class="py-2"><span class="mx-2 fw-500">100</span>Properties</p>
-                                        <p class="py-2"><span class="mx-2 fw-500">3</span>Agent Profiles</p>
-                                        <p class="py-2"><span class="mx-2 fw-500">1</span>Agency Profile</p>
-                                        <p class="py-2 del text-muted">Featured Properties</p>
-                                        <button type="submit" class="mdc-button mdc-button--raised">
-                                            <span class="mdc-button__ripple"></span>
-                                            <span class="mdc-button__label">Buy now</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-3 p-2">
-                                <div class="mdc-card pricing-card text-center border-accent p-0 h-100">
-                                    <h2 class="pricing-title my-3">premium</h2>
-                                    <div class="bg-accent pricing-header p-3">
-                                        <h1>$ 79<small> /mo</small></h1>
-                                        <p class="desc mb-2">The perfect package for your small business</p>
-                                    </div>
-                                    <div class="p-3">
-                                        <p class="py-2"><span class="mx-2 fw-500">250</span>Properties</p>
-                                        <p class="py-2"><span class="mx-2 fw-500">10</span>Agent Profile</p>
-                                        <p class="py-2"><span class="mx-2 fw-500">5</span>Agency Profiles</p>
-                                        <p class="py-2"><span class="mx-2 fw-500">50</span>Featured Properties</p>
-                                        <button type="submit" class="mdc-button mdc-button--raised">
-                                            <span class="mdc-button__ripple"></span>
-                                            <span class="mdc-button__label">Buy now</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-3 p-2">
-                                <div class="mdc-card pricing-card text-center border-accent p-0 h-100">
-                                    <h2 class="pricing-title my-3">professional</h2>
-                                    <div class="bg-accent pricing-header p-3">
-                                        <h1>$ 159<small> /mo</small></h1>
-                                        <p class="desc mb-2">Our most advanced & complete package</p>
-                                    </div>
-                                    <div class="p-3">
-                                        <p class="py-2"><span class="mx-2 fw-500">Unlimited</span>Properties</p>
-                                        <p class="py-2"><span class="mx-2 fw-500">Unlimited</span>Agent Profile</p>
-                                        <p class="py-2"><span class="mx-2 fw-500">Unlimited</span>Agency Profiles</p>
-                                        <p class="py-2"><span class="mx-2 fw-500">Unlimited</span>Featured Properties</p>
-                                        <button type="submit" class="mdc-button mdc-button--raised">
-                                            <span class="mdc-button__ripple"></span>
-                                            <span class="mdc-button__label">Buy now</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <div class="tab-content">
                         <div class="row">
-                            <div class="col-xs-12 col-sm-6 col-md-3 p-2">
-                                <div class="mdc-card pricing-card text-center border-accent p-0 h-100">
-                                    <h2 class="pricing-title my-3">free</h2>
-                                    <div class="bg-accent pricing-header p-3">
-                                        <h1>$ 0<small> /yr</small></h1>
-                                        <p class="desc mb-2">Simplest package to get you started</p>
-                                    </div>
-                                    <div class="p-3">
-                                        <p class="py-2"><span class="mx-2 fw-500">10</span>Properties</p>
-                                        <p class="py-2"><span class="mx-2 fw-500">1</span>Agent Profile</p>
-                                        <p class="py-2 del text-muted">Agency Profiles</p>
-                                        <p class="py-2 del text-muted">Featured Properties</p>
-                                        <button type="submit" class="mdc-button mdc-button--raised">
-                                            <span class="mdc-button__ripple"></span>
-                                            <span class="mdc-button__label">Buy now</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-3 p-2">
-                                <div class="mdc-card pricing-card text-center border-accent p-0 h-100">
-                                    <h2 class="pricing-title my-3">basic</h2>
-                                    <div class="bg-accent pricing-header p-3">
-                                        <h1>$ 569<small> /yr</small></h1>
-                                        <p class="desc mb-2">The most popular package we offer</p>
-                                    </div>
-                                    <div class="p-3">
-                                        <p class="py-2"><span class="mx-2 fw-500">100</span>Properties</p>
-                                        <p class="py-2"><span class="mx-2 fw-500">3</span>Agent Profiles</p>
-                                        <p class="py-2"><span class="mx-2 fw-500">1</span>Agency Profile</p>
-                                        <p class="py-2 del text-muted">Featured Properties</p>
-                                        <button type="submit" class="mdc-button mdc-button--raised">
-                                            <span class="mdc-button__ripple"></span>
-                                            <span class="mdc-button__label">Buy now</span>
-                                        </button>
+                            @foreach($statics as $static)
+                                <div class="col-xs-12 col-sm-6 col-md-3 p-2">
+                                    <div class="mdc-card pricing-card text-center border-accent p-0 h-100">
+                                        <div class="bg-accent pricing-header p-3">
+                                            <h1>{{__('kd_title')}} <small><span class="del opacity-70">{{ $static->old_price }} </span></small>{{ $static->price }}<small> /{{ $normal->count_day }} {{__('days')}}</small></h1>
+                                            <p class="desc mb-2">@if(app()->getLocale()=="en"){{$static->title_en}}@else{{$static->title_ar}}@endif</p>
+                                        </div>
+                                        <div class="p-3 ad-plan-bottom">
+                                            <p class="py-2 add-plan-description">@if(app()->getLocale()=="en"){{$static->description_en}}@else{{$static->description_ar}}@endif</p>
+
+                                            <form method="post" action="{{ route('Main.buyPackageOrCredit',app()->getLocale()) }}" >
+                                                @csrf
+                                                <div>
+                                                    <input type="hidden" class="form-control" name="payment_type" value="Knet">
+                                                    <div class="mdc-text-field mdc-text-field--outlined w-100 custom-field mb-3">
+                                                        <input type="number" min="1" class="mdc-text-field__input" placeholder="{{__('noofads')}}" name="count" id="{{ "static-num-" . $static->id }}" required>
+                                                        <div class="mdc-notched-outline mdc-notched-outline--upgraded">
+                                                            <div class="mdc-notched-outline__leading"></div>
+                                                            <div class="mdc-notched-outline__notch">
+                                                                <label class="mdc-floating-label" style="">{{__('noofads')}}</label>
+                                                            </div>
+                                                            <div class="mdc-notched-outline__trailing"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" name="type" value="static" >
+                                                <input type="hidden" name="package_id" value="{{ $static->id }}" >
+                                                <button type="submit" class="mdc-button mdc-button--raised">
+                                                    <span class="mdc-button__ripple"></span>
+                                                    <span class="mdc-button__label">{{__('buy')}}</span>
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-3 p-2">
-                                <div class="mdc-card pricing-card text-center border-accent p-0 h-100">
-                                    <h2 class="pricing-title my-3">premium</h2>
-                                    <div class="bg-accent pricing-header p-3">
-                                        <h1>$ 929<small> /yr</small></h1>
-                                        <p class="desc mb-2">The perfect package for your small business</p>
-                                    </div>
-                                    <div class="p-3">
-                                        <p class="py-2"><span class="mx-2 fw-500">250</span>Properties</p>
-                                        <p class="py-2"><span class="mx-2 fw-500">10</span>Agent Profile</p>
-                                        <p class="py-2"><span class="mx-2 fw-500">5</span>Agency Profiles</p>
-                                        <p class="py-2"><span class="mx-2 fw-500">50</span>Featured Properties</p>
-                                        <button type="submit" class="mdc-button mdc-button--raised">
-                                            <span class="mdc-button__ripple"></span>
-                                            <span class="mdc-button__label">Buy now</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-3 p-2">
-                                <div class="mdc-card pricing-card text-center border-accent p-0 h-100">
-                                    <h2 class="pricing-title my-3">professional</h2>
-                                    <div class="bg-accent pricing-header p-3">
-                                        <h1>$ 1899<small> /yr</small></h1>
-                                        <p class="desc mb-2">Our most advanced & complete package</p>
-                                    </div>
-                                    <div class="p-3">
-                                        <p class="py-2"><span class="mx-2 fw-500">Unlimited</span>Properties</p>
-                                        <p class="py-2"><span class="mx-2 fw-500">Unlimited</span>Agent Profile</p>
-                                        <p class="py-2"><span class="mx-2 fw-500">Unlimited</span>Agency Profiles</p>
-                                        <p class="py-2"><span class="mx-2 fw-500">Unlimited</span>Featured Properties</p>
-                                        <button type="submit" class="mdc-button mdc-button--raised">
-                                            <span class="mdc-button__ripple"></span>
-                                            <span class="mdc-button__label">Buy now</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
