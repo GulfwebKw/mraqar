@@ -29,14 +29,19 @@
                     <div>{{__('remain_premium_ads')}}:<a href="javascript:;" style="float: {{ $float }}; text-decoration: none; color: var(--theme-base-color);">{{($payment->is_payed == 1)?($payment->count_premium - $payment->count_usage_premium):0}}</a></div>
                 </td>
                 <td class="mdc-data-table__cell">
-                    <a href="{{url(app()->getLocale().'/paymentdetails/'.$payment->payment_id)}}" class="mdc-button mdc-ripple-surface mdc-ripple-surface--primary normal">
-                        @if($payment->package_id == 18){{__('free')}}@endif
-                        @if($payment->is_payed==1)
-                            @if($payment->package_id != 18){{__('details')}}(<span class="text-success">{{__('paid_title')}}</span>)@endif
-                        @else
-                            @if($payment->package_id != 18){{__('details')}}(<span class="text-danger">{{__('not_paid_title')}}</span>)@endif
-                        @endif
-                    </a>
+                    @if($payment->package_id == 18)
+                        <span class="mdc-button mdc-ripple-surface mdc-ripple-surface--primary normal">
+                            {{__('free')}}
+                        </span>
+                    @else
+                        <a href="{{url(app()->getLocale().'/paymentdetails/'.$payment->payment_id)}}" class="mdc-button mdc-ripple-surface mdc-ripple-surface--primary normal">
+                            @if($payment->is_payed==1)
+                                {{__('details')}}(<span class="text-success">{{__('paid_title')}}</span>)
+                            @else
+                                {{__('details')}}(<span class="text-danger">{{__('not_paid_title')}}</span>)
+                            @endif
+                        </a>
+                    @endif
                 </td>
             </tr>
         @endforeach
