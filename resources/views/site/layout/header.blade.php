@@ -184,7 +184,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('Main.paymentHistory',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "paymentHistory") background-color: #088dd3; color: white; @endif">
+                                    <a href="{{ route('Main.paymentHistory',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "paymenthistory") background-color: #088dd3; color: white; @endif">
                                         <i class="material-icons mat-icon-sm text-muted">compare_arrows</i>
                                         <span class="mdc-list-item__text px-3">{{__('package_history_title')}}</span>
                                     </a>
