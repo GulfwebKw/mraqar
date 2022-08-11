@@ -135,7 +135,9 @@
                 </div>
                 {{-- todo site: map --}}
                 <div class="mt-5">
-                    <div id="contact-map"></div>
+                    <div id="contact-map">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8269.381942820617!2d47.979978215795796!3d29.374774147096584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3fcf9c83ce455983%3A0xc3ebaef5af09b90e!2sKuwait%20City!5e0!3m2!1sen!2skw!4v1600156454756!5m2!1sen!2skw"></iframe>
+                    </div>
                 </div>
             </div>
         </div>
