@@ -1,24 +1,18 @@
-@extends('site.layout.master')
+@extends('site.layout.panel')
 
-@section('content')
+@php
+    $float = app()->getLocale()=="en"?"right":"left";
+@endphp
+
+@section('panel-content')
 
     <div class="page-sidenav-content">
         <div class="row mdc-card between-xs middle-xs w-100 p-2 mdc-elevation--z1 text-muted d-md-none d-lg-none d-xl-none mb-3">
             <button id="page-sidenav-toggle" class="mdc-icon-button material-icons">more_vert</button>
             <h3 class="fw-500">My Account</h3>
         </div>
-        <div class="mdc-card p-3">
-            <div class="mdc-text-field mdc-text-field--outlined custom-field w-100">
-                <input class="mdc-text-field__input" placeholder="Type for filter properties">
-                <div class="mdc-notched-outline">
-                    <div class="mdc-notched-outline__leading"></div>
-                    <div class="mdc-notched-outline__notch">
-                        <label class="mdc-floating-label">Filter properties</label>
-                    </div>
-                    <div class="mdc-notched-outline__trailing"></div>
-                </div>
-            </div>
-            <div class="mdc-data-table border-0 w-100 mt-3">
+        <div class="mdc-card">
+            <div class="mdc-data-table border-0 w-100">
                 <table class="mdc-data-table__table" aria-label="Dessert calories">
                     <thead>
                         <tr class="mdc-data-table__header-row">
@@ -37,36 +31,22 @@
                                 <td class="mdc-data-table__cell">{{ app()->getLocale()==='en'?$payment->title_en:$payment->title_ar }}</td>
                                 <td class="mdc-data-table__cell">{{!empty($payment->price)?number_format($payment->price,3):'0.000'}}</td>
                                 <td class="mdc-data-table__cell">{{ $payment->date }}</td>
-                                <td class="mdc-data-table__cell">
-                                    <div>{{__('remain_regular_ads')}}:<a href="javascript:;">{{($payment->is_payed == 1)?($payment->count_advertising - $payment->count_usage):0}}</a></div>
-                                    <div>{{__('remain_premium_ads')}}:<a href="javascript:;">{{($payment->is_payed == 1)?($payment->count_premium - $payment->count_usage_premium):0}}</a></div>
+                                <td class="mdc-data-table__cell" style="min-width: 240px;">
+                                    <div>{{__('remain_regular_ads')}}:<a href="javascript:;" style="float: {{ $float }}; text-decoration: none; color: var(--theme-base-color);">{{($payment->is_payed == 1)?($payment->count_advertising - $payment->count_usage):0}}</a></div>
+                                    <div>{{__('remain_premium_ads')}}:<a href="javascript:;" style="float: {{ $float }}; text-decoration: none; color: var(--theme-base-color);">{{($payment->is_payed == 1)?($payment->count_premium - $payment->count_usage_premium):0}}</a></div>
                                 </td>
                                 <td class="mdc-data-table__cell">
                                     <a href="{{url(app()->getLocale().'/paymentdetails/'.$payment->payment_id)}}" class="mdc-button mdc-ripple-surface mdc-ripple-surface--primary normal">
                                         @if($payment->package_id == 18){{__('free')}}@endif
-                                        @if($payment->package_id != 18){{__('details')}}(<span class="text-success text-danger">foo</span>)@endif
+                                        @if($payment->is_payed==1)
+                                            @if($payment->package_id != 18){{__('details')}}(<span class="text-success">{{__('paid_title')}}</span>)@endif
+                                        @else
+                                            @if($payment->package_id != 18){{__('details')}}(<span class="text-danger">{{__('not_paid_title')}}</span>)@endif
+                                        @endif
                                     </a>
                                 </td>
                             </tr>
                         @endforeach
-                        <tr class="mdc-data-table__row">
-                            <td class="mdc-data-table__cell">2</td>
-                            <td class="mdc-data-table__cell"><img src="assets/images/props/office/1-small.jpg" alt="pro-image" width="100" class="d-block py-3"></td>
-                            <td class="mdc-data-table__cell"><a href="property.html" class="mdc-button mdc-ripple-surface mdc-ripple-surface--primary normal">Centrally located office</a></td>
-                            <td class="mdc-data-table__cell"><button class="mdc-icon-button material-icons warn-color">delete</button></td>
-                        </tr>
-                        <tr class="mdc-data-table__row">
-                            <td class="mdc-data-table__cell">3</td>
-                            <td class="mdc-data-table__cell"><img src="assets/images/props/house-1/1-small.jpg" alt="pro-image" width="100" class="d-block py-3"></td>
-                            <td class="mdc-data-table__cell"><a href="property.html" class="mdc-button mdc-ripple-surface mdc-ripple-surface--primary normal">Comfortable family house</a></td>
-                            <td class="mdc-data-table__cell"><button class="mdc-icon-button material-icons warn-color">delete</button></td>
-                        </tr>
-                        <tr class="mdc-data-table__row">
-                            <td class="mdc-data-table__cell">4</td>
-                            <td class="mdc-data-table__cell"><img src="assets/images/props/flat-2/1-small.jpg" alt="pro-image" width="100" class="d-block py-3"></td>
-                            <td class="mdc-data-table__cell"><a href="property.html" class="mdc-button mdc-ripple-surface mdc-ripple-surface--primary normal">Spacious and warm flat</a></td>
-                            <td class="mdc-data-table__cell"><button class="mdc-icon-button material-icons warn-color">delete</button></td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
