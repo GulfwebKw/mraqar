@@ -2,6 +2,7 @@
 
 @section('content')
 
+    {{-- todo site: here was an alert success for buying package. --}}
 
 <main>
     <div class="px-3">

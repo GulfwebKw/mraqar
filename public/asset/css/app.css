@@ -33,3 +33,11 @@
 .opacity-70 {
   opacity: 0.7;
 }
+
+.text-success {
+  color: #009900;
+}
+
+.text-danger {
+  color: #ff0000;
+}
