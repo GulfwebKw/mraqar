@@ -147,6 +147,7 @@
     "login": "Login",
     "forgot_password": "Forgot Password?",
     "contact_success": "Your Message Was Sent Successfully!",
+    "profile_success": "Your profile was edited Successfully!",
     "contact_unsuccess": "Something Went Wrong",
 	"free":"Free",
 	"details":"Details",

@@ -145,16 +145,13 @@ class UserController extends Controller
         $user = auth()->user();
 
         $validatedData = $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,' . $user->id,
-            'phone_number' => 'required|numeric|digits:8|unique:users,mobile,' . $user->id,
+            'email' => 'nullable|email|unique:users,email,' . $user->id,
             'licence' => 'mimes:jpeg,bmp,png|max:2048',
             'avatar' => 'mimes:jpeg,bmp,png|max:2048',
         ]);
 
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->mobile = $request->phone_number;
 
 
         $licenceFile = $request->licence;
@@ -335,7 +332,7 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-	
+
         $validation = Validator::make($request->only(['mobile', 'password']), [
             'mobile' => 'required|size:8',
             'password' => 'required|min:8',
@@ -397,13 +394,13 @@ class UserController extends Controller
   public function showLinkRequestForm(){
   return view('auth.passwords.email');
   }
-  
+
   //send link
 	public function sendResetLinkEmail(Request $request){
 	//field validation
 	  $validator = Validator::make($request->all(),[
             'email'   => 'required|email'
-            ],[ 
+            ],[
 			'email.required'  => trans('main.email_required')
 			]
 			);
@@ -412,8 +409,8 @@ class UserController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
-		
-	$clientInfo = User::where("email",$request->email)->first();	
+
+	$clientInfo = User::where("email",$request->email)->first();
 	if(empty($clientInfo->id)){
 	return redirect(app()->getLocale().'/password/reset')
                         ->withErrors(['email'=>trans('main.email_not_register')])
@@ -422,7 +419,7 @@ class UserController extends Controller
 	 $token = (string)Str::uuid();
 	 $clientInfo->password_token=$token;
 	 $clientInfo->save();
-	 
+
 	 $appendMessage = "<b><a href='".url(app()->getLocale().'/password/reset/'.$token)."'>".trans('main.passwordresetlink')."</b>";
 	 $data = [
 	 'dear'    => trans('main.dearuser'),
@@ -431,18 +428,18 @@ class UserController extends Controller
 	 'email_from'      =>"noreply@ajrnii.com",
 	 'email_from_name' =>"ajrnii.com"
 	 ];
-     Mail::to($request->email)->send(new DefaultEmail($data));	 
-	 
+     Mail::to($request->email)->send(new DefaultEmail($data));
+
 	return redirect(app()->getLocale().'/password/reset')
-	                 ->with('status',trans('main.password_reset_link_sent'));		
+	                 ->with('status',trans('main.password_reset_link_sent'));
 	}
 	}
-	
+
 	//show reset form
 	public function showResetForm(){
       return view('auth.passwords.reset');
 	}
-	
+
 	public function resets(Request $request,$token){
     $token = $request->token;
 	//field validation
@@ -450,7 +447,7 @@ class UserController extends Controller
             'email'           => 'required|email',
 			'password'        => 'required|min:3|max:150|string',
 			'password-confirm'=> 'required|min:3|max:150|string|same:password',
-            ],[ 
+            ],[
 			'email.required'  => trans('main.email_required'),
 			'password.required'      => trans('main.newpassword_required'),
 			'password-confirm.required'  => trans('main.confirmpassword_required'),
@@ -462,15 +459,15 @@ class UserController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
-		
-	$clientInfo = User::where("email",$request->email)->where("password_token",$token)->first();	
+
+	$clientInfo = User::where("email",$request->email)->where("password_token",$token)->first();
 	if(empty($clientInfo->id)){
-	
+
 	return redirect(app()->getLocale().'/password/reset/'.$token)
                         ->withErrors(['email'=>trans('main.email_not_register_or_token')])
                         ->withInput();
 	}else{
-	
+
 	 $token = (string)Str::uuid();
 	 $clientInfo->password_token=$token;
 	 $clientInfo->password   = bcrypt($request->password);
@@ -485,13 +482,13 @@ class UserController extends Controller
 	 'email_from'      =>"noreply@ajrnii.com",
 	 'email_from_name' =>"ajrnii.com"
 	 ];
-     Mail::to($request->email)->send(new DefaultEmail($data));	 
-	 
+     Mail::to($request->email)->send(new DefaultEmail($data));
+
 	return redirect(app()->getLocale().'/login')
-	                 ->with('status',trans('main.password_reset_done'));		
+	                 ->with('status',trans('main.password_reset_done'));
 	}
-	
+
 	}
-	
-	
+
+
 }

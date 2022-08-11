@@ -154,7 +154,7 @@
                         <div class="mdc-menu mdc-menu-surface user-menu" {!! app()->getLocale() === 'ar' ? ' dir="rtl"' : '' !!}>
                             <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical" tabindex="-1">
                                 <li class="user-info row start-xs middle-xs">
-                                    <img src="{{ asset('asset/assets/images/others/user.jpg') }}" alt="user-image" width="50">
+                                    <img src="{{ is_file(public_path(auth()->user()->image_profile)) ? asset(auth()->user()->image_profile) : asset('asset/assets/images/others/user.jpg') }}" alt="user-image" width="50">
                                     <p class="m-0">@if(auth()->user()->name){{ auth()->user()->name }}@else<a href="{{ route('Main.profile',app()->getLocale()) }}">{{ __('update_name') }}</a>@endif<br>
                                         <a href="{{url(app()->getLocale().'/paymenthistory')}}" class="text_blue" style="color:#088dd3;text-decoration:none;">
                                             @if($balance == 0) 0 {{__('ads_title')}}
