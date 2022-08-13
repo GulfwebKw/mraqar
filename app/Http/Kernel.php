@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CanUpgradeToCompany;
 use App\Http\Middleware\CheckLng;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -65,6 +66,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'Admin' => \App\Http\Middleware\Admin::class,
         'user_view_cash' => \App\Http\Middleware\UserViewCash::class,
-        'check_lng'=>CheckLng::class
+        'check_lng'=>CheckLng::class,
+        'become_company'=>CanUpgradeToCompany::class
     ];
 }
