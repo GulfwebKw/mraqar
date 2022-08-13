@@ -65,7 +65,7 @@
                     </a>
                 </div>
                 <div>
-                    <a href="{{'/'.app()->getLocale(). '/' }}" class="mdc-button">
+                    <a href="{{ route('companies', app()->getLocale()) }}" class="mdc-button">
                         <span class="mdc-button__ripple"></span>
                         <span class="mdc-button__label">{{__('companies')}}</span>
                     </a>
@@ -253,7 +253,7 @@
                         </a>
                     </div>
                     <div>
-                        <a href="{{'/'.app()->getLocale(). '/' }}" class="mdc-button">
+                        <a href="{{ route('companies', app()->getLocale()) }}" class="mdc-button">
                             <span class="mdc-button__ripple"></span>
                             <span class="mdc-button__label">{{__('companies')}}</span>
                         </a>
