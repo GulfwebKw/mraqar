@@ -23,12 +23,18 @@ class CompanyRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:1024',
-            'company_name' => 'required',
-            'email' => 'required|email',
-            'instagram' => 'nullable', // todo site: validation socials and image
-            'twitter' => 'nullable',
-        ];
+        if (! in_array($this->method(), ['PUT', 'PATCH'])) { // create
+            $rules = [
+                'image' => 'nullable|image|mimes:jpg,png,jpeg|max:1024',
+                'company_name' => 'required|max:250',
+                'company_phone' => 'required|digits:8|unique:users,company_phone', // todo site: company_phone integer for slug
+                'email' => 'nullable|email',
+                'instagram' => 'nullable',
+                'twitter' => 'nullable',
+            ];
+        } else { // edit
+            $rules['company_phone'] = 'required|digits:8|unique:users,company_phone,' . $this->user()->id;
+        }
+        return $rules;
     }
 }

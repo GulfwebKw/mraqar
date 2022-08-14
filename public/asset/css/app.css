@@ -1,3 +1,7 @@
+:root {
+  --mdc-theme-primary: #076599 !important;
+}
+
 .is-invalid {
   border-color: #dc3545 !important;
   padding-right: calc(1.5em + 0.75rem) !important;
@@ -108,6 +112,10 @@
 
 .max-height {
   max-height: 150px;
+}
+
+.d-inline-block {
+  display: inline-block;
 }
 
 @media screen and (min-width: 960px) {

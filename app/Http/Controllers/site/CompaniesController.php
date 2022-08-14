@@ -26,30 +26,41 @@ class CompaniesController extends Controller
 
     public function store(CompanyRequest $request)
     {
-        if($request->file('image')){
+        $user = auth()->user();
+        $user_id = $user->id;
+
+        if ($request->file('image')) {
             $file= $request->file('image');
-            $filename = date('YmdHi').$file->getClientOriginalName();
+            $filename = date('Y_m_d_').$file->getClientOriginalName();
             $file->move(public_path('company_images'), $filename);
-            $image = $filename;
         }
 
-        $user_id = auth()->id();
+        if ($user->image_profile && file_exists($path = public_path('old_users_images_directory_path'). '/' . $user->image_profile))
+            unlink($path); // todo site: old user images directory
+
 
         User::where('id', $user_id)->update([
             'company_name' => $request->company_name,
-            'email' => $request->email,
+            'company_phone' => $request->company_phone,
+            'image_profile' => isset($filename) ? $filename : '',
             'type_usage' => 'company',
-            // 'image_profile' => isset($image) ? $image : '', // todo site: and maybe delete users last image.
         ]);
 
         $this->insertSocials($request, $user_id);
-
-        return redirect()->route('Main.buyPackage', app()->getLocale()); //todo site: where alert success create company.
+        return redirect()->route('Main.buyPackage', app()->getLocale())->withInput()->with('status', 'account_upgraded');
     }
 
     private function insertSocials($request, $user_id)
     {
         $socials = [];
+        if ($request->filled('email')) {
+            $socials [] = [
+                'user_id' => $user_id,
+                'address' => $request->instagram,
+                'type' => 'email',
+            ];
+        }
+
         if ($request->filled('instagram')) {
             $socials [] = [
                 'user_id' => $user_id,

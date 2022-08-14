@@ -10,9 +10,9 @@
                           enctype="multipart/form-data">
                         <div class="row agent-wrapper">
                             @csrf
-                            <div class="col-xs-12 col-sm-6 col-md-4 p-3">
+                            <div class="col-xs-12 col-sm-4 col-md-3 p-3 center-xs">
                                 <img src="{{ asset('/asset/images/logo-placeholder-image.png') }}" alt="company-image"
-                                     class="mw-200 d-block" id="uploadedImage">
+                                     class="mw-200 d-block mx-auto" id="uploadedImage">
                                 <input type="file" id="inputImage" name="image" accept="image/*" class="d-none">
                                 <label class="mdc-button mdc-button--raised mw-100 mt-3" for="inputImage">
                                     <span class="mdc-button__ripple"></span>
@@ -25,68 +25,107 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-xs-12 col-md-8 p-3">
-                                <h3 class="">Register new company</h3>
-                                <div class="mdc-text-field mdc-text-field--outlined w-100 mt-3">
-                                    <input name="company_name" id="company_name" class="mdc-text-field__input">
-                                    <div class="mdc-notched-outline">
-                                        <div class="mdc-notched-outline__leading"></div>
-                                        <div class="mdc-notched-outline__notch">
-                                            <label for="company_name" class="mdc-floating-label">Company Name</label>
+                            <div class="col-xs-12 col-sm-8 col-md-9 p-3">
+                                <h3 class="">Fill your company details</h3>
+
+
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-6">
+                                        <div class="mdc-text-field mdc-text-field--outlined w-100 mt-3">
+                                            <input name="company_name" placeholder="PlaceHolderText" id="company_name" class="mdc-text-field__input" required>
+                                            <div class="mdc-notched-outline">
+                                                <div class="mdc-notched-outline__leading"></div>
+                                                <div class="mdc-notched-outline__notch">
+                                                    <label for="company_name" class="mdc-floating-label">Company Name</label>
+                                                </div>
+                                                <div class="mdc-notched-outline__trailing"></div>
+                                            </div>
                                         </div>
-                                        <div class="mdc-notched-outline__trailing"></div>
+                                        @error('company_name')
+                                        <span class="invalid-feedback warn-color d-inline-block">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6">
+                                        <div class="mdc-text-field mdc-text-field--outlined w-100 mt-3">
+                                            <input name="company_phone" placeholder="PlaceHolderText" id="company_phone" class="mdc-text-field__input" required>
+                                            <div class="mdc-notched-outline">
+                                                <div class="mdc-notched-outline__leading"></div>
+                                                <div class="mdc-notched-outline__notch">
+                                                    <label for="company_phone" class="mdc-floating-label">Company Phone</label>
+                                                </div>
+                                                <div class="mdc-notched-outline__trailing"></div>
+                                            </div>
+                                        </div>
+                                        @error('company_phone')
+                                        <span class="invalid-feedback warn-color d-inline-block">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                     </div>
                                 </div>
-                                @error('company_name')
-                                <span class="invalid-feedback warn-color d-inline-block">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                                <div class="mdc-text-field mdc-text-field--outlined w-100 mt-3">
-                                    <input name="email" id="email" class="mdc-text-field__input">
-                                    <div class="mdc-notched-outline">
-                                        <div class="mdc-notched-outline__leading"></div>
-                                        <div class="mdc-notched-outline__notch">
-                                            <label for="email" class="mdc-floating-label">Email</label>
+
+
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-6">
+                                        <div class="mdc-text-field mdc-text-field--outlined w-100 mt-3">
+                                            <input name="email" placeholder="PlaceHolderText" id="email" class="mdc-text-field__input">
+                                            <div class="mdc-notched-outline">
+                                                <div class="mdc-notched-outline__leading"></div>
+                                                <div class="mdc-notched-outline__notch">
+                                                    <label for="email" class="mdc-floating-label">Email</label>
+                                                </div>
+                                                <div class="mdc-notched-outline__trailing"></div>
+                                            </div>
                                         </div>
-                                        <div class="mdc-notched-outline__trailing"></div>
+                                        @error('email')
+                                        <span class="invalid-feedback warn-color d-inline-block">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                     </div>
                                 </div>
-                                @error('email')
-                                <span class="invalid-feedback warn-color d-inline-block">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                                <div class="mdc-text-field mdc-text-field--outlined w-100 mt-3">
-                                    <input name="instagram" id="instagram" class="mdc-text-field__input">
-                                    <div class="mdc-notched-outline">
-                                        <div class="mdc-notched-outline__leading"></div>
-                                        <div class="mdc-notched-outline__notch">
-                                            <label for="instagram" class="mdc-floating-label">Instagram</label>
+
+
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-6">
+                                        <div class="mdc-text-field mdc-text-field--outlined w-100 mt-3">
+                                            <input name="instagram" placeholder="PlaceHolderText" id="instagram" class="mdc-text-field__input">
+                                            <div class="mdc-notched-outline">
+                                                <div class="mdc-notched-outline__leading"></div>
+                                                <div class="mdc-notched-outline__notch">
+                                                    <label for="instagram" class="mdc-floating-label">Instagram</label>
+                                                </div>
+                                                <div class="mdc-notched-outline__trailing"></div>
+                                            </div>
                                         </div>
-                                        <div class="mdc-notched-outline__trailing"></div>
+                                        @error('instagram')
+                                        <span class="invalid-feedback warn-color d-inline-block">
+                                        <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6">
+                                        <div class="mdc-text-field mdc-text-field--outlined w-100 mt-3">
+                                            <input name="twitter" placeholder="PlaceHolderText" id="twitter" class="mdc-text-field__input">
+                                            <div class="mdc-notched-outline">
+                                                <div class="mdc-notched-outline__leading"></div>
+                                                <div class="mdc-notched-outline__notch">
+                                                    <label for="twitter" class="mdc-floating-label">Twitter</label>
+                                                </div>
+                                                <div class="mdc-notched-outline__trailing"></div>
+                                            </div>
+                                        </div>
+                                        @error('twitter')
+                                        <span class="invalid-feedback warn-color d-inline-block">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                     </div>
                                 </div>
-                                @error('instagram')
-                                <span class="invalid-feedback warn-color d-inline-block">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                                <div class="mdc-text-field mdc-text-field--outlined w-100 mt-3">
-                                    <input name="twitter" id="twitter" class="mdc-text-field__input">
-                                    <div class="mdc-notched-outline">
-                                        <div class="mdc-notched-outline__leading"></div>
-                                        <div class="mdc-notched-outline__notch">
-                                            <label for="twitter" class="mdc-floating-label">Twitter</label>
-                                        </div>
-                                        <div class="mdc-notched-outline__trailing"></div>
-                                    </div>
-                                </div>
-                                @error('twitter')
-                                <span class="invalid-feedback warn-color d-inline-block">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+
+
                                 <div class="w-100 text-center mt-4">
                                     <button type="submit" class="mdc-button mdc-button--raised">
                                         <span class="mdc-button__ripple"></span>
