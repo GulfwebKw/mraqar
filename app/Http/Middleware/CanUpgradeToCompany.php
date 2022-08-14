@@ -15,20 +15,12 @@ class CanUpgradeToCompany
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->check()) { // todo site: is it ok $balance is in provider?
-            $balance = cache()->remember('balance_values'.auth()->id(), 300, function() {
-                return \App\Http\Controllers\site\MainController::getBalance();
-            });
+        if (auth()->check()) {
+            $balance = \App\Http\Controllers\site\MainController::getBalance();
+            if ($balance !== 0 or auth()->user()->type_usage === 'company')
+                abort(403);
         } else
-            $balance = 0;
-
-
-        if (auth()->user()->type_usage === 'company')
             abort(403);
-
-        if ($balance !== 0)
-            abort(403);
-
         return $next($request);
     }
 }
