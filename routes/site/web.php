@@ -22,10 +22,10 @@ Route::get('/contact','MessageController@create')->name('Message.create');
 Route::post('/contact', 'MessageController@store')->name('message.store');
 
 ////////////// companies
-Route::group(['prefix' => 'companies', 'middleware'=>['auth']] , function (){
+Route::group(['prefix' => 'companies'] , function (){
     Route::get('/', 'CompaniesController@index')->name('companies');
-    Route::get('/new', 'CompaniesController@new')->middleware('become_company')->name('companies.new');
-    Route::post('/store', 'CompaniesController@store')->middleware('become_company')->name('companies.store');
+    Route::get('/new', 'CompaniesController@new')->middleware(['auth', 'become_company'])->name('companies.new');
+    Route::post('/store', 'CompaniesController@store')->middleware(['auth', 'become_company'])->name('companies.store');
 });
 
 ///////////// auth
