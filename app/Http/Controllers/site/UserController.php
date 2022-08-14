@@ -144,11 +144,20 @@ class UserController extends Controller
     {
         $user = auth()->user();
 
-        $validatedData = $request->validate([
+        $rules = [
             'email' => 'nullable|email|unique:users,email,' . $user->id,
             'licence' => 'mimes:jpeg,bmp,png|max:2048',
             'avatar' => 'mimes:jpeg,bmp,png|max:2048',
-        ]);
+        ];
+
+        if ( $user->isCompany ) {
+            $rules['image'] = 'nullable|image|mimes:jpg,png,jpeg|max:1024';
+            $rules['company_name'] = 'required|max:250';
+            $rules['email'] = 'nullable|email';
+            $rules['social_email'] = 'nullable|email';
+            $rules['company_phone'] = 'required|digits:8|unique:users,company_phone,' . $user->id;
+        }
+        $validatedData = $request->validate($rules);
 
         $user->name = $request->name;
         $user->email = $request->email;
@@ -165,6 +174,13 @@ class UserController extends Controller
             $avatar = $this->saveAvatar($avatarFile);
             $user->image_profile = $avatar ;
         }
+        if ( $user->isCompany ) {
+            $user->company_name = $request->company_name;
+            $user->company_phone = $request->company_phone;
+            $request->merge(['email' , $request->social_email]);
+            CompaniesController::insertSocials($request, $user->id);
+        }
+
         if($user->save()) {
             return redirect(app()->getLocale().'/profile#result')->with(['status' => 'success']);
             //return redirect()->route( 'Main.profile', app()->getLocale() )->with( [ 'status' => 'success' ] );

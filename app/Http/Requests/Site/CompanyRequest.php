@@ -27,7 +27,7 @@ class CompanyRequest extends FormRequest
             $rules = [
                 'image' => 'nullable|image|mimes:jpg,png,jpeg|max:1024',
                 'company_name' => 'required|max:250',
-                'company_phone' => 'required|digits:8|unique:users,company_phone', // todo site: company_phone integer for slug
+                'company_phone' => 'required|digits:8|unique:users,company_phone',
                 'email' => 'nullable|email',
                 'instagram' => 'nullable',
                 'twitter' => 'nullable',

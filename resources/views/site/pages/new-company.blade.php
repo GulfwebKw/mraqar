@@ -10,21 +10,6 @@
                           enctype="multipart/form-data">
                         <div class="row agent-wrapper">
                             @csrf
-                            <div class="col-xs-12 col-sm-4 col-md-3 p-3 center-xs">
-                                <img src="{{ asset('/asset/images/logo-placeholder-image.png') }}" alt="company-image"
-                                     class="mw-200 d-block mx-auto" id="uploadedImage">
-                                <input type="file" id="inputImage" name="image" accept="image/*" class="d-none">
-                                <label class="mdc-button mdc-button--raised mw-100 mt-3" for="inputImage">
-                                    <span class="mdc-button__ripple"></span>
-                                    <span class="mdc-button__label">upload logo</span>
-                                </label>
-                                <br>
-                                @error('image')
-                                <span class="invalid-feedback warn-color d-inline-block">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
                             <div class="col-xs-12 col-sm-8 col-md-9 p-3">
                                 <h3 class="">Fill your company details</h3>
 
@@ -132,6 +117,21 @@
                                         <span class="mdc-button__label">Register company</span>
                                     </button>
                                 </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 col-md-3 p-3 center-xs">
+                                <img src="{{ asset('/asset/images/logo-placeholder-image.png') }}" alt="company-image"
+                                     class="mw-200 d-block mx-auto" id="uploadedImage">
+                                <input type="file" id="inputImage" name="image" accept="image/*" class="d-none">
+                                <label class="mdc-button mdc-button--raised mw-100 mt-3" for="inputImage">
+                                    <span class="mdc-button__ripple"></span>
+                                    <span class="mdc-button__label">upload logo</span>
+                                </label>
+                                <br>
+                                @error('image')
+                                <span class="invalid-feedback warn-color d-inline-block">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                     </form>

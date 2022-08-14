@@ -211,6 +211,11 @@
     "packageSuccessBuy" : "Your package bought successfully",
     "wrongInput" : "Wrong Input",
     "packageNotFinished" : "Your Package Ads Is Not Finished",
-    "upgradedToCompany" : "FOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO",
-    "invalidOTP" : "Validation code is invalid."
+    "invalidOTP" : "Validation code is invalid.",
+    "upgradedToCompany" : "your account successfully upgraded to company account.",
+    "company_image_title" : "Company image",
+    "edit_company_title" : "Edit Company",
+    "instagram_address_title" : "Instagram address",
+    "company_name_title" : "Company name",
+    "company_phone_title" : "Company Phone"
 	}

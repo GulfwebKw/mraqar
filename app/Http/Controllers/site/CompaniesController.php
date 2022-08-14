@@ -31,18 +31,18 @@ class CompaniesController extends Controller
 
         if ($request->file('image')) {
             $file= $request->file('image');
-            $filename = date('Y_m_d_').$file->getClientOriginalName();
+            $filename = uniqid(time()).$file->getClientOriginalName();
+            $path ='/resources/uploads/images/avatars/'.$filename;
             $file->move(public_path('company_images'), $filename);
+
+            if ($user->image_profile && file_exists($path = public_path('resources/uploads/images/avatars'). '/' . $user->image_profile))
+                unlink($path);
         }
-
-        if ($user->image_profile && file_exists($path = public_path('old_users_images_directory_path'). '/' . $user->image_profile))
-            unlink($path); // todo site: old user images directory
-
 
         User::where('id', $user_id)->update([
             'company_name' => $request->company_name,
             'company_phone' => $request->company_phone,
-            'image_profile' => isset($filename) ? $filename : '',
+            'image_profile' => isset($filename) ? $filename : $user->image_profile,
             'type_usage' => 'company',
         ]);
 
@@ -50,17 +50,18 @@ class CompaniesController extends Controller
         return redirect()->route('Main.buyPackage', app()->getLocale())->withInput()->with('status', 'account_upgraded');
     }
 
-    private function insertSocials($request, $user_id)
+
+    public static function insertSocials($request, $user_id)
     {
+        Social::where('user_id' ,$user_id )->delete();
         $socials = [];
         if ($request->filled('email')) {
             $socials [] = [
                 'user_id' => $user_id,
-                'address' => $request->instagram,
+                'address' => $request->email,
                 'type' => 'email',
             ];
         }
-
         if ($request->filled('instagram')) {
             $socials [] = [
                 'user_id' => $user_id,
@@ -68,7 +69,6 @@ class CompaniesController extends Controller
                 'type' => 'instagram',
             ];
         }
-
         if ($request->filled('twitter')) {
             $socials [] = [
                 'user_id' => $user_id,
@@ -76,17 +76,8 @@ class CompaniesController extends Controller
                 'type' => 'twitter',
             ];
         }
-
         if (!empty($socials)) {
-            Social::insert([[
-                'user_id' => $user_id,
-                'address' => $request->twitter,
-                'type' => 'twitter',
-            ], [
-                'user_id' => $user_id,
-                'address' => $request->instagram,
-                'type' => 'instagram',
-            ]]);
+            Social::insert($socials);
         }
     }
 }

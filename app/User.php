@@ -249,5 +249,10 @@ class User extends Authenticatable //implements Illuminate\Contracts\Auth\CanRes
     {
         return $this->hasMany(Social::class);
     }
+
+    public function getIsCompanyAttribute()
+    {
+        return $this->type_usage === 'company';
+    }
 }
 
