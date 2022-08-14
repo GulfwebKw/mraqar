@@ -11,38 +11,37 @@ $lang = app()->getLocale() === 'en' ? 'r' : 'l';
         @auth()
         <div class="row">
             @if(auth()->user()->type_usage === 'company')
-                <div class="center-xs col-xs-12 my-3">
-                    <span class="fw-500 text-muted mx-auto">see your <a href="#">company page!</a></span>
-                </div>
+                @php $cardMessage = '<a href="#" class="links">' . 'click here to see your company page.' . '</a>'; @endphp
             @elseif($balance !== 0)
-                <div class="center-xs col-xs-12 my-3">
-                    <span class="fw-500 text-muted mx-auto">you have packages/ads which not finished yet!</span>
-                </div>
-            @else
+                @php $cardMessage = 'you have package which is not finished yet!'; @endphp
+            @endif
             <div class="col-xs-11 col-sm-7 col-md-5 my-1 mx-auto my-3">
                 <div class="card card-subscribe card-buy shadow companies-card rounded">
                     <div class="card-body p-3">
                         <div class="row">
-                            <div class="col-md-4 col-xs-5 p-0">
-                                <img src="https://placehold.jp/150x150.png" alt="agent-image" class="w-100 d-block rounded">
-                            </div>
-                            <div class="col-md-8 col-xs-7 center-xs p-0 pl-3 company-card-body">
-                                <p class="mb-3 fw-600">upgrade to company account</p>
+                            @isset($cardMessage)
+                                <p class="my-0 fw-600 mx-auto">{!! $cardMessage !!}</p>
+                            @else
+                                <div class="col-md-4 col-xs-5 p-0">
+                                    <img src="https://placehold.jp/150x150.png" alt="agent-image" class="w-100 d-block rounded">
+                                </div>
+                                <div class="col-md-8 col-xs-7 center-xs p-0 pl-3 company-card-body">
+                                    <p class="mb-3 fw-600">upgrade to company account</p>
 
-                                <a href="{{ route('companies.new', app()->getLocale()) }}" class="mdc-button mdc-button--raised w-90 mx-auto">
-                                    <span class="mdc-button__ripple"></span>
-                                    <span class="mdc-button__label">upgrade account</span>
-                                </a>
-                            </div>
+                                    <a href="{{ route('companies.new', app()->getLocale()) }}" class="mdc-button mdc-button--raised w-90 mx-auto">
+                                        <span class="mdc-button__ripple"></span>
+                                        <span class="mdc-button__label">upgrade account</span>
+                                    </a>
+                                </div>
+                            @endisset
                         </div>
                     </div>
                 </div>
             </div>
-            @endif
         </div>
         @endauth
         <div class="row">
-            <span class="fw-500 text-muted mx-auto">Email us or call us for assistance</span>
+            <a href="{{ '/'.app()->getLocale().'/contact' }}" class="fw-500 text-muted mx-auto">call us for assistance.</a>
         </div>
         <div class="row">
             <h1 class="fw-600 mx-auto py-3">Companies list</h1>
@@ -53,7 +52,7 @@ $lang = app()->getLocale() === 'en' ? 'r' : 'l';
                     <div class="card-body p-3">
                         <div class="row">
                             <div class="col-md-4 col-xs-5 col-md-12 p-0">
-                                <img src="https://placehold.jp/150x150.png" alt="agent-image" class="w-100 d-block rounded">
+                                <img src="https://placehold.jp/150x150.png" alt="agent-image" class="mw-100 md:w-100 d-block rounded small-only-max-height max-height">
                             </div>
                             <div class="col-md-8 col-xs-7 col-md-12 center-xs p-0">
                                 <a href="#" class="my-1 fw-600 text-body links company-name">{{ $company->name }}</a>

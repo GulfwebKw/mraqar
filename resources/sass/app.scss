@@ -75,6 +75,10 @@
     color: var(--theme-base-color) !important;
     text-decoration: none;
 }
+.links {
+    color: var(--mdc-theme-primary, #6200ee);
+    text-decoration: none;
+}
 .links:hover {
     color: var(--mdc-theme-primary, #6200ee) !important;
     text-decoration: underline;
@@ -90,13 +94,19 @@
 .company-socials-container {
     height: 24px;
 }
-.justify-content-center{
+.justify-content-center {
     justify-content: center;
+}
+.max-height {
+    max-height: 150px;
 }
 @media screen and (min-width: 960px) {
     .md\:px-5{
         padding-left: 2.5rem !important;
         padding-right: 2.5rem !important;
+    }
+    .md\:w-100{
+        width: 100% !important;
     }
 }
 @media screen and (min-width: 600px) {
@@ -108,5 +118,10 @@
     }
     .sm\:mb-3 {
         margin-bottom: 1rem !important;
+    }
+}
+@media screen and (max-width: 960px) {
+    .small-only-max-height{
+        max-height: 140px;
     }
 }
