@@ -75,7 +75,7 @@
 
 @if( auth()->user()->isCompany )
         <hr class="mt-3">
-    <h3 class="my-2">Company settings</h3>
+    <h3 class="my-2">{{__('company_settings')}}</h3>
 
         <div class="row mt-3">
             <div class="col-lg-6 col-md-6">
@@ -124,13 +124,13 @@
         <div class="row mt-3">
             <div class="col-lg-6 col-md-6">
                 <div class="mdc-text-field mdc-text-field--outlined w-100">
-                    <input type="email" name="social_email" id="social_email"
+                    <input type="email" name="social_email" id="social_email" placeholder="{{__('company_email')}}"
                            class="mdc-text-field__input @error('social_email') is-invalid @enderror"
                            value="{{ old('social_email' , optional(auth()->user()->socials()->where('type', 'email')->first())->address)}}">
                     <div class="mdc-notched-outline">
                         <div class="mdc-notched-outline__leading"></div>
                         <div class="mdc-notched-outline__notch">
-                            <label class="mdc-floating-label">{{__('email_address_title')}}</label>
+                            <label class="mdc-floating-label">{{__('company_email')}}</label>
                         </div>
                         <div class="mdc-notched-outline__trailing"></div>
                     </div>

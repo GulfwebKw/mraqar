@@ -8,15 +8,15 @@
     </div>
 @elseif((session('status')) == 'validation_failed')
     <div class="alert alert-danger">
-        <strong>{{__('un_success_title')}}!</strong> {{__('wrongInput')}} !
+        <strong>{{__('un_success_title')}}!</strong> {{__('wrongInput')}}!
     </div>
 @elseif((session('status')) == 'account_upgraded')
     <div class="alert alert-success">
-        <strong>{{__('success_title')}}!</strong> {{__('upgradedToCompany')}}!
+        <strong>{{__('success_title')}}!</strong> {{__('upgraded_to_company')}}!
     </div>
 @elseif((session('status')) == 'ads_remaining')
     <div class="alert alert-danger">
-        <strong>{{__('un_success_title')}}!</strong> {{__('packageNotFinished')}} !
+        <strong>{{__('un_success_title')}}!</strong> {{__('packageNotFinished')}}!
     </div>
 @elseif((session('status')) == 'unsuccess')
     <div class="alert alert-danger">

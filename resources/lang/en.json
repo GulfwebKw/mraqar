@@ -212,10 +212,22 @@
     "wrongInput" : "Wrong Input",
     "packageNotFinished" : "Your Package Ads Is Not Finished",
     "invalidOTP" : "Validation code is invalid.",
-    "upgradedToCompany" : "your account successfully upgraded to company account.",
+    "upgraded_to_company" : "your account type successfully upgraded to company.",
+    "call_for_assist" : "call us for assistance",
+    "companies_list" : "Companies list",
+    "upgrade_account" : "upgrade account to company",
+    "do_upgrade" : "Upgrade account",
+    "see_your_company" : "Click here to see your company page.",
+    "already_have_package" : "You have the unfinished package!",
+    "company_form" : "Fill your company details",
     "company_image_title" : "Company image",
     "edit_company_title" : "Edit Company",
     "instagram_address_title" : "Instagram address",
+    "twitter_address_title" : "Twitter address",
     "company_name_title" : "Company name",
-    "company_phone_title" : "Company Phone"
-	}
+    "company_phone_title" : "Company phone",
+    "company_email" : "Company email",
+    "register_company" : "Register company",
+    "upload_logo" : "Upload logo",
+    "company_settings" : "Company settings"
+}

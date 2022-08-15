@@ -23,10 +23,10 @@ Route::post('/contact', 'MessageController@store')->name('message.store');
 
 ////////////// companies
 Route::group(['prefix' => 'companies'] , function (){
-    Route::get('/', 'CompaniesController@index')->name('companies');
-    Route::get('/new', 'CompaniesController@new')->middleware(['auth', 'become_company'])->name('companies.new');
-    Route::post('/store', 'CompaniesController@store')->middleware(['auth', 'become_company'])->name('companies.store');
-    Route::put('/', 'CompaniesController@update')->middleware(['auth'])->name('companies.update');
+    Route::get('/', 'CompanyController@index')->name('companies');
+    Route::get('/new', 'CompanyController@new')->middleware(['auth', 'become_company'])->name('companies.new');
+    Route::post('/store', 'CompanyController@store')->middleware(['auth', 'become_company'])->name('companies.store');
+    Route::put('/', 'CompanyController@update')->middleware(['auth'])->name('companies.update');
 });
 
 ///////////// auth

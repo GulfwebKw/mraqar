@@ -11,9 +11,9 @@ $lang = app()->getLocale() === 'en' ? 'r' : 'l';
         @auth()
         <div class="row">
             @if(auth()->user()->type_usage === 'company')
-                @php $cardMessage = '<a href="#" class="links">' . 'click here to see your company page.' . '</a>'; @endphp
+                @php $cardMessage = '<a href="#" class="links">' . __('see_your_company') . '</a>'; @endphp
             @elseif($balance !== 0)
-                @php $cardMessage = 'you have package which is not finished yet!'; @endphp
+                @php $cardMessage = __('already_have_package'); @endphp
             @endif
             <div class="col-xs-11 col-sm-7 col-md-5 my-1 mx-auto my-3">
                 <div class="card card-subscribe card-buy shadow companies-card rounded">
@@ -26,11 +26,11 @@ $lang = app()->getLocale() === 'en' ? 'r' : 'l';
                                     <img src="https://placehold.jp/150x150.png" alt="agent-image" class="w-100 d-block rounded">
                                 </div>
                                 <div class="col-md-8 col-xs-7 center-xs p-0 pl-3 company-card-body">
-                                    <p class="mb-3 fw-600">upgrade to company account</p>
+                                    <p class="mb-3 fw-600">{{__('upgrade_account')}}</p>
 
                                     <a href="{{ route('companies.new', app()->getLocale()) }}" class="mdc-button mdc-button--raised w-90 mx-auto">
                                         <span class="mdc-button__ripple"></span>
-                                        <span class="mdc-button__label">upgrade account</span>
+                                        <span class="mdc-button__label">{{__('do_upgrade')}}</span>
                                     </a>
                                 </div>
                             @endisset
@@ -41,10 +41,10 @@ $lang = app()->getLocale() === 'en' ? 'r' : 'l';
         </div>
         @endauth
         <div class="row">
-            <a href="{{ '/'.app()->getLocale().'/contact' }}" class="fw-500 text-muted mx-auto">call us for assistance.</a>
+            <a href="{{ '/'.app()->getLocale().'/contact' }}" class="fw-500 text-muted mx-auto">{{__('call_for_assist')}}</a>
         </div>
         <div class="row">
-            <h1 class="fw-600 mx-auto py-3">Companies list</h1>
+            <h1 class="fw-600 mx-auto py-3">{{__('companies_list')}}</h1>
         </div>
         <div class="row md:px-5 justify-content-center">
             @foreach($companies as $company)

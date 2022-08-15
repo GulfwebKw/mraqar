@@ -178,7 +178,7 @@ class UserController extends Controller
             $user->company_name = $request->company_name;
             $user->company_phone = $request->company_phone;
             $request->merge(['email' , $request->social_email]);
-            CompaniesController::insertSocials($request, $user->id);
+            CompanyController::insertSocials($request, $user->id);
         }
 
         if($user->save()) {

@@ -8,7 +8,7 @@ use App\Models\Social;
 use App\User;
 use Illuminate\Http\Request;
 
-class CompaniesController extends Controller
+class CompanyController extends Controller
 {
     public function index()
     {

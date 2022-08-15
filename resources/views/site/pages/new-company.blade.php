@@ -11,17 +11,16 @@
                         <div class="row agent-wrapper">
                             @csrf
                             <div class="col-xs-12 col-sm-8 col-md-9 p-3">
-                                <h3 class="">Fill your company details</h3>
-
+                                <h3 class="">{{__('company_form')}}</h3>
 
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-6">
                                         <div class="mdc-text-field mdc-text-field--outlined w-100 mt-3">
-                                            <input name="company_name" placeholder="PlaceHolderText" id="company_name" class="mdc-text-field__input" required>
+                                            <input name="company_name" placeholder="{{__('company_name_title')}}" id="company_name" class="mdc-text-field__input" required>
                                             <div class="mdc-notched-outline">
                                                 <div class="mdc-notched-outline__leading"></div>
                                                 <div class="mdc-notched-outline__notch">
-                                                    <label for="company_name" class="mdc-floating-label">Company Name</label>
+                                                    <label for="company_name" class="mdc-floating-label">{{__('company_name_title')}}</label>
                                                 </div>
                                                 <div class="mdc-notched-outline__trailing"></div>
                                             </div>
@@ -34,11 +33,11 @@
                                     </div>
                                     <div class="col-xs-12 col-sm-6">
                                         <div class="mdc-text-field mdc-text-field--outlined w-100 mt-3">
-                                            <input name="company_phone" placeholder="PlaceHolderText" id="company_phone" class="mdc-text-field__input" required>
+                                            <input name="company_phone" placeholder="{{__('company_phone_title')}}" id="company_phone" class="mdc-text-field__input" required>
                                             <div class="mdc-notched-outline">
                                                 <div class="mdc-notched-outline__leading"></div>
                                                 <div class="mdc-notched-outline__notch">
-                                                    <label for="company_phone" class="mdc-floating-label">Company Phone</label>
+                                                    <label for="company_phone" class="mdc-floating-label">{{__('company_phone_title')}}</label>
                                                 </div>
                                                 <div class="mdc-notched-outline__trailing"></div>
                                             </div>
@@ -55,11 +54,11 @@
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-6">
                                         <div class="mdc-text-field mdc-text-field--outlined w-100 mt-3">
-                                            <input name="email" placeholder="PlaceHolderText" id="email" class="mdc-text-field__input">
+                                            <input name="email" placeholder="{{__('company_email')}}" id="email" class="mdc-text-field__input">
                                             <div class="mdc-notched-outline">
                                                 <div class="mdc-notched-outline__leading"></div>
                                                 <div class="mdc-notched-outline__notch">
-                                                    <label for="email" class="mdc-floating-label">Email</label>
+                                                    <label for="email" class="mdc-floating-label">{{__('company_email')}}</label>
                                                 </div>
                                                 <div class="mdc-notched-outline__trailing"></div>
                                             </div>
@@ -76,11 +75,11 @@
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-6">
                                         <div class="mdc-text-field mdc-text-field--outlined w-100 mt-3">
-                                            <input name="instagram" placeholder="PlaceHolderText" id="instagram" class="mdc-text-field__input">
+                                            <input name="instagram" placeholder="{{__('instagram_address_title')}}" id="instagram" class="mdc-text-field__input">
                                             <div class="mdc-notched-outline">
                                                 <div class="mdc-notched-outline__leading"></div>
                                                 <div class="mdc-notched-outline__notch">
-                                                    <label for="instagram" class="mdc-floating-label">Instagram</label>
+                                                    <label for="instagram" class="mdc-floating-label">{{__('instagram_address_title')}}</label>
                                                 </div>
                                                 <div class="mdc-notched-outline__trailing"></div>
                                             </div>
@@ -93,11 +92,11 @@
                                     </div>
                                     <div class="col-xs-12 col-sm-6">
                                         <div class="mdc-text-field mdc-text-field--outlined w-100 mt-3">
-                                            <input name="twitter" placeholder="PlaceHolderText" id="twitter" class="mdc-text-field__input">
+                                            <input name="twitter" placeholder="{{__('twitter_address_title')}}" id="twitter" class="mdc-text-field__input">
                                             <div class="mdc-notched-outline">
                                                 <div class="mdc-notched-outline__leading"></div>
                                                 <div class="mdc-notched-outline__notch">
-                                                    <label for="twitter" class="mdc-floating-label">Twitter</label>
+                                                    <label for="twitter" class="mdc-floating-label">{{__('twitter_address_title')}}</label>
                                                 </div>
                                                 <div class="mdc-notched-outline__trailing"></div>
                                             </div>
@@ -114,7 +113,7 @@
                                 <div class="w-100 text-center mt-4">
                                     <button type="submit" class="mdc-button mdc-button--raised">
                                         <span class="mdc-button__ripple"></span>
-                                        <span class="mdc-button__label">Register company</span>
+                                        <span class="mdc-button__label">{{__('register_company')}}</span>
                                     </button>
                                 </div>
                             </div>
@@ -124,7 +123,7 @@
                                 <input type="file" id="inputImage" name="image" accept="image/*" class="d-none">
                                 <label class="mdc-button mdc-button--raised mw-100 mt-3" for="inputImage">
                                     <span class="mdc-button__ripple"></span>
-                                    <span class="mdc-button__label">upload logo</span>
+                                    <span class="mdc-button__label">{{__('upload_logo')}}</span>
                                 </label>
                                 <br>
                                 @error('image')
