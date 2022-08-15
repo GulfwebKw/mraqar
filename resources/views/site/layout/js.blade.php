@@ -25,3 +25,4 @@
 </script>
 
 @yield('js')
+@yield('scripts')

@@ -130,7 +130,7 @@ Route::prefix('advertising')->group(function (){
     Route::post('/{adId}/booking', 'AdvertisingBookController@booking')->middleware('auth');
 
     Route::get('/create', $controller.'create')->middleware('auth')->name('site.advertising.create');
-    Route::post('/store', $controller.'store')->middleware('auth');
+    Route::post('/store', $controller.'store')->middleware('auth')->name('site.advertising.store');;
     Route::get('{hashNumber}/edit', $controller.'edit')->name('site.advertising.edit')->middleware('auth');
     Route::post('/update', $controller.'updateAdvertising')->middleware('auth');
     Route::post('/destroy', $controller.'destroyAdvertising')->name('site.advertising.destroy')->middleware('auth');

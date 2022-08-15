@@ -113,7 +113,9 @@ class AdvertisingController extends Controller
 
     public function create()
     {
-        return view('site.advertising.create');
+        $cities = City::orderBy('name_en')->get();
+
+        return view('site.advertising.create', compact($cities, ));
     }
 
     /**

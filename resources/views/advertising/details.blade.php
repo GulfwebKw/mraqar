@@ -48,15 +48,15 @@
                         <div class="col">
 
 
-                            <div class="form-group row">
-                                <label for="mobile" class="col-sm-2 col-form-label"><span class="text-danger"></span> {{__('Title')}}</label>
-                                <div class="col-sm-6">
-                                    <input type="text" name="title_en" class="form-control  @error('title_en') is-invalid @enderror" id="title_en"  value="{{ $advertising->title_en }}" required>
-                                    @error('title_en')
-                                    <div class="help-block text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
+{{--                            <div class="form-group row">--}}
+{{--                                <label for="mobile" class="col-sm-2 col-form-label"><span class="text-danger"></span> {{__('Title')}}</label>--}}
+{{--                                <div class="col-sm-6">--}}
+{{--                                    <input type="text" name="title_en" class="form-control  @error('title_en') is-invalid @enderror" id="title_en"  value="{{ $advertising->title_en }}" required>--}}
+{{--                                    @error('title_en')--}}
+{{--                                    <div class="help-block text-danger">{{ $message }}</div>--}}
+{{--                                    @enderror--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
 
 {{--                            <div class="form-group row">--}}
 {{--                                <label for="mobile" class="col-sm-2 col-form-label"><span class="text-danger"></span> {{__('Title Ar')}}</label>--}}
@@ -80,19 +80,20 @@
 
 
 
-                            <div class="form-group row">
-                                <label for="mobile" class="col-sm-2 col-form-label"><span class="text-danger"></span> {{__('Type')}}</label>
-                                <div class="col-sm-6">
-                                    <select name="type" class="form-control  _type">
-                                        <option @if($advertising->type=="residential") selected @endif value="Residential">Residential</option>
-                                        <option @if($advertising->type=="commercial") selected @endif value="Commercial">Commercial</option>
-                                        <option @if($advertising->type=="industrial") selected @endif value="Industrial">Industrial</option>
-                                    </select>
-                                    @error('type')
-                                    <div class="help-block text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
+{{--                            <div class="form-group row">--}}
+{{--                                <label for="mobile" class="col-sm-2 col-form-label"><span class="text-danger"></span> {{__('Type')}}</label>--}}
+{{--                                <div class="col-sm-6">--}}
+{{--                                    <select name="type" class="form-control  _type">--}}
+{{--                                        <option @if($advertising->type=="residential") selected @endif value="Residential">Residential</option>--}}
+{{--                                        <option @if($advertising->type=="commercial") selected @endif value="Commercial">Commercial</option>--}}
+{{--                                        <option @if($advertising->type=="industrial") selected @endif value="Industrial">Industrial</option>--}}
+{{--                                    </select>--}}
+{{--                                    @error('type')--}}
+{{--                                    <div class="help-block text-danger">{{ $message }}</div>--}}
+{{--                                    @enderror--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+                            <input type="hidden" name="type" value="Residential">
 
 
 
@@ -150,7 +151,7 @@
                                     @enderror
                                 </div>
                             </div>
-
+<?php /*
                             <div class="form-group row">
                                 <label for="mobile" class="col-sm-2 col-form-label"><span class="text-danger"></span> {{__('Surface(M2)')}}</label>
                                 <div class="col-sm-6">
@@ -249,7 +250,7 @@
                                     </select>
                                 </div>
                             </div>
-
+*/ ?>
                             <br>
                             <hr>
 
@@ -266,17 +267,17 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
-                                <label for="mobile" class="col-sm-2 col-form-label" style="margin-top: 100px"><span class="text-danger"></span> {{__('Floor Plan')}}</label>
-                                <div class="col-sm-9">
-                                    <div class="col-md-4 text-center">
-                                        <img id="floor_image_path" style="margin: 20px 0;border: 8px double #ccc; width: 280px;height: 160px;"  @if($advertising->floor_plan!=null) src="{{asset($advertising->floor_plan)}}"  @else src="{{asset('images/noimage.png')}}"  @endif  >
-                                        <a href="/filemanager/dialog.php?type=1&field_id=floor_image" data-fancybox-type="iframe" class="btn btn-info fancy">Select Image</a>
-                                        <button onclick="clearImage('floor');" type="button" class="btn btn-danger">Remove Image</button>
-                                        <input type="hidden" @if($advertising->floor_plan!=null) value="{{asset($advertising->floor_plan)}}"  @else value=""  @endif  name="floor_plan" id="floor_image" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
+{{--                            <div class="form-group row">--}}
+{{--                                <label for="mobile" class="col-sm-2 col-form-label" style="margin-top: 100px"><span class="text-danger"></span> {{__('Floor Plan')}}</label>--}}
+{{--                                <div class="col-sm-9">--}}
+{{--                                    <div class="col-md-4 text-center">--}}
+{{--                                        <img id="floor_image_path" style="margin: 20px 0;border: 8px double #ccc; width: 280px;height: 160px;"  @if($advertising->floor_plan!=null) src="{{asset($advertising->floor_plan)}}"  @else src="{{asset('images/noimage.png')}}"  @endif  >--}}
+{{--                                        <a href="/filemanager/dialog.php?type=1&field_id=floor_image" data-fancybox-type="iframe" class="btn btn-info fancy">Select Image</a>--}}
+{{--                                        <button onclick="clearImage('floor');" type="button" class="btn btn-danger">Remove Image</button>--}}
+{{--                                        <input type="hidden" @if($advertising->floor_plan!=null) value="{{asset($advertising->floor_plan)}}"  @else value=""  @endif  name="floor_plan" id="floor_image" class="form-control">--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
 
 
 
@@ -309,39 +310,29 @@
 
 
 
-                            <div class="form-group row">
-                                <label for="mobile" class="col-sm-2 col-form-label"  @if(isset($advertising->video) && $advertising->video!="") style="margin-top: 130px" @else style="margin-top: 30px" @endif><span class="text-danger"></span> {{__('Video')}}</label>
-                                <div class="col-sm-9">
+{{--                            <div class="form-group row">--}}
+{{--                                <label for="mobile" class="col-sm-2 col-form-label"  @if(isset($advertising->video) && $advertising->video!="") style="margin-top: 130px" @else style="margin-top: 30px" @endif><span class="text-danger"></span> {{__('Video')}}</label>--}}
+{{--                                <div class="col-sm-9">--}}
+{{--                                    <div class="row">--}}
+{{--                                        <div class="col-md-4 text-center"   @if(isset($advertising->video) && $advertising->video!="") style="margin-top: 100px" @endif>--}}
+{{--                                            <a href="/filemanager/dialog.php?type=3&field_id=video" data-fancybox-type="iframe" class="btn btn-info fancy">Select Video</a>--}}
+{{--                                            <button onclick="clearVideo();" type="button" class="btn btn-danger">Remove Video</button>--}}
+{{--                                            <input  @if(isset($advertising->video)) value="{{$advertising->video}}"  @else value=""  @endif  name="video" id="video" class="form-control">--}}
+{{--                                        </div>--}}
+{{--                                        @if(isset($advertising->video) && $advertising->video!="")--}}
+{{--                                            <div class="col-md-6">--}}
+{{--                                                <video width="320" height="240" controls>--}}
+{{--                                                    <source src="{{asset($advertising->video)}}" type="video/mp4">--}}
+{{--                                                    Your browser does not support the video tag.--}}
+{{--                                                </video>--}}
+{{--                                            </div>--}}
+{{--                                        @endif--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
 
-
-
-
-
-                                    <div class="row">
-
-                                        <div class="col-md-4 text-center"   @if(isset($advertising->video) && $advertising->video!="") style="margin-top: 100px" @endif>
-                                            <a href="/filemanager/dialog.php?type=3&field_id=video" data-fancybox-type="iframe" class="btn btn-info fancy">Select Video</a>
-                                            <button onclick="clearVideo();" type="button" class="btn btn-danger">Remove Video</button>
-                                            <input  @if(isset($advertising->video)) value="{{$advertising->video}}"  @else value=""  @endif  name="video" id="video" class="form-control">
-
-                                        </div>
-                                        @if(isset($advertising->video) && $advertising->video!="")
-                                            <div class="col-md-6">
-                                                <video width="320" height="240" controls>
-                                                    <source src="{{asset($advertising->video)}}" type="video/mp4">
-                                                    Your browser does not support the video tag.
-                                                </video>
-                                            </div>
-
-                                        @endif
-
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <hr>
-                            <br>
+{{--                            <hr>--}}
+{{--                            <br>--}}
 
                             <div class="form-group row">
                                 <div class="col-sm-3">

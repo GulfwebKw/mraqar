@@ -72,15 +72,15 @@
 
 
 
-                            <div class="form-group row">
-                                <label for="mobile" class="col-sm-2 col-form-label"><span class="text-danger"></span> {{__('Title ')}}</label>
-                                <div class="col-sm-6">
-                                    <input type="text" name="title_en" class="form-control  @error('title_en') is-invalid @enderror" id="title_en"   required>
-                                    @error('title_en')
-                                    <div class="help-block text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
+{{--                            <div class="form-group row">--}}
+{{--                                <label for="mobile" class="col-sm-2 col-form-label"><span class="text-danger"></span> {{__('Title ')}}</label>--}}
+{{--                                <div class="col-sm-6">--}}
+{{--                                    <input type="text" name="title_en" class="form-control  @error('title_en') is-invalid @enderror" id="title_en"   required>--}}
+{{--                                    @error('title_en')--}}
+{{--                                    <div class="help-block text-danger">{{ $message }}</div>--}}
+{{--                                    @enderror--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
 
 {{--                            <div class="form-group row">--}}
 {{--                                <label for="mobile" class="col-sm-2 col-form-label"><span class="text-danger"></span> {{__('Title Ar')}}</label>--}}
@@ -104,19 +104,20 @@
 
 
 
-                            <div class="form-group row">
-                                <label for="mobile" class="col-sm-2 col-form-label"><span class="text-danger"></span> {{__('Type')}}</label>
-                                <div class="col-sm-6">
-                                    <select name="type" class="form-control  _type">
-                                        <option  value="Residential">Residential</option>
-                                        <option  value="Commercial">Commercial</option>
-                                        <option  value="Industrial">Industrial</option>
-                                    </select>
-                                    @error('type')
-                                    <div class="help-block text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
+{{--                            <div class="form-group row">--}}
+{{--                                <label for="mobile" class="col-sm-2 col-form-label"><span class="text-danger"></span> {{__('Type')}}</label>--}}
+{{--                                <div class="col-sm-6">--}}
+{{--                                    <select name="type" class="form-control  _type">--}}
+{{--                                        <option  value="Residential">Residential</option>--}}
+{{--                                        <option  value="Commercial">Commercial</option>--}}
+{{--                                        <option  value="Industrial">Industrial</option>--}}
+{{--                                    </select>--}}
+{{--                                    @error('type')--}}
+{{--                                    <div class="help-block text-danger">{{ $message }}</div>--}}
+{{--                                    @enderror--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+                            <input type="hidden" name="type" value="Residential">
 
 
 
@@ -174,6 +175,7 @@
                                 </div>
                             </div>
 
+<?php /*
                             <div class="form-group row">
                                 <label for="mobile" class="col-sm-2 col-form-label"><span class="text-danger"></span> {{__('Surface(M2)')}}</label>
                                 <div class="col-sm-6">
@@ -245,7 +247,7 @@
                                     @enderror
                                 </div>
                             </div>
-
+*/ ?>
 
 
 
@@ -261,21 +263,19 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row" style="margin-top:20px">
-                                <label for="mobile" class="col-sm-2 col-form-label"><span class="text-danger"></span> {{__('Amenities')}}</label>
-                                <div class="col-sm-6">
-                                    <select class="form-control "  style="width:100%;height:100%" name="amenities[]" id="amenities" multiple>
-                                        @foreach($amenities as $item)
-                                            <option value="{{$item->id}}">{{$item->title_en}}</option>
-                                        @endforeach
+{{--                            <div class="form-group row" style="margin-top:20px">--}}
+{{--                                <label for="mobile" class="col-sm-2 col-form-label"><span class="text-danger"></span> {{__('Amenities')}}</label>--}}
+{{--                                <div class="col-sm-6">--}}
+{{--                                    <select class="form-control "  style="width:100%;height:100%" name="amenities[]" id="amenities" multiple>--}}
+{{--                                        @foreach($amenities as $item)--}}
+{{--                                            <option value="{{$item->id}}">{{$item->title_en}}</option>--}}
+{{--                                        @endforeach--}}
 
-                                    </select>
-                                </div>
-                            </div>
+{{--                                    </select>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
 
-                            <br>
                             <hr>
-
 
                             <div class="form-group row">
                                 <label for="mobile" class="col-sm-2 col-form-label" style="margin-top: 100px"><span class="text-danger"></span> {{__('Main Image')}}</label>
@@ -289,25 +289,22 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
-                                <label for="mobile" class="col-sm-2 col-form-label" style="margin-top: 100px"><span class="text-danger"></span> {{__('Floor Plan')}}</label>
-                                <div class="col-sm-9">
-                                    <div class="col-md-4 text-center">
-                                        <img id="floor_image_path" style="margin: 20px 0;border: 8px double #ccc; width: 280px;height: 160px;"  src="{{asset('images/noimage.png')}}"   >
-                                        <a href="/filemanager/dialog.php?type=1&field_id=floor_image" data-fancybox-type="iframe" class="btn btn-info fancy">Select Image</a>
-                                        <button onclick="clearImage('floor');" type="button" class="btn btn-danger">Remove Image</button>
-                                        <input type="hidden"    value=""   name="floor_plan" id="floor_image" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-
+{{--                            <div class="form-group row">--}}
+{{--                                <label for="mobile" class="col-sm-2 col-form-label" style="margin-top: 100px"><span class="text-danger"></span> {{__('Floor Plan')}}</label>--}}
+{{--                                <div class="col-sm-9">--}}
+{{--                                    <div class="col-md-4 text-center">--}}
+{{--                                        <img id="floor_image_path" style="margin: 20px 0;border: 8px double #ccc; width: 280px;height: 160px;"  src="{{asset('images/noimage.png')}}"   >--}}
+{{--                                        <a href="/filemanager/dialog.php?type=1&field_id=floor_image" data-fancybox-type="iframe" class="btn btn-info fancy">Select Image</a>--}}
+{{--                                        <button onclick="clearImage('floor');" type="button" class="btn btn-danger">Remove Image</button>--}}
+{{--                                        <input type="hidden"    value=""   name="floor_plan" id="floor_image" class="form-control">--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
 
 
                             <div class="form-group row">
                                 <label for="mobile" class="col-sm-2 col-form-label" style="margin-top: 100px"><span class="text-danger"></span> {{__('Other Image')}}</label>
-
                                 <div class="col-sm-9">
-
                                     <div class="row">
                                         <div class="col-md-4 text-center">
                                             <img id="other_image_path" style="margin: 20px 0;border: 8px double #ccc; width: 280px;height: 160px;"  src="{{asset('images/noimage.png')}}"  >
@@ -316,10 +313,8 @@
                                             <input type="hidden"  name="other_image" id="other_image" class="form-control">
                                         </div>
                                         <div class="col-md-6" style="margin-top: 50px">
-
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
 
@@ -328,25 +323,21 @@
 
 
 
-                            <div class="form-group row">
-                                <label for="mobile" class="col-sm-2 col-form-label" ><span class="text-danger"></span> {{__('Video')}}</label>
-                                <div class="col-sm-9">
+{{--                            <div class="form-group row">--}}
+{{--                                <label for="mobile" class="col-sm-2 col-form-label" ><span class="text-danger"></span> {{__('Video')}}</label>--}}
+{{--                                <div class="col-sm-9">--}}
+{{--                                    <div class="row">--}}
+{{--                                        <div class="col-md-4 text-center"  >--}}
+{{--                                            <a href="/filemanager/dialog.php?type=3&field_id=video" data-fancybox-type="iframe" class="btn btn-info fancy">Select Video</a>--}}
+{{--                                            <button onclick="clearVideo();" type="button" class="btn btn-danger">Remove Video</button>--}}
+{{--                                            <input   name="video" id="video" class="form-control">--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
 
-                                    <div class="row">
-                                        <div class="col-md-4 text-center"  >
-                                            <a href="/filemanager/dialog.php?type=3&field_id=video" data-fancybox-type="iframe" class="btn btn-info fancy">Select Video</a>
-                                            <button onclick="clearVideo();" type="button" class="btn btn-danger">Remove Video</button>
-                                            <input   name="video" id="video" class="form-control">
-                                        </div>
-
-
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <hr>
-                            <br>
+{{--                            <hr>--}}
+{{--                            <br>--}}
 
                             <div class="form-group row">
                                 <div class="col-sm-3">

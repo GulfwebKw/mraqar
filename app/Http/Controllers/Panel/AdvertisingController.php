@@ -186,9 +186,9 @@ class AdvertisingController extends Controller
     public function update(Request $request)
     {
 
-        Validator::make($request->all(), [
-            'title_en' => ['required'],
-        ])->validate();
+        // Validator::make($request->all(), [
+        //     'title_en' => ['required'],
+        // ])->validate();
         $advertising=Advertising::find($request->id);
         if(isset($advertising)){
             $this->updateAdvertising($request, $advertising);
