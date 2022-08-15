@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Panel;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\site\CompanyController;
 use App\Models\Advertising;
 use App\Models\Booking;
 use App\Models\Comment;
 use App\Models\Notification;
 use App\Models\Package;
 use App\Models\PackageHistory;
+use App\Models\Social;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -75,17 +77,18 @@ class MembersController extends Controller
     public function index()
     {
         $search=\request()->search;
-      
+
 
         $route=\request()->route()->getName();
         ///dd($route);
         if (Auth::user()->type == 'admin') {
-		
+
             $members = User::where('type', 'LIKE','member')->with(["package","advertising"]);
 
             if($route=="members.individual"){
                 $members=$members->where('type_usage','!=','company');
-            }else{
+            }
+            if($route=="members.company"){
                 $members=$members->where('type_usage','company');
             }
 
@@ -246,12 +249,18 @@ class MembersController extends Controller
         $user->password= $request->password ? Hash::make($request->password) : $user->password;
         $user->save();
 
+        if ($user->isCompany) {
+            $request->merge(['email' => $request->social_email]);
+            CompanyController::insertSocials($request, $userId);
+        }
+
         return redirect()->back()->with("success",true);
     }
 
     public function destroy($user)
     {
         User::find($user)->delete();
+        Social::where('user_id',$user)->delete();
         Advertising::where('user_id',$user)->delete();
         Comment::where('user_id',$user)->delete();
         Booking::where('user_id',$user)->delete();

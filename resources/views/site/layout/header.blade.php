@@ -84,15 +84,15 @@
                 </div>
                 <div>
                     @if ( app()->getLocale() == "en")
-                        <a href="#"  onclick="changeLng('ar')" class="mdc-button">
+                        <span onclick="changeLng('ar')" class="mdc-button">
                             <span class="mdc-button__ripple"></span>
                             <span class="mdc-button__label">العربیه</span>
-                        </a>
+                        </span>
                     @else
-                        <a href="#"  onclick="changeLng('en')" class="mdc-button">
+                        <span onclick="changeLng('en')" class="mdc-button">
                             <span class="mdc-button__ripple"></span>
                             <span class="mdc-button__label">English</span>
-                        </a>
+                        </span>
                     @endif
                 </div>
             </div>

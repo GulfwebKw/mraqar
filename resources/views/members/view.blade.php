@@ -99,6 +99,31 @@
                         </div>
                         @endif
 
+
+                        @if($user->isCompany)
+                            @php
+                                $socials = $user->socials()->get();
+                            @endphp
+                            <div class="form-group row">
+                                <label for="name" class="col-sm-1 col-form-label"> {{__('Company email')}}</label>
+                                <div class="col-sm-3">
+                                    <label class="col-form-label text-info">{{ optional($socials->where('type', 'email')->first())->address }}</label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="name" class="col-sm-1 col-form-label"> {{__('Instagram')}}</label>
+                                <div class="col-sm-3">
+                                    <label class="col-form-label text-info">{{ optional($socials->where('type', 'instagram')->first())->address }}</label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="name" class="col-sm-1 col-form-label"> {{__('Twitter')}}</label>
+                                <div class="col-sm-3">
+                                    <label class="col-form-label text-info">{{ optional($socials->where('type', 'twitter')->first())->address }}</label>
+                                </div>
+                            </div>
+                        @endif
+
                     </div>
                 </div>
             </div>

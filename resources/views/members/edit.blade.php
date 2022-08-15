@@ -121,8 +121,40 @@
 
 
 
-
-
+                        @if($user->isCompany)
+                            <!-- Company Settings -->
+                            <hr>
+                            @php
+                                $socials = $user->socials()->get();
+                            @endphp
+                            <div class="form-group row">
+                                <label for="social_email" class="col-sm-3 col-form-label"><span class="text-danger">*</span> {{__('Company email')}}</label>
+                                <div class="col-sm-6">
+                                    <input type="email" name="social_email" class="form-control  @error('social_email') is-invalid @enderror" id="social_email" placeholder="{{__('Company email')}}" value="{{ optional($socials->where('type', 'email')->first())->address }}">
+                                    @error('social_email')
+                                    <div class="help-block text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="instagram" class="col-sm-3 col-form-label"><span class="text-danger">*</span> {{__('Instagram')}}</label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="instagram" class="form-control  @error('instagram') is-invalid @enderror" id="instagram" placeholder="{{__('Instagram')}}" value="{{ optional($socials->where('type', 'instagram')->first())->address }}">
+                                    @error('instagram')
+                                    <div class="help-block text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="twitter" class="col-sm-3 col-form-label"><span class="text-danger">*</span> {{__('Twitter')}}</label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="twitter" class="form-control  @error('twitter') is-invalid @enderror" id="twitter" placeholder="{{__('Twitter')}}" value="{{ optional($socials->where('type', 'twitter')->first())->address }}">
+                                    @error('twitter')
+                                    <div class="help-block text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        @endif
 
                         <hr>
                         <h5>Account Security</h5>

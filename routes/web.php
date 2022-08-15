@@ -110,6 +110,7 @@ Route::group(['middleware'=>['auth','Admin'],'prefix'=>"admin",'namespace'=>"Pan
 
     //users
     Route::resource('administrators', 'AdministratorController', ['except' => 'show']);
+
     Route::resource('members', 'MembersController');
     Route::post("members-verify","MembersController@setVerify")->name("members.setVerify");
     Route::get("members-verify/{id}","MembersController@verify")->name("members.verify");

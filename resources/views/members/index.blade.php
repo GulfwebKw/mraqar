@@ -29,7 +29,10 @@
             <div class="card-body">
                 <ul class="nav nav-pills" id="pills-tab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link @if(request()->route()->getName()!="members.company") active @endif " href="{{route("members.individual")}}" id="pills-countries-tab">{{__('Individual Users')}}</a>
+                        <a class="nav-link @if(request()->route()->getName()=="members.index") active @endif " href="{{route("members.index")}}" id="pills-countries-tab">{{__('All Users')}}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @if(request()->route()->getName()=="members.individual") active @endif " href="{{route("members.individual")}}" id="pills-countries-tab">{{__('Individual Users')}}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link @if(request()->route()->getName()=="members.company") active @endif "  href="{{route("members.company")}}">{{__('Company Users')}}</a>
