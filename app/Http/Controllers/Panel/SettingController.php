@@ -3,7 +3,6 @@
 
 namespace App\Http\Controllers\Panel;
 use App\Http\Controllers\Controller;
-use App\Models\Amenities;
 use App\Models\Area;
 use App\Models\City;
 use App\Models\InvalidKey;
@@ -133,40 +132,6 @@ class SettingController extends Controller
     }
 
 
-    public function amenties(Request $request)
-    {
-        $amenties = Amenities::orderBy('id','desc');
-        if(! is_null($request->title_en)){
-            $amenties=$amenties->where('title_en','like',"%".$request->title_en."%");
-        }
-        if(! is_null($request->title_ar)){
-            $amenties=$amenties->where('title_ar','like',"%".$request->title_ar."%");
-        }
-
-        $amenties=$amenties->paginate(30);
-        return view('amenties.index', compact('amenties'));
-
-    }
-    public function storeAmenties(Request $request)
-    {
-        Amenities::create(['title_en' => $request->title_en,'title_ar'=>$request->title_ar]);
-        return redirect(route('amenties'));
-
-    }
-    public function updateAmenties(Request $request)
-    {
-        try {
-            Amenities::find($request->amenties)->update(['title_en' => $request->title_en,'title_ar'=>$request->title_ar]);
-            return response()->json([
-                'success' => true
-            ]);
-        } catch (\Exception $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => $exception->getMessage()
-            ]);
-        }
-    }
 
     public function getVenueTypeByType($type)
     {
@@ -176,12 +141,7 @@ class SettingController extends Controller
 
 
     }
-    public function destroyAmenties($item)
-    {
-        $item = Amenities::find($item);
-        $item->delete();
-        return redirect(route('amenties'));
-    }
+
 
 
 

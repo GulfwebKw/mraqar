@@ -239,17 +239,6 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row" style="margin-top:20px">
-                                <label for="mobile" class="col-sm-2 col-form-label"><span class="text-danger"></span> {{__('Amenities')}}</label>
-                                <div class="col-sm-6">
-                                    <select class="form-control " style="width:100%;height:100%"  name="amenities[]" id="amenities" multiple>
-                                        @foreach($amenities as $item)
-                                            <option @if(in_array($item->id,$advertising->amenities->pluck('id')->toArray())) selected  @endif value="{{$item->id}}">{{$item->title_en}}</option>
-                                        @endforeach
-
-                                    </select>
-                                </div>
-                            </div>
 */ ?>
                             <br>
                             <hr>
@@ -431,7 +420,6 @@
                 'type'		: 'iframe',
                 'autoScale'    	: false
             });
-            $("#amenities").select2();
             $("#status").on("change",function () {
                 if($(this).prop("checked")){
                     $("#message_reject_box").hide();

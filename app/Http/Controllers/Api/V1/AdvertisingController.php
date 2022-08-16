@@ -34,13 +34,13 @@ class AdvertisingController extends ApiBaseController
     }
     public function similarAdvertising($id)
     {
-        $advertising=Advertising::with(["user","area","city","amenities"])->find($id);
+        $advertising=Advertising::with(["user","area","city"])->find($id);
         $list=Advertising::getValidAdvertising()->where('type',$advertising->type)->where("venue_type",$advertising->venue_type)->where("purpose",$advertising->purpose)->paginate(10);
         return $this->success("aaa",$list);
     }
     public function getAdvertising($id)
     {
-        $advertising=Advertising::with(["user","area","city","amenities"])->find($id);
+        $advertising=Advertising::with(["user","area","city"])->find($id);
         $device_token=\request()->device_token;
         $user_id=\request()->user_id;
         $count=$this->visitAdvertising($id,$device_token);
@@ -59,7 +59,7 @@ class AdvertisingController extends ApiBaseController
     }
     public function getUserAdvertising(Request $request)
     {
-        $advertising=Advertising::getValidAdvertising(0)->with("amenities")->where(function ($r)use($request){
+        $advertising=Advertising::getValidAdvertising(0)->where(function ($r)use($request){
             if($request->expire==1){
                 $r->where('expire_at','<',date('Y-m-d'))->whereNotNull('expire_at');
             }else{
@@ -492,11 +492,6 @@ class AdvertisingController extends ApiBaseController
             $advertising = $advertising->where("number_of_rooms",$request->number_of_rooms);
         }
 
-        if(isset($request->amenities)&& is_array($request->amenities)){
-            $advertising=$advertising->whereHas("amenities",function ($r)use($request){
-               $r->whereIn('id',$request->amenities);
-            });
-        }
 
 
         if(isset($request->property) && is_array($request->property)){
@@ -642,12 +637,6 @@ class AdvertisingController extends ApiBaseController
         $advertising->save();
 
 
-        $amenitiesArray=explode(",",$request->amenities);
-        Log::info($amenitiesArray);
-
-        if(isset($amenitiesArray)){
-           $advertising->amenities()->sync($amenitiesArray,true);
-        }
         return $advertising;
     }
     private function makeSearchHistory($request){

@@ -133,7 +133,6 @@ Route::prefix('advertising')->group(function (){
 
 
 
-Route::get("/amenities",'AdvertisingController@getAmenities');
 Route::get("/cities",'AdvertisingController@getCities');
 Route::post("/areas",'AdvertisingController@getAreas');
 Route::post("/venuetypes",'AdvertisingController@getVenueTypes');

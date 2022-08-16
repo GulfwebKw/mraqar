@@ -82,10 +82,6 @@ class Advertising extends Model implements Feedable
         return $this->belongsTo(City::class);
     }
 
-    public function amenities()
-    {
-        return $this->belongsToMany(Amenities::class, 'amenities_advertising', 'advertising_id', 'amenities_id');
-    }
 
 
     public static function getValidAdvertising($status = 1): Builder

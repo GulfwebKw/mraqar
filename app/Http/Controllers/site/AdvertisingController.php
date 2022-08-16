@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Site\Advertising\StoreRequest;
 use App\Models\Advertising;
 use App\Models\AdvertisingView;
-use App\Models\Amenities;
 use App\Models\Area;
 use App\Models\City;
 use App\Models\InvalidKey;
@@ -83,12 +82,6 @@ class AdvertisingController extends Controller
         }
         if (isset($request->number_of_rooms) && is_numeric($request->number_of_rooms)) {
             $advertising = $advertising->where("number_of_rooms", $request->number_of_rooms);
-        }
-
-        if (isset($request->amenities) && is_array($request->amenities)) {
-            $advertising = $advertising->whereHas("amenities", function ($r) use ($request) {
-                $r->whereIn('id', $request->amenities);
-            });
         }
 
 
@@ -471,7 +464,7 @@ class AdvertisingController extends Controller
     public function details($locale,$hashNumber)
     {
         $this->addView($hashNumber);
-        $advertising = Advertising::where('hash_number', $hashNumber)->with(['user','city','area', 'amenities', 'advertisingView', 'area', 'city'])->first();
+        $advertising = Advertising::where('hash_number', $hashNumber)->with(['user','city','area', 'advertisingView', 'area', 'city'])->first();
 //          dd(collect(json_decode($advertising->other_image))->toArray());
 //        return $advertising->advertisingView;
         $relateds = Advertising::where('expire_at', '>=', Carbon::now())->orderBy('id', 'desc')->where('id', '!=', $advertising->id)->limit(6)->get();
@@ -510,10 +503,6 @@ class AdvertisingController extends Controller
         dd(\request()->all());
     }
 
-    public function getAmenities()
-    {
-        return Amenities::all();
-    }
 
     public function getCities()
     {
@@ -652,11 +641,6 @@ class AdvertisingController extends Controller
 
         $advertising->save();
 
-        $selectedAmenities = json_decode($request->selectedAmenities);
-        $amenitiesArray = (collect($selectedAmenities)->pluck('id'))->toArray();
-        if (isset($amenitiesArray)) {
-            $advertising->amenities()->sync($amenitiesArray, true);
-        }
 //        event(new NewAdvertising($advertising));
         return $advertising;
     }
@@ -667,7 +651,7 @@ class AdvertisingController extends Controller
 
     public function edit($locale,$hashNumber)
     {
-        $advertising = Advertising::where('hash_number', $hashNumber)->with(['amenities'])->first();
+        $advertising = Advertising::where('hash_number', $hashNumber)->first();
 //        $photo=collect(json_decode($advertising->other_image))->toArray();
 //         dd($photo['other_image1']);
         return view('site.advertising.edit', compact('advertising'));
@@ -696,7 +680,6 @@ class AdvertisingController extends Controller
 
         $massage = 'unsuccess';
         if ($advertising) {
-            $advertising->amenities()->detach();
             $massage = 'success';
             $advertising->delete();
         }
