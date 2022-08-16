@@ -55,11 +55,20 @@
                     </div>
                     <h3 class="w-100 text-center pt-3">{{__('dropaline')}}</h3>
                     <p class="mt-2">{{__('dropaline_note')}}</p>
+                    @if((session('status')) == 'success')
+                        <div class="alert alert-success">
+                            <strong>{{ __('success_title') }}!</strong> {{__('contact_success')}}!
+                        </div>
+                    @elseif((session('status')) == 'unsuccess')
+                        <div class="alert alert-danger">
+                            <strong>{{ __('un_success_title') }}!</strong> {{__('contact_unsuccess')}}!
+                        </div>
+                    @endif
                     <form method="post" action="{{ route('message.store' , app()->getLocale()) }}" class="contact-form row">
                         @csrf
                         <div class="col-xs-12 col-sm-12 col-md-4 p-2">
                             <div class="mdc-text-field mdc-text-field--outlined w-100">
-                                <input class="mdc-text-field__input @error('name') is-invalid @enderror" placeholder="{{__('your_name')}}" @if(auth()->check()) value="{{auth()->user()->name}}" @endif value="{{ old('name') }}" required>
+                                <input class="mdc-text-field__input @error('name') is-invalid @enderror" name="name" placeholder="{{__('your_name')}}" @if(auth()->check()) value="{{auth()->user()->name}}" @endif value="{{ old('name') }}" required>
                                 <div class="mdc-notched-outline">
                                     <div class="mdc-notched-outline__leading"></div>
                                     <div class="mdc-notched-outline__notch">
