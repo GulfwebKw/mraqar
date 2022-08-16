@@ -17,7 +17,6 @@
             <th class="mdc-data-table__header-cell">{{ __('image') }}</th>
             <th class="mdc-data-table__header-cell">{{__('TITLE')}}</th>
             <th class="mdc-data-table__header-cell">{{__('ADVERTISE_TYPE')}}</th>
-            <th class="mdc-data-table__header-cell">{{ __('CATEGORY') }}</th>
             <th class="mdc-data-table__header-cell">{{ __('location_title') }}</th>
             <th class="mdc-data-table__header-cell">Actions</th>
         </tr>
@@ -37,15 +36,6 @@
             <td class="mdc-data-table__cell">
                 @if($ad->advertising_type == "premium") {{__('premium_title')}}
                 @elseif($ad->advertising_type == "normal") {{__('normal_title')}}
-                @endif
-            </td>
-            <td class="mdc-data-table__cell">
-                @if ($ad->type =='residential')
-                    {{__('residential_title')}}
-                @elseif($ad->type =='industrial')
-                    {{__('industrial_title')}}
-                @elseif($ad->type =='commercial')
-                    {{__('commercial_title')}}
                 @endif
             </td>
             <td class="mdc-data-table__cell">

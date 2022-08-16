@@ -80,19 +80,7 @@
 
 
 
-{{--                            <div class="form-group row">--}}
-{{--                                <label for="mobile" class="col-sm-2 col-form-label"><span class="text-danger"></span> {{__('Type')}}</label>--}}
-{{--                                <div class="col-sm-6">--}}
-{{--                                    <select name="type" class="form-control  _type">--}}
-{{--                                        <option @if($advertising->type=="residential") selected @endif value="Residential">Residential</option>--}}
-{{--                                        <option @if($advertising->type=="commercial") selected @endif value="Commercial">Commercial</option>--}}
-{{--                                        <option @if($advertising->type=="industrial") selected @endif value="Industrial">Industrial</option>--}}
-{{--                                    </select>--}}
-{{--                                    @error('type')--}}
-{{--                                    <div class="help-block text-danger">{{ $message }}</div>--}}
-{{--                                    @enderror--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
+
                             <input type="hidden" name="type" value="Residential">
 
 

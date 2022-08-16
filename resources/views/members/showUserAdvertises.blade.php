@@ -28,22 +28,6 @@
                                 <a href="{{ '/'.app()->getLocale().'/advertising/' . $ad->hash_number . '/details' }}" target="_blank" class="d-block">
                                     <img  src="{{ asset($ad->main_image) }}" class=" ad-image-responsive w-100" alt="image">
                                 </a>
-
-
-                                <div class="listing-tag">
-                                    <a href="#" class="d-block">
-                                        @if (app()->getLocale()=='ar')
-                                            @if ($ad->type =='residential')
-                                                {{__('residential_title')}}
-                                            @elseif($ad->type =='industrial')
-                                                {{__('industrial_title')}}
-                                            @elseif($ad->type =='commercial')
-                                                {{__('commercial_title')}}
-                                            @endif
-                                        @else
-                                            {{ $ad->type }}
-                                        @endif</a>
-                                </div>
                             </div>
 
                             <div class="listing-content">

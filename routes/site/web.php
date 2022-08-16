@@ -61,34 +61,6 @@ Route::get("/payment-result",'MainController@paymentResult')->name('callback');
 
 
 
-////////////// residential ads
-Route::group(['prefix' => 'cat/residentials'] , function (){
-    Route::get('/', 'AdvertisingController@residentials')->name('Advertising.residentials');
-    Route::get('/latest', 'AdvertisingController@latestResidentials')->name('Advertising.latestResidentials');
-    Route::get('/highestprice', 'AdvertisingController@highestPriceResidentials')->name('Advertising.highestPriceResidentials');
-    Route::get('/lowestprice', 'AdvertisingController@lowestPriceResidentials')->name('Advertising.lowestPriceResidentials');
-    Route::get('/mostvisited', 'AdvertisingController@mostVisitedResidentials')->name('Advertising.mostVisitedResidentials');
-});
-
-
-/////////////// industrial ads
-Route::group(['prefix' => 'cat/industrials'] , function (){
-    Route::get('/', 'AdvertisingController@industrials')->name('Advertising.industrials');
-    Route::get('/latest', 'AdvertisingController@latestIndustrials')->name('Advertising.latestIndustrials');
-    Route::get('/highestprice', 'AdvertisingController@highestPriceIndustrials')->name('Advertising.highestPriceIndustrials');
-    Route::get('/lowestprice', 'AdvertisingController@lowestPriceIndustrials')->name('Advertising.lowestPriceIndustrials');
-    Route::get('/mostvisited', 'AdvertisingController@mostVisitedIndustrials')->name('Advertising.mostVisitedIndustrials');
-});
-
-
-//////////////// commercial ads
-Route::group(['prefix' => 'cat/commercials'] , function (){
-    Route::get('/', 'AdvertisingController@commercials')->name('Advertising.commercials');
-    Route::get('/latest', 'AdvertisingController@latestCommercials')->name('Advertising.latestCommercials');
-    Route::get('/highestprice', 'AdvertisingController@highestPriceCommercials')->name('Advertising.highestPriceCommercials');
-    Route::get('/lowestprice', 'AdvertisingController@lowestPriceCommercials')->name('Advertising.lowestPriceCommercials');
-    Route::get('/mostvisited', 'AdvertisingController@mostVisitedCommercials')->name('Advertising.mostVisitedCommercials');
-});
 
 
 ///////////////// premium ads

@@ -26,7 +26,6 @@ class StoreRequest extends FormRequest
         return [
 //            'title_en' => 'required|max:250',
 //            'title_ar' => 'nullable|max:250',
-//            'type' => 'required|in:residential,commercial,industrial',
 //            'venue_type' => 'required',
 //            'purpose' => 'required|in:rent,sell,exchange,required_for_rent',
 //            'advertising_type' => 'required|in:normal,premium',

@@ -36,26 +36,13 @@ class MainController extends Controller
 
         $residentials = Advertising::where('expire_at', '>', date('Y-m-d'))
             ->where('advertising_type', 'normal')
-            ->where('type', 'residential')
             ->whereNotNull('expire_at')
             ->orderBy('created_at', 'desc')
             ->paginate(6);
 
-        $industrials = Advertising::where('expire_at', '>', date('Y-m-d'))
-            ->where('advertising_type', 'normal')
-            ->where('type', 'industrial')
-            ->whereNotNull('expire_at')
-            ->orderBy('created_at', 'desc')
-            ->paginate(6);
 
-        $commercials = Advertising::where('expire_at', '>', date('Y-m-d'))
-            ->where('advertising_type', 'normal')
-            ->where('type', 'commercial')
-            ->whereNotNull('expire_at')
-            ->orderBy('created_at', 'desc')
-            ->paginate(6);
 
-        return view('site.pages.main', compact('premiumAds', 'residentials', 'industrials', 'commercials', 'cities', 'areas'));
+        return view('site.pages.main', compact('premiumAds', 'residentials', 'cities', 'areas'));
     }
 
     //sign up page

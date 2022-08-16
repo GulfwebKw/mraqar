@@ -17,8 +17,6 @@ class Advertising extends Model implements Feedable
 
     const TYPES = [
         'RESIDENTIAL' => 'residential',
-        'COMMERCIAL' => 'commercial',
-        'INDUSTRIAL' => 'industrial',
     ];
     const purpose = [
         'Rent' => 'rent',
@@ -30,17 +28,6 @@ class Advertising extends Model implements Feedable
         'Apartment' => 'apartment',
         'Villa' => 'villa',
         'Rest_house' => 'rest_house',
-    ];
-    const COMMERCIALS = [
-        'Shop' => 'shop',
-        'Office' => 'office',
-        'Land' => 'land',
-        'Building' => 'building',
-    ];
-    const INDUSTRIALS = [
-        'Shop' => 'shop',
-        'Office' => 'office',
-        'Building' => 'building',
     ];
     protected $guarded = ['id'];
     protected $appends = ['total', 'view_count'];
