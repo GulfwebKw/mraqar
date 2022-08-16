@@ -75,7 +75,18 @@ class DashboardController extends Controller
     }
     public function getDashboardInfo(Request $request)
     {
-        return response()->json(['f'=>$this->getFirstAndEndWeekDay(),'individualUser'=>$this->getCountIndividualUser(),"companyUser"=>$this->getCountCompanyUser(),'payments'=>$this->getCountPayment(),"countAdvertising"=>$this->getCountAdvertising(),"countViewAdvertising"=>$this->getCountViewAdvertising(),"countClickAdvertising"=>$this->getCountClickAdvertising(),"countBookings"=>$this->getCountBocking(),"countComment"=>$this->getCountComments(),'countLikes'=>$this->getCountLikes()]);
+        return response()->json([
+            'f'=>$this->getFirstAndEndWeekDay(),
+            'individualUser'=>$this->getCountIndividualUser(),
+            "companyUser"=>$this->getCountCompanyUser(),
+            'payments'=>$this->getCountPayment(),
+            "countAdvertising"=>$this->getCountAdvertising(),
+            "countViewAdvertising"=>$this->getCountViewAdvertising(),
+            "countClickAdvertising"=>$this->getCountClickAdvertising(),
+//            "countBookings"=>$this->getCountBocking(),
+//            "countComment"=>$this->getCountComments(),
+//            'countLikes'=>$this->getCountLikes()
+        ]);
     }
 
     private function getCountIndividualUser(){
@@ -198,7 +209,7 @@ class DashboardController extends Controller
            return   DB::table('advertisings')->where('created_at','>=',$start)->where('created_at','<=',$end)->select('created_at')->get();
         });
     }
-    
+
     public function getFirstAndEndDayFormat()
     {
         $beginOfDay = strtotime("today", time());

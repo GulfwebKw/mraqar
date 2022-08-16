@@ -145,78 +145,6 @@
 
 
 
-        <div class="col-md-4 col-sm-12">
-            <h6>{{__('Number of Booking')}}</h6>
-            <div class="bg-info card browser-widget">
-                <div class="media card-body">
-                    <i class="align-self-center mr-3"></i>
-                    <div class="media-body align-self-center">
-                        <div>
-                            <p><b>{{__('Today')}} </b></p>
-                            <h4><span class=" daily_booking">0</span></h4>
-                        </div>
-                        <div>
-                            <p><b>{{__('Week')}} </b></p>
-                            <h4><span class=" weekly_booking">0</span></h4>
-                        </div>
-                        <div>
-                            <p><b>{{__('Month')}} </b></p>
-                            <h4><span class=" monthly_booking">0</span></h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
-        <div class="col-md-4 col-sm-12">
-            <h6>{{__('Number Of Comments')}}</h6>
-            <div class="bg-success card browser-widget">
-                <div class="media card-body">
-                    <i class="align-self-center mr-3"></i>
-                    <div class="media-body align-self-center">
-                        <div>
-                            <p><b>{{__('Today')}} </b></p>
-                            <h4><span class="daily_comments">0</span></h4>
-                        </div>
-                        <div>
-                            <p><b>{{__('Week')}} </b></p>
-                            <h4><span class="weekly_comments">0</span></h4>
-                        </div>
-                        <div>
-                            <p><b>{{__('Month')}} </b></p>
-                            <h4><span class="monthly_comments">0</span></h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4 col-sm-12">
-            <h6>{{__('Number Of Likes')}}</h6>
-            <div class="bg-danger card browser-widget">
-                <div class="media card-body">
-                    <i class="align-self-center mr-3"></i>
-                    <div class="media-body align-self-center">
-                        <div>
-                            <p><b>{{__('Today')}} </b></p>
-                            <h4><span class="daily_likes">0</span></h4>
-                        </div>
-                        <div>
-                            <p><b>{{__('Week')}} </b></p>
-                            <h4><span class="weekly_likes">0</span></h4>
-                        </div>
-                        <div>
-                            <p><b>{{__('Month')}} </b></p>
-                            <h4><span class="monthly_likes">0</span></h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     <hr>
 
         <div class="col-md-6 col-sm-12">
@@ -254,18 +182,6 @@
                $(".daily_call_click").html(response.countClickAdvertising[0]);
                 $(".weekly_call_click").html(response.countClickAdvertising[1]);
                 $(".monthly_call_click").html(response.countClickAdvertising[2]);
-
-                $(".daily_booking").html(response.countBookings[0]);
-                $(".weekly_booking").html(response.countBookings[1]);
-                $(".monthly_booking").html(response.countBookings[2]);
-
-                $(".daily_comments").html(response.countComment[0]);
-                $(".weekly_comments").html(response.countComment[1]);
-                $(".monthly_comments").html(response.countComment[2]);
-
-                $(".daily_likes").html(response.countLikes[0]);
-                $(".weekly_likes").html(response.countLikes[1]);
-                $(".monthly_likes").html(response.countLikes[2]);
 
 
                 $(".daily_payment").html(response.payments[0][0].count);
