@@ -63,6 +63,9 @@
             </td>
         </tr>
         @endforeach
+            @section('pagination')
+                {{ $ads->links('vendor.pagination.housekey') }}
+            @endsection
         </tbody>
     </table>
 

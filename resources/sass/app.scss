@@ -74,6 +74,12 @@
 .rounded {
     border-radius: 8px;
 }
+.decoration-none {
+    text-decoration: none;
+}
+.text-white {
+    color: white !important;
+}
 .text-body{
     color: var(--theme-base-color) !important;
     text-decoration: none;

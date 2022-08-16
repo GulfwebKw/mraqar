@@ -18,9 +18,10 @@
         </tr>
     </thead>
     <tbody class="mdc-data-table__content">
+        <?php $i = ($payments->currentpage()-1)* $payments->perpage() + 1;?>
         @foreach($payments as $payment)
             <tr class="mdc-data-table__row">
-                <td class="mdc-data-table__cell">{{($loop->index)+1}}</td>
+                <td class="mdc-data-table__cell">{{$i++}}</td>
                 <td class="mdc-data-table__cell">{{ app()->getLocale()==='en'?$payment->title_en:$payment->title_ar }}</td>
                 <td class="mdc-data-table__cell">{{!empty($payment->price)?number_format($payment->price,3):'0.000'}}</td>
                 <td class="mdc-data-table__cell">{{ $payment->date }}</td>
@@ -45,6 +46,9 @@
                 </td>
             </tr>
         @endforeach
+        @section('pagination')
+            {{ $payments->links('vendor.pagination.housekey') }}
+        @endsection
     </tbody>
 </table>
 

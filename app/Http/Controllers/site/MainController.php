@@ -194,7 +194,7 @@ if ($ignoreGift){
         $record = $this->getBalance();
         $user = auth()->user();
         $payments = PackageHistory::where('user_id', $user->id)
-            ->orderBy('id', 'desc')->get();
+            ->orderBy('id', 'desc')->paginate(20);
 
         return view('site.pages.paymentHistory', [
             'balance' => $record,
@@ -221,7 +221,7 @@ if ($ignoreGift){
 
         $user = auth()->user();
         $ads = Advertising::where('user_id', $user->id)
-            ->orderBy('id', 'desc')->get();
+            ->orderBy('id', 'desc')->paginate(20);
 
         return view('site.pages.myAds', [
             'balance' => $record,

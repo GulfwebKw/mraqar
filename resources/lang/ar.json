@@ -425,5 +425,7 @@
     "register_company" : "تسجيل الشركة",
     "upload_logo" : "تحميل الشعار",
     "upgraded_to_company" : "تمت ترقية نوع حسابك بنجاح إلى شركة.",
-    "company_settings" : "إعدادات الشركة"
+    "company_settings" : "إعدادات الشركة",
+    "previous" : "السابق",
+    "next" : "التالي"
 }
