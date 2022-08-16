@@ -9,8 +9,8 @@ $side = app()->getLocale() === 'en' ? 'r' : 'l';
             <div class="theme-container">
                 <div class="mt-5"></div>
                 <div>
-                    <div class="col-xs-12 rounded-sm p-0" style="border: solid 1px lightgray;">
-                        <div class="border p-2 bg-blue {{ $side == 'l' ?: 'ltrall' }}">
+                    <div class="col-xs-12 rounded-sm b-gray p-0">
+                        <div class="border p-2 bg-blue">
                             <div class="row">
                                 <div class="p-relative col-sm-2 w-sm1/5 p-0 p{{$side}}-2">
                                     <img class="w-100 m{{$side}}-2 rounded-xs" src="https://placehold.jp/150x150.png" alt="">
