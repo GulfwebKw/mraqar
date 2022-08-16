@@ -162,6 +162,9 @@ body {
     direction: ltr;
     text-align: left;
 }
+.mdc-select__menu {
+    z-index: 1000;
+}
 // md: 960 - 1280
 // lg: 1280 - 1919
 

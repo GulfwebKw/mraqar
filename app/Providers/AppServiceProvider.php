@@ -25,7 +25,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-         // \Debugbar::disable();
         View::composer(['site.*'],function ($view){
             $facebook  = MessageController::getSettingDetails('facebook');
             $twitter   = MessageController::getSettingDetails('twitter');

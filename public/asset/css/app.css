@@ -186,6 +186,10 @@ body {
   text-align: left;
 }
 
+.mdc-select__menu {
+  z-index: 1000;
+}
+
 @media screen and (min-width: 1280px) {
   .d-lg-more-block {
     display: block !important;

@@ -22,8 +22,18 @@
 
     }
     function startPage() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         $('.mdc-list-item').on('click', function (event) {
             $(this).parent().parent().parent().find('input').val($(this).data('value'));
+
+            var input_name = $(this).parent().parent().parent().find('input').attr('name');
+            var input_value = $(this).data('value');
+            $(document).trigger('inputUpdated', [[input_name, input_value]]);
         });
     }
     $(document).ready(function(){

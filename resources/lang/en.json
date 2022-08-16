@@ -210,5 +210,7 @@
     "company_settings" : "Company settings",
     "previous" : "Previous",
     "next" : "Next",
-    "dinar" : "dinar"
+    "dinar" : "dinar",
+    "city" : "City",
+    "property_type" : "Property type"
 }
