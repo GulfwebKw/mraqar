@@ -107,8 +107,10 @@ class AdvertisingController extends Controller
     public function create()
     {
         $cities = City::orderBy('name_en')->get();
+        $types = VenueType::where('type','Residential')->orderBy('title_en')->get();
+        $purposes = ['rent', 'sell', 'exchange', 'required_for_rent'];
 
-        return view('site.advertising.create', compact($cities, ));
+        return view('site.advertising.create', compact('cities', 'types', 'purposes'));
     }
 
 
@@ -273,7 +275,7 @@ class AdvertisingController extends Controller
     }
 
     public function store(StoreRequest $request)
-    {
+    {dd($request->request);
         try {
             $result = $this->filterKeywords($request->description);
 
