@@ -62,8 +62,7 @@ Route::group(['middleware'=>['auth']],function (){
 /////////////payment result
 Route::get("/payment-result",'MainController@paymentResult')->name('callback');
 
-/////////////services
-Route::get('/services/show/{service}','MainController@showService')->name('services.show');
+
 
 ////////////// residential ads
 Route::group(['prefix' => 'cat/residentials'] , function (){

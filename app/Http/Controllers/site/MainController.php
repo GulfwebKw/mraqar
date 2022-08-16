@@ -11,7 +11,6 @@ use App\Models\Advertising;
 use App\Models\Package;
 use App\Models\PackageHistory;
 use App\Models\Payment;
-use App\Models\Service;
 use App\Models\Setting;
 use App\User;
 use Carbon\Carbon;
@@ -497,10 +496,5 @@ if ($ignoreGift){
         return app()->getLocale()=='en'?  Area::orderBy('name_en')->get():Area::orderBy('name_ar')->get();
     }
 
-    public function showService( $locale , $serviceId)
-    {
-        $service = Service::find($serviceId) ;
-        return view('site.pages.service' , compact('service')) ;
-    }
 
 }

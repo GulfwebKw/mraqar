@@ -40,13 +40,6 @@
                 </ul>
             </li>
 
-{{--            <li><a href="#"><i class="icon-files font-primary"></i>{{__('services_title')}}</a>--}}
-{{--                <ul/>--}}
-{{--                    </li><a href="{{route('services.index')}}">{{__('services_list')}}</a></li>--}}
-{{--                    <li><a href="{{route('services.create')}}">{{__('create_service')}}</a></li>--}}
-{{--                </ul>--}}
-{{--            </li>--}}
-
             <li><a href="{{route('messages.index')}}"><i class="icon-comment-alt font-danger"></i>{{__('messages')}}</a></li>
 
 {{--            <li><a href="#"><i class="icon-mobile font-primary"></i>{{__('Notifications')}}</a>--}}

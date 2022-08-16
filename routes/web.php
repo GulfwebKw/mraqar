@@ -74,12 +74,6 @@ Route::group(['middleware'=>['auth','Admin'],'prefix'=>"admin",'namespace'=>"Pan
 
     Route::get('messages', 'MessageController@index')->name('messages.index');
 
-    Route::get('services' , 'ServiceController@index')->name('services.index');
-    Route::get('services/create', 'ServiceController@create')->name('services.create');
-    Route::post('services/store' , 'ServiceController@store')->name('services.store');
-    Route::get('services/edit/{service}' , 'ServiceController@edit')->name('services.edit');
-    Route::post('services/update' , 'ServiceController@update')->name('services.update');
-    Route::delete('services/delete/{service}' , 'ServiceController@destroy')->name('services.destroy');
 
 
     //notifications

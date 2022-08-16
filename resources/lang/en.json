@@ -185,15 +185,7 @@
 	"your_phone":"Your phone number",
 
 
-    "services_title": "Services",
-    "service_success": "Service Created Successfully!",
-    "service_unsuccess": "Something Went Wrong!",
-    "services_list": "Services List",
-    "create_service": "Create New Service",
     "image": "Image",
-    "service_success_edit": "Service Edited Successfully!",
-    "service_unsuccess_edit": "Something Went Wrong!",
-    "services_edit": "Edit Service",
     "purpose": "Purpose",
     "rent": "Rent",
     "sell": "Sell",
