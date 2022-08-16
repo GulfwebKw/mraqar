@@ -76,14 +76,6 @@ Route::group(['middleware'=>['auth','Admin'],'prefix'=>"admin",'namespace'=>"Pan
 
 
 
-    //notifications
-    Route::get('notifications', 'NotificationController@index')->name('notifications.index');
-    Route::get('notifications/updateSettings', 'NotificationController@settings')->name('notifications.settings');
-    Route::get('notifications/create', 'NotificationController@createForm')->name('notifications.create');
-    Route::post('notifications/dispatch', 'NotificationController@create')->name('notifications.dispatch');
-    Route::post('notifications/updateSettings', 'NotificationController@updateSettings')->name('notifications.updateSettings');
-    Route::delete('notifications/delete/{country}', 'NotificationController@delete')->name('notifications.destroy');
-
     //reports
     Route::get('reports', 'ReportsController@index')->name('reports.index');
 

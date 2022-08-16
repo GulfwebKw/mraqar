@@ -46,7 +46,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\V1'], function (){
 
     Route::group(["prefix"=>"user"],function (){
         Route::get('/login','UserController@unAuthorize')->name('unAuthorize');
-        Route::get("/notifications",'UserController@notifications');
         Route::post("/verifyUserBySmsCode",'UserController@verifyUserBySmsCode');
         Route::post("/resetPassword",'UserController@resetPassword');
         Route::post('/sendResetPasswordCode','UserController@sendRequestSmsCode');

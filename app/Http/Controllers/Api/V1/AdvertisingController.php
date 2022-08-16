@@ -7,7 +7,6 @@ use App\Models\Advertising;
 use App\Models\Booking;
 use App\Models\InvalidKey;
 use App\Models\LogVisitAdvertising;
-use App\Models\Notification;
 use App\Models\Package;
 use App\Models\PackageHistory;
 use App\Models\Payment;
@@ -479,13 +478,6 @@ class AdvertisingController extends ApiBaseController
 
             $advertising=Advertising::with("user")->find($request->advertising_id);
             $booking=  Booking::create(['advertising_id'=>$request->advertising_id,'user_id'=>$advertising->user_id,'booker_id'=>auth()->user()->id,'name'=>$request->name,'mobile'=>$request->mobile,'email'=>$request->email,'message'=>$request->message,'date'=>$request->date,'time'=>$request->time]);
-           // $notification=   Notification::create(['user_id'=>$user->id,'title_en'=>__("new_booking_request"),"title_ar"=>__("new_booking_request"),'message_en'=>__("new_booking"),"message_ar"=>__("new_booking")]);
-
-            if(optional($advertising->user)->device_token!=null){
-                $data = array("title" =>__("new_booking_request"),"message" =>__("new_booking"),'notify_type'=>'new_booking');
-                $notification=["title" =>__("new_booking_request"),'body'=>__("new_booking"),'badge'=>1,'sound'=>'ping.aiff','notify_type'=>'new_booking'];
-                parent::sendPushNotification($data,optional($advertising->user)->device_token,[],$notification);
-            }
 
             if($advertising->user ) {
                     $settings=Setting::whereIn('setting_key',['book_email_text_en','book_email_text_ar'])->get()->keyBy('setting_key')->toArray();
@@ -566,13 +558,6 @@ class AdvertisingController extends ApiBaseController
             $message=__('reject_booking_request');
         }
 
-        if(optional($booking->booker)->device_token!=null){
-            $data = array("title" =>$title,"message" =>$message,'notify_type'=>'booking_response');
-            $notification=["title" =>$title,'body'=>$message,'badge'=>1,'sound'=>'ping.aiff','notify_type'=>'booking_response'];
-           // Notification::create(["user_id"=>$booking->booker->id,'device_token'=>$])
-            parent::sendPushNotification($data,optional($booking->booker)->device_token,[],$notification);
-
-        }
         return $this->success("");
 
     }

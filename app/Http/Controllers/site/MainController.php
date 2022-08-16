@@ -273,20 +273,7 @@ if ($ignoreGift){
         $booking = Booking::with(["booker", "user"])->whereId($id)->first();
         $booking->status = $status;
         $booking->save();
-        if ($request->status == "accept") {
-            $title = __('accept_request');
-            $message = __('accept_booking_request');
-        } else {
-            $title = __('reject_request');
-            $message = __('reject_booking_request');
-        }
         event(new ConfirmBookEvents($booking));
-        if (optional($booking->booker)->device_token != null) {
-            $data = array("title" => $title, "message" => $message, 'notify_type' => 'booking_response');
-            $notification = ["title" => $title, 'body' => $message, 'badge' => 1, 'sound' => 'ping.aiff', 'notify_type' => 'booking_response'];
-            // Notification::create(["user_id"=>$booking->booker->id,'device_token'=>$])
-            parent::sendPushNotification($data, optional($booking->booker)->device_token, [], $notification);
-        }
         return redirect(route('Main.myAdsBookings',app()->getLocale()));
         //return $this->success("");
     }

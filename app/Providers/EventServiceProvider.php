@@ -8,7 +8,6 @@ use App\Events\NewAdvertising;
 use App\Events\Payment;
 use App\Events\UserRegistered;
 use App\Listeners\ConfirmBookingSendMail;
-use App\Listeners\NotifySearchHistory;
 use App\Listeners\Payment\SendMail;
 use App\Listeners\SendEmail;
 use App\Listeners\TestL;
@@ -28,7 +27,6 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         NewAdvertising::class=>[
-            NotifySearchHistory::class,
             SendEmail::class
         ],
         UserRegistered::class=>[

@@ -187,12 +187,12 @@ if ($ignoreGift){
             'payments' => $payments
         ]);
     }
-	
+
 	public function paymentDetails(Request $request){
 	if(empty($request->paymentid)){abort('404');}
-	
+
 	$record       = $this->getBalance();
-	
+
 	$payments     = Payment::where('payments.id',$request->paymentid);
 	$payments     = $payments->select('tbl_transaction_api.*','payments.*')
 	                         ->join('tbl_transaction_api','tbl_transaction_api.api_ref_id','=','payments.ref_id');
@@ -268,12 +268,6 @@ if ($ignoreGift){
             $message = __('reject_booking_request');
         }
         event(new ConfirmBookEvents($booking));
-        if (optional($booking->booker)->device_token != null) {
-            $data = array("title" => $title, "message" => $message, 'notify_type' => 'booking_response');
-            $notification = ["title" => $title, 'body' => $message, 'badge' => 1, 'sound' => 'ping.aiff', 'notify_type' => 'booking_response'];
-            // Notification::create(["user_id"=>$booking->booker->id,'device_token'=>$])
-            parent::sendPushNotification($data, optional($booking->booker)->device_token, [], $notification);
-        }
         return redirect(route('Main.myAdsBookings',app()->getLocale()));
         //return $this->success("");
     }
@@ -455,7 +449,7 @@ if ($ignoreGift){
         $order = DB::table('tbl_transaction_api')->where("api_ref_id", $request->get('refid'))->first();
 
         if ($payment) {
-            
+
             if ($message == "CAPTURED") {
                 $payment->status = "completed";
                 $payment->packageHistory->accept_by_admin = 1;

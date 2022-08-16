@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Advertising;
 use App\Models\AdvertisingLike;
 use App\Models\Booking;
-use App\Models\Notification;
 use App\Models\Package;
 use App\Models\PackageHistory;
 use App\Models\Payment;
@@ -106,22 +105,7 @@ class User extends Authenticatable //implements Illuminate\Contracts\Auth\CanRes
         return   User::where('type_usage','individual')->get();
     }
 
-    /**
-     * @param array $deviceTokens
-     * @param string $titleEn
-     * @param string $titleAr
-     * @param string $messageEn
-     * @param string $messageAr
-     */
-    public static function makeAndSendNotification(array $deviceTokens,$titleEn="",$titleAr="",$messageEn="",$messageAr="",$type="normal"): void
-    {
-        foreach ($deviceTokens as $userId => $deviceToken) {
-            $data = array("title" =>$titleEn, "message" => $messageEn, 'notify_type' => 'new_booking');
-            $notification = ["title" =>$titleEn, 'body' => $messageEn, 'badge' => 1, 'sound' => 'ping.aiff', 'notify_type' => 'new_booking'];
-            Controller::sendPushNotification($data, $deviceToken, [], $notification);
-            Notification::create(['user_id' => $userId, 'device_token' => $deviceToken,'title_ar' =>$titleAr,'title_en'=>$titleEn,'message_en' => $messageEn,'message_ar'=>$messageAr,'type'=>$type]);
-        }
-    }
+
 
     public static function pluckDeviceToken($list)
     {
@@ -132,106 +116,6 @@ class User extends Authenticatable //implements Illuminate\Contracts\Auth\CanRes
         }
         return $deviceToken;
     }
-
-    public static function getUserHasNotVisitAdvertising($repetitious=false)
-    {
-        $ids=DB::table("log_visit_number")->pluck('user_id')->toArray();
-        if(!$repetitious){
-            $inctiveNotifyList=Notification::where("type","UserHasNotVisitAdvertising")->pluck('user_id')->toArray();
-            return   User::where('type','member')->whereNotIn('id',$inctiveNotifyList)->whereNotIn('id',$ids)->get();
-        }
-        return   User::where('type','member')->whereNotIn('id',$ids)->get();
-
-    }
-    public static function getInactiveUsers($repetitious=false)
-    {
-        $today=date("Y-m-d");
-        $date = strtotime("-15 day", strtotime($today));
-        $validDate=date("Y-m-d",$date);
-        if(!$repetitious){
-            $inctiveNotifyList=Notification::where("type","InactiveUsers")->pluck('user_id')->toArray();
-            return   User::where('last_activity','<=',$validDate)->where('type','member')->whereNotIn('id',$inctiveNotifyList)->get();
-        }
-        return   User::where('last_activity','<=',$validDate)->where('type','member')->get();
-
-
-    }
-    public static function getUserNotBocked($repetitious=false)
-    {
-        if(!$repetitious){
-            $notUserNotBocked=Notification::where("type","UserNotBocked")->pluck('user_id')->toArray();
-            return   User::where('type','member')->has("bocking","<",1)->whereNotIn('id',$notUserNotBocked)->get();
-        }
-        return   User::where('type','member')->has("bocking","<",1)->get();
-
-    }
-    public static function getUserHasNotSale($repetitious=false)
-    {
-        if(!$repetitious){
-            $userHasNotSale=Notification::where("type","UserHasNotSale")->pluck('user_id')->toArray();
-            return  User::where('type','member')->has("sales","<","2")->whereNotIn('id',$userHasNotSale)->get();
-        }
-        return  User::where('type','member')->has("sales","<","2")->get();
-
-    }
-
-    public static function notifyUserHasNotVisitAdvertising($titleEn="",$titleAr="",$messageEn="",$messageAr="",$repetitious=false)
-    {
-        $inactiveUsers=self::getUserHasNotVisitAdvertising($repetitious);
-        $deviceTokens=self::pluckDeviceToken($inactiveUsers);
-        self::makeAndSendNotification($deviceTokens,$titleEn,$titleAr,$messageEn,$messageAr,"UserHasNotVisitAdvertising");
-    }
-
-    public static function notifyInactiveUsers($titleEn="",$titleAr="",$messageEn="",$messageAr="",$repetitious=false)
-    {
-         $inactiveUsers=self::getInactiveUsers($repetitious);
-         $deviceTokens=self::pluckDeviceToken($inactiveUsers);
-         self::makeAndSendNotification($deviceTokens,$titleEn,$titleAr,$messageEn,$messageAr,"InactiveUsers");
-    }
-    public static function notifyUserNotRegisteredComment($titleEn,$titleAr,$messageEn,$messageAr,$repetitious=false)
-    {
-        $userNotRegisteredComment=self::getUserNotRegisteredComment($repetitious);
-        $deviceTokens=self::pluckDeviceToken($userNotRegisteredComment);
-        self::makeAndSendNotification($deviceTokens,$titleEn,$titleAr,$messageEn,$messageAr,"NotRegisteredComment");
-    }
-    public static function notifyUserNotBocked($titleEn,$titleAr,$messageEn,$messageAr,$repetitious=false)
-    {
-        $list=self::getUserNotBocked($repetitious);
-        $deviceTokens=self::pluckDeviceToken($list);
-        self::makeAndSendNotification($deviceTokens,$titleEn,$titleAr,$messageEn,$messageAr,"UserNotBocked");
-    }
-    public static function notifyUserHasNotSale($titleEn,$titleAr,$messageEn,$messageAr,$repetitious=false)
-    {
-        $list=self::getUserHasNotSale($repetitious);
-        $deviceTokens=self::pluckDeviceToken($list);
-        self::makeAndSendNotification($deviceTokens,$titleEn,$titleAr,$messageEn,$messageAr,"UserHasNotSale");
-    }
-    public static function notifyAllUsers($titleEn,$titleAr,$messageEn,$messageAr)
-    {
-        $list=self::getAllMembers();
-        $deviceTokens=self::pluckDeviceToken($list);
-        self::makeAndSendNotification($deviceTokens,$titleEn,$titleAr,$messageEn,$messageAr);
-    }
-    public static function notifyAllIndividualUsers($titleEn,$titleAr,$messageEn,$messageAr)
-    {
-        $list=self::getAllIndividualUsers();
-        $deviceTokens=self::pluckDeviceToken($list);
-        self::makeAndSendNotification($deviceTokens,$titleEn,$titleAr,$messageEn,$messageAr);
-    }
-    public static function notifyAllCompanyUser($titleEn,$titleAr,$messageEn,$messageAr)
-    {
-        $list=self::getAllCompanyUsers();
-        $deviceTokens=self::pluckDeviceToken($list);
-        self::makeAndSendNotification($deviceTokens,$titleEn,$titleAr,$messageEn,$messageAr);
-    }
-
-    public static function notifyPotentialUser($titleEn,$titleAr,$messageEn,$messageAr)
-    {
-        $list=self::getAllPotentialUsers();
-        $deviceTokens=self::pluckDeviceToken($list);
-        self::makeAndSendNotification($deviceTokens,$titleEn,$titleAr,$messageEn,$messageAr);
-    }
-
 
     public function socials()
     {

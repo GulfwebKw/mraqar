@@ -42,13 +42,7 @@
 
             <li><a href="{{route('messages.index')}}"><i class="icon-comment-alt font-danger"></i>{{__('messages')}}</a></li>
 
-{{--            <li><a href="#"><i class="icon-mobile font-primary"></i>{{__('Notifications')}}</a>--}}
-{{--                <ul>--}}
-{{--                    <li><a href="{{route('notifications.index')}}">{{__('Log Notifications')}}</a></li>--}}
-{{--                    <li><a href="{{route('notifications.create')}}">{{__('Make Notifications')}}</a></li>--}}
-{{--                    <li><a href="{{route('notifications.settings')}}">{{__('Settings Notifications')}}</a></li>--}}
-{{--                </ul>--}}
-{{--            </li>--}}
+
 
 
 {{--            <li><a href="#"><i class="icon-bar-chart font-primary"></i>{{__('Reports')}}</a>--}}
