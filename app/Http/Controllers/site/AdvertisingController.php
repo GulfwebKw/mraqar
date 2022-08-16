@@ -527,9 +527,7 @@ class AdvertisingController extends Controller
     public function details($locale,$hashNumber)
     {
         $this->addView($hashNumber);
-        $advertising = Advertising::where('hash_number', $hashNumber)->with(['user','city','area', 'amenities', 'comments' => function ($q) {
-            $q->where('status', 1)->with(['user']);
-        }, 'advertisingView', 'advertisingLikes', 'area', 'city'])->first();
+        $advertising = Advertising::where('hash_number', $hashNumber)->with(['user','city','area', 'amenities', 'advertisingView', 'advertisingLikes', 'area', 'city'])->first();
 //          dd(collect(json_decode($advertising->other_image))->toArray());
 //        return $advertising->advertisingView;
         $relateds = Advertising::where('expire_at', '>=', Carbon::now())->orderBy('id', 'desc')->where('id', '!=', $advertising->id)->limit(6)->get();

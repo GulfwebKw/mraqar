@@ -99,10 +99,6 @@ class Advertising extends Model implements Feedable
 
     }
 
-    public function comments()
-    {
-        return $this->hasMany(Comment::class, 'advertising_id');
-    }
 
     /**
      * @return array|\Spatie\Feed\FeedItem

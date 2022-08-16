@@ -40,8 +40,6 @@
                 </ul>
             </li>
 
-{{--            <li><a href="{{route('comments.index')}}"><i class="icon-comment-alt font-danger"></i>{{__('Comments')}}</a></li>--}}
-
 {{--            <li><a href="#"><i class="icon-files font-primary"></i>{{__('services_title')}}</a>--}}
 {{--                <ul/>--}}
 {{--                    </li><a href="{{route('services.index')}}">{{__('services_list')}}</a></li>--}}

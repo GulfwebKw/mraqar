@@ -72,11 +72,6 @@ Route::group(['middleware'=>['auth','Admin'],'prefix'=>"admin",'namespace'=>"Pan
 
 
 
-    //comments
-    Route::get('comments', 'CommentsController@index')->name('comments.index');
-    Route::get('comments/{id}', 'CommentsController@commentAdvertising')->name('comments.advertising');
-    Route::delete('comments/delete/{country}', 'CommentsController@comments')->name('comments.destroy');
-
     Route::get('messages', 'MessageController@index')->name('messages.index');
 
     Route::get('services' , 'ServiceController@index')->name('services.index');

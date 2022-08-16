@@ -127,7 +127,7 @@ class AdvertisingController extends Controller
 
     public static function filterAdvertising($request)
     {
-        $advertising=Advertising::with(["user","area","city","comments"]);
+        $advertising=Advertising::with(["user","area","city"]);
         if(isset($request->fromDate)){
             $fromDate=self::returnDateTimeFormat($request->fromDate);
             $advertising=$advertising->where('created_at','>=',$fromDate);

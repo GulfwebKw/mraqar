@@ -142,8 +142,6 @@ Route::prefix('advertising')->group(function (){
 
 Route::post("/like-advertising",'AdvertisingLikeController@store');
 Route::post("/unlike-advertising",'AdvertisingLikeController@destroy');
-Route::post("/add-comment",'CommentController@store');
-Route::post("/get-comment",'CommentController@get');
 
 
 Route::get("/amenities",'AdvertisingController@getAmenities');

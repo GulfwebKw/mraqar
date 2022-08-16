@@ -304,7 +304,6 @@ class TestController extends Controller
         $items= Controller::getNotificationMessage();
         User::notifyInactiveUsers($items['InactiveUsers']->title_en,$items['InactiveUsers']->title_ar,$items['InactiveUsers']->message_en,$items['InactiveUsers']->message_ar);
         User::notifyUserHasNotSale($items['UserHasNotSale']->title_en,$items['UserHasNotSale']->title_ar,$items['UserHasNotSale']->message_en,$items['UserHasNotSale']->message_ar);
-        User::notifyUserNotRegisteredComment($items['UserNotRegisteredComment']->title_en,$items['UserNotRegisteredComment']->title_ar,$items['UserNotRegisteredComment']->message_en,$items['UserNotRegisteredComment']->message_ar);
         User::notifyUserNotBocked($items['UserNotBocked']->title_en,$items['UserNotBocked']->title_ar,$items['UserNotBocked']->message_en,$items['UserNotBocked']->message_ar);
         User::notifyUserHasNotVisitAdvertising($items['UserHasNotVisitAdvertising']->title_en,$items['UserHasNotVisitAdvertising']->title_ar,$items['UserHasNotVisitAdvertising']->message_en,$items['UserHasNotVisitAdvertising']->message_ar);
         Log::info("notify user".date("Y-m-d H:i:s"));

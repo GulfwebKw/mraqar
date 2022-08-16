@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Advertising;
 use App\Models\AdvertisingLike;
 use App\Models\Booking;
-use App\Models\Comment;
 use App\Models\Notification;
 use App\Models\Package;
 use App\Models\PackageHistory;
@@ -55,10 +54,7 @@ class User extends Authenticatable //implements Illuminate\Contracts\Auth\CanRes
     {
         return $this->hasMany(Advertising::class)->orderBy('sort','asc');
     }
-    public function comments()
-    {
-        return $this->hasMany(Comment::class)->orderBy('id','desc');
-    }
+
     public function bocking()
     {
         return $this->hasMany(Booking::class,'booker_id')->orderBy('id','desc');
@@ -159,14 +155,6 @@ class User extends Authenticatable //implements Illuminate\Contracts\Auth\CanRes
         return   User::where('last_activity','<=',$validDate)->where('type','member')->get();
 
 
-    }
-    public static function getUserNotRegisteredComment($repetitious=false)
-    {
-        if(!$repetitious){
-            $notRegisteredComment=Notification::where("type","NotRegisteredComment")->pluck('user_id')->toArray();
-            return   User::where('type','member')->has("comments","<",1)->whereNotIn('id',$notRegisteredComment)->get();
-        }
-        return   User::where('type','member')->has("comments","<",1)->get();
     }
     public static function getUserNotBocked($repetitious=false)
     {

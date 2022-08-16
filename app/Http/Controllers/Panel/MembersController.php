@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\site\CompanyController;
 use App\Models\Advertising;
 use App\Models\Booking;
-use App\Models\Comment;
 use App\Models\Notification;
 use App\Models\Package;
 use App\Models\PackageHistory;
@@ -262,7 +261,6 @@ class MembersController extends Controller
         User::find($user)->delete();
         Social::where('user_id',$user)->delete();
         Advertising::where('user_id',$user)->delete();
-        Comment::where('user_id',$user)->delete();
         Booking::where('user_id',$user)->delete();
         Notification::where('user_id',$user)->delete();
        // PackageHistory::where('user_id',$user)->delete();

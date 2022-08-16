@@ -42,7 +42,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\V1'], function (){
     Route::post('/likeOrUnLike','AdvertisingController@likeOrUnLike');
     Route::get('/advertising/{id}','AdvertisingController@getAdvertising');
     Route::get('/similarAdvertising/{id}','AdvertisingController@similarAdvertising');
-    Route::get('/listComments/{id}','AdvertisingController@getListComments');
 
 
     Route::group(["prefix"=>"user"],function (){
@@ -66,7 +65,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\V1'], function (){
 
             Route::get("/getSavedAdvertising",'AdvertisingController@getUserSaved');
             Route::get("/advertising",'AdvertisingController@getUserAdvertising');
-            Route::get("/relatedComments",'AdvertisingController@getRelatedComments');
             Route::post("/buyPackageOrCredit",'AdvertisingController@buyPackageOrCredit');
             Route::post("/advertising/create",'AdvertisingController@createAdvertising');
             Route::post("/advertising/attachFileToAdvertising",'AdvertisingController@attachFileToAdvertising');
@@ -74,7 +72,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\V1'], function (){
             Route::post("/advertising/delete",'AdvertisingController@deleteAdvertising');
             Route::post("/advertising/archive",'AdvertisingController@archiveAdvertising');
             Route::post("/advertising/detachArchive",'AdvertisingController@detachArchive');
-            Route::post("/comment",'AdvertisingController@setComment');
 
 
 

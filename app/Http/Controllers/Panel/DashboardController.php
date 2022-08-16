@@ -82,10 +82,7 @@ class DashboardController extends Controller
             'payments'=>$this->getCountPayment(),
             "countAdvertising"=>$this->getCountAdvertising(),
             "countViewAdvertising"=>$this->getCountViewAdvertising(),
-            "countClickAdvertising"=>$this->getCountClickAdvertising(),
-//            "countBookings"=>$this->getCountBocking(),
-//            "countComment"=>$this->getCountComments(),
-//            'countLikes'=>$this->getCountLikes()
+            "countClickAdvertising"=>$this->getCountClickAdvertising()
         ]);
     }
 
@@ -187,19 +184,7 @@ class DashboardController extends Controller
         });
 
     }
-    public function getCountComments()
-    {
-        return Cache::remember('CountCommentsAdvertising',5,function(){
-            $date=$this->getFirstAndEndDayFormat();
-            $dateWeek=$this->getFirstAndEndWeekDay();
-            $dateMonth=$this->getFirstAndEndMonthDay();
-            $userCountDay=     DB::table('comments')->where('created_at','>=',$date[0])->where('created_at','<=',$date[1])->count();
-            $userCountWeek=    DB::table('comments')->where('created_at','<=',$dateWeek[0])->where('created_at','>=',$dateWeek[1])->count();
-            $userCountMonth=   DB::table('comments')->where('created_at','<=',$dateMonth[0])->where('created_at','>=',$dateMonth[1])->count();
-            return[$userCountDay,$userCountWeek,$userCountMonth];
-        });
 
-    }
 
     public function getAdvertisingCurrentYar()
     {

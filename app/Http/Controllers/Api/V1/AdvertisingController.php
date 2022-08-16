@@ -5,7 +5,6 @@ use App\Jobs\EmailNotify;
 use App\Lib\KnetPayment;
 use App\Models\Advertising;
 use App\Models\Booking;
-use App\Models\Comment;
 use App\Models\InvalidKey;
 use App\Models\LogVisitAdvertising;
 use App\Models\Notification;
@@ -55,44 +54,6 @@ class AdvertisingController extends ApiBaseController
         $advertising->has_like=$hasLike;
         $advertising->has_archive=$hasArchive;
         return $this->success("",$advertising);
-    }
-    public function getListComments($id)
-    {
-        $list = $this->getComments($id);
-        return $this->success("",$list);
-    }
-    public function getRelatedComments(Request $request)
-    {
-        $user=auth()->user();
-        $res=        DB::table("advertisings")->where('user_id',$user->id)->pluck('id')->toArray();
-        if(count($res)>=1){
-          $result=  $this->getComments($res);
-            return $this->success("",$result);
-        }
-        return $this->success("");
-    }
-    public function setComment(Request $request)
-    {
-        $validate = Validator::make($request->all(), [
-            'comment' => 'required',
-        ]);
-        if ($validate->fails())
-            return $this->fail($validate->errors()->first());
-
-        $result=$this->filterKeywords($request->comment);
-        if(!$result[0]){
-            return $this->fail("invalid Keyword (".$result[1].")",-1,$request->all());
-        }
-        $user=auth()->user();
-        Comment::create(['comment'=>$request->comment,
-            'advertising_id'=>$request->id,
-            'user_id'=>$user->id,
-            'comment_id'=>$request->comment_id,
-            'status'=>1
-        ]);
-        $list = $this->getComments($request->id);
-        return $this->success("",$list);
-
     }
     public function getUserSaved(Request $request)
     {
@@ -852,17 +813,6 @@ class AdvertisingController extends ApiBaseController
            $advertising->amenities()->sync($amenitiesArray,true);
         }
         return $advertising;
-    }
-    private function getComments($id)
-    {
-        $list = Comment::with(["user","advertising"]);
-        if(is_array($id)){
-            $list=$list->whereIn('advertising_id', $id);
-        }else{
-            $list=$list->where('advertising_id', $id);
-        }
-        $list=$list->orderBy('id', 'desc')->paginate(10);
-        return $list;
     }
     private function makeSearchHistory($request){
         if($request->device_token!=null&&$request->device_token!="" && $request->device_token!="null"){
