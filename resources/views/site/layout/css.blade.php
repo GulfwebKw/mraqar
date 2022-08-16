@@ -1,5 +1,5 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined">
     <link rel="stylesheet" href="{{ asset('asset/css/libs/swiper.min.css') }}">
     <link rel="stylesheet" href="{{ asset('asset/css/libs/material-components-web.min.css') }}">
     <link rel="stylesheet" href="{{ asset('asset/style.css') }}">

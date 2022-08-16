@@ -1,7 +1,7 @@
 @extends('site.layout.master')
 
 @php
-$lang = app()->getLocale() === 'en' ? 'r' : 'l';
+$side = app()->getLocale() === 'en' ? 'r' : 'l';
 @endphp
 
 @section('content')
@@ -48,7 +48,7 @@ $lang = app()->getLocale() === 'en' ? 'r' : 'l';
         </div>
         <div class="row md:px-5 justify-content-center">
             @foreach($companies as $company)
-                <div class="card card-subscribe card-buy shadow companies-card rounded col-xs-11 col-sm-5 col-md-2  p-0 sm:m{{$lang}}-2 mb-3">
+                <div class="card card-subscribe card-buy shadow companies-card rounded col-xs-11 col-sm-5 col-md-2  p-0 sm:m{{$side}}-2 mb-3">
                     <div class="card-body p-3">
                         <div class="row">
                             <div class="col-md-4 col-xs-5 col-md-12 p-0">
