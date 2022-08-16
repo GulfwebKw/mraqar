@@ -21,7 +21,17 @@
         window.location.href=url
 
     }
-
+    function startPage() {
+        $('.mdc-list-item').on('click', function (event) {
+            $(this).parent().parent().parent().find('input').val($(this).data('value'));
+        });
+    }
+    $(document).ready(function(){
+        startPage();
+    });
+    $(document).ajaxComplete(function () {
+        startPage();
+    });
 </script>
 
 @yield('js')
