@@ -34,15 +34,6 @@ class UserController extends Controller
         ]);
     }
 
-    public function getCountBooking(Request $request)
-    {
-        // ma
-        $user = auth()->user();
-
-        $bookerCount = DB::table("bookings")->where("booker_id", $user->id)->count();
-        $bookingCount = DB::table("bookings")->where("user_id", $user->id)->count();;
-        return $this->success("", ['bookerCount' => $bookerCount, 'bookingCount' => $bookingCount, 'user' => $user]);
-    }
 
     public function sendSmsCode(SendSmsCodeRequest $request)
     {

@@ -50,7 +50,6 @@ Vue.component('sign-up', require('./components/site/auth/SignUp.vue').default);
 Vue.component('add-to-wishlist', require('./components/site/wishlist/AddToWishlist').default);
 Vue.component('like', require('./components/site/likes/Like').default);
 Vue.component('comment', require('./components/site/comments/comment').default);
-Vue.component('booking', require('./components/site/advertising/Booking').default);
 Vue.component('create', require('./components/site/advertising/Create').default);
 Vue.component('edit', require('./components/site/advertising/Edit').default);
 Vue.component('wishlist-index', require('./components/site/wishlist/WishlistIndex').default);

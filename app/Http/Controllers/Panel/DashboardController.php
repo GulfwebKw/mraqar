@@ -171,19 +171,7 @@ class DashboardController extends Controller
             return[$userCountDay,$userCountWeek,$userCountMonth];
         });
     }
-    public function getCountBocking()
-    {
-        return Cache::remember('CountBockingAdvertising',5,function(){
-            $date=$this->getFirstAndEndDayFormat();
-            $dateWeek=$this->getFirstAndEndWeekDay();
-            $dateMonth=$this->getFirstAndEndMonthDay();
-            $userCountDay=     DB::table('bookings')->where('created_at','>=',$date[0])->where('created_at','<=',$date[1])->count();
-            $userCountWeek=    DB::table('bookings')->where('created_at','<=',$dateWeek[0])->where('created_at','>=',$dateWeek[1])->count();
-            $userCountMonth=   DB::table('bookings')->where('created_at','<=',$dateMonth[0])->where('created_at','>=',$dateMonth[1])->count();
-            return[$userCountDay,$userCountWeek,$userCountMonth];
-        });
 
-    }
 
 
     public function getAdvertisingCurrentYar()

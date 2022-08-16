@@ -53,7 +53,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\V1'], function (){
         Route::post("/logVisitAdvertising",'AdvertisingController@logVisitAdvertising');
 
         Route::group(['middleware' => 'auth:api'], function (){
-            Route::get("/getCountBooking",'UserController@getCountBooking');
             Route::get("/getBalance",'UserController@getBalance');
             Route::get("/payments",'UserController@payments');
 
@@ -80,16 +79,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\V1'], function (){
             Route::post("/updateProfile",'UserController@updateProfile');
             Route::post("/updateDeviceToken",'UserController@updateDeviceToken');
             Route::post("/changePassword",'UserController@changePassword');
-
-
-
-
-            Route::post("/setBooking",'AdvertisingController@setBooking');
-            Route::post("/updateBooking",'AdvertisingController@updateBooking');
-            Route::post("/acceptOrRejectBooking",'AdvertisingController@acceptOrRejectBooking');
-            Route::post("/deleteBooking",'AdvertisingController@deleteBooking');
-            Route::get("/myBooking",'AdvertisingController@myBooking');
-            Route::get("/myBooker",'AdvertisingController@myBooker');
 
 
         });

@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\site;
 
-use App\Events\ConfirmBookEvents;
+
 use App\Http\Controllers\Controller;
 use App\Models\Area;
-use App\Models\Booking;
 use App\Models\City;
 use App\Models\Advertising;
 use App\Models\Package;
@@ -228,55 +227,7 @@ if ($ignoreGift){
         ]);
     }
 
-    //bookings
-    public function bookings()
-    {
-        $record = $this->getBalance();
-//dd(Auth::user()->id);
-        $bookings = Booking::where('booker_id', Auth::user()->id)->whereHas('advertising', function ($q) {
-            $q->where('expire_at', '>', date('Y-m-d'));
-        })->with(['advertising'])->orderBy('id','DESC')->get();
-//        return  $bookings;
-        return view('site.pages.bookings', [
-            'balance' => $record,
-            'bookings' => $bookings
-        ]);
-    }
 
-    //my ads bookings
-    public function myAdsBookings()
-    {
-        $record = $this->getBalance();
-
-        $myAdsBookings = Booking::where('user_id', auth()->user()->id)->whereHas('advertising', function ($q) {
-            $q->where('expire_at', '>', date('Y-m-d'));
-        })->with(['advertising'])->get();
-
-        return view('site.pages.myAdsBookings', [
-            'balance' => $record,
-            'myAdsBookings' => $myAdsBookings
-        ]);
-    }
-
-    // accept or reject a booking
-    public function acceptOrRejectBooking(Request $request)
-    {
-        $id = $request->id;
-        $status = $request->status;
-        $validate = Validator::make($request->all(), [
-            'id' => 'required|numeric',
-            'status' => 'required|in:accept,reject'
-        ]);
-        if ($validate->fails())
-            return $this->fail($validate->errors()->first());
-
-        $booking = Booking::with(["booker", "user"])->whereId($id)->first();
-        $booking->status = $status;
-        $booking->save();
-        event(new ConfirmBookEvents($booking));
-        return redirect(route('Main.myAdsBookings',app()->getLocale()));
-        //return $this->success("");
-    }
 
     // buy package
     public function buyPackage()

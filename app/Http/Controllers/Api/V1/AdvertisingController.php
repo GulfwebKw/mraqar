@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api\V1;
 use App\Jobs\EmailNotify;
 use App\Lib\KnetPayment;
 use App\Models\Advertising;
-use App\Models\Booking;
 use App\Models\InvalidKey;
 use App\Models\LogVisitAdvertising;
 use App\Models\Package;
@@ -460,123 +459,6 @@ class AdvertisingController extends ApiBaseController
         $count=DB::table("advertising_view")->where('advertising_id',$id)->count();
         return $count;
 
-    }
-    public function setBooking(Request $request)
-    {
-        try {
-            $user=auth()->user();
-            $validate = Validator::make($request->all(), [
-                'advertising_id' => 'required|numeric',
-                'name'=>"required",
-                'email'=>'nullable|email',
-                'mobile'=>'required|digits:8',
-                'date'=>'required',
-                'time'=>'required'
-            ]);
-            if ($validate->fails())
-                return $this->fail($validate->errors()->first());
-
-            $advertising=Advertising::with("user")->find($request->advertising_id);
-            $booking=  Booking::create(['advertising_id'=>$request->advertising_id,'user_id'=>$advertising->user_id,'booker_id'=>auth()->user()->id,'name'=>$request->name,'mobile'=>$request->mobile,'email'=>$request->email,'message'=>$request->message,'date'=>$request->date,'time'=>$request->time]);
-
-            if($advertising->user ) {
-                    $settings=Setting::whereIn('setting_key',['book_email_text_en','book_email_text_ar'])->get()->keyBy('setting_key')->toArray();
-                    $booking=Booking::with(["booker","user"])->whereId($booking->id)->first();
-                   $message=optional($advertising->user)->lang=="ar"?optional($settings['book_email_text_ar'])->setting_value:optional($settings['book_email_text_en'])->setting_value;
-                   $messageBooking=optional($booking->user)->lang=="ar"?optional($settings['book_email_text_ar'])->setting_value:optional($settings['book_email_text_en'])->setting_value;
-
-                    if(isset(optional($booking->booker)->email)){
-                        dispatch(new EmailNotify(optional($booking->booker)->email,$message,['advertising'=>$advertising,'booking'=>$booking],'booker'))->onQueue("notifyUser");
-                    }
-
-                    if(optional($advertising->user)->email){
-                        dispatch(new EmailNotify(optional($advertising->user)->email,$messageBooking,['advertising'=>$advertising,'booking'=>$booking],'booking'))->onQueue("notifyUser");
-                    }
-
-            }
-
-            return $this->success(trans("main.success"));
-        }catch (\Exception $e){
-            return $this->fail($e->getMessage());
-        }
-
-
-
-    }
-    public function updateBooking(Request $request)
-    {
-        try {
-            $validate = Validator::make($request->all(), [
-                'id' => 'required|numeric',
-                'name'=>"required",
-                'email'=>'nullable|email',
-                'mobile'=>'required|digits:8',
-                'date'=>'required',
-                'time'=>'required'
-            ]);
-            if ($validate->fails())
-                return $this->fail($validate->errors()->first());
-
-                $booking=Booking::find($request->id);
-                $booking->name=$request->name;
-                $booking->mobile=$request->mobile;
-                $booking->email=$request->email;
-                $booking->message=$request->message;
-                $booking->date=$request->date;
-                $booking->time=$request->time;
-                $booking->save();
-
-
-            return $this->success(trans("main.success"));
-
-        }catch (\Exception $e){
-            return $this->fail($e->getMessage());
-        }
-
-
-    }
-    public function acceptOrRejectBooking(Request $request)
-    {
-        $id=$request->id;
-        $status=$request->status;
-        $validate = Validator::make($request->all(), [
-            'id' => 'required|numeric',
-            'status'=>'required|in:accept,reject'
-        ]);
-        if ($validate->fails())
-            return $this->fail($validate->errors()->first());
-
-
-        $booking=Booking::with(["booker","user"])->whereId($id)->first();
-        $booking->status=$status;
-        $booking->save();
-        if($request->status=="accept"){
-            $title=__('accept_request');
-            $message=__('accept_booking_request');
-        }else{
-            $title=__('reject_request');
-            $message=__('reject_booking_request');
-        }
-
-        return $this->success("");
-
-    }
-    public function deleteBooking(Request $request)
-    {
-        Booking::where('id',$request->id)->delete();
-        return $this->success(trans("main.success"));
-
-    }
-    public function myBooking(Request $request)
-    {
-        $bookings=Booking::where("booker_id",$request->user()->id)->with(["advertising.user","advertising.area"])->whereHas("advertising")->orderBy('id','desc')->paginate(10);
-        return $this->success("",$bookings);
-    }
-    public function myBooker(Request $request)
-    {
-        //where("booker_id",'!=',$request->user()->id)->
-        $bookings=Booking::where('user_id',$request->user()->id)->with(["advertising.user","advertising.area"])->whereHas("advertising")->orderBy('id','desc')->paginate(10);
-        return $this->success("",$bookings);
     }
     public function logVisitAdvertising(Request $request)
     {

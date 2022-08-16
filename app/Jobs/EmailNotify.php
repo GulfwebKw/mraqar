@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Mail\Booker;
 use App\Mail\RegisterMember;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -42,10 +41,6 @@ class EmailNotify implements ShouldQueue
         switch ($this->type){
             case "new_user":
                 Mail::to($this->to)->send(new RegisterMember($this->message));
-                break;
-            case "booker":
-            case "booking":
-                Mail::to($this->to)->send(new Booker($this->message,$this->data,$this->type));
                 break;
         }
     }

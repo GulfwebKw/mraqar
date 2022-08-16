@@ -51,9 +51,6 @@ Route::group(['middleware'=>['auth']],function (){
 	Route::get('/paymentdetails/{paymentid}', 'MainController@paymentDetails')->name('Main.paymentDetails');
     Route::get('/myads', 'MainController@myAds')->name('Main.myAds');
     Route::delete('/ad/delete/{advertising}', 'AdvertisingController@delete')->name('Advertising.delete');
-    Route::get('/bookings', 'MainController@bookings')->name('Main.bookings');
-    Route::get('/myadsbookings', 'MainController@myAdsBookings')->name('Main.myAdsBookings');
-    Route::post('/acceptorrejectbooking', 'MainController@acceptOrRejectBooking')->name('Main.acceptOrRejectBooking');
     Route::get('/buypackage', 'MainController@buyPackage')->name('Main.buyPackage');
     Route::post('/buypackageorcredit', 'MainController@buyPackageOrCredit')->name('Main.buyPackageOrCredit');
 });
@@ -126,7 +123,6 @@ Route::prefix('archive-advertising')->group(function (){
 Route::prefix('advertising')->group(function (){
     $controller='AdvertisingController@';
     Route::get('{hashNumber}/details', $controller.'details')->name('site.ad.detail');
-    Route::post('/{adId}/booking', 'AdvertisingBookController@booking')->middleware('auth');
 
     Route::get('/create', $controller.'create')->middleware('auth')->name('site.advertising.create');
     Route::post('/store', $controller.'store')->middleware('auth')->name('site.advertising.store');;

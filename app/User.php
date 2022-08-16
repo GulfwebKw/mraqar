@@ -5,7 +5,6 @@ namespace App;
 use App\Http\Controllers\Controller;
 use App\Models\Advertising;
 use App\Models\AdvertisingLike;
-use App\Models\Booking;
 use App\Models\Package;
 use App\Models\PackageHistory;
 use App\Models\Payment;
@@ -54,10 +53,7 @@ class User extends Authenticatable //implements Illuminate\Contracts\Auth\CanRes
         return $this->hasMany(Advertising::class)->orderBy('sort','asc');
     }
 
-    public function bocking()
-    {
-        return $this->hasMany(Booking::class,'booker_id')->orderBy('id','desc');
-    }
+
     public function package()
     {
         return $this->belongsTo(Package::class);
