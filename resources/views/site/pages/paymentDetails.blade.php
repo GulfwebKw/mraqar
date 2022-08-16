@@ -17,7 +17,6 @@
 
     @if(!empty($paymentsDetails->id))
 {{--        <h5>{{__('paymentdetails')}}</h5>--}}
-        <div class="card shadow mx-1 mt-3 p-3">
             <!--box start -->
             @if($paymentsDetails->trackid)
                 <div class="row mt-2">
@@ -64,7 +63,6 @@
                     <div class="col-lg-8 col-md-8 col-sm-12">{{$paymentsDetails->created_at}}</div>
                 </div>
             @endif
-        </div>
         <!--box end -->
     @else
         <div class="alert alert-warning text-center">{{__('norecord')}}</div>
