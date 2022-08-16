@@ -14,6 +14,20 @@
 :root {
     --mdc-theme-primary: #076599 !important;
 }
+@font-face {
+    font-family: 'kufi';
+    src: url('fonts/kufi/kufi.eot?#iefix') format('embedded-opentype'),
+    url('fonts/kufi/kufi.woff') format('woff'),
+    url('fonts/kufi/kufi.ttf')  format('truetype'),
+    url('fonts/kufi/kufi.svg#DroidArabicKufi') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+body {
+    direction: rtl;
+    text-align: right;
+    font-family:'kufi', Montserrat, sans-serif !important;
+}
 .is-invalid {
     border-color: #dc3545 !important;
     padding-right: calc(1.5em + 0.75rem) !important;
@@ -44,6 +58,9 @@
 .opacity-70 {
     opacity: .7;
 }
+.bg-blue {
+    background-color: #E7ECFF;
+}
 .text-success {
     color: #009900;
 }
@@ -73,6 +90,12 @@
 }
 .rounded {
     border-radius: 8px;
+}
+.rounded-sm {
+    border-radius: 5px;
+}
+.rounded-xs {
+    border-radius: 3px;
 }
 .decoration-none {
     text-decoration: none;
@@ -112,6 +135,57 @@
 .d-inline-block {
     display: inline-block;
 }
+.flex-container {
+    display: inline-flex;
+    align-items: center;
+}
+.small-button {
+    height: 31px;
+}
+.p-relative {
+    position: relative;
+}
+.p-absolute {
+    position: absolute;
+}
+.top-0 {
+    top: 0;
+}
+.text-lg {
+    font-size: 1.1rem;
+}
+.text-sm {
+    font-size: .84rem;
+}
+.ltrall *, .ltrall {
+    direction: ltr;
+    text-align: left;
+}
+// md: 960 - 1280
+// lg: 1280 - 1919
+
+@media screen and (min-width: 1280px) {
+    .d-lg-more-block {
+        display: block !important;
+    }
+    .d-lg-more-none {
+        display: none !important;
+    }
+}
+@media screen and (max-width: 600px) {
+    .badge-sm {
+        font-size: 9px !important;
+        margin: 2px !important;
+        padding: 3px !important;
+        line-height: 1;
+    }
+    .w-sm1\/5 {
+        max-width: 20%;
+    }
+    .w-sm4\/5 {
+        max-width: 80%;
+    }
+}
 @media screen and (min-width: 960px) {
     .md\:px-5{
         padding-left: 2.5rem !important;
@@ -130,6 +204,9 @@
     }
     .sm\:mb-3 {
         margin-bottom: 1rem !important;
+    }
+    .sm-show-button {
+        display: inline-flex !important;
     }
 }
 @media screen and (max-width: 960px) {
