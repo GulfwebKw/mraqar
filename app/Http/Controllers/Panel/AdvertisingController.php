@@ -51,7 +51,7 @@ class AdvertisingController extends Controller
     public function create(Request $request)
     {
             Validator::make($request->all(), [
-                'title_en' => 'required',
+                // 'title_en' => 'required',
                 'user_id'=>"required"
             ])->validate();
 

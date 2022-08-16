@@ -43,6 +43,12 @@
                                 <label class="col-form-label text-info">{{$advertising->created_at}}</label>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="name" class="col-sm-3 col-form-label"> {{__('Phone Number')}}</label>
+                            <div class="col-sm-3">
+                                <label class="col-form-label text-info">{{$advertising->phone_number}}</label>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -101,7 +107,7 @@
             </div>
         </div>
 
-        <div class="card col-md-6 mx-auto" style="margin-bottom: 2px">
+        <div class="card {{-- col-md-6 --}} col-md-12 mx-auto" style="margin-bottom: 2px">
             <div class="card-body">
                 <div class="row">
                     <div class="col">
@@ -118,7 +124,7 @@
                         <div class="form-group row">
                             <label for="name" class="col-sm-3 col-form-label"> {{__('Mobile')}}</label>
                             <div class="col-sm-3">
-                                <label class="col-form-label text-info">{{optional($advertising->user)->mobile}}</label>
+                                <label class="col-form-label text-info">{{ optional($advertising->user)->mobile}}</label>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -128,69 +134,68 @@
                             </div>
                         </div>
 
-
                     </div>
                 </div>
             </div>
         </div>
-        <div class="card col-md-6 mx-auto" style="margin-bottom: 2px">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col">
+{{--        <div class="card col-md-6 mx-auto" style="margin-bottom: 2px">--}}
+{{--            <div class="card-body">--}}
+{{--                <div class="row">--}}
+{{--                    <div class="col">--}}
 
-                        <h4>{{__('Amenities')}}</h4>
-                        <hr>
-                        <br>
-                        <div class="form-group row">
-                            @foreach($advertising->amenities as $amenities)
-                               <div class="col-sm-4">
-                                <div class="checkbox">
-                                    <input type="checkbox"  readonly checked  >
-                                    <label for="status">{{$amenities->title_en}}</label>
-                                </div>
-                            </div>
-                            @endforeach
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
+{{--                        <h4>{{__('Amenities')}}</h4>--}}
+{{--                        <hr>--}}
+{{--                        <br>--}}
+{{--                        <div class="form-group row">--}}
+{{--                            @foreach($advertising->amenities as $amenities)--}}
+{{--                               <div class="col-sm-4">--}}
+{{--                                <div class="checkbox">--}}
+{{--                                    <input type="checkbox"  readonly checked  >--}}
+{{--                                    <label for="status">{{$amenities->title_en}}</label>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            @endforeach--}}
+{{--                        </div>--}}
 
 
-         <div class="card col-md-12 mx-auto" style="margin-bottom: 2px">
-        <div class="card-body">
-        <div class="row">
-            <div class="col">
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
 
-                <h4>{{__('Other Details')}}</h4>
-                <hr>
-                <br>
-                <div class="form-group row">
-                    <label for="name" class="col-sm-3 col-form-label"> {{__('Number Of Rooms')}}</label>
-                    <div class="col-sm-3">
-                        <label class="col-form-label text-info">{{$advertising->number_of_rooms}}</label>
-                    </div>
-                </div>
 
-                <div class="form-group row">
-                    <label for="name" class="col-sm-3 col-form-label"> {{__('Number Of Bathrooms')}}</label>
-                    <div class="col-sm-3">
-                        <label class="col-form-label text-info">{{$advertising->number_of_bathrooms}}</label>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="name" class="col-sm-3 col-form-label"> {{__('Number Of Master Rooms')}}</label>
-                    <div class="col-sm-3">
-                        <label class="col-form-label text-info">{{$advertising->number_of_master_rooms}}</label>
-                    </div>
-                </div>
+{{-- <div class="card col-md-12 mx-auto" style="margin-bottom: 2px">--}}
+{{--    <div class="card-body">--}}
+{{--        <div class="row">--}}
+{{--            <div class="col">--}}
 
-            </div>
-        </div>
-    </div>
-</div>
+{{--                <h4>{{__('Other Details')}}</h4>--}}
+{{--                <hr>--}}
+{{--                <br>--}}
+{{--                <div class="form-group row">--}}
+{{--                    <label for="name" class="col-sm-3 col-form-label"> {{__('Number Of Rooms')}}</label>--}}
+{{--                    <div class="col-sm-3">--}}
+{{--                        <label class="col-form-label text-info">{{$advertising->number_of_rooms}}</label>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+
+{{--                <div class="form-group row">--}}
+{{--                    <label for="name" class="col-sm-3 col-form-label"> {{__('Number Of Bathrooms')}}</label>--}}
+{{--                    <div class="col-sm-3">--}}
+{{--                        <label class="col-form-label text-info">{{$advertising->number_of_bathrooms}}</label>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="form-group row">--}}
+{{--                    <label for="name" class="col-sm-3 col-form-label"> {{__('Number Of Master Rooms')}}</label>--}}
+{{--                    <div class="col-sm-3">--}}
+{{--                        <label class="col-form-label text-info">{{$advertising->number_of_master_rooms}}</label>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</div>--}}
 
 
          <div class="card col-md-12 mx-auto" style="margin-bottom: 2px">
