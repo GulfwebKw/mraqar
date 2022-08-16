@@ -53,9 +53,6 @@
             </td>
         </tr>
         @endforeach
-            @section('pagination')
-                {{ $ads->links('vendor.pagination.housekey') }}
-            @endsection
         </tbody>
     </table>
 
@@ -79,6 +76,9 @@
         </div>
     </div>
 
+@endsection
+@section('pagination')
+    {!! $ads->links('vendor.pagination.housekey') !!}
 @endsection
 @section('header')
     <style>

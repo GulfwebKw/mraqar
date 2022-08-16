@@ -46,10 +46,10 @@
                 </td>
             </tr>
         @endforeach
-        @section('pagination')
-            {{ $payments->links('vendor.pagination.housekey') }}
-        @endsection
     </tbody>
 </table>
 
+@endsection
+@section('pagination')
+    {{ $payments->links('vendor.pagination.housekey') }}
 @endsection
