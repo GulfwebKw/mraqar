@@ -16,7 +16,7 @@
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-6">
                                         <div class="mdc-text-field mdc-text-field--outlined w-100 mt-3">
-                                            <input name="company_name" placeholder="{{__('company_name_title')}}" id="company_name" class="mdc-text-field__input" required>
+                                            <input name="company_name" value="{{ old('company_name') }}" placeholder="{{__('company_name_title')}}" id="company_name" class="mdc-text-field__input" required>
                                             <div class="mdc-notched-outline">
                                                 <div class="mdc-notched-outline__leading"></div>
                                                 <div class="mdc-notched-outline__notch">
@@ -33,7 +33,7 @@
                                     </div>
                                     <div class="col-xs-12 col-sm-6">
                                         <div class="mdc-text-field mdc-text-field--outlined w-100 mt-3">
-                                            <input name="company_phone" placeholder="{{__('company_phone_title')}}" id="company_phone" class="mdc-text-field__input" required>
+                                            <input name="company_phone" value="{{ old('company_phone') }}" placeholder="{{__('company_phone_title')}}" id="company_phone" class="mdc-text-field__input" required>
                                             <div class="mdc-notched-outline">
                                                 <div class="mdc-notched-outline__leading"></div>
                                                 <div class="mdc-notched-outline__notch">
@@ -54,7 +54,7 @@
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-6">
                                         <div class="mdc-text-field mdc-text-field--outlined w-100 mt-3">
-                                            <input name="email" placeholder="{{__('company_email')}}" id="email" class="mdc-text-field__input">
+                                            <input name="email" value="{{ old('email') }}" placeholder="{{__('company_email')}}" id="email" class="mdc-text-field__input">
                                             <div class="mdc-notched-outline">
                                                 <div class="mdc-notched-outline__leading"></div>
                                                 <div class="mdc-notched-outline__notch">
@@ -75,7 +75,7 @@
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-6">
                                         <div class="mdc-text-field mdc-text-field--outlined w-100 mt-3">
-                                            <input name="instagram" placeholder="{{__('instagram_address_title')}}" id="instagram" class="mdc-text-field__input">
+                                            <input name="instagram" value="{{ old('instagram') }}" placeholder="{{__('instagram_address_title')}}" id="instagram" class="mdc-text-field__input">
                                             <div class="mdc-notched-outline">
                                                 <div class="mdc-notched-outline__leading"></div>
                                                 <div class="mdc-notched-outline__notch">
@@ -92,7 +92,7 @@
                                     </div>
                                     <div class="col-xs-12 col-sm-6">
                                         <div class="mdc-text-field mdc-text-field--outlined w-100 mt-3">
-                                            <input name="twitter" placeholder="{{__('twitter_address_title')}}" id="twitter" class="mdc-text-field__input">
+                                            <input name="twitter" value="{{ old('twitter') }}" placeholder="{{__('twitter_address_title')}}" id="twitter" class="mdc-text-field__input">
                                             <div class="mdc-notched-outline">
                                                 <div class="mdc-notched-outline__leading"></div>
                                                 <div class="mdc-notched-outline__notch">

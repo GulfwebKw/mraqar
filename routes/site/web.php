@@ -27,6 +27,7 @@ Route::group(['prefix' => 'companies'] , function (){
     Route::get('/new', 'CompanyController@new')->middleware(['auth', 'become_company'])->name('companies.new');
     Route::post('/store', 'CompanyController@store')->middleware(['auth', 'become_company'])->name('companies.store');
     Route::put('/', 'CompanyController@update')->middleware(['auth'])->name('companies.update');
+    Route::get('/{phone}/{name?}/advertise', 'CompanyController@new')->name('companies.show');
 });
 
 ///////////// auth
