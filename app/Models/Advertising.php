@@ -127,11 +127,6 @@ class Advertising extends Model implements Feedable
         return Advertising::where('advertising_type', 'premium')->where('status', 'accepted')->where('expire_at', '>=', date('Y-m-d'))->orderBy('created_at', 'desc')->get();
     }
 
-    public function advertisingLikes()
-    {
-        return $this->hasMany(AdvertisingLike::class);
-    }
-
     public function advertisingView()
     {
         return $this->hasMany(AdvertisingView::class);
@@ -145,11 +140,6 @@ class Advertising extends Model implements Feedable
     public function getViewCountAttribute($value)
     {
         return count($this->advertisingView);
-    }
-
-    public function getLikesCountAttribute($value)
-    {
-        return count($this->advertisingLikes);
     }
 
     public static  function makeHashNumber()

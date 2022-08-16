@@ -48,7 +48,6 @@ window.swalSuccess = function (msg) {
 
 Vue.component('sign-up', require('./components/site/auth/SignUp.vue').default);
 Vue.component('add-to-wishlist', require('./components/site/wishlist/AddToWishlist').default);
-Vue.component('like', require('./components/site/likes/Like').default);
 Vue.component('comment', require('./components/site/comments/comment').default);
 Vue.component('create', require('./components/site/advertising/Create').default);
 Vue.component('edit', require('./components/site/advertising/Edit').default);

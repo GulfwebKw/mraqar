@@ -44,12 +44,8 @@ class AdvertisingController extends ApiBaseController
         $device_token=\request()->device_token;
         $user_id=\request()->user_id;
         $count=$this->visitAdvertising($id,$device_token);
-        $countLike=$this->getCountLike($id);
-        $hasLike=$this->hasLikeUser(\request()->device_token,$id);
         $hasArchive=$this->hasArchive($user_id,$id);
         $advertising->count_view=$count;
-        $advertising->count_like=$countLike;
-        $advertising->has_like=$hasLike;
         $advertising->has_archive=$hasArchive;
         return $this->success("",$advertising);
     }
@@ -418,34 +414,7 @@ class AdvertisingController extends ApiBaseController
         }else
             return view("api.pages.payment", compact('message', 'refId', 'trackid', 'payment', 'order'));
     }
-    public function likeOrUnLike(Request $request)
-    {
-        $validate = Validator::make($request->all(), [
-            'device_token' => 'required',
-            'like' => 'required|in:1,0',
-        ]);
-        if ($validate->fails())
-            return $this->fail($validate->errors()->first());
 
-        $like=$request->like;
-        $deviceToken=$request->device_token;
-        $id=$request->id;
-        if($like==1){
-           $res= DB::table("advertising_like")->where('advertising_id',$id)->where('device_token',$deviceToken)->first();
-               if(!isset($res)){
-                DB::table("advertising_like")->insert(['advertising_id'=>$id,'device_token'=>$deviceToken,'created_at'=>date("Y-m-d h:i:s")]);
-               }
-            $count=$this->getCountLike($id);
-            return $this->success("",['count'=>$count]);
-        }else{
-            DB::table("advertising_like")->where('advertising_id',$id)->where('device_token',$deviceToken)->delete();
-            $count=$this->getCountLike($id);
-            return $this->success("",['count'=>$count]);
-        }
-    }
-    private function getCountLike($id){
-        return DB::table("advertising_like")->where('advertising_id',$id)->count();
-    }
     private function visitAdvertising($id,$token=null)
     {
         if(isset($token)&&$token!=null&&!empty($token)){
@@ -688,10 +657,7 @@ class AdvertisingController extends ApiBaseController
             DB::table("search_history")->insert(['area_id'=>$area_id,'city_id'=>$cityId,'advertising_type'=>$request->advertising_type,'type'=>$request->type,'venue_type'=>$request->venue_type,'purpose'=>$request->purpose,'main_price'=>floatval($request->main_price),'max_price'=>floatval($request->max_price),'device_token'=>$request->device_token]);
         }
     }
-    private function hasLikeUser($device_token,$id)
-    {
-      return  DB::table("advertising_like")->where("advertising_id",$id)->where("device_token",$device_token)->count();
-    }
+
     private function hasArchive($userId,$id)
     {
        return  DB::table("user_archive_advertising")->where("user_id",$userId)->where("advertising_id",$id)->count();

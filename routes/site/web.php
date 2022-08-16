@@ -68,7 +68,6 @@ Route::group(['prefix' => 'cat/residentials'] , function (){
     Route::get('/highestprice', 'AdvertisingController@highestPriceResidentials')->name('Advertising.highestPriceResidentials');
     Route::get('/lowestprice', 'AdvertisingController@lowestPriceResidentials')->name('Advertising.lowestPriceResidentials');
     Route::get('/mostvisited', 'AdvertisingController@mostVisitedResidentials')->name('Advertising.mostVisitedResidentials');
-    Route::get('/mostliked', 'AdvertisingController@mostLikedResidentials')->name('Advertising.mostLikedResidentials');
 });
 
 
@@ -79,7 +78,6 @@ Route::group(['prefix' => 'cat/industrials'] , function (){
     Route::get('/highestprice', 'AdvertisingController@highestPriceIndustrials')->name('Advertising.highestPriceIndustrials');
     Route::get('/lowestprice', 'AdvertisingController@lowestPriceIndustrials')->name('Advertising.lowestPriceIndustrials');
     Route::get('/mostvisited', 'AdvertisingController@mostVisitedIndustrials')->name('Advertising.mostVisitedIndustrials');
-    Route::get('/mostliked', 'AdvertisingController@mostLikedIndustrials')->name('Advertising.mostLikedIndustrials');
 });
 
 
@@ -90,7 +88,6 @@ Route::group(['prefix' => 'cat/commercials'] , function (){
     Route::get('/highestprice', 'AdvertisingController@highestPriceCommercials')->name('Advertising.highestPriceCommercials');
     Route::get('/lowestprice', 'AdvertisingController@lowestPriceCommercials')->name('Advertising.lowestPriceCommercials');
     Route::get('/mostvisited', 'AdvertisingController@mostVisitedCommercials')->name('Advertising.mostVisitedCommercials');
-    Route::get('/mostliked', 'AdvertisingController@mostLikedCommercials')->name('Advertising.mostLikedCommercials');
 });
 
 
@@ -101,7 +98,6 @@ Route::group(['prefix' => 'cat/premiums'] , function (){
     Route::get('/highestprice', 'AdvertisingController@highestPricePremiums')->name('Advertising.highestPricePremiums');
     Route::get('/lowestprice', 'AdvertisingController@lowestPricePremiums')->name('Advertising.lowestPricePremiums');
     Route::get('/mostvisited', 'AdvertisingController@mostVisitedPremiums')->name('Advertising.mostVisitedPremiums');
-    Route::get('/mostliked', 'AdvertisingController@mostLikedPremiums')->name('Advertising.mostLikedPremiums');
 });
 
 
@@ -135,8 +131,6 @@ Route::prefix('advertising')->group(function (){
 });
 
 
-Route::post("/like-advertising",'AdvertisingLikeController@store');
-Route::post("/unlike-advertising",'AdvertisingLikeController@destroy');
 
 
 Route::get("/amenities",'AdvertisingController@getAmenities');

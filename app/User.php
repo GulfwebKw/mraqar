@@ -4,7 +4,6 @@ namespace App;
 
 use App\Http\Controllers\Controller;
 use App\Models\Advertising;
-use App\Models\AdvertisingLike;
 use App\Models\Package;
 use App\Models\PackageHistory;
 use App\Models\Payment;
@@ -43,11 +42,7 @@ class User extends Authenticatable //implements Illuminate\Contracts\Auth\CanRes
         'email_verified_at' => 'datetime',
     ];
 
-    public function advertisingLikes()
-    {
-        return $this->belongsToMany(Advertising::class,AdvertisingLike::class);
 
-    }
     public function advertising()
     {
         return $this->hasMany(Advertising::class)->orderBy('sort','asc');

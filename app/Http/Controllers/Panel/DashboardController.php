@@ -125,17 +125,7 @@ class DashboardController extends Controller
         });
 
     }
-    private function getCountLikes(){
-        return Cache::remember('CountLikes',5,function(){
-            $date=$this->getFirstAndEndDayFormat();
-            $dateWeek=$this->getFirstAndEndWeekDay();
-            $dateMonth=$this->getFirstAndEndMonthDay();
-            $countDay=     DB::table('advertising_like')->where('created_at','>=',$date[0])->where('created_at','<=',$date[1])->count();
-            $countWeek=    DB::table('advertising_like')->where('created_at','<=',$dateWeek[0])->where('created_at','>=',$dateWeek[1])->count();
-            $countMonth=   DB::table('advertising_like')->where('created_at','<=',$dateMonth[0])->where('created_at','>=',$dateMonth[1])->count();
-            return[$countDay,$countWeek,$countMonth];
-        });
-    }
+
     private function getCountAdvertising(){
         return Cache::remember('CountAdvertising',5,function(){
             $date=$this->getFirstAndEndDayFormat();
