@@ -155,5 +155,3 @@ Route::group(['middleware'=>['auth','Admin'],'prefix'=>"admin",'namespace'=>"Pan
 // In routes/web.php
 Route::feeds();
 
-Route::get("/test","TestController@test")->name("test");
-
