@@ -15,10 +15,9 @@
         <thead>
         <tr class="mdc-data-table__header-row">
             <th class="mdc-data-table__header-cell">{{ __('image') }}</th>
-            <th class="mdc-data-table__header-cell">{{__('TITLE')}}</th>
             <th class="mdc-data-table__header-cell">{{__('ADVERTISE_TYPE')}}</th>
             <th class="mdc-data-table__header-cell">{{ __('location_title') }}</th>
-            <th class="mdc-data-table__header-cell">Actions</th>
+            <th class="mdc-data-table__header-cell">{{ __('action_title') }}</th>
         </tr>
         </thead>
         <tbody class="mdc-data-table__content">
