@@ -3,7 +3,6 @@
 
 namespace App\Http\Controllers\Api\V1;
 use App\Events\UserRegistered;
-use App\Models\Notification;
 use App\Models\Package;
 use App\Models\PackageHistory;
 use App\Models\Payment;
@@ -37,15 +36,7 @@ class UserController extends ApiBaseController
         ]);
     }
 
-    public function getCountBooking(Request $request)
-    {
-        // ma
-        $user = auth()->user();
 
-        $bookerCount=DB::table("bookings")->where("booker_id",$user->id)->count();
-        $bookingCount=DB::table("bookings")->where("user_id",$user->id)->count();;
-        return $this->success("",['bookerCount'=>$bookerCount,'bookingCount'=>$bookingCount,'user'=>$user]);
-    }
 
     public function sendSmsCode(Request $request)
     {
@@ -327,15 +318,6 @@ class UserController extends ApiBaseController
 
     }
 
-    public function notifications(Request $request)
-    {
-        $deviceToken=$request->device_token;
-        $list=[];
-        if(!is_null($deviceToken)){
-           $list= Notification::where("device_token",$deviceToken)->orderBy('id','desc')->paginate(10);
-        }
-        return $this->success("",$list);
-    }
 
     public function isValidRegisterAdvertising(Request $request)
     {

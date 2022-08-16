@@ -30,42 +30,13 @@ class Controller extends BaseController
         return date("Y-m-d H:i:s",$time);
     }
 
-    public static function sendPushNotification($data, $to, $options,$notification=null)
-    {
-        $apiKey =env('PUSHY_KEY');
-        $post = $options ?: array();
-        $post['to'] = $to;
-        $post['data'] = $data;
-        if($notification!=null){
-            $post['notification'] = $notification;
-        }
-        $headers = array(
-            'Content-Type: application/json'
-        );
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://api.pushy.me/push?api_key=' . $apiKey);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post, JSON_UNESCAPED_UNICODE));
-        $result = curl_exec($ch);
-        if (curl_errno($ch)) {
-            echo curl_error($ch);
-        }
-        return $result;
-
-    }
-
     public static function returnDateFormat($date)
     {
         $time=strtotime($date);
         return date("Y-m-d",$time);
     }
 
-    public static function getNotificationMessage()
-    {
-      return  DB::table("notification_message")->select("*")->get()->keyBy("key");
-    }
+
 
     public static  function sendSms($message,$mobile)
     {

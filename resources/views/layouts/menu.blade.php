@@ -25,7 +25,7 @@
                         <li><a href="{{route('packages.index')}}">{{__('long-term subscription')}}</a></li>
                         <li><a href="{{route('staticPackages.index')}}">{{__('Pay as you go')}}</a></li>
 
-                        <li><a href="{{route('packages.create')}}">{{__('Add New Package')}}</a></li>
+{{--                        <li><a href="{{route('packages.create')}}">{{__('Add New Package')}}</a></li>--}}
 
                         {{--<li><a href="#">{{__('History')}}</a></li>--}}
                     </ul>
@@ -40,24 +40,9 @@
                 </ul>
             </li>
 
-            <li><a href="{{route('comments.index')}}"><i class="icon-comment-alt font-danger"></i>{{__('Comments')}}</a></li>
-
-            <li><a href="#"><i class="icon-files font-primary"></i>{{__('services_title')}}</a>
-                <ul>
-                    <li><a href="{{route('services.index')}}">{{__('services_list')}}</a></li>
-                    <li><a href="{{route('services.create')}}">{{__('create_service')}}</a></li>
-                </ul>
-            </li>
-
             <li><a href="{{route('messages.index')}}"><i class="icon-comment-alt font-danger"></i>{{__('messages')}}</a></li>
 
-            <li><a href="#"><i class="icon-mobile font-primary"></i>{{__('Notifications')}}</a>
-                <ul>
-                    <li><a href="{{route('notifications.index')}}">{{__('Log Notifications')}}</a></li>
-                    <li><a href="{{route('notifications.create')}}">{{__('Make Notifications')}}</a></li>
-                    <li><a href="{{route('notifications.settings')}}">{{__('Settings Notifications')}}</a></li>
-                </ul>
-            </li>
+
 
 
 {{--            <li><a href="#"><i class="icon-bar-chart font-primary"></i>{{__('Reports')}}</a>--}}
@@ -71,7 +56,7 @@
                     <li><a href="{{route('areas')}}">{{__('Areas')}}</a></li>
                     <li><a href="{{route('cities')}}">{{__('City')}}</a></li>
 
-                    <li><a href="{{route('amenties')}}">{{__('Amenties')}}</a></li>
+{{--                    <li><a href="{{route('amenties')}}">{{__('Amenties')}}</a></li>--}}
                     <li><a href="{{route('venueType')}}">{{__('Venue Type')}}</a></li>
                     <li><a href="{{route('settings.invalidKeywords')}}">{{__('Invalid Keywords')}}</a></li>
 {{--                    <li><a href="">{{__('Translation')}}</a></li>--}}

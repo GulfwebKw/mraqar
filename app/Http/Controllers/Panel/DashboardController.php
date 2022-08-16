@@ -75,7 +75,15 @@ class DashboardController extends Controller
     }
     public function getDashboardInfo(Request $request)
     {
-        return response()->json(['f'=>$this->getFirstAndEndWeekDay(),'individualUser'=>$this->getCountIndividualUser(),"companyUser"=>$this->getCountCompanyUser(),'payments'=>$this->getCountPayment(),"countAdvertising"=>$this->getCountAdvertising(),"countViewAdvertising"=>$this->getCountViewAdvertising(),"countClickAdvertising"=>$this->getCountClickAdvertising(),"countBookings"=>$this->getCountBocking(),"countComment"=>$this->getCountComments(),'countLikes'=>$this->getCountLikes()]);
+        return response()->json([
+            'f'=>$this->getFirstAndEndWeekDay(),
+            'individualUser'=>$this->getCountIndividualUser(),
+            "companyUser"=>$this->getCountCompanyUser(),
+            'payments'=>$this->getCountPayment(),
+            "countAdvertising"=>$this->getCountAdvertising(),
+            "countViewAdvertising"=>$this->getCountViewAdvertising(),
+            "countClickAdvertising"=>$this->getCountClickAdvertising()
+        ]);
     }
 
     private function getCountIndividualUser(){
@@ -117,17 +125,7 @@ class DashboardController extends Controller
         });
 
     }
-    private function getCountLikes(){
-        return Cache::remember('CountLikes',5,function(){
-            $date=$this->getFirstAndEndDayFormat();
-            $dateWeek=$this->getFirstAndEndWeekDay();
-            $dateMonth=$this->getFirstAndEndMonthDay();
-            $countDay=     DB::table('advertising_like')->where('created_at','>=',$date[0])->where('created_at','<=',$date[1])->count();
-            $countWeek=    DB::table('advertising_like')->where('created_at','<=',$dateWeek[0])->where('created_at','>=',$dateWeek[1])->count();
-            $countMonth=   DB::table('advertising_like')->where('created_at','<=',$dateMonth[0])->where('created_at','>=',$dateMonth[1])->count();
-            return[$countDay,$countWeek,$countMonth];
-        });
-    }
+
     private function getCountAdvertising(){
         return Cache::remember('CountAdvertising',5,function(){
             $date=$this->getFirstAndEndDayFormat();
@@ -163,32 +161,8 @@ class DashboardController extends Controller
             return[$userCountDay,$userCountWeek,$userCountMonth];
         });
     }
-    public function getCountBocking()
-    {
-        return Cache::remember('CountBockingAdvertising',5,function(){
-            $date=$this->getFirstAndEndDayFormat();
-            $dateWeek=$this->getFirstAndEndWeekDay();
-            $dateMonth=$this->getFirstAndEndMonthDay();
-            $userCountDay=     DB::table('bookings')->where('created_at','>=',$date[0])->where('created_at','<=',$date[1])->count();
-            $userCountWeek=    DB::table('bookings')->where('created_at','<=',$dateWeek[0])->where('created_at','>=',$dateWeek[1])->count();
-            $userCountMonth=   DB::table('bookings')->where('created_at','<=',$dateMonth[0])->where('created_at','>=',$dateMonth[1])->count();
-            return[$userCountDay,$userCountWeek,$userCountMonth];
-        });
 
-    }
-    public function getCountComments()
-    {
-        return Cache::remember('CountCommentsAdvertising',5,function(){
-            $date=$this->getFirstAndEndDayFormat();
-            $dateWeek=$this->getFirstAndEndWeekDay();
-            $dateMonth=$this->getFirstAndEndMonthDay();
-            $userCountDay=     DB::table('comments')->where('created_at','>=',$date[0])->where('created_at','<=',$date[1])->count();
-            $userCountWeek=    DB::table('comments')->where('created_at','<=',$dateWeek[0])->where('created_at','>=',$dateWeek[1])->count();
-            $userCountMonth=   DB::table('comments')->where('created_at','<=',$dateMonth[0])->where('created_at','>=',$dateMonth[1])->count();
-            return[$userCountDay,$userCountWeek,$userCountMonth];
-        });
 
-    }
 
     public function getAdvertisingCurrentYar()
     {
@@ -198,7 +172,7 @@ class DashboardController extends Controller
            return   DB::table('advertisings')->where('created_at','>=',$start)->where('created_at','<=',$end)->select('created_at')->get();
         });
     }
-    
+
     public function getFirstAndEndDayFormat()
     {
         $beginOfDay = strtotime("today", time());

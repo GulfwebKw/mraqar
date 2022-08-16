@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers\site;
 
-use App\Events\ConfirmBookEvents;
+
 use App\Http\Controllers\Controller;
 use App\Models\Area;
-use App\Models\Booking;
 use App\Models\City;
 use App\Models\Advertising;
 use App\Models\Package;
 use App\Models\PackageHistory;
 use App\Models\Payment;
-use App\Models\Service;
 use App\Models\Setting;
 use App\User;
 use Carbon\Carbon;
@@ -38,26 +36,13 @@ class MainController extends Controller
 
         $residentials = Advertising::where('expire_at', '>', date('Y-m-d'))
             ->where('advertising_type', 'normal')
-            ->where('type', 'residential')
             ->whereNotNull('expire_at')
             ->orderBy('created_at', 'desc')
             ->paginate(6);
 
-        $industrials = Advertising::where('expire_at', '>', date('Y-m-d'))
-            ->where('advertising_type', 'normal')
-            ->where('type', 'industrial')
-            ->whereNotNull('expire_at')
-            ->orderBy('created_at', 'desc')
-            ->paginate(6);
 
-        $commercials = Advertising::where('expire_at', '>', date('Y-m-d'))
-            ->where('advertising_type', 'normal')
-            ->where('type', 'commercial')
-            ->whereNotNull('expire_at')
-            ->orderBy('created_at', 'desc')
-            ->paginate(6);
 
-        return view('site.pages.main', compact('premiumAds', 'residentials', 'industrials', 'commercials', 'cities', 'areas'));
+        return view('site.pages.main', compact('premiumAds', 'residentials', 'cities', 'areas'));
     }
 
     //sign up page
@@ -229,68 +214,7 @@ if ($ignoreGift){
         ]);
     }
 
-    //bookings
-    public function bookings()
-    {
-        $record = $this->getBalance();
-//dd(Auth::user()->id);
-        $bookings = Booking::where('booker_id', Auth::user()->id)->whereHas('advertising', function ($q) {
-            $q->where('expire_at', '>', date('Y-m-d'));
-        })->with(['advertising'])->orderBy('id','DESC')->get();
-//        return  $bookings;
-        return view('site.pages.bookings', [
-            'balance' => $record,
-            'bookings' => $bookings
-        ]);
-    }
 
-    //my ads bookings
-    public function myAdsBookings()
-    {
-        $record = $this->getBalance();
-
-        $myAdsBookings = Booking::where('user_id', auth()->user()->id)->whereHas('advertising', function ($q) {
-            $q->where('expire_at', '>', date('Y-m-d'));
-        })->with(['advertising'])->get();
-
-        return view('site.pages.myAdsBookings', [
-            'balance' => $record,
-            'myAdsBookings' => $myAdsBookings
-        ]);
-    }
-
-    // accept or reject a booking
-    public function acceptOrRejectBooking(Request $request)
-    {
-        $id = $request->id;
-        $status = $request->status;
-        $validate = Validator::make($request->all(), [
-            'id' => 'required|numeric',
-            'status' => 'required|in:accept,reject'
-        ]);
-        if ($validate->fails())
-            return $this->fail($validate->errors()->first());
-
-        $booking = Booking::with(["booker", "user"])->whereId($id)->first();
-        $booking->status = $status;
-        $booking->save();
-        if ($request->status == "accept") {
-            $title = __('accept_request');
-            $message = __('accept_booking_request');
-        } else {
-            $title = __('reject_request');
-            $message = __('reject_booking_request');
-        }
-        event(new ConfirmBookEvents($booking));
-        if (optional($booking->booker)->device_token != null) {
-            $data = array("title" => $title, "message" => $message, 'notify_type' => 'booking_response');
-            $notification = ["title" => $title, 'body' => $message, 'badge' => 1, 'sound' => 'ping.aiff', 'notify_type' => 'booking_response'];
-            // Notification::create(["user_id"=>$booking->booker->id,'device_token'=>$])
-            parent::sendPushNotification($data, optional($booking->booker)->device_token, [], $notification);
-        }
-        return redirect(route('Main.myAdsBookings',app()->getLocale()));
-        //return $this->success("");
-    }
 
     // buy package
     public function buyPackage()
@@ -497,10 +421,5 @@ if ($ignoreGift){
         return app()->getLocale()=='en'?  Area::orderBy('name_en')->get():Area::orderBy('name_ar')->get();
     }
 
-    public function showService( $locale , $serviceId)
-    {
-        $service = Service::find($serviceId) ;
-        return view('site.pages.service' , compact('service')) ;
-    }
 
 }

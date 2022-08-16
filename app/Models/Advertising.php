@@ -17,8 +17,6 @@ class Advertising extends Model implements Feedable
 
     const TYPES = [
         'RESIDENTIAL' => 'residential',
-        'COMMERCIAL' => 'commercial',
-        'INDUSTRIAL' => 'industrial',
     ];
     const purpose = [
         'Rent' => 'rent',
@@ -30,17 +28,6 @@ class Advertising extends Model implements Feedable
         'Apartment' => 'apartment',
         'Villa' => 'villa',
         'Rest_house' => 'rest_house',
-    ];
-    const COMMERCIALS = [
-        'Shop' => 'shop',
-        'Office' => 'office',
-        'Land' => 'land',
-        'Building' => 'building',
-    ];
-    const INDUSTRIALS = [
-        'Shop' => 'shop',
-        'Office' => 'office',
-        'Building' => 'building',
     ];
     protected $guarded = ['id'];
     protected $appends = ['total', 'view_count'];
@@ -82,10 +69,6 @@ class Advertising extends Model implements Feedable
         return $this->belongsTo(City::class);
     }
 
-    public function amenities()
-    {
-        return $this->belongsToMany(Amenities::class, 'amenities_advertising', 'advertising_id', 'amenities_id');
-    }
 
 
     public static function getValidAdvertising($status = 1): Builder
@@ -99,10 +82,6 @@ class Advertising extends Model implements Feedable
 
     }
 
-    public function comments()
-    {
-        return $this->hasMany(Comment::class, 'advertising_id');
-    }
 
     /**
      * @return array|\Spatie\Feed\FeedItem
@@ -131,11 +110,6 @@ class Advertising extends Model implements Feedable
         return Advertising::where('advertising_type', 'premium')->where('status', 'accepted')->where('expire_at', '>=', date('Y-m-d'))->orderBy('created_at', 'desc')->get();
     }
 
-    public function advertisingLikes()
-    {
-        return $this->hasMany(AdvertisingLike::class);
-    }
-
     public function advertisingView()
     {
         return $this->hasMany(AdvertisingView::class);
@@ -149,11 +123,6 @@ class Advertising extends Model implements Feedable
     public function getViewCountAttribute($value)
     {
         return count($this->advertisingView);
-    }
-
-    public function getLikesCountAttribute($value)
-    {
-        return count($this->advertisingLikes);
     }
 
     public static  function makeHashNumber()

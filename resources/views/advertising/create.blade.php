@@ -104,19 +104,7 @@
 
 
 
-{{--                            <div class="form-group row">--}}
-{{--                                <label for="mobile" class="col-sm-2 col-form-label"><span class="text-danger"></span> {{__('Type')}}</label>--}}
-{{--                                <div class="col-sm-6">--}}
-{{--                                    <select name="type" class="form-control  _type">--}}
-{{--                                        <option  value="Residential">Residential</option>--}}
-{{--                                        <option  value="Commercial">Commercial</option>--}}
-{{--                                        <option  value="Industrial">Industrial</option>--}}
-{{--                                    </select>--}}
-{{--                                    @error('type')--}}
-{{--                                    <div class="help-block text-danger">{{ $message }}</div>--}}
-{{--                                    @enderror--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
+
                             <input type="hidden" name="type" value="Residential">
 
 
@@ -263,17 +251,7 @@
                                 </div>
                             </div>
 
-{{--                            <div class="form-group row" style="margin-top:20px">--}}
-{{--                                <label for="mobile" class="col-sm-2 col-form-label"><span class="text-danger"></span> {{__('Amenities')}}</label>--}}
-{{--                                <div class="col-sm-6">--}}
-{{--                                    <select class="form-control "  style="width:100%;height:100%" name="amenities[]" id="amenities" multiple>--}}
-{{--                                        @foreach($amenities as $item)--}}
-{{--                                            <option value="{{$item->id}}">{{$item->title_en}}</option>--}}
-{{--                                        @endforeach--}}
 
-{{--                                    </select>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
 
                             <hr>
 
@@ -440,7 +418,6 @@
                 'type'		: 'iframe',
                 'autoScale'    	: false
             });
-            $("#amenities").select2();
             $("#status").on("change",function () {
                 if($(this).prop("checked")){
                     $("#message_reject_box").hide();

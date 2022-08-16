@@ -17,14 +17,6 @@
                     <div class="col-sm-2">
                         <input type="text" class="form-control" id="title_ar" name="title_ar" placeholder="Type Title Ar..." required>
                     </div>
-                    <div class="col-sm-2">
-                        <select class="form-control" id="type" name="type" required>
-                            <option >Select Type</option>
-                            <option value="Residential">Residential</option>
-                            <option value="Commercial">Commercial</option>
-                            <option value="Industrial">Industrial</option>
-                        </select>
-                    </div>
                     <div class="col-sm-6">
                         <button type="button" class="btn btn-success" onclick="search($('#title_en').val(),$('#title_ar').val());"><i class="fa fa-fw fa-search"></i> {{__('Search venueType')}}</button>
                         <button type="button" class="btn btn-light" onclick="refreshPage();"><i class="fa fa-fw fa-close"></i> {{__('Cancel')}}</button>
@@ -40,7 +32,6 @@
         <tr>
             <th>{{__('TitleEn')}}</th>
             <th>{{__('TitleAr')}}</th>
-            <th>{{__('Type')}}</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -49,7 +40,6 @@
             <tr>
                 <td id="area-{{$item->id}}-name_en">{{$item->title_en}}</td>
                 <td id="area-{{$item->id}}-name_ar">{{$item->title_ar}}</td>
-                <td id="area-{{$item->id}}-type">{{$item->type}}</td>
                 <td>
                     <i class="fa fa-fw fa-pencil text-success" data-toggle="modal" data-target="#editModal-area-{{$item->id}}" title="Edit" style="cursor: pointer;"></i>
                     {{--<button class="btn btn-xs btn-outline-success-2x" type="button" data-toggle="modal" data-target="#editModal-area-{{$area->id}}"><i class="fa fa-fw fa-pencil"></i> Edit</button>--}}
@@ -78,13 +68,7 @@
                                         <div class="col-sm-3">
                                             <input type="text" class="form-control" name="name_ar" id="area-{{$item->id}}-new-name_ar" value="{{$item->title_ar}}">
                                         </div>
-                                        <div class="col-sm-3">
-                                            <select class="form-control" name="type" id="area-{{$item->id}}-new-type"  >
-                                                <option @if($item->type=="Residential") selected @endif value="Residential">Residential</option>
-                                                <option @if($item->type=="Commercial") selected @endif value="Commercial">Commercial</option>
-                                                <option @if($item->type=="Industrial") selected @endif value="Industrial">Industrial</option>
-                                            </select>
-                                        </div>
+                                        <input type="hidden" name="type" value="Residential" id="area-{{$item->id}}-new-type">
                                         <div class="col-sm-3">
                                             <button type="button" class="btn btn-secondary" onclick="editArea('{{$item->id}}')">{{__('Confirm')}}</button>
                                         </div>
@@ -122,11 +106,7 @@
                                 <input type="text"  placeholder="Type Title Ar..." class="form-control" required name="name_ar">
                             </div>
                             <div class="col-sm-4">
-                                <select class="form-control" name="type"   >
-                                    <option @if($item->type=="Residential") selected @endif value="Residential">Residential</option>
-                                    <option @if($item->type=="Commercial") selected @endif value="Commercial">Commercial</option>
-                                    <option @if($item->type=="Industrial") selected @endif value="Industrial">Industrial</option>
-                                </select>
+                                <input type="hidden" name="type" value="Residential">
                             </div>
                         </div>
                     </div>

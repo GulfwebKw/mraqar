@@ -39,15 +39,12 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\V1'], function (){
 
     Route::get('/getListAdvertising','AdvertisingController@getListAdvertising');
     Route::post('/search-advertising','AdvertisingController@search');
-    Route::post('/likeOrUnLike','AdvertisingController@likeOrUnLike');
     Route::get('/advertising/{id}','AdvertisingController@getAdvertising');
     Route::get('/similarAdvertising/{id}','AdvertisingController@similarAdvertising');
-    Route::get('/listComments/{id}','AdvertisingController@getListComments');
 
 
     Route::group(["prefix"=>"user"],function (){
         Route::get('/login','UserController@unAuthorize')->name('unAuthorize');
-        Route::get("/notifications",'UserController@notifications');
         Route::post("/verifyUserBySmsCode",'UserController@verifyUserBySmsCode');
         Route::post("/resetPassword",'UserController@resetPassword');
         Route::post('/sendResetPasswordCode','UserController@sendRequestSmsCode');
@@ -55,7 +52,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\V1'], function (){
         Route::post("/logVisitAdvertising",'AdvertisingController@logVisitAdvertising');
 
         Route::group(['middleware' => 'auth:api'], function (){
-            Route::get("/getCountBooking",'UserController@getCountBooking');
             Route::get("/getBalance",'UserController@getBalance');
             Route::get("/payments",'UserController@payments');
 
@@ -66,7 +62,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\V1'], function (){
 
             Route::get("/getSavedAdvertising",'AdvertisingController@getUserSaved');
             Route::get("/advertising",'AdvertisingController@getUserAdvertising');
-            Route::get("/relatedComments",'AdvertisingController@getRelatedComments');
             Route::post("/buyPackageOrCredit",'AdvertisingController@buyPackageOrCredit');
             Route::post("/advertising/create",'AdvertisingController@createAdvertising');
             Route::post("/advertising/attachFileToAdvertising",'AdvertisingController@attachFileToAdvertising');
@@ -74,7 +69,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\V1'], function (){
             Route::post("/advertising/delete",'AdvertisingController@deleteAdvertising');
             Route::post("/advertising/archive",'AdvertisingController@archiveAdvertising');
             Route::post("/advertising/detachArchive",'AdvertisingController@detachArchive');
-            Route::post("/comment",'AdvertisingController@setComment');
 
 
 
@@ -84,16 +78,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\V1'], function (){
             Route::post("/updateProfile",'UserController@updateProfile');
             Route::post("/updateDeviceToken",'UserController@updateDeviceToken');
             Route::post("/changePassword",'UserController@changePassword');
-
-
-
-
-            Route::post("/setBooking",'AdvertisingController@setBooking');
-            Route::post("/updateBooking",'AdvertisingController@updateBooking');
-            Route::post("/acceptOrRejectBooking",'AdvertisingController@acceptOrRejectBooking');
-            Route::post("/deleteBooking",'AdvertisingController@deleteBooking');
-            Route::get("/myBooking",'AdvertisingController@myBooking');
-            Route::get("/myBooker",'AdvertisingController@myBooker');
 
 
         });

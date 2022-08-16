@@ -138,31 +138,6 @@
                 </div>
             </div>
         </div>
-{{--        <div class="card col-md-6 mx-auto" style="margin-bottom: 2px">--}}
-{{--            <div class="card-body">--}}
-{{--                <div class="row">--}}
-{{--                    <div class="col">--}}
-
-{{--                        <h4>{{__('Amenities')}}</h4>--}}
-{{--                        <hr>--}}
-{{--                        <br>--}}
-{{--                        <div class="form-group row">--}}
-{{--                            @foreach($advertising->amenities as $amenities)--}}
-{{--                               <div class="col-sm-4">--}}
-{{--                                <div class="checkbox">--}}
-{{--                                    <input type="checkbox"  readonly checked  >--}}
-{{--                                    <label for="status">{{$amenities->title_en}}</label>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            @endforeach--}}
-{{--                        </div>--}}
-
-
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-
 
 {{-- <div class="card col-md-12 mx-auto" style="margin-bottom: 2px">--}}
 {{--    <div class="card-body">--}}

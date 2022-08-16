@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Site\Advertising\StoreRequest;
 use App\Models\Advertising;
 use App\Models\AdvertisingView;
-use App\Models\Amenities;
 use App\Models\Area;
 use App\Models\City;
 use App\Models\InvalidKey;
@@ -85,12 +84,6 @@ class AdvertisingController extends Controller
             $advertising = $advertising->where("number_of_rooms", $request->number_of_rooms);
         }
 
-        if (isset($request->amenities) && is_array($request->amenities)) {
-            $advertising = $advertising->whereHas("amenities", function ($r) use ($request) {
-                $r->whereIn('id', $request->amenities);
-            });
-        }
-
 
         if (isset($request->property) && is_array($request->property)) {
             if (in_array('parking', $request->property)) {
@@ -118,298 +111,6 @@ class AdvertisingController extends Controller
         return view('site.advertising.create', compact($cities, ));
     }
 
-    /**
-     *
-     * residential ads menu
-     *
-     */
-
-
-    public function residentials()
-    {
-        $residentials = Advertising::where('expire_at', '>', date('Y-m-d'))
-            ->where('advertising_type', 'normal')
-            ->where('type', 'residential')
-            ->whereNotNull('expire_at')
-            ->orderBy('created_at', 'desc')
-            ->paginate(18);
-
-        return view('site.pages.residentials', [
-            'residentials' => $residentials,
-            'sort' => 'Latest Ads'
-        ]);
-    }
-
-    public function latestResidentials()
-    {
-        $residentials = Advertising::where('expire_at', '>', date('Y-m-d'))
-            ->where('advertising_type', 'normal')
-            ->where('type', 'residential')
-            ->whereNotNull('expire_at')
-            ->orderBy('created_at', 'desc')
-            ->paginate(18);
-
-        return view('site.pages.residentials', [
-            'residentials' => $residentials,
-            'sort' => 'Latest Ads'
-        ]);
-    }
-
-    public function highestPriceResidentials()
-    {
-        $residentials = Advertising::where('expire_at', '>', date('Y-m-d'))
-            ->where('advertising_type', 'normal')
-            ->where('type', 'residential')
-            ->whereNotNull('expire_at')
-            ->orderBy('price', 'desc')
-            ->paginate(18);
-
-        return view('site.pages.residentials', [
-            'residentials' => $residentials,
-            'sort' => 'Highest price Ads'
-        ]);
-    }
-
-    public function lowestPriceResidentials()
-    {
-        $residentials = Advertising::where('expire_at', '>', date('Y-m-d'))
-            ->where('advertising_type', 'normal')
-            ->where('type', 'residential')
-            ->whereNotNull('expire_at')
-            ->orderBy('price', 'asc')
-            ->paginate(18);
-
-        return view('site.pages.residentials', [
-            'residentials' => $residentials,
-            'sort' => 'Lowest price Ads'
-        ]);
-    }
-
-    public function mostVisitedResidentials()
-    {
-        $residentials = Advertising::withCount('advertisingView')
-            ->where('expire_at', '>', date('Y-m-d'))
-            ->where('advertising_type', 'normal')
-            ->where('type', 'residential')
-            ->whereNotNull('expire_at')
-            ->orderBy('advertising_view_count', 'desc')->paginate(18);
-
-        return view('site.pages.residentials', [
-            'residentials' => $residentials,
-            'sort' => 'Most Visited Ads'
-        ]);
-    }
-
-    public function mostLikedResidentials()
-    {
-        $residentials = Advertising::withCount('advertisingLikes')
-            ->where('expire_at', '>', date('Y-m-d'))
-            ->where('advertising_type', 'normal')
-            ->where('type', 'residential')
-            ->whereNotNull('expire_at')
-            ->orderBy('advertising_likes_count', 'desc')->paginate(18);
-
-        return view('site.pages.residentials', [
-            'residentials' => $residentials,
-            'sort' => 'Most Liked Ads'
-        ]);
-    }
-
-
-    /**
-     *
-     * industrial ads menu
-     *
-     */
-
-
-    public function industrials()
-    {
-        $industrials = Advertising::where('expire_at', '>', date('Y-m-d'))
-            ->where('advertising_type', 'normal')
-            ->where('type', 'industrial')
-            ->whereNotNull('expire_at')
-            ->orderBy('created_at', 'desc')
-            ->paginate(18);
-
-        return view('site.pages.industrials', [
-            'industrials' => $industrials,
-            'sort' => 'Latest Ads'
-        ]);
-    }
-
-    public function latestIndustrials()
-    {
-        $industrials = Advertising::where('expire_at', '>', date('Y-m-d'))
-            ->where('advertising_type', 'normal')
-            ->where('type', 'industrial')
-            ->whereNotNull('expire_at')
-            ->orderBy('created_at', 'desc')
-            ->paginate(18);
-
-        return view('site.pages.industrials', [
-            'industrials' => $industrials,
-            'sort' => 'Latest Ads'
-        ]);
-    }
-
-    public function highestPriceIndustrials()
-    {
-        $industrials = Advertising::where('expire_at', '>', date('Y-m-d'))
-            ->where('advertising_type', 'normal')
-            ->where('type', 'industrial')
-            ->whereNotNull('expire_at')
-            ->orderBy('price', 'desc')
-            ->paginate(18);
-
-        return view('site.pages.industrials', [
-            'industrials' => $industrials,
-            'sort' => 'Highest price Ads'
-        ]);
-    }
-
-    public function lowestPriceIndustrials()
-    {
-        $industrials = Advertising::where('expire_at', '>', date('Y-m-d'))
-            ->where('advertising_type', 'normal')
-            ->where('type', 'industrial')
-            ->whereNotNull('expire_at')
-            ->orderBy('price', 'asc')
-            ->paginate(18);
-
-        return view('site.pages.industrials', [
-            'industrials' => $industrials,
-            'sort' => 'Lowest price Ads'
-        ]);
-    }
-
-    public function mostVisitedIndustrials()
-    {
-        $industrials = Advertising::withCount('advertisingView')
-            ->where('expire_at', '>', date('Y-m-d'))
-            ->where('advertising_type', 'normal')
-            ->where('type', 'industrial')
-            ->whereNotNull('expire_at')
-            ->orderBy('advertising_view_count', 'desc')->paginate(18);
-
-        return view('site.pages.industrials', [
-            'industrials' => $industrials,
-            'sort' => 'Most Visited Ads'
-        ]);
-    }
-
-    public function mostLikedIndustrials()
-    {
-        $industrials = Advertising::withCount('advertisingLikes')
-            ->where('expire_at', '>', date('Y-m-d'))
-            ->where('advertising_type', 'normal')
-            ->where('type', 'industrial')
-            ->whereNotNull('expire_at')
-            ->orderBy('advertising_likes_count', 'desc')->paginate(18);
-
-        return view('site.pages.industrials', [
-            'industrials' => $industrials,
-            'sort' => 'Most Liked Ads'
-        ]);
-    }
-
-
-    /**
-     *
-     * commercial ads menu
-     *
-     */
-
-
-    public function commercials()
-    {
-        $commercials = Advertising::where('expire_at', '>', date('Y-m-d'))
-            ->where('advertising_type', 'normal')
-            ->where('type', 'commercial')
-            ->whereNotNull('expire_at')
-            ->orderBy('created_at', 'desc')
-            ->paginate(18);
-
-        return view('site.pages.commercials', [
-            'commercials' => $commercials,
-            'sort' => 'Latest Ads'
-        ]);
-    }
-
-    public function latestCommercials()
-    {
-        $commercials = Advertising::where('expire_at', '>', date('Y-m-d'))
-            ->where('advertising_type', 'normal')
-            ->where('type', 'commercial')
-            ->whereNotNull('expire_at')
-            ->orderBy('created_at', 'desc')
-            ->paginate(18);
-
-        return view('site.pages.commercials', [
-            'commercials' => $commercials,
-            'sort' => 'Latest Ads'
-        ]);
-    }
-
-    public function highestPriceCommercials()
-    {
-        $commercials = Advertising::where('expire_at', '>', date('Y-m-d'))
-            ->where('advertising_type', 'normal')
-            ->where('type', 'commercial')
-            ->whereNotNull('expire_at')
-            ->orderBy('price', 'desc')
-            ->paginate(18);
-
-        return view('site.pages.commercials', [
-            'commercials' => $commercials,
-            'sort' => 'Highest price Ads'
-        ]);
-    }
-
-    public function lowestPriceCommercials()
-    {
-        $commercials = Advertising::where('expire_at', '>', date('Y-m-d'))
-            ->where('advertising_type', 'normal')
-            ->where('type', 'commercial')
-            ->whereNotNull('expire_at')
-            ->orderBy('price', 'asc')
-            ->paginate(18);
-
-        return view('site.pages.commercials', [
-            'commercials' => $commercials,
-            'sort' => 'Lowest price Ads'
-        ]);
-    }
-
-    public function mostVisitedCommercials()
-    {
-        $commercials = Advertising::withCount('advertisingView')
-            ->where('expire_at', '>', date('Y-m-d'))
-            ->where('advertising_type', 'normal')
-            ->where('type', 'commercial')
-            ->whereNotNull('expire_at')
-            ->orderBy('advertising_view_count', 'desc')->paginate(18);
-
-        return view('site.pages.commercials', [
-            'commercials' => $commercials,
-            'sort' => 'Most Visited Ads'
-        ]);
-    }
-
-    public function mostLikedCommercials()
-    {
-        $commercials = Advertising::withCount('advertisingLikes')
-            ->where('expire_at', '>', date('Y-m-d'))
-            ->where('advertising_type', 'normal')
-            ->where('type', 'commercial')
-            ->whereNotNull('expire_at')
-            ->orderBy('advertising_likes_count', 'desc')->paginate(18);
-
-        return view('site.pages.commercials', [
-            'commercials' => $commercials,
-            'sort' => 'Most Liked Ads'
-        ]);
-    }
 
 
     /**
@@ -489,19 +190,6 @@ class AdvertisingController extends Controller
         ]);
     }
 
-    public function mostLikedPremiums()
-    {
-        $premiums = Advertising::withCount('advertisingLikes')
-            ->where('expire_at', '>', date('Y-m-d'))
-            ->where('advertising_type', 'premium')
-            ->whereNotNull('expire_at')
-            ->orderBy('advertising_likes_count', 'desc')->paginate(18);
-
-        return view('site.pages.premiums', [
-            'premiums' => $premiums,
-            'sort' => 'Most Liked Ads'
-        ]);
-    }
 
     //////////////////////////////////
     // delete Ads
@@ -527,9 +215,7 @@ class AdvertisingController extends Controller
     public function details($locale,$hashNumber)
     {
         $this->addView($hashNumber);
-        $advertising = Advertising::where('hash_number', $hashNumber)->with(['user','city','area', 'amenities', 'comments' => function ($q) {
-            $q->where('status', 1)->with(['user']);
-        }, 'advertisingView', 'advertisingLikes', 'area', 'city'])->first();
+        $advertising = Advertising::where('hash_number', $hashNumber)->with(['user','city','area', 'advertisingView', 'area', 'city'])->first();
 //          dd(collect(json_decode($advertising->other_image))->toArray());
 //        return $advertising->advertisingView;
         $relateds = Advertising::where('expire_at', '>=', Carbon::now())->orderBy('id', 'desc')->where('id', '!=', $advertising->id)->limit(6)->get();
@@ -568,10 +254,6 @@ class AdvertisingController extends Controller
         dd(\request()->all());
     }
 
-    public function getAmenities()
-    {
-        return Amenities::all();
-    }
 
     public function getCities()
     {
@@ -587,8 +269,7 @@ class AdvertisingController extends Controller
 
 	public function getVenueTypes()
     {
-	    if(empty(\request('type_id'))){ $typeid = 'Residential';}else{ $typeid = \request('type_id');}
-        return VenueType::where('type',$typeid)->orderBy('title_en')->get();
+        return VenueType::where('type','Residential')->orderBy('title_en')->get();
     }
 
     public function store(StoreRequest $request)
@@ -710,11 +391,6 @@ class AdvertisingController extends Controller
 
         $advertising->save();
 
-        $selectedAmenities = json_decode($request->selectedAmenities);
-        $amenitiesArray = (collect($selectedAmenities)->pluck('id'))->toArray();
-        if (isset($amenitiesArray)) {
-            $advertising->amenities()->sync($amenitiesArray, true);
-        }
 //        event(new NewAdvertising($advertising));
         return $advertising;
     }
@@ -725,7 +401,7 @@ class AdvertisingController extends Controller
 
     public function edit($locale,$hashNumber)
     {
-        $advertising = Advertising::where('hash_number', $hashNumber)->with(['amenities'])->first();
+        $advertising = Advertising::where('hash_number', $hashNumber)->first();
 //        $photo=collect(json_decode($advertising->other_image))->toArray();
 //         dd($photo['other_image1']);
         return view('site.advertising.edit', compact('advertising'));
@@ -754,7 +430,6 @@ class AdvertisingController extends Controller
 
         $massage = 'unsuccess';
         if ($advertising) {
-            $advertising->amenities()->detach();
             $massage = 'success';
             $advertising->delete();
         }

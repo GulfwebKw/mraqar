@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Models\Amenities;
+
 use App\Models\Area;
 use App\Models\City;
 use App\Models\Package;
@@ -60,7 +60,6 @@ class GeneralController extends ApiBaseController
 
         $data=[
                  'type'=>VenueType::all(),
-                 'amenities'=>Amenities::where('is_enable',1)->get()
               ];
 
         return $this->success("",$data);

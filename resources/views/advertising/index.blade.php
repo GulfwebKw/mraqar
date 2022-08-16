@@ -61,15 +61,6 @@
                                             <label for="fromDate" class=" col-form-label">{{__('Start Date')}}</label>
                                             <input type="date" @if(isset(request()->toDate)) value="{{request()->toDate}}" @endif placeholder="{{__('End Date')}}" name="toDate" id="to-date" class="form-control" />
                                         </div>
-                                        <div class="col-sm-4">
-                                            <label for="fromDate" class=" col-form-label">{{__('Type')}}</label>
-                                            <select  name="type" class="form-control">
-                                                <option @if(isset(request()->type) && request()->type=="all" ) selected  @endif value="all">all</option>
-                                                <option @if(isset(request()->type) && request()->type=="residential" ) selected  @endif value="residential">residential</option>
-                                                <option @if(isset(request()->type) && request()->type=="commercial" ) selected  @endif value="commercial">commercial</option>
-                                                <option @if(isset(request()->type) && request()->type=="industrial" ) selected  @endif value="industrial">industrial</option>
-                                            </select>
-                                        </div>
                                     </div>
                                 </div>
 
@@ -120,7 +111,7 @@
                                 {{--                                </div>--}}
 
                                 -->
-                                
+
                                 <div class="col-lg-4">
                                     <button type="submit"  class="btn btn-secondary"><i class="fa fa-fw fa-search"></i> {{__('Filter')}}</button>
                                     <button type="button" class="btn btn-light" onclick="window.location.href='{{$type=="individual"?"/admin/advertising-list/individual":"/admin/advertising-list/companies"}}'"><i class="fa fa-fw fa-close"></i> {{__('Cancel')}}</button>

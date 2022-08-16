@@ -4,11 +4,8 @@ namespace App\Http\Controllers\Api\V1;
 use App\Jobs\EmailNotify;
 use App\Lib\KnetPayment;
 use App\Models\Advertising;
-use App\Models\Booking;
-use App\Models\Comment;
 use App\Models\InvalidKey;
 use App\Models\LogVisitAdvertising;
-use App\Models\Notification;
 use App\Models\Package;
 use App\Models\PackageHistory;
 use App\Models\Payment;
@@ -37,62 +34,20 @@ class AdvertisingController extends ApiBaseController
     }
     public function similarAdvertising($id)
     {
-        $advertising=Advertising::with(["user","area","city","amenities"])->find($id);
+        $advertising=Advertising::with(["user","area","city"])->find($id);
         $list=Advertising::getValidAdvertising()->where('type',$advertising->type)->where("venue_type",$advertising->venue_type)->where("purpose",$advertising->purpose)->paginate(10);
         return $this->success("aaa",$list);
     }
     public function getAdvertising($id)
     {
-        $advertising=Advertising::with(["user","area","city","amenities"])->find($id);
+        $advertising=Advertising::with(["user","area","city"])->find($id);
         $device_token=\request()->device_token;
         $user_id=\request()->user_id;
         $count=$this->visitAdvertising($id,$device_token);
-        $countLike=$this->getCountLike($id);
-        $hasLike=$this->hasLikeUser(\request()->device_token,$id);
         $hasArchive=$this->hasArchive($user_id,$id);
         $advertising->count_view=$count;
-        $advertising->count_like=$countLike;
-        $advertising->has_like=$hasLike;
         $advertising->has_archive=$hasArchive;
         return $this->success("",$advertising);
-    }
-    public function getListComments($id)
-    {
-        $list = $this->getComments($id);
-        return $this->success("",$list);
-    }
-    public function getRelatedComments(Request $request)
-    {
-        $user=auth()->user();
-        $res=        DB::table("advertisings")->where('user_id',$user->id)->pluck('id')->toArray();
-        if(count($res)>=1){
-          $result=  $this->getComments($res);
-            return $this->success("",$result);
-        }
-        return $this->success("");
-    }
-    public function setComment(Request $request)
-    {
-        $validate = Validator::make($request->all(), [
-            'comment' => 'required',
-        ]);
-        if ($validate->fails())
-            return $this->fail($validate->errors()->first());
-
-        $result=$this->filterKeywords($request->comment);
-        if(!$result[0]){
-            return $this->fail("invalid Keyword (".$result[1].")",-1,$request->all());
-        }
-        $user=auth()->user();
-        Comment::create(['comment'=>$request->comment,
-            'advertising_id'=>$request->id,
-            'user_id'=>$user->id,
-            'comment_id'=>$request->comment_id,
-            'status'=>1
-        ]);
-        $list = $this->getComments($request->id);
-        return $this->success("",$list);
-
     }
     public function getUserSaved(Request $request)
     {
@@ -104,7 +59,7 @@ class AdvertisingController extends ApiBaseController
     }
     public function getUserAdvertising(Request $request)
     {
-        $advertising=Advertising::getValidAdvertising(0)->with("amenities")->where(function ($r)use($request){
+        $advertising=Advertising::getValidAdvertising(0)->where(function ($r)use($request){
             if($request->expire==1){
                 $r->where('expire_at','<',date('Y-m-d'))->whereNotNull('expire_at');
             }else{
@@ -459,34 +414,7 @@ class AdvertisingController extends ApiBaseController
         }else
             return view("api.pages.payment", compact('message', 'refId', 'trackid', 'payment', 'order'));
     }
-    public function likeOrUnLike(Request $request)
-    {
-        $validate = Validator::make($request->all(), [
-            'device_token' => 'required',
-            'like' => 'required|in:1,0',
-        ]);
-        if ($validate->fails())
-            return $this->fail($validate->errors()->first());
 
-        $like=$request->like;
-        $deviceToken=$request->device_token;
-        $id=$request->id;
-        if($like==1){
-           $res= DB::table("advertising_like")->where('advertising_id',$id)->where('device_token',$deviceToken)->first();
-               if(!isset($res)){
-                DB::table("advertising_like")->insert(['advertising_id'=>$id,'device_token'=>$deviceToken,'created_at'=>date("Y-m-d h:i:s")]);
-               }
-            $count=$this->getCountLike($id);
-            return $this->success("",['count'=>$count]);
-        }else{
-            DB::table("advertising_like")->where('advertising_id',$id)->where('device_token',$deviceToken)->delete();
-            $count=$this->getCountLike($id);
-            return $this->success("",['count'=>$count]);
-        }
-    }
-    private function getCountLike($id){
-        return DB::table("advertising_like")->where('advertising_id',$id)->count();
-    }
     private function visitAdvertising($id,$token=null)
     {
         if(isset($token)&&$token!=null&&!empty($token)){
@@ -500,137 +428,6 @@ class AdvertisingController extends ApiBaseController
         $count=DB::table("advertising_view")->where('advertising_id',$id)->count();
         return $count;
 
-    }
-    public function setBooking(Request $request)
-    {
-        try {
-            $user=auth()->user();
-            $validate = Validator::make($request->all(), [
-                'advertising_id' => 'required|numeric',
-                'name'=>"required",
-                'email'=>'nullable|email',
-                'mobile'=>'required|digits:8',
-                'date'=>'required',
-                'time'=>'required'
-            ]);
-            if ($validate->fails())
-                return $this->fail($validate->errors()->first());
-
-            $advertising=Advertising::with("user")->find($request->advertising_id);
-            $booking=  Booking::create(['advertising_id'=>$request->advertising_id,'user_id'=>$advertising->user_id,'booker_id'=>auth()->user()->id,'name'=>$request->name,'mobile'=>$request->mobile,'email'=>$request->email,'message'=>$request->message,'date'=>$request->date,'time'=>$request->time]);
-           // $notification=   Notification::create(['user_id'=>$user->id,'title_en'=>__("new_booking_request"),"title_ar"=>__("new_booking_request"),'message_en'=>__("new_booking"),"message_ar"=>__("new_booking")]);
-
-            if(optional($advertising->user)->device_token!=null){
-                $data = array("title" =>__("new_booking_request"),"message" =>__("new_booking"),'notify_type'=>'new_booking');
-                $notification=["title" =>__("new_booking_request"),'body'=>__("new_booking"),'badge'=>1,'sound'=>'ping.aiff','notify_type'=>'new_booking'];
-                parent::sendPushNotification($data,optional($advertising->user)->device_token,[],$notification);
-            }
-
-            if($advertising->user ) {
-                    $settings=Setting::whereIn('setting_key',['book_email_text_en','book_email_text_ar'])->get()->keyBy('setting_key')->toArray();
-                    $booking=Booking::with(["booker","user"])->whereId($booking->id)->first();
-                   $message=optional($advertising->user)->lang=="ar"?optional($settings['book_email_text_ar'])->setting_value:optional($settings['book_email_text_en'])->setting_value;
-                   $messageBooking=optional($booking->user)->lang=="ar"?optional($settings['book_email_text_ar'])->setting_value:optional($settings['book_email_text_en'])->setting_value;
-
-                    if(isset(optional($booking->booker)->email)){
-                        dispatch(new EmailNotify(optional($booking->booker)->email,$message,['advertising'=>$advertising,'booking'=>$booking],'booker'))->onQueue("notifyUser");
-                    }
-
-                    if(optional($advertising->user)->email){
-                        dispatch(new EmailNotify(optional($advertising->user)->email,$messageBooking,['advertising'=>$advertising,'booking'=>$booking],'booking'))->onQueue("notifyUser");
-                    }
-
-            }
-
-            return $this->success(trans("main.success"));
-        }catch (\Exception $e){
-            return $this->fail($e->getMessage());
-        }
-
-
-
-    }
-    public function updateBooking(Request $request)
-    {
-        try {
-            $validate = Validator::make($request->all(), [
-                'id' => 'required|numeric',
-                'name'=>"required",
-                'email'=>'nullable|email',
-                'mobile'=>'required|digits:8',
-                'date'=>'required',
-                'time'=>'required'
-            ]);
-            if ($validate->fails())
-                return $this->fail($validate->errors()->first());
-
-                $booking=Booking::find($request->id);
-                $booking->name=$request->name;
-                $booking->mobile=$request->mobile;
-                $booking->email=$request->email;
-                $booking->message=$request->message;
-                $booking->date=$request->date;
-                $booking->time=$request->time;
-                $booking->save();
-
-
-            return $this->success(trans("main.success"));
-
-        }catch (\Exception $e){
-            return $this->fail($e->getMessage());
-        }
-
-
-    }
-    public function acceptOrRejectBooking(Request $request)
-    {
-        $id=$request->id;
-        $status=$request->status;
-        $validate = Validator::make($request->all(), [
-            'id' => 'required|numeric',
-            'status'=>'required|in:accept,reject'
-        ]);
-        if ($validate->fails())
-            return $this->fail($validate->errors()->first());
-
-
-        $booking=Booking::with(["booker","user"])->whereId($id)->first();
-        $booking->status=$status;
-        $booking->save();
-        if($request->status=="accept"){
-            $title=__('accept_request');
-            $message=__('accept_booking_request');
-        }else{
-            $title=__('reject_request');
-            $message=__('reject_booking_request');
-        }
-
-        if(optional($booking->booker)->device_token!=null){
-            $data = array("title" =>$title,"message" =>$message,'notify_type'=>'booking_response');
-            $notification=["title" =>$title,'body'=>$message,'badge'=>1,'sound'=>'ping.aiff','notify_type'=>'booking_response'];
-           // Notification::create(["user_id"=>$booking->booker->id,'device_token'=>$])
-            parent::sendPushNotification($data,optional($booking->booker)->device_token,[],$notification);
-
-        }
-        return $this->success("");
-
-    }
-    public function deleteBooking(Request $request)
-    {
-        Booking::where('id',$request->id)->delete();
-        return $this->success(trans("main.success"));
-
-    }
-    public function myBooking(Request $request)
-    {
-        $bookings=Booking::where("booker_id",$request->user()->id)->with(["advertising.user","advertising.area"])->whereHas("advertising")->orderBy('id','desc')->paginate(10);
-        return $this->success("",$bookings);
-    }
-    public function myBooker(Request $request)
-    {
-        //where("booker_id",'!=',$request->user()->id)->
-        $bookings=Booking::where('user_id',$request->user()->id)->with(["advertising.user","advertising.area"])->whereHas("advertising")->orderBy('id','desc')->paginate(10);
-        return $this->success("",$bookings);
     }
     public function logVisitAdvertising(Request $request)
     {
@@ -695,11 +492,6 @@ class AdvertisingController extends ApiBaseController
             $advertising = $advertising->where("number_of_rooms",$request->number_of_rooms);
         }
 
-        if(isset($request->amenities)&& is_array($request->amenities)){
-            $advertising=$advertising->whereHas("amenities",function ($r)use($request){
-               $r->whereIn('id',$request->amenities);
-            });
-        }
 
 
         if(isset($request->property) && is_array($request->property)){
@@ -724,7 +516,6 @@ class AdvertisingController extends ApiBaseController
             return Validator::make($request->all(), [
                 'title_en' => 'required|max:250',
                 'title_ar' => 'nullable|max:250',
-                'type' => 'required|in:residential,commercial,industrial',
                 'venue_type' => 'required',
                 'purpose' => 'required|in:rent,sell,exchange,required_for_rent',
                 'advertising_type' => 'required|in:normal,premium',
@@ -748,7 +539,6 @@ class AdvertisingController extends ApiBaseController
         return Validator::make($request->all(), [
             'title_en' => 'required|max:250',
             'title_ar' => 'nullable|max:250',
-            'type' => 'required|in:residential,commercial,industrial',
             'venue_type' => 'required',
             'purpose' => 'required|in:rent,sell,exchange,required_for_rent',
             'advertising_type' => 'required|in:normal,premium',
@@ -845,24 +635,7 @@ class AdvertisingController extends ApiBaseController
         $advertising->save();
 
 
-        $amenitiesArray=explode(",",$request->amenities);
-        Log::info($amenitiesArray);
-
-        if(isset($amenitiesArray)){
-           $advertising->amenities()->sync($amenitiesArray,true);
-        }
         return $advertising;
-    }
-    private function getComments($id)
-    {
-        $list = Comment::with(["user","advertising"]);
-        if(is_array($id)){
-            $list=$list->whereIn('advertising_id', $id);
-        }else{
-            $list=$list->where('advertising_id', $id);
-        }
-        $list=$list->orderBy('id', 'desc')->paginate(10);
-        return $list;
     }
     private function makeSearchHistory($request){
         if($request->device_token!=null&&$request->device_token!="" && $request->device_token!="null"){
@@ -871,10 +644,7 @@ class AdvertisingController extends ApiBaseController
             DB::table("search_history")->insert(['area_id'=>$area_id,'city_id'=>$cityId,'advertising_type'=>$request->advertising_type,'type'=>$request->type,'venue_type'=>$request->venue_type,'purpose'=>$request->purpose,'main_price'=>floatval($request->main_price),'max_price'=>floatval($request->max_price),'device_token'=>$request->device_token]);
         }
     }
-    private function hasLikeUser($device_token,$id)
-    {
-      return  DB::table("advertising_like")->where("advertising_id",$id)->where("device_token",$device_token)->count();
-    }
+
     private function hasArchive($userId,$id)
     {
        return  DB::table("user_archive_advertising")->where("user_id",$userId)->where("advertising_id",$id)->count();

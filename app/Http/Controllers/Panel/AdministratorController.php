@@ -101,7 +101,6 @@ class AdministratorController extends Controller
     public function edit($user)
     {
         $user = User::find($user);
-        $venueType=VenueType::where("type","Residential")->get();
         return view('administrators.edit', compact('user'));
     }
 

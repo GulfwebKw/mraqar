@@ -57,7 +57,6 @@
 
 
                         <a class="dropdown-item text-danger" href="#" onclick='event.preventDefault(); destroy({{$item->id}});' ><i class="fa fa-fw fa-trash"></i> {{__('Delete')}}</a>
-                        <a class="dropdown-item text-info" href="{{route("comments.advertising",$item->id)}}" ><i class="fa fa-fw fa-file-text"></i> {{__('Comments')}} ( {{$item->comments->count()}})</a>
 
                         @if($item->status=="new")
                               <a class="dropdown-item text-success" href="#" onclick='event.preventDefault(); accept({{$item->id}});' ><i class="fa fa-fw fa-check"></i> {{__('Accept')}}</a>

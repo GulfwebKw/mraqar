@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Panel;
 
 use App\Http\Controllers\Controller;
 use App\Models\Advertising;
-use App\Models\Amenities;
 use App\Models\Area;
 use App\Models\City;
 use App\Models\VenueType;
@@ -43,8 +42,7 @@ class AdvertisingController extends Controller
         $area=Area::all();
         $users=User::where("type","member")->get();
         $venueType=VenueType::where('type','Residential')->get();
-        $amenities=Amenities::all();
-        return view('advertising.create',compact('area','city','users','venueType','amenities'));
+        return view('advertising.create',compact('area','city','users','venueType'));
 
 
     }
@@ -78,7 +76,7 @@ class AdvertisingController extends Controller
     }
     public function view($id)
     {
-       $advertising= Advertising::with(["area","city","user.package","amenities"])->find($id);
+       $advertising= Advertising::with(["area","city","user.package"])->find($id);
         $imagePath=[];
         if($advertising->other_image!=null){
             $imagePath=json_decode($advertising->other_image);
@@ -101,13 +99,12 @@ class AdvertisingController extends Controller
     {
         $advertising=Advertising::with(["user","area","city"])->find($id);
         $venueType=VenueType::where('type',$advertising->type)->get();
-        $amenities=Amenities::all();
         $imagePath=[];
         if($advertising->other_image!=null){
             $imagePath=json_decode($advertising->other_image);
         }
 
-        return view('advertising.details',compact("advertising","imagePath",'amenities','venueType'));
+        return view('advertising.details',compact("advertising","imagePath",'venueType'));
 
     }
 
@@ -127,7 +124,7 @@ class AdvertisingController extends Controller
 
     public static function filterAdvertising($request)
     {
-        $advertising=Advertising::with(["user","area","city","comments"]);
+        $advertising=Advertising::with(["user","area","city"]);
         if(isset($request->fromDate)){
             $fromDate=self::returnDateTimeFormat($request->fromDate);
             $advertising=$advertising->where('created_at','>=',$fromDate);
@@ -289,7 +286,6 @@ class AdvertisingController extends Controller
             $advertising->other_image = json_encode($newPath);
         }
         $advertising->save();
-        $advertising->amenities()->sync($request->amenities,true);
     }
 
 
