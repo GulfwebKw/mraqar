@@ -1,10 +1,13 @@
 @extends('site.layout.master')
+@php
+    $unSide = app()->getLocale() === 'en' ? 'l' : 'r';
+@endphp
 
 @section('content')
 
     <!-- Start listing Details Area -->
     <section class="listing-details-area pt-100 pb-70 bg-f7fafd">
-        <div class="container ">
+        <div class="container">
             <create :user="{{json_encode(\Illuminate\Support\Facades\Auth::user())}}"
                     :locale="{{json_encode(app()->getLocale())}}"></create>
         </div>
@@ -16,6 +19,11 @@
     <main>
         <div class="px-3">
             <div class="theme-container">
+                @if((session('status')) == 'unsuccess')
+                    <div class="alert alert-danger mt-3">
+                        <strong>{{__('un_success_title')}}!</strong> {{__('un_success_alert_title')}}!
+                    </div>
+                @endif
                 <div class="py-3">
                     <div class="mdc-card p-3">
                         <div class="mdc-tab-bar-wrapper submit-property">
@@ -28,31 +36,43 @@
 
                                     <div class="col-xs-12 mb-2 p-0">
                                         <p class="uppercase m-2 fw-500">{{__('ADVERTISE_TYPE')}}</p>
-                                        <div class="mdc-form-field">
+                                        <div class="mdc-form-field w-100">
                                             <div class="mdc-radio">
-                                                <input class="mdc-radio__native-control" type="radio" id="normal" name="advertise_type" value="normal"
-                                                       {{ old('advertise_type')=="normal" ? 'checked' : '' }}>
+                                                <input class="mdc-radio__native-control" type="radio" id="normal" name="advertising_type" value="normal"
+                                                       {{ old('advertising_type')=="normal" ? 'checked' : '' }} {{ $credit['count_normal_advertising'] > 0 ?: 'disabled' }}>
                                                 <div class="mdc-radio__background">
                                                     <div class="mdc-radio__outer-circle"></div>
                                                     <div class="mdc-radio__inner-circle"></div>
                                                 </div>
                                             </div>
-                                            <label for="normal">Normal</label>
+                                            <label for="normal">
+                                                {{__('normal_title')}}
+                                                @if($credit['count_normal_advertising'] > 0)
+                                                    <span class="text-success m{{$unSide}}-5">{{$credit['count_normal_advertising']}} ad remaining</span>
+                                                @else
+                                                    <span class="text-danger m{{$unSide}}-5">{{$credit['count_normal_advertising']}} ad remaining</span>
+                                                @endif
+                                            </label>
                                         </div>
                                         <br>
                                         <div class="mdc-form-field">
                                             <div class="mdc-radio">
-                                                <input class="mdc-radio__native-control" type="radio" id="premium" name="advertise_type" value="premium"
-                                                    {{ old('advertise_type')=="premium" ? 'checked' : '' }}>
+                                                <input class="mdc-radio__native-control" type="radio" id="premium" name="advertising_type" value="premium"
+                                                    {{ old('advertising_type')=="premium" ? 'checked' : '' }} {{ $credit['count_premium_advertising'] > 0 ?: 'disabled' }}>
                                                 <div class="mdc-radio__background">
                                                     <div class="mdc-radio__outer-circle"></div>
                                                     <div class="mdc-radio__inner-circle"></div>
                                                 </div>
                                             </div>
-                                            <label for="premium">Premium</label>
+                                            <label for="premium">{{__('premium_title')}}</label>
+                                            @if($credit['count_premium_advertising'] > 0)
+                                                <span class="text-success m{{$unSide}}-5">{{$credit['count_premium_advertising']}} ad remaining</span>
+                                            @else
+                                                <span class="text-danger m{{$unSide}}-5">{{$credit['count_premium_advertising']}} ad remaining</span>
+                                            @endif
                                         </div>
                                         <br>
-                                        @error('advertise_type')
+                                        @error('advertising_type')
                                         <span class="invalid-feedback warn-color d-inline-block">
                                                 <strong>{{ $message }}</strong>
                                             </span>

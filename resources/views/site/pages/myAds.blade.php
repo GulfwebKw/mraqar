@@ -9,6 +9,14 @@
         <div class="alert alert-danger">
             <strong>{{__('un_success_title')}}!</strong> {{__('un_success_alert_title')}} !
         </div>
+    @elseif((session('status')) == 'expire_your_credit')
+        <div class="alert alert-danger">
+            <strong>{{__('un_success_title')}}!</strong> {{__('un_success_alert_title')}} !
+        </div>
+    @elseif((session('status')) == 'ad_created')
+        <div class="alert alert-success">
+            <strong>{{__('success_title')}}!</strong> {{__('ad_created_title')}} !
+        </div>
     @endif
 
 

@@ -419,5 +419,6 @@
     "city" : "مدينة",
     "property_type" : "نوع الملكية",
     "Reset Password" : "إعادة تعيين كلمة المرور",
-    "dinar" : "دینار"
+    "dinar" : "دینار",
+    "ad_created_title": "تم إنشاء إعلانك بنجاح"
 }

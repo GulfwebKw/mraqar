@@ -110,8 +110,11 @@ class AdvertisingController extends Controller
         $cities = City::orderBy('name_en')->get();
         $types = VenueType::where('type','Residential')->orderBy('title_en')->get();
         $purposes = ['rent', 'sell', 'exchange', 'required_for_rent'];
+        $credit = $this->getCreditUser(auth()->id());
+        if ($credit === [])
+            $credit = ['count_premium_advertising' => 0, 'count_normal_advertising' => 0];
 
-        return view('site.advertising.create', compact('cities', 'types', 'purposes'));
+        return view('site.advertising.create', compact('cities', 'types', 'purposes', 'credit'));
     }
 
 
@@ -303,12 +306,15 @@ class AdvertisingController extends Controller
                 $advertising->expire_at = $expireDate;
                 $advertising->save();
                 DB::commit();
-                return $this->success("", ['advertising' => $advertising]);
+                // return $this->success("", ['advertising' => $advertising]);
+                return redirect()->route('Main.myAds', app()->getLocale())->with('status', 'ad_created');
             }
-            return $this->fail(trans("main.expire_your_credit"));
+            // return $this->fail(trans("main.expire_your_credit"));
+            return redirect()->back()->with('status', 'expire_your_credit');
         } catch (\Exception $exception) {
             DB::rollback();
-            return $this->fail($exception->getMessage(), -1, $request->all());
+            // return $this->fail($exception->getMessage(), -1, $request->all());
+            return redirect()->back()->withInput()->with('status', 'unsuccess');
         }
     }
 
@@ -333,7 +339,7 @@ class AdvertisingController extends Controller
         $advertising->user_id = Auth::user()->id;
         $advertising->city_id = $request->city_id;
         $advertising->area_id = $request->area_id;
-        $advertising->type = $request->type;
+        $advertising->type = 'residential';
         $advertising->venue_type = $request->venue_type;
         $advertising->purpose = $request->purpose;
         $advertising->advertising_type = $request->advertising_type;
@@ -349,9 +355,9 @@ class AdvertisingController extends Controller
         $advertising->number_of_floor = $request->number_of_floor ? $request->number_of_floor : null;
         $advertising->number_of_miad_rooms = $request->number_of_miad_rooms ? $request->number_of_miad_rooms : null;
         $advertising->surface = $request->surface ? $request->surface : null;
-        $advertising->gym = $request->gym;
-        $advertising->pool = $request->pool;
-        $advertising->furnished = $request->furnished;
+        // $advertising->gym = $request->gym;
+        // $advertising->pool = $request->pool;
+        // $advertising->furnished = $request->furnished;
         $advertising->security = $request->security;
         $advertising->location_lat = $request->location_lat;
         $advertising->location_long = $request->location_long;
@@ -386,17 +392,19 @@ class AdvertisingController extends Controller
             }
             $otherImage["other_image" . $i] = $path;
         }
-        foreach ( $request->other_images_link as $i => $link) {
-            rename(public_path('/resources/tempUploads/' . $link), public_path('resources/uploads/images/' . $link));
-            if ( $i == 0 )
-                $advertising->main_image = '/resources/uploads/images/'.$link;
-            else
-                $otherImage["other_image" . ($i - 1 ) ] = '/resources/uploads/images/'.$link;
-        }
+        if ($request->other_images_link) {
+            foreach ($request->other_images_link as $i => $link) {
+                rename(public_path('/resources/tempUploads/' . $link), public_path('resources/uploads/images/' . $link));
+                if ($i == 0)
+                    $advertising->main_image = '/resources/uploads/images/' . $link;
+                else
+                    $otherImage["other_image" . ($i - 1)] = '/resources/uploads/images/' . $link;
+            }
 
-        if (count($otherImage) >= 1) {
-            $otherImage = json_encode($otherImage);
-            $advertising->other_image = $otherImage;
+            if (count($otherImage) >= 1) {
+                $otherImage = json_encode($otherImage);
+                $advertising->other_image = $otherImage;
+            }
         }
 
         if (isset($request->video)) {
