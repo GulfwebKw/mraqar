@@ -420,5 +420,6 @@
     "property_type" : "نوع الملكية",
     "Reset Password" : "إعادة تعيين كلمة المرور",
     "dinar" : "دینار",
-    "ad_created_title": "تم إنشاء إعلانك بنجاح"
+    "ad_created_title": "تم إنشاء إعلانك بنجاح",
+    "add_ad_title" : "إضافة اعلان"
 }

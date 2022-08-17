@@ -54,9 +54,9 @@
                       action="{{ route('site.advertising.destroy',app()->getLocale()) }}">
                     @csrf
                     <input type="hidden" name="id" value="{{ $ad->id }}">
-                    <a href="{{ route('site.advertising.edit',[app()->getLocale(),$ad->hash_number]) }}" class="mdc-icon-button material-icons primary-color">{{__('edit_title')}}</a>
+                    <a href="{{ route('site.advertising.edit',[app()->getLocale(),$ad->hash_number]) }}" class="mdc-icon-button material-icons primary-color">edit</a>
                     <button type="button" id="delete-btn" onclick="showModal({{ $ad->id }})"
-                            class="mdc-icon-button material-icons warn-color">{{__('delete_title')}}</button>
+                            class="mdc-icon-button material-icons warn-color">delete</button>
                 </form>
             </td>
         </tr>

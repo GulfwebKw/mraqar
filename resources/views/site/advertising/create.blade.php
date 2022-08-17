@@ -1,4 +1,7 @@
 @extends('site.layout.master')
+
+@section('title' , __('add_ad_title'))
+
 @php
     $unSide = app()->getLocale() === 'en' ? 'l' : 'r';
 @endphp
@@ -149,6 +152,8 @@
                                                 $.post('/{{app()->getLocale()}}/areas', {city_id}, function(data, status){
                                                     if (status === 'success') {
                                                         $('#areasList').empty()
+                                                        console.log($('#areasList').parent().parent().find('.mdc-select__selected-text').text(''));
+                                                        console.log($('#areasList').parent().parent().parent().find('input').val(''));
                                                         $.each(data, function(index, area) {
                                                             let option = `<li class="mdc-list-item" data-value="${area.id}">${area.name_{{app()->getLocale()}}}</li>`
                                                             $('#areasList').append(option)

@@ -1,4 +1,4 @@
-    <footer>
+    <footer class="mt-5">
         <div class="px-3">
             <div class="theme-container">
                 <div class="py-5 content">
