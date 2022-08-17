@@ -416,6 +416,8 @@
     "company_settings" : "إعدادات الشركة",
     "previous" : "السابق",
     "next" : "التالي",
-    "dinar" : "دینار",
+    "city" : "مدينة",
+    "property_type" : "نوع الملكية"
     "Reset Password" : "إعادة تعيين كلمة المرور"
+    "dinar" : "دینار",
 }

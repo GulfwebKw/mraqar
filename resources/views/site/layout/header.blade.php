@@ -285,11 +285,11 @@
                     </div>
                 </div>
                 <div class="row middle-xs">
-                    <a href="submit-property.html" class="mdc-fab mdc-fab--mini primary d-sm-flex d-md-none d-lg-none d-xl-none">
+                    <a href="{{route('site.advertising.create', app()->getLocale())}}" class="mdc-fab mdc-fab--mini primary d-sm-flex d-md-none d-lg-none d-xl-none">
                         <span class="mdc-fab__ripple"></span>
                         <span class="mdc-fab__icon material-icons">add</span>
                     </a>
-                    <a href="submit-property.html" class="mdc-button mdc-button--raised d-none d-sm-none d-md-flex d-lg-flex d-xl-flex">
+                    <a href="{{route('site.advertising.create', app()->getLocale())}}" class="mdc-button mdc-button--raised d-none d-sm-none d-md-flex d-lg-flex d-xl-flex">
                         <span class="mdc-button__ripple"></span>
                         <span class="mdc-button__label">{{ __('add_listing_title') }}</span>
                     </a>
