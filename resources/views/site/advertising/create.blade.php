@@ -30,26 +30,26 @@
                                         <p class="uppercase m-2 fw-500">{{__('ADVERTISE_TYPE')}}</p>
                                         <div class="mdc-form-field">
                                             <div class="mdc-radio">
-                                                <input class="mdc-radio__native-control" type="radio" id="radio-1" name="advertise_type" value="normal"
+                                                <input class="mdc-radio__native-control" type="radio" id="normal" name="advertise_type" value="normal"
                                                        {{ old('advertise_type')=="normal" ? 'checked' : '' }}>
                                                 <div class="mdc-radio__background">
                                                     <div class="mdc-radio__outer-circle"></div>
                                                     <div class="mdc-radio__inner-circle"></div>
                                                 </div>
                                             </div>
-                                            <label for="radio-1">Normal</label>
+                                            <label for="normal">Normal</label>
                                         </div>
                                         <br>
                                         <div class="mdc-form-field">
                                             <div class="mdc-radio">
-                                                <input class="mdc-radio__native-control" type="radio" id="radio-2" name="advertise_type" value="premium"
+                                                <input class="mdc-radio__native-control" type="radio" id="premium" name="advertise_type" value="premium"
                                                     {{ old('advertise_type')=="premium" ? 'checked' : '' }}>
                                                 <div class="mdc-radio__background">
                                                     <div class="mdc-radio__outer-circle"></div>
                                                     <div class="mdc-radio__inner-circle"></div>
                                                 </div>
                                             </div>
-                                            <label for="radio-1">Premium</label>
+                                            <label for="premium">Premium</label>
                                         </div>
                                         <br>
                                         @error('advertise_type')
