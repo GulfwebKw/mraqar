@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 //use function GuzzleHttp\Promise\all;
 
@@ -275,7 +276,7 @@ class AdvertisingController extends Controller
     }
 
     public function store(StoreRequest $request)
-    {dd($request->request);
+    {
         try {
             $result = $this->filterKeywords($request->description);
 
@@ -309,6 +310,16 @@ class AdvertisingController extends Controller
             DB::rollback();
             return $this->fail($exception->getMessage(), -1, $request->all());
         }
+    }
+
+
+    public function ajax_file_upload_handler(Request $request){
+        $mainImageFile = $request->file;
+        $fileName = $mainImageFile->getClientOriginalName();
+        $storeName = time() .'-'.uniqid(time()).$fileName;
+        $path =$storeName;
+        $mainImageFile->move(public_path('resources/tempUploads/'), $storeName);
+        return $path;
     }
 
     /**
@@ -375,6 +386,13 @@ class AdvertisingController extends Controller
             }
             $otherImage["other_image" . $i] = $path;
         }
+        foreach ( $request->other_images_link as $i => $link) {
+            rename(public_path('/resources/tempUploads/' . $link), public_path('resources/uploads/images/' . $link));
+            if ( $i == 0 )
+                $advertising->main_image = '/resources/uploads/images/'.$link;
+            else
+                $otherImage["other_image" . ($i - 1 ) ] = '/resources/uploads/images/'.$link;
+        }
 
         if (count($otherImage) >= 1) {
             $otherImage = json_encode($otherImage);
@@ -389,7 +407,6 @@ class AdvertisingController extends Controller
                 $advertising->video = "";
             }
         }
-
 
         $advertising->save();
 
