@@ -27,9 +27,9 @@
                     <p class="card-text">
                         {{__('trackid')}}: {{optional($order)->trackid}}
                     </p>
-                    {{--                    <p class="card-text">--}}
-                    {{--                        Auth ID: {{optional($order)->auth}}--}}
-                    {{--                    </p>--}}
+{{--                    <p class="card-text">--}}
+{{--                        Auth ID: {{optional($order)->auth}}--}}
+{{--                    </p>--}}
                     <p class="card-text">
                         {{__('ref')}}: {{$refId}}
                     </p>
