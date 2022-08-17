@@ -13,6 +13,7 @@
 //}
 :root {
     --mdc-theme-primary: #076599 !important;
+    --mdc-theme-secondary: #575757 !important; // radio buttons
 }
 @font-face {
     font-family: 'kufi';
@@ -197,6 +198,9 @@ body {
     }
     .md\:w-100{
         width: 100% !important;
+    }
+    .md-flex-no-wrap {
+        flex-wrap: nowrap;
     }
 }
 @media screen and (min-width: 600px) {
