@@ -1,4 +1,5 @@
 @extends('site.layout.panel')
+@section('title' , __('edit_profile_title'))
 @section('panel-content')
     @if((session('status')) == 'success')
         <div class="alert alert-success">

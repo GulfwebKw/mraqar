@@ -1,4 +1,5 @@
 @extends('site.layout.master', ['header' => 'transparent'])
+@section('title' , __('contact_title'))
 
 @section('content')
 

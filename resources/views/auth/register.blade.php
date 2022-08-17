@@ -1,4 +1,5 @@
 @extends('site.layout.master')
+@section('title' , __('sign_up_title'))
 
 @section('content')
 

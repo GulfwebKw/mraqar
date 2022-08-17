@@ -1,5 +1,5 @@
 @extends('site.layout.master')
-
+@section('title' , __('companies'))
 @php
 $side = app()->getLocale() === 'en' ? 'r' : 'l';
 @endphp

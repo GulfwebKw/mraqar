@@ -1,4 +1,5 @@
 @extends('site.layout.master')
+@section('title' , __('login_title'))
 
 @section('content')
 

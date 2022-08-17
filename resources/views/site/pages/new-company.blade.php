@@ -1,4 +1,5 @@
 @extends('site.layout.master')
+@section('title' , __('company_form'))
 
 @section('content')
 

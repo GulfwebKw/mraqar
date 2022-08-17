@@ -1,5 +1,5 @@
 @extends('site.layout.master', ['header' => 'transparent'])
-
+@section('title' , __('about_us_title'))
 @section('content')
 
 <main class="content-offset-to-top">

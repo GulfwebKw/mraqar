@@ -1,4 +1,5 @@
 @extends('site.layout.panel')
+@section('title' , __('package_history_title'))
 
 @php
     $float = app()->getLocale()=="en"?"right":"left";

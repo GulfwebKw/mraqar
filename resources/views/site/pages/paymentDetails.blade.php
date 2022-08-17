@@ -1,4 +1,5 @@
 @extends('site.layout.panel')
+@section('title' , __('paymentdetails'))
 
 
 @section('panel-content')

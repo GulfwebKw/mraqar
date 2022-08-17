@@ -1,5 +1,5 @@
 @extends('site.layout.master')
-
+@section('title' , __('buy_package_title'))
 @section('content')
 
 @if((session('status')) == 'success')
