@@ -199,7 +199,7 @@ class RegisterController extends Controller
     }
 
 
-    protected function sendOtp($otp, $mobile) {
+    public  static function sendOtp($otp, $mobile) {
         $client = new Client(); //GuzzleHttp\Client
 //        $res = $client->get('http://smsbox.com/smsgateway/services/messaging.asmx/Http_SendSMS', [
 //            'headers' => [

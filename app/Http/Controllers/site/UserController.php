@@ -5,6 +5,7 @@ namespace App\Http\Controllers\site;
 
 use App\Events\UserRegistered;
 use App\Http\Controllers\Api\V1\ApiBaseController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Site\RegisterRequest;
 use App\Http\Requests\Site\SendSmsCodeRequest;
@@ -389,50 +390,58 @@ class UserController extends Controller
             ->orderBy('created_at', 'desc')->with(['city','area'])->get();
     }
 
-  ///////////////////////////////forgot password reset///////////////
-  public function showLinkRequestForm(){
-  return view('auth.passwords.email');
-  }
+    ///////////////////////////////forgot password reset///////////////
+    public function showLinkRequestForm(){
+        return view('auth.passwords.email');
+    }
 
-  //send link
-	public function sendResetLinkEmail(Request $request){
-	//field validation
-	  $validator = Validator::make($request->all(),[
-            'email'   => 'required|email'
-            ],[
-			'email.required'  => trans('main.email_required')
-			]
-			);
-	    if ($validator->fails()) {
-            return redirect(app()->getLocale().'/password/reset')
-                        ->withErrors($validator)
-                        ->withInput();
+    //send link
+    public function sendResetLinkEmail(Request $request)
+    {
+        //field validation
+        $validator = Validator::make($request->all(), [
+            'mobile' => 'required|digits:8|exists:users,mobile'
+        ]);
+        if ($validator->fails()) {
+            return redirect(app()->getLocale() . '/password/reset')
+                ->withErrors($validator)
+                ->withInput();
         }
 
-	$clientInfo = User::where("email",$request->email)->first();
-	if(empty($clientInfo->id)){
-	return redirect(app()->getLocale().'/password/reset')
-                        ->withErrors(['email'=>trans('main.email_not_register')])
-                        ->withInput();
-	}else{
-	 $token = (string)Str::uuid();
-	 $clientInfo->password_token=$token;
-	 $clientInfo->save();
+        if ( $request->has('resend') ){
+            $otp = rand(10000, 99999);
+            RegisterController::sendOtp($otp, $request->mobile);
+            $request->merge(['code' => $otp ,'codeValidation' => Hash::make($otp . " : Erfan Ebrahimi : ".$request->mobile )]);
+            return redirect()->back()->withInput()->with('success', __('validate_resend'));
+        }
+        if ( ! $request->has('code') ){
+            $otp = rand(10000, 99999);
+            RegisterController::sendOtp($otp, $request->mobile);
+            $request->merge(['code' => $otp ,'codeValidation' => Hash::make($otp . " : Erfan Ebrahimi : ".$request->mobile )]);
+            return redirect()->back()->withInput()->with('success', __('validate_send'));
+        } elseif ( ! Hash::check($request->code ." : Erfan Ebrahimi : ".$request->mobile  , $request->codeValidation) )
+            return redirect()->back()->withInput()->withErrors(__('invalidOTP'));
 
-	 $appendMessage = "<b><a href='".url(app()->getLocale().'/password/reset/'.$token)."'>".trans('main.passwordresetlink')."</b>";
-	 $data = [
-	 'dear'    => trans('main.dearuser'),
-	 'message' => trans('main.you_have_reqtest_fp')."<br><br>".$appendMessage,
-	 'subject' =>'Forgot Password Reset Link',
-	 'email_from'      =>"noreply@ajrnii.com",
-	 'email_from_name' =>"ajrnii.com"
-	 ];
-     Mail::to($request->email)->send(new DefaultEmail($data));
 
-	return redirect(app()->getLocale().'/password/reset')
-	                 ->with('status',trans('main.password_reset_link_sent'));
-	}
-	}
+        $validator = Validator::make($request->all(), [
+			'password'        => 'required|min:8|max:150|string|confirmed',
+        ]);
+        if ($validator->fails()) {
+            return redirect(app()->getLocale() . '/password/reset')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $clientInfo = User::where("mobile", $request->mobile)->first();
+
+        $clientInfo->password   = bcrypt($request->password);
+        $clientInfo->save();
+
+
+        return redirect(app()->getLocale() . '/login')
+            ->with('status', trans('main.password_reset_done'));
+
+    }
 
 	//show reset form
 	public function showResetForm(){

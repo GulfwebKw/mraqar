@@ -14,6 +14,11 @@
                                 {{__('sign_up')}}
                             </a>
                         </div>
+                        @if(session('status'))
+                            <div class="alert alert-success">
+                                <strong>{{ __('success_title') }}!</strong> {{session('status')}}!
+                            </div>
+                        @endif
                         <form method="post" action="{{ route('login',app()->getLocale()) }}">
                             @csrf
                             <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon w-100 mt-3 custom-field ">
@@ -73,7 +78,7 @@
                             <div class="divider w-100"></div>
                         </div>
                         <div class="row end-xs middle-xs">
-                            <a href="#" class="mdc-button normal"> {{-- todo site: forgot password link --}}
+                            <a href="{{ route('password.request',app()->getLocale()) }}" class="mdc-button normal">
                                 <span class="mdc-button__ripple"></span>
                                 <i class="material-icons mdc-button__icon">vpn_key</i>
                                 <span class="mdc-button__label">{{__('forgot_password')}}</span>

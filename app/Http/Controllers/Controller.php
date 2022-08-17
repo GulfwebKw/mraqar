@@ -40,6 +40,7 @@ class Controller extends BaseController
 
     public static  function sendSms($message,$mobile)
     {
+        return  null;
         $post="msg=".urlencode($message)."&number=".$mobile."&key=".env('SMS_API_KEY')."&dezsmsid=".env('DEZSMS_ID')."&senderid=".env('SENDER_ID')."&xcode=965";
         return  self::__curl($post);
     }
