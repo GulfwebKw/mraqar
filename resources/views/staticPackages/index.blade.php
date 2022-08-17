@@ -5,6 +5,17 @@
 @section('content')
     <div class=" col-md-12">
         <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <a class="btn btn-primary" href="{{route('staticPackages.create')}}">
+                            <i class="fa fa-fw fa-plus"></i>
+                            {{__('Create New Package')}}
+                        </a>
+                    </div>
+
+                </div>
+            </div>
             <div class="card-body">
                 <ul class="nav nav-pills" id="pills-tab" role="tablist">
                     <li class="nav-item">

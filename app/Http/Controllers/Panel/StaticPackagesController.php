@@ -36,7 +36,7 @@ class StaticPackagesController extends Controller
     public function store(Request $request)
     {
         $this->createValidator($request->all())->validate();
-        Package::create(['type'=>"static",'title_en'=>$request->title_en,'title_ar'=>$request->title_ar,'description_en'=>$request->description_en,'price'=>$request->price,'old_price'=>$request->old_price,'count_day'=>$request->count_day,'count_show_day'=>$request->count_show_day,'count_advertising'=>$request->count_advertising,'count_premium'=>$request->count_premium]);
+        Package::create(['type'=>"static",'title_en'=>$request->title_en,'title_ar'=>$request->title_ar,'description_en'=>$request->description_en,'description_ar'=>$request->description_ar,'note_en'=>$request->note_en,'note_ar'=>$request->note_ar,'price'=>$request->price,'old_price'=>$request->old_price,'count_day'=>$request->count_day,'count_show_day'=>$request->count_show_day,'count_advertising'=>$request->count_advertising,'count_premium'=>$request->count_premium,'user_type'=>$request->user_type]);
 
         return redirect(route('staticPackages.index'));
     }

@@ -1,10 +1,10 @@
 @extends('layouts.admin', ['crumbs' => [
     __('Static Packages') => route('staticPackages.index'),
     __('Create Static Packages') => route('staticPackages.create')]
-, 'title' => __('New Member User Account')])
+, 'title' => __('New Static Packages')])
 @section('content')
     <div class="card col-md-12 mx-auto">
-        <form method="post" action="{{route('packages.store')}}" enctype="multipart/form-data" class="form theme-form">
+        <form method="post" action="{{route('staticPackages.store')}}" enctype="multipart/form-data" class="form theme-form">
             @csrf
             <div class="card-body">
                 <div class="row">

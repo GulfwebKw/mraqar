@@ -219,6 +219,7 @@ if ($ignoreGift){
     // buy package
     public function buyPackage()
     {
+        cache()->forget('balance_values'.auth()->id());
         $record = $this->getBalance();
 
         if (auth()->user()->type_usage == 'individual') {
@@ -253,7 +254,7 @@ if ($ignoreGift){
     {
         try {
             $user = auth()->user();
-
+            cache()->forget('balance_values'.auth()->id());
             $validate = Validator::make($request->all(), [
                 'package_id' => 'required|numeric',
                 'type' => 'required|in:static,normal',
@@ -263,19 +264,18 @@ if ($ignoreGift){
             if ($validate->fails()) {
                 return redirect()->route('Main.buyPackage',app()->getLocale())->with(['status' => 'validation_failed']);
             }
-       $package = Package::find($request->package_id);
-//dd($package->type=="normal");
+            $package = Package::find($request->package_id);
             // untill now request data is validated
             // now we check user doesn't choose a package that already bought
             if ($package->type=="normal"){
-            if ($user->package_id != null && $user->package_id != 0) {
-             $balance=$this->getBalance(true);
-//                dd($this->getBalance());
-                if ($balance!==0 && $balance['available']>0 && $balance['available_premium']>0) {
-                        return redirect(app()->getLocale().'/buypackage#result')->with(['status' => 'ads_remaining']);
+                if ($user->package_id != null && $user->package_id != 0) {
+                 $balance=$this->getBalance(true);
+    //                dd($this->getBalance());
+                    if ($balance!==0 && $balance['available']>0 && $balance['available_premium']>0) {
+                            return redirect(app()->getLocale().'/buypackage#result')->with(['status' => 'ads_remaining']);
+                    }
                 }
             }
-}
             $countDay = optional($package)->count_day;
 
             $today = date("Y-m-d");
@@ -290,6 +290,7 @@ if ($ignoreGift){
             }
             $countP = intval($package->count_premium) * intval($count);
             $countN = intval($package->count_advertising) * intval($count);
+            $price = intval($package->price) * intval($count);
 
 
             if ($request->payment_type == "Cash" || $request->payment_type == "cash") {
@@ -304,7 +305,7 @@ if ($ignoreGift){
                 'user_id' => $user->id,
                 'package_id' => $request->package_id,
                 'payment_type' => $request->payment_type,
-                'price' => $package->price,
+                'price' => $price,
                 'status' => 'new'
             ]);
 
@@ -334,8 +335,8 @@ if ($ignoreGift){
             $payment->save();
 
 
-            if ($request->get('payment_type') == "Knet") {
-                $response = $this->sendRequestForPayment($package->price, $ref, $user->id, $request->type, $package->id);
+            if ($request->get('payment_type') == "Knet" and $price > 0 ) {
+                $response = $this->sendRequestForPayment($price, $ref, $user->id, $request->type, $package->id);
                 $responseObject = json_decode($response);
                 $payUrl = $responseObject->payUrl;
 

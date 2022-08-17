@@ -6,11 +6,18 @@
 
 @section('panel-content')
 
+@if((session('status')) == 'package_bought')
+    <div class="alert alert-success">
+        <strong>{{ __('success_title') }}!</strong> {{ __('packageSuccess') }} !
+    </div>
+@endif
+
 <table class="mdc-data-table__table" aria-label="Dessert calories">
     <thead>
         <tr class="mdc-data-table__header-row">
             <th class="mdc-data-table__header-cell">{{__('row_title')}}</th>
             <th class="mdc-data-table__header-cell">{{__('package_title')}}</th>
+{{--            <th class="mdc-data-table__header-cell">{{__('noofads')}}</th>--}}
             <th class="mdc-data-table__header-cell">{{__('price_title')}}({{__('kd_title')}})</th>
             <th class="mdc-data-table__header-cell">{{__('date_title')}}</th>
             <th class="mdc-data-table__header-cell">{{__('details')}}</th>
@@ -22,15 +29,16 @@
         @foreach($payments as $payment)
             <tr class="mdc-data-table__row">
                 <td class="mdc-data-table__cell">{{$i++}}</td>
-                <td class="mdc-data-table__cell">{{ app()->getLocale()==='en'?$payment->title_en:$payment->title_ar }}</td>
-                <td class="mdc-data-table__cell">{{!empty($payment->price)?number_format($payment->price,3):'0.000'}}</td>
+                <td class="mdc-data-table__cell">{{ app()->getLocale()==='en'?$payment->title_en:$payment->title_ar }} @if( $payment->count > 1 ) (x {{ $payment->count }}) @endif</td>
+{{--                <td class="mdc-data-table__cell">{{ $payment->count }}</td>--}}
+                <td class="mdc-data-table__cell">{{!empty($payment->price)?number_format($payment->price * $payment->count ,3):'0.000'}}</td>
                 <td class="mdc-data-table__cell">{{ $payment->date }}</td>
                 <td class="mdc-data-table__cell" style="min-width: 240px;">
-                    <div>{{__('remain_regular_ads')}}:<a href="javascript:;" style="float: {{ $float }}; text-decoration: none; color: var(--theme-base-color);">{{($payment->is_payed == 1)?($payment->count_advertising - $payment->count_usage):0}}</a></div>
-                    <div>{{__('remain_premium_ads')}}:<a href="javascript:;" style="float: {{ $float }}; text-decoration: none; color: var(--theme-base-color);">{{($payment->is_payed == 1)?($payment->count_premium - $payment->count_usage_premium):0}}</a></div>
+                    <div>{{__('remain_regular_ads')}}:<a href="javascript:;" style="float: {{ $float }}; text-decoration: none; color: var(--theme-base-color);">{{($payment->is_payed == 1)?($payment->count_advertising - $payment->count_usage):0}} / {{$payment->count_advertising * $payment->count  }}</a></div>
+                    <div>{{__('remain_premium_ads')}}:<a href="javascript:;" style="float: {{ $float }}; text-decoration: none; color: var(--theme-base-color);">{{($payment->is_payed == 1)?($payment->count_premium - $payment->count_usage_premium):0}} /  {{$payment->count_premium * $payment->count  }} </a></div>
                 </td>
                 <td class="mdc-data-table__cell">
-                    @if($payment->package_id == 18)
+                    @if($payment->price == 0)
                         <span class="mdc-button mdc-ripple-surface mdc-ripple-surface--primary normal">
                             {{__('free')}}
                         </span>

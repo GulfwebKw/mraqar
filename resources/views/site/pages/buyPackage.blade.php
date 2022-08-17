@@ -66,7 +66,7 @@
                                 <div class="col-xs-12 col-sm-6 col-md-3 p-2">
                                     <div class="mdc-card pricing-card text-center border-accent p-0 h-100">
                                         <div class="bg-accent pricing-header p-3">
-                                            <h1>{{__('kd_title')}} <small><span class="del opacity-70">{{ $normal->old_price }} </span></small>{{ $normal->price }}<small> /{{ $normal->count_day }} {{__('days')}}</small></h1>
+                                            <h1>{{__('kd_title')}} @if( $normal->old_price >  $normal->price ) <small> <span class="del opacity-70">{{ $normal->old_price }} </span></small> @endif{{ $normal->price }}<small> /{{ $normal->count_day }} {{__('days')}}</small></h1>
                                             <p class="desc mb-2">@if(app()->getLocale()=="en"){{$normal->title_en}}@else{{$normal->title_ar}}@endif</p>
                                         </div>
                                         <div class="p-3">
@@ -97,7 +97,7 @@
                                 <div class="col-xs-12 col-sm-6 col-md-3 p-2">
                                     <div class="mdc-card pricing-card text-center border-accent p-0 h-100">
                                         <div class="bg-accent pricing-header p-3">
-                                            <h1>{{__('kd_title')}} <small><span class="del opacity-70">{{ $static->old_price }} </span></small>{{ $static->price }}<small> /{{ $normal->count_day }} {{__('days')}}</small></h1>
+                                            <h1>{{__('kd_title')}} @if( $static->old_price >  $static->price ) <small> <span class="del opacity-70">{{ $static->old_price }} </span> </small> @endif {{ $static->price }}<small> /{{ $static->count_day }} {{__('days')}}</small></h1>
                                             <p class="desc mb-2">@if(app()->getLocale()=="en"){{$static->title_en}}@else{{$static->title_ar}}@endif</p>
                                         </div>
                                         <div class="p-3 ad-plan-bottom">
@@ -108,7 +108,7 @@
                                                 <div>
                                                     <input type="hidden" class="form-control" name="payment_type" value="Knet">
                                                     <div class="mdc-text-field mdc-text-field--outlined w-100 custom-field mb-3">
-                                                        <input type="number" min="1" class="mdc-text-field__input" placeholder="{{__('noofads')}}" name="count" id="{{ "static-num-" . $static->id }}" required>
+                                                        <input type="number" value="1" min="1" class="mdc-text-field__input" placeholder="{{__('noofads')}}" name="count" id="{{ "static-num-" . $static->id }}" required>
                                                         <div class="mdc-notched-outline mdc-notched-outline--upgraded">
                                                             <div class="mdc-notched-outline__leading"></div>
                                                             <div class="mdc-notched-outline__notch">
