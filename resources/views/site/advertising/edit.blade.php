@@ -31,55 +31,13 @@
                     <div class="mdc-card p-3">
                         <div class="mdc-tab-bar-wrapper submit-property">
                             <div class="tab-content tab-content--active">
-                                <form action="{{ route('site.advertising.store', app()->getLocale()) }}" method="post" id="sp-basic-form" class="row">
+                                <form action="{{ route('site.advertising.updateAdvertising', app()->getLocale()) }}" method="post" id="sp-basic-form" class="row">
                                     @csrf
-                                    <div class="col-xs-12 p-3">
-                                        <h1 class="fw-500 text-center">{{__('create_ad_title')}}</h1>
-                                    </div>
+                                    @method('PUT')
+                                    <input type="hidden" name="id" value="{{$advertising->id}}">
 
-                                    <div class="col-xs-12 mb-2 p-0">
-                                        <p class="uppercase m-2 fw-500">{{__('ADVERTISE_TYPE')}}</p>
-                                        <div class="mdc-form-field w-100">
-                                            <div class="mdc-radio">
-                                                <input class="mdc-radio__native-control" type="radio" id="normal" name="advertising_type" value="normal"
-                                                       {{ old('advertising_type')=="normal" ? 'checked' : '' }} {{ $credit['count_normal_advertising'] > 0 ?: 'disabled' }}>
-                                                <div class="mdc-radio__background">
-                                                    <div class="mdc-radio__outer-circle"></div>
-                                                    <div class="mdc-radio__inner-circle"></div>
-                                                </div>
-                                            </div>
-                                            <label for="normal">
-                                                {{__('normal_title')}}
-                                                @if($credit['count_normal_advertising'] > 0)
-                                                    <span class="text-success m{{$unSide}}-5">{{$credit['count_normal_advertising']}} ad remaining</span>
-                                                @else
-                                                    <span class="text-danger m{{$unSide}}-5">{{$credit['count_normal_advertising']}} ad remaining</span>
-                                                @endif
-                                            </label>
-                                        </div>
-                                        <br>
-                                        <div class="mdc-form-field">
-                                            <div class="mdc-radio">
-                                                <input class="mdc-radio__native-control" type="radio" id="premium" name="advertising_type" value="premium"
-                                                    {{ old('advertising_type')=="premium" ? 'checked' : '' }} {{ $credit['count_premium_advertising'] > 0 ?: 'disabled' }}>
-                                                <div class="mdc-radio__background">
-                                                    <div class="mdc-radio__outer-circle"></div>
-                                                    <div class="mdc-radio__inner-circle"></div>
-                                                </div>
-                                            </div>
-                                            <label for="premium">{{__('premium_title')}}</label>
-                                            @if($credit['count_premium_advertising'] > 0)
-                                                <span class="text-success m{{$unSide}}-5">{{$credit['count_premium_advertising']}} ad remaining</span>
-                                            @else
-                                                <span class="text-danger m{{$unSide}}-5">{{$credit['count_premium_advertising']}} ad remaining</span>
-                                            @endif
-                                        </div>
-                                        <br>
-                                        @error('advertising_type')
-                                        <span class="invalid-feedback warn-color d-inline-block">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                    <div class="col-xs-12 p-3">
+                                        <h1 class="fw-500 text-center">{{__('edit_ad_title')}}</h1>
                                     </div>
 
 
@@ -98,7 +56,7 @@
 
                                     <div class="col-xs-12 col-sm-6 p-2">
                                         <div class="mdc-text-field mdc-text-field--outlined">
-                                            <input class="mdc-text-field__input" name="phone_number" placeholder="{{__('phone_number_title')}}" value="{{ old('phone_number', auth()->user()->mobile)}}" required>
+                                            <input class="mdc-text-field__input" name="phone_number" placeholder="{{__('phone_number_title')}}" value="{{ old('phone_number', $advertising->phone_number)}}" required>
                                             <div class="mdc-notched-outline mdc-notched-outline--upgraded">
                                                 <div class="mdc-notched-outline__leading"></div>
                                                 <div class="mdc-notched-outline__notch">
@@ -116,7 +74,7 @@
 
                                     <div class="col-xs-12 col-sm-6 p-2">
                                         <div class="mdc-select mdc-select--outlined role-list mdc-select--required">
-                                            <input id="cityInput" type="hidden" name="city_id" value="{{ old('city_id') }}">
+                                            <input id="cityInput" type="hidden" name="city_id" value="{{ old('city_id', $advertising->city_id) }}">
                                             <div class="mdc-select__anchor" aria-required="true">
                                                 <i class="mdc-select__dropdown-icon"></i>
                                                 <div class="mdc-select__selected-text"></div>
@@ -131,7 +89,7 @@
                                             <div class="mdc-select__menu mdc-menu mdc-menu-surface">
                                                 <ul class="mdc-list">
                                                     @foreach($cities as $city)
-                                                        @php $isOld = old('city_id') == $city->id; @endphp
+                                                        @php $isOld = old('city_id', $advertising->city_id) == $city->id; @endphp
                                                         <li class="mdc-list-item {{ $isOld ? 'mdc-list-item--selected' : '' }}" {{ $isOld ? 'aria-selected="true"' : '' }}
                                                             data-value="{{ $city->id }}">
                                                             {{ app()->getLocale() == 'en' ? $city->name_en : $city->name_ar }}
@@ -169,17 +127,19 @@
                                                     $('#areasList').empty()
                                                     $('#areasList').parent().parent().find('.mdc-select__selected-text').text('')
                                                     $('#area_id').val('')
+                                                    let oldId = {{ old('area_id', $advertising->area_id ? $advertising->area_id : 'null') }};
+                                                    let selectedArea = null;
                                                     $.each(data, function(index, area) {
-                                                        let oldId = {{ !empty(old('area_id')) ? old('area_id') : 'null' }};
                                                         let selectedClass = oldId && area.id === oldId ? 'mdc-list-item--selected' : null;
+                                                        selectedArea = oldId && area.id === oldId ? area.name_{{app()->getLocale()}} : selectedArea;
                                                         let selectedAttr = oldId && area.id === oldId ? `aria-selected="true"` : null;
                                                         let option = `<li class="mdc-list-item ${selectedClass}" ${selectedAttr} data-value="${area.id}">${area.name_{{app()->getLocale()}}}</li>`
-                                                        $('#areasList').append(option)
-                                                        if (oldId) {
-                                                            $('#areasList').parent().parent().find('.mdc-select__selected-text').text(area.name_{{app()->getLocale()}})
-                                                            $('#area_id').val(oldId)
-                                                        }
+                                                        $('#areasList').append(option);
                                                     })
+                                                    if (oldId) {
+                                                        $('#areasList').parent().parent().find('.mdc-select__selected-text').text(selectedArea)
+                                                        $('#area_id').val(oldId)
+                                                    }
                                                 } else
                                                     console.error('error in get areas with ajax request')
                                             })
@@ -188,7 +148,7 @@
 
                                     <div class="col-xs-12 col-sm-6 p-2">
                                         <div class="mdc-select mdc-select--outlined mdc-select--required">
-                                            <input type="hidden" name="area_id" id="area_id" value="{{ old('area_id') }}">
+                                            <input type="hidden" name="area_id" id="area_id" value="{{ old('area_id', $advertising->area_id) }}">
                                             <div class="mdc-select__anchor" aria-required="true">
                                                 <i class="mdc-select__dropdown-icon"></i>
                                                 <div class="mdc-select__selected-text"></div>
@@ -214,7 +174,7 @@
 
                                     <div class="col-xs-12 col-sm-6 p-2">
                                         <div class="mdc-select mdc-select--outlined mdc-select--required">
-                                            <input type="hidden" name="venue_type" id="venue_type" value="{{ old('venue_type') }}">
+                                            <input type="hidden" name="venue_type" id="venue_type" value="{{ old('venue_type', $advertising->venue_type) }}">
                                             <div class="mdc-select__anchor" aria-required="true">
                                                 <i class="mdc-select__dropdown-icon"></i>
                                                 <div class="mdc-select__selected-text"></div>
@@ -229,7 +189,7 @@
                                             <div class="mdc-select__menu mdc-menu mdc-menu-surface">
                                                 <ul class="mdc-list">
                                                     @foreach($types as $type)
-                                                        @php $isOld = old('venue_type') == $type->id; @endphp
+                                                        @php $isOld = old('venue_type', $advertising->venue_type) == $type->id; @endphp
                                                         <li class="mdc-list-item {{ $isOld ? 'mdc-list-item--selected' : '' }}" {{ $isOld ? 'aria-selected="true"' : '' }}
                                                             data-value="{{$type->id}}">{{ app()->getLocale() == 'en' ? $type->title_en : $type->title_ar }}</li>
                                                     @endforeach
@@ -245,7 +205,7 @@
 
                                     <div class="col-xs-12 col-sm-6 p-2">
                                         <div class="mdc-select mdc-select--outlined mdc-select--required">
-                                            <input type="hidden" name="purpose" id="purpose" value="{{ old('purpose') }}">
+                                            <input type="hidden" name="purpose" id="purpose" value="{{ old('purpose', $advertising->purpose) }}">
                                             <div class="mdc-select__anchor" aria-required="true">
                                                 <i class="mdc-select__dropdown-icon"></i>
                                                 <div class="mdc-select__selected-text"></div>
@@ -260,7 +220,7 @@
                                             <div class="mdc-select__menu mdc-menu mdc-menu-surface">
                                                 <ul class="mdc-list">
                                                     @foreach($purposes as $purpose)
-                                                        @php $isOld = old('purpose') == $purpose; @endphp
+                                                        @php $isOld = old('purpose', $advertising->purpose) == $purpose; @endphp
                                                         <li class="mdc-list-item {{ $isOld ? 'mdc-list-item--selected' : '' }}" {{ $isOld ? 'aria-selected="true"' : '' }}
                                                             data-value="{{$purpose}}">{{ __($purpose) }}</li>
                                                     @endforeach
@@ -276,7 +236,7 @@
 
                                     <div class="col-xs-12 col-sm-6 p-2">
                                         <div class="mdc-text-field mdc-text-field--outlined">
-                                            <input class="mdc-text-field__input" name="price" value="{{ old('price') }}" placeholder="{{__('price_title')}} ({{__('kd_title')}})" required>
+                                            <input class="mdc-text-field__input" name="price" value="{{ old('price', $advertising->price) }}" placeholder="{{__('price_title')}} ({{__('kd_title')}})">
                                             <div class="mdc-notched-outline">
                                                 <div class="mdc-notched-outline__leading"></div>
                                                 <div class="mdc-notched-outline__notch">
@@ -294,7 +254,7 @@
 
                                     <div class="col-xs-12 p-2">
                                         <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--textarea">
-                                            <textarea class="mdc-text-field__input" name="description" rows="5" placeholder="{{__('description_title')}}">{{ old('description') }}</textarea>
+                                            <textarea class="mdc-text-field__input" name="description" rows="5" placeholder="{{__('description_title')}}">{{ old('description', $advertising->description) }}</textarea>
                                             <div class="mdc-notched-outline mdc-notched-outline--upgraded">
                                                 <div class="mdc-notched-outline__leading"></div>
                                                 <div class="mdc-notched-outline__notch">
@@ -341,7 +301,7 @@
                                     <div class="col-xs-12 p-2 mt-3 center-xs">
                                         <button class="mdc-button mdc-button--raised next-tab" type="submit">
                                             <span class="mdc-button__ripple"></span>
-                                            <span class="mdc-button__label">{{__('Submit')}}</span>
+                                            <span class="mdc-button__label">{{__('edit_title')}}</span>
                                         </button>
                                     </div>
                                 </form>

@@ -219,5 +219,7 @@
     "drop_files_to_upload" : "Drop files here or click to upload.",
     "gallery" : "GALLERY",
     "max" : "Max",
-    "images" : "images"
+    "images" : "images",
+    "edited" : "Edited successfully!",
+    "edit_ad_title" : "Edit Advertising"
 }

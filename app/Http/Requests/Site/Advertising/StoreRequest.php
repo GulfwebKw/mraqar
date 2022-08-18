@@ -23,7 +23,8 @@ class StoreRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        if (! in_array($this->method(), ['PUT', 'PATCH'])) { // create
+        $rules = [
            'phone_number' => 'required|digits:8',
            'advertising_type' => 'required|in:normal,premium',
            'venue_type' => 'required',
@@ -44,5 +45,9 @@ class StoreRequest extends FormRequest
 //            'pool' => 'required|in:1,0',
 //            'furnished' => 'required|in:1,0',
         ];
+        } else { // edit
+            $rules['advertising_type'] = 'nullable';
+        }
+        return $rules;
     }
 }

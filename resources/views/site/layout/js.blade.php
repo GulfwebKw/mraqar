@@ -12,14 +12,12 @@
         console.log(locale)
         var url=window.location.href;
         if(locale==='ar'){
-            url=url.replace('en','ar')
+            url=url.replace('/en','/ar')
         }
         if(locale==='en'){
-            url=url.replace('ar','en')
+            url=url.replace('/ar','/en')
         }
-        console.log(url)
         window.location.href=url
-
     }
     function startPage() {
         $.ajaxSetup({

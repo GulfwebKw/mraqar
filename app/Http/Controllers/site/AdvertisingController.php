@@ -309,8 +309,7 @@ class AdvertisingController extends Controller
                 // return $this->success("", ['advertising' => $advertising]);
                 return redirect()->route('Main.myAds', app()->getLocale())->with('status', 'ad_created');
             }
-            // return $this->fail(trans("main.expire_your_credit"));
-            return redirect()->back()->with('status', 'expire_your_credit');
+            return $this->fail(trans("main.expire_your_credit"));
         } catch (\Exception $exception) {
             DB::rollback();
             // return $this->fail($exception->getMessage(), -1, $request->all());
@@ -429,19 +428,27 @@ class AdvertisingController extends Controller
 
     public function edit($locale,$hashNumber)
     {
-        $advertising = Advertising::where('hash_number', $hashNumber)->first();
+        $advertising = Advertising::where('hash_number', $hashNumber)->firstOrFail();
 //        $photo=collect(json_decode($advertising->other_image))->toArray();
 //         dd($photo['other_image1']);
-        return view('site.advertising.edit', compact('advertising'));
+
+        $cities = City::orderBy('name_en')->get();
+        $types = VenueType::where('type','Residential')->orderBy('title_en')->get();
+        $purposes = ['rent', 'sell', 'exchange', 'required_for_rent'];
+        $credit = $this->getCreditUser(auth()->id());
+        if ($credit === [])
+            $credit = ['count_premium_advertising' => 0, 'count_normal_advertising' => 0];
+
+        return view('site.advertising.edit', compact('advertising', 'cities', 'types', 'purposes', 'credit'));
     }
 
-    public function updateAdvertising(Request $request)
+    public function updateAdvertising(StoreRequest $request)
     {
         try {
-            $advertising = Advertising::find($request->id);
+            $advertising = Advertising::findOrFail($request->id);
             if (isset($advertising)) {
                 $advertising = $this->saveAdvertising($request, $advertising);
-                return $this->success("");
+                return redirect()->route('Main.myAds', app()->getLocale())->with('controller-success', trans('edited'));
             }
             return $this->fail("not_found_advertising");
 

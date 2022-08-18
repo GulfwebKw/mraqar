@@ -96,7 +96,7 @@ Route::prefix('advertising')->group(function (){
     Route::POST('/ajax_file_upload_handler', $controller.'ajax_file_upload_handler')->middleware('auth')->name('site.advertising.ajax_file_upload_handler');
     Route::post('/store', $controller.'store')->middleware('auth')->name('site.advertising.store');;
     Route::get('{hashNumber}/edit', $controller.'edit')->name('site.advertising.edit')->middleware('auth');
-    Route::post('/update', $controller.'updateAdvertising')->middleware('auth');
+    Route::PUT('/update', $controller.'updateAdvertising')->name('site.advertising.updateAdvertising')->middleware('auth');
     Route::post('/destroy', $controller.'destroyAdvertising')->name('site.advertising.destroy')->middleware('auth');
     Route::get('/{hashNumber}/location', $controller.'advertisingLocation')->name('site.advertising.location');
     Route::get('/{hashNumber}/direction', $controller.'advertisingDirection')->name('site.advertising.direction');

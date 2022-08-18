@@ -169,17 +169,19 @@
                                                     $('#areasList').empty()
                                                     $('#areasList').parent().parent().find('.mdc-select__selected-text').text('')
                                                     $('#area_id').val('')
+                                                    let oldId = {{ !empty(old('area_id')) ? old('area_id') : 'null' }};
+                                                    let selectedArea = null ;
                                                     $.each(data, function(index, area) {
-                                                        let oldId = {{ !empty(old('area_id')) ? old('area_id') : 'null' }};
                                                         let selectedClass = oldId && area.id === oldId ? 'mdc-list-item--selected' : null;
+                                                        selectedArea = oldId && area.id === oldId ? area.name_{{app()->getLocale()}} : selectedArea;
                                                         let selectedAttr = oldId && area.id === oldId ? `aria-selected="true"` : null;
                                                         let option = `<li class="mdc-list-item ${selectedClass}" ${selectedAttr} data-value="${area.id}">${area.name_{{app()->getLocale()}}}</li>`
-                                                        $('#areasList').append(option)
-                                                        if (oldId) {
-                                                            $('#areasList').parent().parent().find('.mdc-select__selected-text').text(area.name_{{app()->getLocale()}})
-                                                            $('#area_id').val(oldId)
-                                                        }
+                                                        $('#areasList').append(option);
                                                     })
+                                                    if (oldId) {
+                                                        $('#areasList').parent().parent().find('.mdc-select__selected-text').text(selectedArea)
+                                                        $('#area_id').val(oldId)
+                                                    }
                                                 } else
                                                     console.error('error in get areas with ajax request')
                                             })
@@ -276,7 +278,7 @@
 
                                     <div class="col-xs-12 col-sm-6 p-2">
                                         <div class="mdc-text-field mdc-text-field--outlined">
-                                            <input class="mdc-text-field__input" name="price" value="{{ old('price') }}" placeholder="{{__('price_title')}} ({{__('kd_title')}})" required>
+                                            <input class="mdc-text-field__input" name="price" value="{{ old('price') }}" placeholder="{{__('price_title')}} ({{__('kd_title')}})">
                                             <div class="mdc-notched-outline">
                                                 <div class="mdc-notched-outline__leading"></div>
                                                 <div class="mdc-notched-outline__notch">

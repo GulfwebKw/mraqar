@@ -121,15 +121,16 @@ class Controller extends BaseController
     }
     public function success($message, $data=null, $status=1)
     {
-        return response()->json([
-            'status' => $status,
-            'message' => $message,
-            'data' => $data
-        ]);
+        return redirect()->back()->withInput()->with('controller-success', $message);
+        // return response()->json([
+        //     'status' => $status,
+        //     'message' => $message,
+        //     'data' => $data
+        // ]);
     }
     public function fail($message, $status=-1, $errors=null)
     {
-        return redirect()->back()->withErrors(['fail' => $message]);
+        return redirect()->back()->withInput()->withErrors(['fail' => $message]);
         // return response()->json([
         //     'status' => $status,
         //     'message' => $message,
