@@ -110,7 +110,7 @@ $side = app()->getLocale() === 'en' ? 'r' : 'l';
 
                             </div>
 
-                            <div class="col-xs-12 col-md-4 mb-2 p-0 d-flex">
+                            <div class="col-xs-12 col-md-4 mb-2 p-0 d-flex justify-center">
                                 <div class="mdc-form-field">
                                     <div class="mdc-radio">
                                         <input class="mdc-radio__native-control" type="radio" id="normal" name="advertise_type" value="normal"

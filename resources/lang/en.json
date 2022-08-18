@@ -215,5 +215,9 @@
     "property_type" : "Property type",
     "Reset Password" : "Reset Password",
     "ad_created_title": "Your Ad was created successfully",
-    "add_ad_title" : "Add ad"
+    "add_ad_title" : "Add ad",
+    "drop_files_to_upload" : "Drop files here or click to upload.",
+    "gallery" : "GALLERY",
+    "max" : "Max",
+    "images" : "images"
 }

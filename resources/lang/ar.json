@@ -421,5 +421,9 @@
     "Reset Password" : "إعادة تعيين كلمة المرور",
     "dinar" : "دینار",
     "ad_created_title": "تم إنشاء إعلانك بنجاح",
-    "add_ad_title" : "إضافة اعلان"
+    "add_ad_title" : "إضافة اعلان",
+    "drop_files_to_upload" : "قم بإسقاط الملفات هنا أو انقر للتحميل.",
+    "gallery" : "صالة عرض",
+    "max" : "أقصى",
+    "images" : "الصور"
 }

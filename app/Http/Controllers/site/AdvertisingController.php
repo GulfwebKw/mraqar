@@ -337,6 +337,7 @@ class AdvertisingController extends Controller
     private function saveAdvertising(Request $request, Advertising $advertising): Advertising
     {
         $advertising->user_id = Auth::user()->id;
+        $advertising->phone_number = $request->phone_number;
         $advertising->city_id = $request->city_id;
         $advertising->area_id = $request->area_id;
         $advertising->type = 'residential';

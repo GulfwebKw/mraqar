@@ -24,6 +24,7 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
+           'phone_number' => 'required|digits:8',
            'advertising_type' => 'required|in:normal,premium',
            'venue_type' => 'required',
            'purpose' => 'required|in:rent,sell,exchange,required_for_rent',

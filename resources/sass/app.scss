@@ -166,9 +166,12 @@ body {
 .mdc-select__menu {
     z-index: 1000;
 }
+.justify-center {
+    justify-content: center;
+}
 // md: 960 - 1280
 // lg: 1280 - 1919
-
+// responsive:
 @media screen and (min-width: 1280px) {
     .d-lg-more-block {
         display: block !important;

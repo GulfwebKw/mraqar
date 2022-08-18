@@ -115,9 +115,9 @@
                                     </div>
 
                                     <div class="col-xs-12 col-sm-6 p-2">
-                                        <div class="mdc-select mdc-select--outlined role-list">
+                                        <div class="mdc-select mdc-select--outlined role-list mdc-select--required">
                                             <input id="cityInput" type="hidden" name="city_id" value="{{ old('city_id') }}">
-                                            <div class="mdc-select__anchor">
+                                            <div class="mdc-select__anchor" aria-required="true">
                                                 <i class="mdc-select__dropdown-icon"></i>
                                                 <div class="mdc-select__selected-text"></div>
                                                 <div class="mdc-notched-outline">
@@ -131,7 +131,9 @@
                                             <div class="mdc-select__menu mdc-menu mdc-menu-surface">
                                                 <ul class="mdc-list">
                                                     @foreach($cities as $city)
-                                                        <li class="mdc-list-item" data-value="{{ $city->id }}">
+                                                        @php $isOld = old('city_id') == $city->id; @endphp
+                                                        <li class="mdc-list-item {{ $isOld ? 'mdc-list-item--selected' : '' }}" {{ $isOld ? 'aria-selected="true"' : '' }}
+                                                            data-value="{{ $city->id }}">
                                                             {{ app()->getLocale() == 'en' ? $city->name_en : $city->name_ar }}
                                                         </li>
                                                     @endforeach
@@ -146,29 +148,48 @@
                                     </div>
 
                                     <script type="module">
+                                        // after city select. update areas list with ajax.
                                         $(document).on('inputUpdated', function(e, event_data) {
                                             if (event_data[0] === 'city_id') {
                                                 let city_id = event_data[1]
-                                                $.post('/{{app()->getLocale()}}/areas', {city_id}, function(data, status){
-                                                    if (status === 'success') {
-                                                        $('#areasList').empty()
-                                                        console.log($('#areasList').parent().parent().find('.mdc-select__selected-text').text(''));
-                                                        console.log($('#areasList').parent().parent().parent().find('input').val(''));
-                                                        $.each(data, function(index, area) {
-                                                            let option = `<li class="mdc-list-item" data-value="${area.id}">${area.name_{{app()->getLocale()}}}</li>`
-                                                            $('#areasList').append(option)
-                                                        })
-                                                    } else
-                                                        console.error('error in get areas with ajax request')
-                                                })
+                                                fill_area_list(city_id)
                                             }
                                         })
+
+                                        $(document).ready(function() {
+                                            let city_id = $('#cityInput').val()
+                                            if (typeof city_id === 'string' && city_id !== '') {
+                                                fill_area_list(city_id)
+                                            }
+                                        })
+
+                                        function fill_area_list (city_id) {
+                                            $.post('/{{app()->getLocale()}}/areas', {city_id}, function(data, status){
+                                                if (status === 'success') {
+                                                    $('#areasList').empty()
+                                                    $('#areasList').parent().parent().find('.mdc-select__selected-text').text('')
+                                                    $('#area_id').val('')
+                                                    $.each(data, function(index, area) {
+                                                        let oldId = {{ !empty(old('area_id')) ? old('area_id') : 'null' }};
+                                                        let selectedClass = oldId && area.id === oldId ? 'mdc-list-item--selected' : null;
+                                                        let selectedAttr = oldId && area.id === oldId ? `aria-selected="true"` : null;
+                                                        let option = `<li class="mdc-list-item ${selectedClass}" ${selectedAttr} data-value="${area.id}">${area.name_{{app()->getLocale()}}}</li>`
+                                                        $('#areasList').append(option)
+                                                        if (oldId) {
+                                                            $('#areasList').parent().parent().find('.mdc-select__selected-text').text(area.name_{{app()->getLocale()}})
+                                                            $('#area_id').val(oldId)
+                                                        }
+                                                    })
+                                                } else
+                                                    console.error('error in get areas with ajax request')
+                                            })
+                                        }
                                     </script>
 
                                     <div class="col-xs-12 col-sm-6 p-2">
-                                        <div class="mdc-select mdc-select--outlined">
+                                        <div class="mdc-select mdc-select--outlined mdc-select--required">
                                             <input type="hidden" name="area_id" id="area_id" value="{{ old('area_id') }}">
-                                            <div class="mdc-select__anchor">
+                                            <div class="mdc-select__anchor" aria-required="true">
                                                 <i class="mdc-select__dropdown-icon"></i>
                                                 <div class="mdc-select__selected-text"></div>
                                                 <div class="mdc-notched-outline">
@@ -192,9 +213,9 @@
                                     </div>
 
                                     <div class="col-xs-12 col-sm-6 p-2">
-                                        <div class="mdc-select mdc-select--outlined">
+                                        <div class="mdc-select mdc-select--outlined mdc-select--required">
                                             <input type="hidden" name="venue_type" id="venue_type" value="{{ old('venue_type') }}">
-                                            <div class="mdc-select__anchor">
+                                            <div class="mdc-select__anchor" aria-required="true">
                                                 <i class="mdc-select__dropdown-icon"></i>
                                                 <div class="mdc-select__selected-text"></div>
                                                 <div class="mdc-notched-outline">
@@ -208,7 +229,9 @@
                                             <div class="mdc-select__menu mdc-menu mdc-menu-surface">
                                                 <ul class="mdc-list">
                                                     @foreach($types as $type)
-                                                        <li class="mdc-list-item" data-value="{{$type->id}}">{{ app()->getLocale() == 'en' ? $type->title_en : $type->title_ar }}</li>
+                                                        @php $isOld = old('venue_type') == $type->id; @endphp
+                                                        <li class="mdc-list-item {{ $isOld ? 'mdc-list-item--selected' : '' }}" {{ $isOld ? 'aria-selected="true"' : '' }}
+                                                            data-value="{{$type->id}}">{{ app()->getLocale() == 'en' ? $type->title_en : $type->title_ar }}</li>
                                                     @endforeach
                                                 </ul>
                                             </div>
@@ -221,9 +244,9 @@
                                     </div>
 
                                     <div class="col-xs-12 col-sm-6 p-2">
-                                        <div class="mdc-select mdc-select--outlined">
+                                        <div class="mdc-select mdc-select--outlined mdc-select--required">
                                             <input type="hidden" name="purpose" id="purpose" value="{{ old('purpose') }}">
-                                            <div class="mdc-select__anchor">
+                                            <div class="mdc-select__anchor" aria-required="true">
                                                 <i class="mdc-select__dropdown-icon"></i>
                                                 <div class="mdc-select__selected-text"></div>
                                                 <div class="mdc-notched-outline">
@@ -237,7 +260,9 @@
                                             <div class="mdc-select__menu mdc-menu mdc-menu-surface">
                                                 <ul class="mdc-list">
                                                     @foreach($purposes as $purpose)
-                                                        <li class="mdc-list-item" data-value="{{$purpose}}">{{ __($purpose) }}</li>
+                                                        @php $isOld = old('purpose') == $purpose; @endphp
+                                                        <li class="mdc-list-item {{ $isOld ? 'mdc-list-item--selected' : '' }}" {{ $isOld ? 'aria-selected="true"' : '' }}
+                                                            data-value="{{$purpose}}">{{ __($purpose) }}</li>
                                                     @endforeach
                                                 </ul>
                                             </div>
@@ -251,7 +276,7 @@
 
                                     <div class="col-xs-12 col-sm-6 p-2">
                                         <div class="mdc-text-field mdc-text-field--outlined">
-                                            <input class="mdc-text-field__input" name="price" value="{{ old('price') }}" placeholder="{{__('price_title')}} ({{__('kd_title')}})">
+                                            <input class="mdc-text-field__input" name="price" value="{{ old('price') }}" placeholder="{{__('price_title')}} ({{__('kd_title')}})" required>
                                             <div class="mdc-notched-outline">
                                                 <div class="mdc-notched-outline__leading"></div>
                                                 <div class="mdc-notched-outline__notch">
@@ -284,12 +309,29 @@
                                             </span>
                                         @enderror
                                     </div>
-
+                                    @if ( old('other_images_link' , false) )
+                                        <div class="col-xs-12 mt-2">
+                                            <div class="row">
+                                                @forelse( old('other_images_link' ) as $files )
+                                                    <div class="col-xs-6 col-sm-4 col-md-2" id="fileOld_{{ $loop->index }}">
+                                                        <input type="hidden" name="other_images_link[]" value="{{ $files }}">
+                                                        <img src="{{ asset('/resources/tempUploads/' .$files ) }}" width="100%">
+                                                        <div>
+                                                            <button onclick="$('#fileOld_{{ $loop->index }}').remove()" class="bg-warn border-0">
+                                                                <span class="material-icons-outlined">delete</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                @empty
+                                                @endforelse
+                                            </div>
+                                        </div>
+                                    @endif
                                     <div class="col-xs-12 mt-2">
-                                        <label class="text-muted">GALLERY (max 8 images)</label>
+                                        <label class="text-muted">{{__('gallery')}} ({{__('max')}} 10 {{__('images')}})</label>
                                         <div id="property-images" class="dropzone needsclick">
                                             <div class="dz-message needsclick text-muted">
-                                                Drop files here or click to upload.
+                                                {{__('drop_files_to_upload')}}
                                             </div>
                                         </div>
                                     </div>
@@ -299,7 +341,7 @@
                                     <div class="col-xs-12 p-2 mt-3 center-xs">
                                         <button class="mdc-button mdc-button--raised next-tab" type="submit">
                                             <span class="mdc-button__ripple"></span>
-                                            <span class="mdc-button__label">Submit</span>
+                                            <span class="mdc-button__label">{{__('Submit')}}</span>
                                         </button>
                                     </div>
                                 </form>
