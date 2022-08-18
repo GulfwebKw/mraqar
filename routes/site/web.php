@@ -77,7 +77,6 @@ Route::group(['prefix' => 'cat/premiums'] , function (){
 //////////////// show and search ads
 Route::get('/ad/{advertising}', 'AdvertisingController@show')->name('Main.showAd');
 Route::get('/search', 'AdvertisingController@search')->name('site.search');
-Route::get('/ad/create', 'AdvertisingController@create')->name('Advertising.create');
 
 
 //////////// archive advertising

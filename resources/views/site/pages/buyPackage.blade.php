@@ -23,7 +23,11 @@
         <strong>{{__('un_success_title')}}!</strong> {{__('un_success_alert_title')}}!
     </div>
 @endif
-
+<style>
+    :root{
+        --mdc-theme-secondary: #E91E63 !important; // radio buttons
+    }
+</style>
 <main>
     <div class="px-3">
         <div class="theme-container">

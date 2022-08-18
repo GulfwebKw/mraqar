@@ -129,11 +129,12 @@ class Controller extends BaseController
     }
     public function fail($message, $status=-1, $errors=null)
     {
-        return response()->json([
-            'status' => $status,
-            'message' => $message,
-            'errors' => $errors
-        ]);
+        return redirect()->back()->withErrors(['fail' => $message]);
+        // return response()->json([
+        //     'status' => $status,
+        //     'message' => $message,
+        //     'errors' => $errors
+        // ]);
     }
     public function isValidCreateAdvertising($userId,$type)
     {
