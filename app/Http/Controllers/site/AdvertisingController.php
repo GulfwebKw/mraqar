@@ -362,7 +362,9 @@ class AdvertisingController extends Controller
         $advertising->location_lat = $request->location_lat;
         $advertising->location_long = $request->location_long;
         $advertising->hash_number = Advertising::makeHashNumber();
-
+        $advertising->floor_plan = "";
+        $advertising->main_image = "" ;
+        $advertising->other_image = "" ;
         if ($request->hasFile('main_image')) {
             $advertising->main_image = $this->saveImage($request->main_image);
         } else  {
@@ -377,35 +379,36 @@ class AdvertisingController extends Controller
         }
 
         $otherImage = [];
-        for ($i = 1; $i <= 6; $i++) {
-            if ($request["other_image" . $i]) {
-                $file = $request["other_image" . $i];
-                if ($request->hasFile("other_image" . $i)) {
-                    $path = $this->saveImage($request->file("other_image" . $i));
+        if (is_array($request["other_image"] ) and count($request["other_image"])  > 0 ) {
+            foreach ( $request["other_image"] as $i => $file){
+                if ($request->hasFile("other_image.".  $i)) {
+                    $path = $this->saveImage($request->file("other_image." . $i));
                 } elseif (is_string($file)) {
                     $path = $file;
                 } else {
                     $path = "";
                 }
-            } else {
-                $path = "";
+                $otherImage["other_image"][] = $path;
             }
-            $otherImage["other_image" . $i] = $path;
         }
         if ($request->other_images_link) {
             foreach ($request->other_images_link as $i => $link) {
                 rename(public_path('/resources/tempUploads/' . $link), public_path('resources/uploads/images/' . $link));
-                if ($i == 0)
+                if ($i == 0 and ! ( $request->hasFile('main_image') or $request->exists('main_image') ) )
                     $advertising->main_image = '/resources/uploads/images/' . $link;
                 else
-                    $otherImage["other_image" . ($i - 1)] = '/resources/uploads/images/' . $link;
-            }
-
-            if (count($otherImage) >= 1) {
-                $otherImage = json_encode($otherImage);
-                $advertising->other_image = $otherImage;
+                    $otherImage["other_image"][] = '/resources/uploads/images/' . $link;
             }
         }
+        if ( ( $advertising->main_image == "" or  $advertising->main_image == null ) and isset($otherImage["other_image"][0]) ){
+            $advertising->main_image = $otherImage["other_image"][0] ;
+            unset($otherImage["other_image"][0]);
+        }
+        if (count($otherImage) >= 1) {
+            $otherImage = json_encode($otherImage);
+            $advertising->other_image = $otherImage;
+        }
+        // dd($advertising);
 
         if (isset($request->video)) {
             if (!is_string($request->video)) {
@@ -453,7 +456,7 @@ class AdvertisingController extends Controller
             return $this->fail("not_found_advertising");
 
         } catch (\Exception $exception) {
-            return $this->fail("server_error");
+            return $this->fail( $exception->getMessage() .' '. $exception->getLine());
         }
 
     }

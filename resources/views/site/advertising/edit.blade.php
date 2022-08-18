@@ -269,10 +269,39 @@
                                             </span>
                                         @enderror
                                     </div>
-                                    @if ( old('other_images_link' , false) )
+
+                                    @if ( count( (array)  json_decode($advertising->other_image , true) ) or old('other_images_link' , false) or $advertising->main_image )
                                         <div class="col-xs-12 mt-2">
                                             <div class="row">
-                                                @forelse( old('other_images_link' ) as $files )
+                                                @if( $advertising->main_image)
+                                                    <div class="col-xs-6 col-sm-4 col-md-2" id="main_image">
+                                                        <input type="hidden" name="main_image" value="{{ $advertising->main_image }}">
+                                                        <img src="{{ asset($advertising->main_image ) }}" width="100%">
+                                                        <div>
+                                                            <button onclick="$('#main_image').remove()" class="bg-warn border-0">
+                                                                <span class="material-icons-outlined">delete</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                                @forelse( (array)  json_decode( $advertising->other_image , true) as $i1 =>  $files )
+                                                        @forelse( $files as $i2 =>  $file )
+                                                            @if ( $file )
+                                                                <div class="col-xs-6 col-sm-4 col-md-2" id="fileOld1_{{ $i1 }}_{{ $i2 }}">
+                                                                    <input type="hidden" name="other_image[]" value="{{ $file }}">
+                                                                    <img src="{{ asset($file ) }}" width="100%">
+                                                                    <div>
+                                                                        <button onclick="$('#fileOld1_{{ $i1 }}_{{ $i2 }}').remove()" class="bg-warn border-0">
+                                                                            <span class="material-icons-outlined">delete</span>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            @endif
+                                                        @empty
+                                                        @endforelse
+                                                @empty
+                                                @endforelse
+                                                @forelse( old('other_images_link' , [] ) as $files )
                                                     <div class="col-xs-6 col-sm-4 col-md-2" id="fileOld_{{ $loop->index }}">
                                                         <input type="hidden" name="other_images_link[]" value="{{ $files }}">
                                                         <img src="{{ asset('/resources/tempUploads/' .$files ) }}" width="100%">
