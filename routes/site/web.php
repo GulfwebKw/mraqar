@@ -1,6 +1,9 @@
 <?php
 
 
+use App\Models\Advertising;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -96,6 +99,8 @@ Route::prefix('advertising')->group(function (){
     Route::POST('/ajax_file_upload_handler', $controller.'ajax_file_upload_handler')->middleware('auth')->name('site.advertising.ajax_file_upload_handler');
     Route::post('/store', $controller.'store')->middleware('auth')->name('site.advertising.store');;
     Route::get('{hashNumber}/edit', $controller.'edit')->name('site.advertising.edit')->middleware('auth');
+    Route::post('upgrade_premium', $controller.'upgrade_premium')->name('site.advertising.upgrade_premium')->middleware('auth');
+    Route::post('auto_extend', $controller.'auto_extend')->name('site.advertising.auto_extend')->middleware('auth');
     Route::PUT('/update', $controller.'updateAdvertising')->name('site.advertising.updateAdvertising')->middleware('auth');
     Route::post('/destroy', $controller.'destroyAdvertising')->name('site.advertising.destroy')->middleware('auth');
     Route::get('/{hashNumber}/location', $controller.'advertisingLocation')->name('site.advertising.location');

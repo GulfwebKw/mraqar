@@ -1,6 +1,6 @@
 @extends('site.layout.master')
 
-@section('title' , __('add_ad_title'))
+@section('title' , __('edit_ad_title'))
 
 @php
     $unSide = app()->getLocale() === 'en' ? 'l' : 'r';

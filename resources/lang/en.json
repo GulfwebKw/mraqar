@@ -221,5 +221,11 @@
     "max" : "Max",
     "images" : "images",
     "edited" : "Edited successfully!",
-    "edit_ad_title" : "Edit Advertising"
+    "edit_ad_title" : "Edit Advertising",
+    "upgraded_premium" : "your ad successfully upgraded to premium",
+    "ask_upgrade_title" : "if you upgrade your ad to premium. one premium ad count will reduce from your premium packages",
+    "upgrade_title" : "upgrade",
+    "auto_extend_title" : "auto extend",
+    "enable_auto_extend" : "ad auto extend successfully enabled",
+    "disable_auto_extend" : "ad auto extend successfully disabled"
 }

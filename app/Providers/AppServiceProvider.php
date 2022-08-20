@@ -34,9 +34,7 @@ class AppServiceProvider extends ServiceProvider
             $whatsapp  = MessageController::getSettingDetails('whatsapp');
 
             if (auth()->check()) {
-                $balance = cache()->remember('balance_values'.auth()->id(), 300, function() {
-                    return \App\Http\Controllers\site\MainController::getBalance();
-                });
+                $balance = \App\Http\Controllers\site\MainController::getBalance();
             } else
                 $balance = 0;
 

@@ -137,9 +137,9 @@ class Controller extends BaseController
         //     'errors' => $errors
         // ]);
     }
-    public function isValidCreateAdvertising($userId,$type)
+    public static function isValidCreateAdvertising($userId,$type)
     {
-        $result= $this->getCreditUser($userId);
+        $result= self::getCreditUser($userId);
         if(count($result)>=1){
             if($type=="normal"){
                 if($result["count_normal_advertising"]>=1){
@@ -152,7 +152,7 @@ class Controller extends BaseController
         }
         return false;
     }
-    public function getCreditUser($userId)
+    public static function getCreditUser($userId)
     {
         $date=date("Y-m-d");
         $packages=DB::table("user_package_history")
@@ -188,7 +188,7 @@ class Controller extends BaseController
 
     }
 
-    public function affectCreditUser($userId,$type)
+    public static function affectCreditUser($userId,$type)
     {
         $listBalance= PackageHistory::where("user_id",$userId)
             ->where("expire_at",">",date("Y-m-d"))

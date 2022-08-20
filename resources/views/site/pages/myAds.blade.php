@@ -17,6 +17,10 @@
         <div class="alert alert-success">
             <strong>{{__('success_title')}}!</strong> {{__('ad_created_title')}} !
         </div>
+    @elseif((session('status')) == 'upgraded_premium')
+        <div class="alert alert-success">
+            <strong>{{__('success_title')}}!</strong> {{__('upgraded_premium')}} !
+        </div>
     @endif
 
 
@@ -27,6 +31,7 @@
             <th class="mdc-data-table__header-cell">{{__('ADVERTISE_TYPE')}}</th>
             <th class="mdc-data-table__header-cell">{{ __('location_title') }}</th>
             <th class="mdc-data-table__header-cell">{{ __('action_title') }}</th>
+            <th class="mdc-data-table__header-cell">{{ __('auto_extend_title') }}</th>
         </tr>
         </thead>
         <tbody class="mdc-data-table__content">
@@ -45,7 +50,7 @@
                 {{ app()->getLocale()==='en'?$ad->city->name_en . " - " . $ad->area->name_en:$ad->city->name_ar . " - " . $ad->area->name_ar }}
             </td>
             <td class="mdc-data-table__cell">
-                <form id="delete-form-{{$ad->id}}" method="post"
+                <form id="delete-form-{{$ad->id}}" class="d-inline-block" method="post"
                       action="{{ route('site.advertising.destroy',app()->getLocale()) }}">
                     @csrf
                     <input type="hidden" name="id" value="{{ $ad->id }}">
@@ -53,6 +58,46 @@
                     <button type="button" id="delete-btn" onclick="showModal({{ $ad->id }})"
                             class="mdc-icon-button material-icons warn-color">delete</button>
                 </form>
+                @if ($ad->advertising_type == 'normal')
+                    <form action="{{ route('site.advertising.upgrade_premium',app()->getLocale()) }}" method="post" id="upgrade{{$ad->id}}" class="d-none">
+                        @csrf
+                        <input type="hidden" name="advertise_id" value="{{$ad->id}}">
+                    </form>
+                    <a type="button" id="delete-btn" class="mdc-icon-button material-icons d-inline-block" style="color: #c7a014;"
+                       onclick="showUpgradeModal('{{$ad->id}}')">workspace_premium</a>
+                @endif
+            </td>
+            <td>
+                <div class="col-xs-12 py-3 row middle-xs">
+                    <div class="mdc-switch">
+                        <div class="mdc-switch__track"></div>
+                        <div class="mdc-switch__thumb-underlay">
+                            <div class="mdc-switch__thumb">
+                                <input type="checkbox" id="extend{{$ad->id}}" class="mdc-switch__native-control"
+                                       {{ !$ad->auto_extend ?: 'checked'}}>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    const checkbox = document.getElementById('extend{{$ad->id}}')
+
+                    checkbox.addEventListener('change', (event) => {
+                        if (event.currentTarget.checked) {
+                            $.post('/{{app()->getLocale()}}/advertising/auto_extend', {id: {{$ad->id}}, extend: 'enable'}, function(data, status){
+                                if (status === 'success') {
+                                    alert(data)
+                                }
+                            })
+                        } else {
+                            $.post('/{{app()->getLocale()}}/advertising/auto_extend', {id: {{$ad->id}}, extend: 'disable'}, function(data, status){
+                                if (status === 'success') {
+                                    alert(data)
+                                }
+                            })
+                        }
+                    })
+                </script>
             </td>
         </tr>
         @endforeach
@@ -74,6 +119,28 @@
                     <button type="button" class="btn btn-secondary close mt-3">{{__('cancel_title')}}</button>
                     <button type="button" class="btn btn-danger mt-3" id="delete">{{__('yes_title')}}
                         ,{{__('delete_title')}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="confirmUpgrade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{__('confirmation')}}</h5>
+                </div>
+                <div class="modal-body">
+                    {{__('ask_upgrade_title')}}!
+                </div>
+                <div class="modal-footer justify-content-between mt-3">
+                    <hr>
+                    <button type="button" class="btn btn-secondary close mt-3">{{__('cancel_title')}}</button>
+                    <button type="button" class="btn btn-danger mt-3" id="upgrade" style="background: green !important; border-color: green !important;">
+                        {{__('yes_title')}}
+                        ,{{__('upgrade_title')}}
+                    </button>
                 </div>
             </div>
         </div>
@@ -145,19 +212,29 @@
     <script>
         // Get the modal
         var modal = document.getElementById("confirmDelete");
+        var upgradeModal = document.getElementById("confirmUpgrade");
 
         // Get the <span> element that closes the modal
         var span = document.getElementsByClassName("close")[0];
+        var span2 = document.getElementsByClassName("close")[1];
 
         // When the user clicks on <span> (x), close the modal
         span.onclick = function() {
             modal.style.display = "none";
+        }
+        // When the user clicks on <span> (x), close the modal
+        span2.onclick = function() {
+            upgradeModal.style.display = "none";
         }
 
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
             if (event.target == modal) {
                 modal.style.display = "none";
+            }
+            else if(event.target == upgradeModal)
+            {
+                upgradeModal.style.display = "none";
             }
         }
         var advertiseId='';
@@ -167,6 +244,15 @@
         }
         $('#delete').on('click',function () {
             $('#delete-form-'+advertiseId).submit()
+        })
+
+        var upgradableId='';
+        function showUpgradeModal(id){
+            upgradeModal.style.display = "block";
+            upgradableId= id;
+        }
+        $('#upgrade').on('click',function () {
+            $('#upgrade'+upgradableId).submit()
 
         })
     </script>

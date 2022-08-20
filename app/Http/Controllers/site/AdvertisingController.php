@@ -10,7 +10,9 @@ use App\Models\AdvertisingView;
 use App\Models\Area;
 use App\Models\City;
 use App\Models\InvalidKey;
+use App\Models\PackageHistory;
 use App\Models\VenueType;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -476,6 +478,36 @@ class AdvertisingController extends Controller
             $advertising->delete();
         }
         return redirect()->route('Main.myAds',app()->getLocale())->with('status', $massage);
+    }
+
+    public function upgrade_premium(Request $request)
+    {
+        $isValid = $this->isValidCreateAdvertising(Auth::user()->id, 'premium');
+        if ($request->advertise_id && $isValid) {
+            $advertising = Advertising::whereId($request->advertise_id)->where('user_id', Auth::user()->id)->firstOrFail();
+            // decrease one from user premium packages count
+            User::where('id', Auth::user()->id)->update(['last_activity' => date("Y-m-d")]);
+            $countShowDay = $this->affectCreditUser(Auth::user()->id, 'premium');
+            $today = date("Y-m-d");
+            $date = strtotime("+$countShowDay day", strtotime($today));
+            $expireDate = date("Y-m-d", $date);
+            $advertising->expire_at = $expireDate;
+            $advertising->advertising_type = 'premium';
+            $advertising->save();
+
+            return redirect()->route('Main.myAds', app()->getLocale())->with('status', 'upgraded_premium');
+        }
+        return $this->fail(trans('un_success_alert_title'));
+    }
+
+    public function auto_extend(Request $request)
+    {
+        $status = $request->extend === 'enable' ? true : false;
+        if($request->id) {
+            Advertising::whereId($request->id)->update(['auto_extend' => $status]);
+            return $status ? trans('enable_auto_extend') : trans('disable_auto_extend');
+        }
+        return trans('un_success_alert_title');
     }
 
     public function simpleSaveVideo()

@@ -3,6 +3,8 @@
 namespace App\Console;
 
 use App\Console\Commands\CreateLog;
+use App\Models\Advertising;
+use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\File;
@@ -34,6 +36,22 @@ class Kernel extends ConsoleKernel
             foreach ($files as $file){
                 if ( time() - $file->getCTime() > 5 * 60 * 60 )
                     unlink($file->getRealPath());
+            }
+        })->daily()->at('3:30');
+
+        $schedule->call(function () {
+            foreach(Advertising::where('status' , 'accepted')->whereDate('expire_at' , Carbon::now())->where('auto_extend' , 1 )->get() as $ad) {
+                $isValid = \App\Http\Controllers\Controller::isValidCreateAdvertising($ad->user_id, $ad->advertising_type);
+                if ($isValid) {
+                    DB::beginTransaction();
+                    $countShowDay =  \App\Http\Controllers\Controller::affectCreditUser($ad->user_id, $ad->advertising_type);
+                    $today = date("Y-m-d");
+                    $date = strtotime("+$countShowDay day", strtotime($today));
+                    $expireDate = date("Y-m-d", $date);
+                    $ad->expire_at = $expireDate;
+                    $ad->save();
+                    DB::commit();
+                }
             }
         })->daily()->at('3:30');
     }
