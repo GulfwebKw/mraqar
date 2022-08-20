@@ -196,7 +196,7 @@
     "upgrade_account" : "upgrade account to company",
     "do_upgrade" : "Upgrade account",
     "see_your_company" : "Click here to see your company page.",
-    "already_have_package" : "You have the unfinished package!",
+    "already_have_package" : "You have unfinished package!",
     "company_form" : "Fill your company details",
     "company_image_title" : "Company image",
     "edit_company_title" : "Edit Company",
@@ -227,5 +227,7 @@
     "upgrade_title" : "upgrade",
     "auto_extend_title" : "auto extend",
     "enable_auto_extend" : "ad auto extend successfully enabled",
-    "disable_auto_extend" : "ad auto extend successfully disabled"
+    "disable_auto_extend" : "ad auto extend successfully disabled",
+    "downgrade_account" : "convert account to individual",
+    "account_downgraded_successfully" : "your account successfully converted to individual"
 }

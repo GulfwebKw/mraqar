@@ -87,8 +87,7 @@ class RegisterController extends Controller
 
 
             $request->merge(['type_usage' => 'individual']);
-            $package=Package::where("title_en","gift credit")->first();
-            $package_id = $package->id ;
+            $package = Package::where("title_en", "gift credit")->where('is_enable' , 1)->where('user_type' , $request->type_usage)->first();
 
             $user= User::makeUser([
                 'name'=>$request->name,
@@ -97,7 +96,6 @@ class RegisterController extends Controller
                 'type_usage'=>$request->type_usage,
                 'mobile'=>$request->mobile,
                 'lang'=>'en',
-                'package_id'=>$package_id,
                 'image_profile'=>'/images/main/profile.jpg'
             ]);
             /*
@@ -107,16 +105,13 @@ class RegisterController extends Controller
             }
             */
 
-            $settings=Setting::whereIn('setting_key', ['free_normal_advertising', 'free_premium_advertising'])
-                ->where('is_enable',1)->get()->keyBy('setting_key');
-            if(isset($package) && $settings->count()>=1){
+            if(isset($package)){
                 $countDay=optional($package)->count_day;
                 $today=   date("Y-m-d");
                 $date = strtotime("+$countDay day", strtotime($today));
                 $expireDate=date("Y-m-d",$date);
-                $settings=$settings->toArray();
-                $countNormal=array_key_exists('free_normal_advertising',$settings)?intval($settings['free_normal_advertising']['setting_value']):0;
-                $countPremium=array_key_exists('free_premium_advertising',$settings)?intval($settings['free_premium_advertising']['setting_value']):0;
+                $countNormal= $package->count_advertising ;
+                $countPremium= $package->count_premium ;
                 PackageHistory::create([
                     'title_en'=>$package->title_en,
                     'title_ar'=>$package->title_ar,

@@ -18,6 +18,10 @@
     <div class="alert alert-danger">
         <strong>{{__('un_success_title')}}!</strong> {{__('packageNotFinished')}}!
     </div>
+@elseif((session('status')) == 'account_downgraded')
+    <div class="alert alert-success">
+        <strong>{{__('success_title')}}!</strong> {{__('account_downgraded_successfully')}} !
+    </div>
 @elseif((session('status')) == 'unsuccess')
     <div class="alert alert-danger">
         <strong>{{__('un_success_title')}}!</strong> {{__('un_success_alert_title')}}!

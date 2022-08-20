@@ -87,16 +87,14 @@ class UserController extends Controller
                 $user->verified_office = 1;
                 $user->save();
             }
-            $package = Package::where("title_en", "gift credit")->first();
-            $settings = Setting::whereIn('setting_key', ['free_normal_advertising', 'free_premium_advertising'])->where('is_enable', 1)->get()->keyBy('setting_key');
-            if (isset($package) && $settings->count() >= 1) {
+            $package = Package::where("title_en", "gift credit")->where('is_enable' , 1)->where('user_type' , $request->type_usage)->first();
+            if (isset($package)) {
                 $countDay = optional($package)->count_day;
                 $today = date("Y-m-d");
                 $date = strtotime("+$countDay day", strtotime($today));
                 $expireDate = date("Y-m-d", $date);
-                $settings = $settings->toArray();
-                $countNormal = array_key_exists('free_normal_advertising', $settings) ? intval($settings['free_normal_advertising']['setting_value']) : 0;
-                $countPremium = array_key_exists('free_premium_advertising', $settings) ? intval($settings['free_premium_advertising']['setting_value']) : 0;
+                $countNormal= $package->count_advertising ;
+                $countPremium= $package->count_premium ;
                 PackageHistory::create(['title_en' => $package->title_en, 'title_ar' => $package->title_ar, 'user_id' => $user->id, 'type' => "static", 'package_id' => $request->package_id, 'date' => date('Y-m-d'), 'is_payed' => 1, 'price' => $package->price, 'count_day' => $package->count_day, 'count_show_day' => $package->count_show_day, 'count_advertising' => $countNormal, 'count_premium' => $countPremium, 'count' => 1, 'accept_by_admin' => 1, 'expire_at' => $expireDate]);
             }
             DB::commit();

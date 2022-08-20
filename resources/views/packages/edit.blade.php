@@ -18,6 +18,7 @@
                                 @error('title_en')
                                 <div class="help-block text-danger">{{ $message }}</div>
                                 @enderror
+                                <div class="help-block">For Gift package put english title like "gift credit"!</div>
                             </div>
                         </div>
 

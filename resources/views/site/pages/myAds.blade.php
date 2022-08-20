@@ -79,8 +79,8 @@
                         </div>
                     </div>
                 </div>
-                <script>
-                    const checkbox = document.getElementById('extend{{$ad->id}}')
+                <script type="text/javascript">
+                    var checkbox = document.getElementById('extend{{$ad->id}}')
 
                     checkbox.addEventListener('change', (event) => {
                         if (event.currentTarget.checked) {

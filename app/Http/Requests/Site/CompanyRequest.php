@@ -26,6 +26,7 @@ class CompanyRequest extends FormRequest
         if (! in_array($this->method(), ['PUT', 'PATCH'])) { // create
             $rules = [
                 'image' => 'nullable|image|mimes:jpg,png,jpeg|max:1024',
+                // Company name always should be required!!!!
                 'company_name' => 'required|max:250',
                 'company_phone' => 'required|digits:8|unique:users,company_phone',
                 'email' => 'nullable|email',
@@ -35,6 +36,7 @@ class CompanyRequest extends FormRequest
         } else { // edit
             $rules = [
                 'image' => 'nullable|image|mimes:jpg,png,jpeg|max:1024',
+                // Company name always should be required!!!!
                 'company_name' => 'required|max:250',
                 'company_phone' => 'required|digits:8|unique:users,company_phone,' . $this->user()->id,
                 'email' => 'nullable|email',
