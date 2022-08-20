@@ -34,7 +34,7 @@
         @foreach($ads as $ad)
         <tr class="mdc-data-table__row">
             <td class="mdc-data-table__cell">
-                <img src="{{ is_file(public_path($ad->main_image)) ? asset($ad->main_image) : asset('no-image.png')  }}" width="100" class="d-block py-3">
+                <img src="{{ file_exists(public_path(urldecode($ad->main_image))) ? asset($ad->main_image) : asset('no-image.png')  }}" width="100" class="d-block py-3">
             </td>
             <td class="mdc-data-table__cell">
                 @if($ad->advertising_type == "premium") {{__('premium_title')}}

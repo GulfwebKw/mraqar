@@ -33,7 +33,14 @@ class CompanyRequest extends FormRequest
                 'twitter' => 'nullable',
             ];
         } else { // edit
-            $rules['company_phone'] = 'required|digits:8|unique:users,company_phone,' . $this->user()->id;
+            $rules = [
+                'image' => 'nullable|image|mimes:jpg,png,jpeg|max:1024',
+                'company_name' => 'required|max:250',
+                'company_phone' => 'required|digits:8|unique:users,company_phone,' . $this->user()->id,
+                'email' => 'nullable|email',
+                'instagram' => 'nullable',
+                'twitter' => 'nullable',
+            ];
         }
         return $rules;
     }

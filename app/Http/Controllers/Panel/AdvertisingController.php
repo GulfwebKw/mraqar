@@ -182,7 +182,7 @@ class AdvertisingController extends Controller
 
     public function update(Request $request)
     {
-
+// dd($request->request);
         // Validator::make($request->all(), [
         //     'title_en' => ['required'],
         // ])->validate();
@@ -246,9 +246,9 @@ class AdvertisingController extends Controller
             $advertising->status = "reject";
             $advertising->reject_message = $request->reject_message;
         }
-
+// dd($request->main_image);
         if ($request->main_image != "") {
-            $p = str_replace(env("APP_URL"), "", $request->main_image);
+            $p = urldecode(str_replace(env("APP_URL"), "", $request->main_image));
             $advertising->main_image = $p;
         }
 
@@ -262,8 +262,14 @@ class AdvertisingController extends Controller
             $advertising->video= $v;
         }
 
+        $new_other_images = (array) optional(json_decode($advertising->other_image))->other_image;
+        foreach((array) $request->deleted_images as $image) {
+            if (($key = array_search($image, $new_other_images)) !== false) {
+                unset($new_other_images[$key]);
+            }
+        }
         if ($request->other_image != "") {
-
+// dd($request->other_image);
             $otherImage = str_replace("[", "", $request->other_image);
             $otherImage = str_replace("]", "", $otherImage);
             $otherImage = str_replace("\"", "", $otherImage);
@@ -272,18 +278,24 @@ class AdvertisingController extends Controller
             $newPath = [];
 
             foreach ($path as $key=>$item) {
-                $itemImage = str_replace(env("APP_URL"), "", $item);
+                $itemImage = urldecode(str_replace(env("APP_URL"), "", $item));
                 $r=intval($key)+1;
-                $newPath["other_image".$r]=$itemImage;
+                $newPath[]=$itemImage;
             }
-            if(count($newPath)<10){
-                $c=count($newPath)+1;
-                for($i=$c;$i<=10;$i++){
-                    $name="other_image".$i;
-                    $newPath[$name]="";
-                }
-            }
+            // if(count($newPath)<10){
+            //     $c=count($newPath)+1;
+            //     for($i=$c;$i<=10;$i++){
+            //         $name="other_image".$i;
+            //         $newPath[$name]="";
+            //     }
+            // }
+
+
+            $olds = isset($new_other_images) ? $new_other_images : (array) optional(json_decode($advertising->other_image))->other_image;
+            $newPath = ['other_image' => array_merge($olds, $newPath)];
             $advertising->other_image = json_encode($newPath);
+        } elseif(isset($new_other_images)) {
+            $advertising->other_image = json_encode(['other_image' => $new_other_images]);
         }
         $advertising->save();
     }

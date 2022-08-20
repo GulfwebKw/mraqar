@@ -270,6 +270,14 @@
                                         @enderror
                                     </div>
 
+                                    <div id="deleted_images"></div>
+                                    <script type="text/javascript">
+                                        let delInput = link => `<input type="hidden" name="deleted_images[]" value="${link}">`
+
+                                        function deletedImage(link) {
+                                            $('#deleted_images').append(delInput(link))
+                                        }
+                                    </script>
                                     @if ( count( (array)  json_decode($advertising->other_image , true) ) or old('other_images_link' , false) or $advertising->main_image )
                                         <div class="col-xs-12 mt-2">
                                             <div class="row">
@@ -278,7 +286,7 @@
                                                         <input type="hidden" name="main_image" value="{{ $advertising->main_image }}">
                                                         <img src="{{ asset($advertising->main_image ) }}" width="100%">
                                                         <div>
-                                                            <button onclick="$('#main_image').remove()" class="bg-warn border-0">
+                                                            <button onclick="$('#main_image').remove(); deletedImage('{{$advertising->main_image}}')" type="button" class="bg-warn border-0">
                                                                 <span class="material-icons-outlined">delete</span>
                                                             </button>
                                                         </div>
@@ -291,7 +299,7 @@
                                                                     <input type="hidden" name="other_image[]" value="{{ $file }}">
                                                                     <img src="{{ asset($file ) }}" width="100%">
                                                                     <div>
-                                                                        <button onclick="$('#fileOld1_{{ $i1 }}_{{ $i2 }}').remove()" class="bg-warn border-0">
+                                                                        <button onclick="$('#fileOld1_{{ $i1 }}_{{ $i2 }}').remove(); deletedImage('{{ $file }}')" type="button" class="bg-warn border-0">
                                                                             <span class="material-icons-outlined">delete</span>
                                                                         </button>
                                                                     </div>
@@ -306,7 +314,7 @@
                                                         <input type="hidden" name="other_images_link[]" value="{{ $files }}">
                                                         <img src="{{ asset('/resources/tempUploads/' .$files ) }}" width="100%">
                                                         <div>
-                                                            <button onclick="$('#fileOld_{{ $loop->index }}').remove()" class="bg-warn border-0">
+                                                            <button onclick="$('#fileOld_{{ $loop->index }}').remove(); deletedImage('{{ $files }}')" type="button" class="bg-warn border-0">
                                                                 <span class="material-icons-outlined">delete</span>
                                                             </button>
                                                         </div>

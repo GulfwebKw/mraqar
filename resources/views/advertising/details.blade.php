@@ -257,6 +257,14 @@
 {{--                            </div>--}}
 
 
+                            <div id="deleted_images"></div>
+                            <script type="text/javascript">
+                                let delInput = link => `<input type="hidden" name="deleted_images[]" value="${link}">`
+
+                                function deletedImage(link) {
+                                    $('#deleted_images').append(delInput(link))
+                                }
+                            </script>
 
                             <div class="form-group row">
                                 <label for="mobile" class="col-sm-2 col-form-label" style="margin-top: 100px"><span class="text-danger"></span> {{__('Other Image')}}</label>
@@ -271,9 +279,14 @@
                                             <input type="hidden"  name="other_image" id="other_image" class="form-control">
                                         </div>
                                         <div class="col-md-6" style="margin-top: 50px">
-                                            @foreach($imagePath as $image=>$path)
+                                            @foreach((array) optional($imagePath)->other_image as $key => $path)
                                                 @if($path!="")
-                                                    <img src="{{asset($path)}}" style="width:100px;height:100px"/>
+                                                    <div  id="{{'image'.$key}}">
+                                                        <img src="{{asset($path)}}" style="width:100px;height:100px"/>
+                                                        <button onclick="$('#image'+'{{$key}}').remove(); deletedImage('{{$path}}')" type="button" class="bg-warn border-0">
+                                                            <span class="material-icons-outlined">delete</span>
+                                                        </button>
+                                                    </div>
                                                 @endif
                                             @endforeach
                                         </div>

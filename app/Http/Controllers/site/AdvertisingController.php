@@ -372,6 +372,10 @@ class AdvertisingController extends Controller
             $advertising->main_image = $request->main_image;
         }
 
+        foreach((array) $request->deleted_images as $image) {
+            ! file_exists(public_path(urldecode($image))) ?: unlink(public_path(urldecode($image)));
+        }
+
         if ($request->hasFile('floor_plan')) {
             $advertising->floor_plan = $this->saveImage($request->floor_plan);
         } elseif ($request->floor_plan == "false") {

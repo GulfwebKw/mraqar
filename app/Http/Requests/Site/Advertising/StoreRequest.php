@@ -46,7 +46,15 @@ class StoreRequest extends FormRequest
 //            'furnished' => 'required|in:1,0',
         ];
         } else { // edit
-            $rules['advertising_type'] = 'nullable';
+            $rules = [
+                'phone_number' => 'required|digits:8',
+                'advertising_type' => 'nullable',
+                'venue_type' => 'required',
+                'purpose' => 'required|in:rent,sell,exchange,required_for_rent',
+                'city_id' => 'required',
+                'area_id' => 'required',
+                'price' => 'nullable|numeric',
+            ];
         }
         return $rules;
     }
