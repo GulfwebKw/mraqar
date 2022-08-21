@@ -231,5 +231,6 @@
     "downgrade_account" : "convert account to individual",
     "account_downgraded_successfully" : "your account successfully converted to individual",
     "are_you_sure" : "are you sure?",
-    "account_to_individual_alert" : "You want convert your account type to individual account."
+    "account_to_individual_alert" : "You want convert your account type to individual account.",
+    "in": "in"
 }

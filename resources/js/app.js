@@ -8,13 +8,26 @@ window.Vue = require('vue');
 window.url = '/api/v1/';
 window.axios = require('axios');
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+axios.defaults.headers.common['X-localization'] = document.getElementById("app").getAttribute('data-locale');
+
+
+var filter = function(text, length, clamp){
+    clamp = clamp || '...';
+    var node = document.createElement('div');
+    node.innerHTML = text;
+    var content = node.textContent;
+    return content.length > length ? content.slice(0, length) + clamp : content;
+};
+
+Vue.filter('truncate', filter);
+
 
 new Vue({
     el: '#app',
     data () {
         return {
             url: "this is msg",
-            cards: null,
+            cards: [],
             searchVariables: {},
             page: 1,
             maxPage: null,
@@ -37,9 +50,10 @@ new Vue({
             axios
                 .post(window.url + `search-advertising?page=${this.page}`, searchData )
                 .then(response => {
-                    console.log(response.data);
-                    this.maxPage = response.data.data.last_page
-                    this.cards = this.response.data.data
+                    console.log(response.data.data);
+                    this.maxPage = response.data.data.last_page;
+                    console.log('lllllllll')
+                    this.cards.push(...response.data.data.data);
                     this.isLoading = false ;
                 })
         },
@@ -65,7 +79,7 @@ new Vue({
     { threshold: 1 }
         );
         observer.observe(document.getElementById("pageEnd"));
-console.log('here')
+
         this.getAds();
     }
 

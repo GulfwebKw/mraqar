@@ -6,7 +6,7 @@ $side = app()->getLocale() === 'en' ? 'r' : 'l';
 
     <main>
         <div class="px-3">
-            <div class="theme-container" id="app" data-company="0" data-requiredPage="0" >
+            <div class="theme-container" id="app" data-company="0" data-requiredPage="{{ isset($required_for_rent) ? '1' : '0' }}"  data-locale="{{app()->getLocale()}}">
 
                 <div class="mt-5"></div>
 

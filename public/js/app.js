@@ -2476,7 +2476,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'Card'
+  name: 'Card',
+  props: {
+    lang: null,
+    card: null,
+    purpose_lang: {}
+  }
 });
 
 /***/ }),
@@ -2548,6 +2553,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Search_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../components/Search.vue */ "./resources/components/Search.vue");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 
 
 
@@ -2556,12 +2573,23 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js"
 window.url = '/api/v1/';
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 (axios__WEBPACK_IMPORTED_MODULE_2___default().defaults.headers.common["X-Requested-With"]) = 'XMLHttpRequest';
+(axios__WEBPACK_IMPORTED_MODULE_2___default().defaults.headers.common["X-localization"]) = document.getElementById("app").getAttribute('data-locale');
+
+var filter = function filter(text, length, clamp) {
+  clamp = clamp || '...';
+  var node = document.createElement('div');
+  node.innerHTML = text;
+  var content = node.textContent;
+  return content.length > length ? content.slice(0, length) + clamp : content;
+};
+
+vue__WEBPACK_IMPORTED_MODULE_3__["default"].filter('truncate', filter);
 new vue__WEBPACK_IMPORTED_MODULE_3__["default"]({
   el: '#app',
   data: function data() {
     return {
       url: "this is msg",
-      cards: null,
+      cards: [],
       searchVariables: {},
       page: 1,
       maxPage: null,
@@ -2583,9 +2611,14 @@ new vue__WEBPACK_IMPORTED_MODULE_3__["default"]({
       searchData.company_id = this.companyId;
       searchData.isRequiredPage = this.isRequiredPage;
       axios__WEBPACK_IMPORTED_MODULE_2___default().post(window.url + "search-advertising?page=".concat(this.page), searchData).then(function (response) {
-        console.log(response.data);
+        var _this$cards;
+
+        console.log(response.data.data);
         _this.maxPage = response.data.data.last_page;
-        _this.cards = _this.response.data.data;
+        console.log('lllllllll');
+
+        (_this$cards = _this.cards).push.apply(_this$cards, _toConsumableArray(response.data.data.data));
+
         _this.isLoading = false;
       });
     },
@@ -2610,7 +2643,6 @@ new vue__WEBPACK_IMPORTED_MODULE_3__["default"]({
       threshold: 1
     });
     observer.observe(document.getElementById("pageEnd"));
-    console.log('here');
     this.getAds();
   }
 }); // window.url = 'http://mraqar.test/';

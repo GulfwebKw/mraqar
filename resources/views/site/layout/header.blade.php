@@ -59,7 +59,7 @@
                     </a>
                 </div>
                 <div>
-                    <a href="{{'/'.app()->getLocale(). '/' }}" class="mdc-button">
+                    <a href="{{'/'.app()->getLocale(). '/required' }}" class="mdc-button">
                         <span class="mdc-button__ripple"></span>
                         <span class="mdc-button__label">{{__('required_for_rent')}}</span>
                     </a>

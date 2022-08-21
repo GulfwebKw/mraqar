@@ -61,19 +61,24 @@ class Advertising extends Model implements Feedable
 
     public function area()
     {
-        return $this->belongsTo(Area::class);
+        return $this->belongsTo(Area::class)->withTrashed();
     }
 
     public function city()
     {
-        return $this->belongsTo(City::class);
+        return $this->belongsTo(City::class)->withTrashed();
+    }
+
+    public function venue()
+    {
+        return $this->belongsTo(VenueType::class , 'venue_type')->withTrashed();
     }
 
 
 
     public static function getValidAdvertising($status = 1): Builder
     {
-        $ad = Advertising::with(["user", "area", "city"])
+        $ad = Advertising::with(["user", "area", "city", "venue"])
             ->orderBy("advertising_type", "desc")->orderBy('id', 'desc');
         if ($status == 1) {
             $ad = $ad->where('status', 'accepted');

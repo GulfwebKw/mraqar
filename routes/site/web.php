@@ -23,6 +23,7 @@ Route::get('/','MainController@index')->name('Main.index');
 Route::get('/aboutus','MainController@aboutus')->name('Main.aboutus');
 Route::get('/contact','MessageController@create')->name('Message.create');
 Route::post('/contact', 'MessageController@store')->name('message.store');
+Route::get('required', function() {return view('site.pages.main', ['required_for_rent' => true]);})->name('required_for_rent');
 
 ////////////// companies
 Route::group(['prefix' => 'companies'] , function (){
@@ -33,7 +34,6 @@ Route::group(['prefix' => 'companies'] , function (){
     Route::put('/', 'CompanyController@update')->middleware(['auth'])->name('companies.update');
     Route::get('/{phone}/{name?}/advertise', 'CompanyController@new')->name('companies.show');
 });
-Route::get('/{phone}/{name}', 'CompanyController@show')->name('companies.info');
 
 ///////////// auth
 Route::prefix('')->group(function (){
@@ -134,4 +134,7 @@ Route::feeds();
 Route::get("/test",function (){
     echo bcrypt(12345678);
 })->name("test");
+
+
+Route::get('/{phone}/{name}', 'CompanyController@show')->name('companies.info');
 

@@ -114,7 +114,7 @@
                                 <div class="col-sm-6">
                                     <select id="venue_type" name="venue_type" class="form-control  ">
                                         @foreach($venueType as $venType)
-                                            <option  value="{{$venType->title_en}}">{{$venType->title_en}}</option>
+                                            <option  value="{{$venType->id}}">{{$venType->title_en}}</option>
                                         @endforeach
                                     </select>
                                     {{--                            <input type="text" name="venue_type" class="form-control  @error('venue_type') is-invalid @enderror" id="venue_type"  value="{{ $advertising->venue_type }}">--}}

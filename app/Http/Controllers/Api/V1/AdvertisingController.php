@@ -32,7 +32,7 @@ class AdvertisingController extends ApiBaseController
         $advertising = $this->bindFilter($request);
         $advertising->orderByDesc('advertising_type');
         $advertising->orderByDesc('updated_at');
-        $advertising=$advertising->paginate(1);
+        $advertising=$advertising->paginate(2);
         // $this->makeSearchHistory($request);
         return $this->success("",$advertising);
     }
