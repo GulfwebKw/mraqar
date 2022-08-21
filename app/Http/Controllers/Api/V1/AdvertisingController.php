@@ -21,6 +21,8 @@ class AdvertisingController extends ApiBaseController
     public function getListAdvertising(Request $request)
     {
         $advertising = $this->bindFilter($request);
+        $advertising->orderByDesc('advertising_type');
+        $advertising->orderByDesc('updated_at');
         $advertising=$advertising->paginate(10);
 
         return $this->success("",$advertising);
@@ -28,8 +30,10 @@ class AdvertisingController extends ApiBaseController
     public function search(Request $request)
     {
         $advertising = $this->bindFilter($request);
-        $advertising=$advertising->paginate(10);
-        $this->makeSearchHistory($request);
+        $advertising->orderByDesc('advertising_type');
+        $advertising->orderByDesc('updated_at');
+        $advertising=$advertising->paginate(1);
+        // $this->makeSearchHistory($request);
         return $this->success("",$advertising);
     }
     public function similarAdvertising($id)
@@ -450,30 +454,30 @@ class AdvertisingController extends ApiBaseController
     }
     private function bindFilter(Request $request): \Illuminate\Database\Eloquent\Builder
     {
-        $advertising = Advertising::getValidAdvertising()->whereNotNull('expire_at')->where('expire_at','>',date('Y-m-d'))->whereHas("user");;
+        $advertising = Advertising::getValidAdvertising()
+            ->whereNotNull('expire_at')
+            ->where('expire_at','>',date('Y-m-d'))
+            ->whereHas("user");
+        if (isset($request->area_id)&& count( $request->area_id ) > 0 ) {
+            $advertising = $advertising->whereIn("area_id", $request->area_id);
+        }
+        if (  $request->isRequiredPage )
+            $advertising = $advertising->where("purpose", 'required_for_rent');
+        else
+            if (isset($request->purpose) && $request->purpose != null and $request->purpose != "" and $request->purpose != "all") {
+                $advertising = $advertising->where("purpose", $request->purpose);
+            }
 
-        if (isset($request->city_id)&& $request->city_id!="-1") {
-            $advertising = $advertising->where("city_id", $request->city_id);
+        if($request->company_id){
+            $advertising = $advertising->where("user_id", $request->company_id);
         }
-        if (isset($request->area_id)&& $request->area_id!="-1") {
-            $advertising = $advertising->where("area_id", $request->area_id);
-        }
-        if (isset($request->advertising_type) && is_array($request->advertising_type)) {
-            $advertising = $advertising->whereIn("advertising_type", $request->advertising_type);
-        }elseif(isset($request->advertising_type)&&$request->advertising_type!=""){
+
+        if($request->advertising_type){
             $advertising = $advertising->where("advertising_type", $request->advertising_type);
         }
-        if (isset($request->type) && is_array($request->type)) {
-            $advertising = $advertising->whereIn("type", $request->type);
-        }elseif(isset($request->type)&&$request->type!=""){
-            $advertising = $advertising->where("type", $request->type);
-        }
 
-        if (isset($request->venue_type)) {
+        if ($request->venue_type) {
             $advertising = $advertising->where("venue_type", $request->venue_type);
-        }
-        if (isset($request->purpose)) {
-            $advertising = $advertising->where("purpose", $request->purpose);
         }
         if (isset($request->keyword)&&$request->keyword!="") {
             $advertising = $advertising->where(function ($r)use($request){
@@ -491,9 +495,6 @@ class AdvertisingController extends ApiBaseController
         if (isset($request->number_of_rooms) &&  is_numeric($request->number_of_rooms)) {
             $advertising = $advertising->where("number_of_rooms",$request->number_of_rooms);
         }
-
-
-
         if(isset($request->property) && is_array($request->property)){
             if(in_array('parking',$request->property)){
                 $advertising = $advertising->where("number_of_parking",'>=',1);

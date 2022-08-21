@@ -31,7 +31,7 @@ class ApiBaseController extends Controller
             'errors' => $errors
         ]);
     }
-    public function getCreditUser($userId)
+    public static function getCreditUser($userId)
     {
         $date=date("Y-m-d");
         $packages=DB::table("user_package_history")
@@ -66,7 +66,7 @@ class ApiBaseController extends Controller
 
 
     }
-    public function affectCreditUser($userId,$type)
+    public static function affectCreditUser($userId,$type)
     {
         $listBalance= PackageHistory::where("user_id",$userId)
             ->where("expire_at",">",date("Y-m-d"))
@@ -89,9 +89,9 @@ class ApiBaseController extends Controller
             return $listBalance->count_show_day;
         }
     }
-    public function isValidCreateAdvertising($userId,$type)
+    public static function isValidCreateAdvertising($userId,$type)
     {
-       $result= $this->getCreditUser($userId);
+       $result= self::getCreditUser($userId);
        if(count($result)>=1){
            if($type=="normal"){
                if($result["count_normal_advertising"]>=1){
@@ -147,7 +147,7 @@ class ApiBaseController extends Controller
         $img=\Image::make($image)->resize(990,1100);
        // $text=$advertising->{'description_'.$lang};
         $text =  !empty($advertising->description)?$advertising->description:'Details not available';
- 
+
         $width       = 990 ;
         $height      = 1100;
         $center_x    = $width / 2;
@@ -157,7 +157,7 @@ class ApiBaseController extends Controller
         $font_height = 10;
         $lines       = explode("\n", wordwrap($text, $max_len));
         $y           = $center_y - ((count($lines) - 1) * $font_height);
-		
+
         $Arabic = new I18N_Arabic('Glyphs');
 
         $rt=$advTitle;
