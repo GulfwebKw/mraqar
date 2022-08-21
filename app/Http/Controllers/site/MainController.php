@@ -128,6 +128,8 @@ if ($ignoreGift){
                 'available' => $av,
                 'available_premium' => $avp
             ];
+            if ($record['available'] === 0 && $record['available_premium'] === 0)
+                $record = 0;
         } else {
             $record = 0;
         }

@@ -14,7 +14,9 @@ $side = app()->getLocale() === 'en' ? 'r' : 'l';
                 <form action="{{ route('companies.downgrade',app()->getLocale()) }}" method="post" id="downForm">@csrf</form>
 
                 @php
-                    $confirmJs = 'confirm(`you want convert your account to individual account?`) ? $(`#downForm`).submit() : null';
+                    $first = __('account_to_individual_alert');
+                    $second = __('are_you_sure');
+                    $confirmJs = "confirm(`{$first}\n{$second}`) ? $(`#downForm`).submit() : null";
                     $cardMessage = '<a href="#" class="links">' . __('see_your_company') . '</a>'
                         . '<br>' . '<a onclick="'. $confirmJs .'" class="center-xs d-block links">' . __('downgrade_account') . '</a>'; @endphp
             @elseif($balance !== 0)

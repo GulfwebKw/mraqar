@@ -435,5 +435,7 @@
     "enable_auto_extend" : "تم تمكين تمديد تلقائي للإعلان بنجاح",
     "disable_auto_extend" : "تم تعطيل تمديد الإعلان التلقائي بنجاح",
     "downgrade_account" : "تحويل الحساب إلى فرد",
-    "account_downgraded_successfully" : "تم تحويل حسابك بنجاح إلى حساب فردي"
+    "account_downgraded_successfully" : "تم تحويل حسابك بنجاح إلى حساب فردي",
+    "are_you_sure" : "هل أنت واثق؟",
+    "account_to_individual_alert" : "تريد تحويل نوع حسابك إلى حساب فردي."
 }
