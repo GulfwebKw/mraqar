@@ -17,7 +17,8 @@ $side = app()->getLocale() === 'en' ? 'r' : 'l';
                     $first = __('account_to_individual_alert');
                     $second = __('are_you_sure');
                     $confirmJs = "confirm(`{$first}\n{$second}`) ? $(`#downForm`).submit() : null";
-                    $cardMessage = '<a href="#" class="links">' . __('see_your_company') . '</a>'
+                    $companyRoute = route('companies.info', [app()->getLocale(),auth()->user()->company_phone,auth()->user()->company_name]);
+                    $cardMessage = '<a href="'. $companyRoute .'" class="links">' . __('see_your_company') . '</a>'
                         . '<br>' . '<a onclick="'. $confirmJs .'" class="center-xs d-block links">' . __('downgrade_account') . '</a>'; @endphp
             @elseif($balance !== 0)
                 @php $cardMessage = __('already_have_package'); @endphp

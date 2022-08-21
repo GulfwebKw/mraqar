@@ -23,6 +23,15 @@ class CompanyController extends Controller
         return view('site.pages.companies', compact('companies'));
     }
 
+    public function show($locale, $phone, $name)
+    {
+        $company = User::where('type_usage', 'company')
+            ->where('company_phone', $phone)
+            ->with('socials')
+            ->firstOrFail();
+        return view('site.pages.company-info', compact('company'));
+    }
+
     public function new()
     {
         return view('site.pages.new-company');

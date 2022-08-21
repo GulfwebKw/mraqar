@@ -33,6 +33,7 @@ Route::group(['prefix' => 'companies'] , function (){
     Route::put('/', 'CompanyController@update')->middleware(['auth'])->name('companies.update');
     Route::get('/{phone}/{name?}/advertise', 'CompanyController@new')->name('companies.show');
 });
+Route::get('/{phone}/{name}', 'CompanyController@show')->name('companies.info');
 
 ///////////// auth
 Route::prefix('')->group(function (){
