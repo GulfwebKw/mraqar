@@ -232,5 +232,12 @@
     "account_downgraded_successfully" : "your account successfully converted to individual",
     "are_you_sure" : "are you sure?",
     "account_to_individual_alert" : "You want convert your account type to individual account.",
-    "in": "in"
+    "in" : "in",
+    "no_ad_found" : "sorry, no ad found.",
+    "no_more_ads" : "no more ads.",
+    "areas_filter" : "filter areas",
+    "venue_filter" : "filter property type",
+    "no_result" : "no result",
+    "select_all_areas" : "select all areas!",
+    "selected" : "selected"
 }

@@ -26,14 +26,14 @@ new Vue({
     el: '#app',
     data () {
         return {
-            url: "this is msg",
             cards: [],
             searchVariables: {},
             page: 1,
             maxPage: null,
-            isLoading: false,
+            isLoading: null,
             companyId: 0,
             isRequiredPage: 0,
+            notFound: false,
         }
     },
     components: {
@@ -50,9 +50,8 @@ new Vue({
             axios
                 .post(window.url + `search-advertising?page=${this.page}`, searchData )
                 .then(response => {
-                    console.log(response.data.data);
                     this.maxPage = response.data.data.last_page;
-                    console.log('lllllllll')
+                    this.nothingFound(response);
                     this.cards.push(...response.data.data.data);
                     this.isLoading = false ;
                 })
@@ -62,6 +61,17 @@ new Vue({
                 this.page++;
                 this.getAds();
             }
+        },
+        nothingFound(response) {
+            if (response.data.data.current_page === 1 && response.data.data.data.length === 0) {
+                this.notFound = true;
+            }
+        },
+        reset(){
+            this.notFound = false;
+            this.cards = [];
+            this.page = 1;
+            this.maxPage = null;
         }
     },
     watch: {
@@ -81,8 +91,12 @@ new Vue({
         observer.observe(document.getElementById("pageEnd"));
 
         this.getAds();
+    },
+    computed:{
+        noMore() {
+            return this.maxPage !== null && this.page === this.maxPage && this.notFound !== true
+        }
     }
-
 });
 
 // window.url = 'http://mraqar.test/';

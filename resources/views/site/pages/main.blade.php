@@ -15,7 +15,11 @@ $side = app()->getLocale() === 'en' ? 'r' : 'l';
 
                 @include('site.sections.card')
 
-                <div class="" id="pageEnd">Loading</div>
+                <div class="center-xs" id="pageEnd">
+                    <img v-if="isLoading !== false" src="{{asset('images/main/loading.gif')}}" alt="loading" style="width: 180px;">
+                    <h3 v-else-if="noMore" class="mt-2">{{__('no_more_ads')}}</h3>
+                    <h3 v-else-if="notFound" class="mt-2">{{__('no_ad_found')}}</h3>
+                </div>
 
             </div>
         </div>

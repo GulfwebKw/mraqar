@@ -49,6 +49,12 @@
                                 <label class="col-form-label text-info">{{$advertising->phone_number}}</label>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="name" class="col-sm-3 col-form-label"> {{__('Hash Number')}}</label>
+                            <div class="col-sm-3">
+                                <label class="col-form-label text-info">{{$advertising->hash_number}}</label>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -192,11 +198,11 @@
                     <label for="name" style="margin-top: 40px;" class="col-sm-3 col-form-label"> {{__('Other Image')}}</label>
                     <div class="col-md-9">
                        <div class="row">
-                           @foreach($imagePath as $image=>$path)
-                               <div class="col-sm-3">
-                                   <img  id="main_image_path" style="margin: 20px 0;border: 8px double #ccc; width: 280px;height: 160px;" src="{{asset($path)}}"    >
-                               </div>
-                            @endforeach
+                       @foreach((array) optional($imagePath)->other_image as $image=>$path)
+                           <div class="col-sm-3">
+                               <img  id="main_image_path" style="margin: 20px 0;border: 8px double #ccc; width: 280px;height: 160px;" src="{{asset($path)}}"    >
+                           </div>
+                        @endforeach
                        </div>
                     </div>
                 </div>

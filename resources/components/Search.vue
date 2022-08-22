@@ -4,6 +4,7 @@ import Multiselect from 'vue-multiselect'
 export default {
     name: 'Search',
     components: { Multiselect },
+    props: {lang: null},
     data () {
         return {
             options: [],
@@ -17,6 +18,7 @@ export default {
         search() {
             var area_ids = this.areas ? this.areas.map(item => item.id) : [] ;
 
+            this.$root.reset()
             this.$root.searchVariables = {
                 area_id : area_ids,
                 venue_type: this.venue_type ? this.venue_type.id : null ,
@@ -39,3 +41,51 @@ export default {
 }
 </script>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+<style>
+.multiselect__tag {
+    position: relative;
+    display: inline-block;
+    padding: 4px 26px 4px 10px;
+    border-radius: 5px;
+    margin-right: 10px;
+    color: #fff;
+    line-height: 1;
+    background: var(--mdc-theme-primary) !important;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 100%;
+    text-overflow: ellipsis
+}
+.multiselect__option--highlight {
+    background: var(--mdc-theme-primary) !important;
+    outline: none;
+    color: #fff
+}
+.multiselect__option--highlight:after {
+    content: attr(data-select);
+    background: var(--mdc-theme-primary) !important;
+    color: #fff
+}
+.multiselect__spinner:after, .multiselect__spinner:before {
+    position: absolute;
+    content: "";
+    top: 50%;
+    left: 50%;
+    margin: -8px 0 0 -8px;
+    width: 16px;
+    height: 16px;
+    border-radius: 100%;
+    border: 2px solid transparent;
+    border-top-color: var(--mdc-theme-primary) !important;
+    box-shadow: 0 0 0 1px transparent
+}
+
+.multiselect__option--group {
+    background: var(--mdc-theme-secondary);
+    color: white;
+}
+.multiselect__option--group:before {
+    content: "--- ";
+}
+</style>
