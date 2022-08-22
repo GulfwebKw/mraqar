@@ -240,5 +240,6 @@
     "no_result" : "no result",
     "select_all_areas" : "select all areas!",
     "selected" : "selected",
-    "deselect" : "Click to deselect"
+    "deselect" : "Click to deselect",
+    "company_details" : "Company details"
 }

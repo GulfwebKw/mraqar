@@ -172,6 +172,9 @@ body {
 .company-container {
     width: 60%;
 }
+.text-gray {
+    color: #a5a5a5 !important
+}
 // md: 960 - 1280
 // lg: 1280 - 1919
 // responsive:
@@ -198,6 +201,9 @@ body {
     }
     .company-container {
         width: 90%;
+    }
+    .sm-justify-evenly{
+        justify-content: space-evenly;
     }
 }
 @media screen and (min-width: 960px) {

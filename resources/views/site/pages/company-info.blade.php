@@ -26,7 +26,7 @@
                                     <div class="col-xs-12 p-2">
                                         <h2 class="capitalize fw-600 mb-3">{{$company->company_name}}</h2>
 {{--                                        <p class="fw-500">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vitae dolor magnam, facilis voluptas quia excepturi provident cupiditate.</p>--}}
-                                        <a href="{{$tel}}" class="mdc-button mdc-button--raised mdc-ripple-upgraded mb-3" type="submit" style="background: #4caf50">
+                                        <a href="tel:{{$tel}}" class="mdc-button mdc-button--raised mdc-ripple-upgraded mb-3" type="submit" style="background: #4caf50">
                                             <span class="mdc-button__ripple"></span>
                                             <span class="mdc-button__label">{{$company->company_phone}}</span>
                                             <i class="material-icons mdc-button__icon">phone</i>

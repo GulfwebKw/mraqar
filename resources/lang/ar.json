@@ -446,5 +446,6 @@
     "no_result" : "لا نتيجة",
     "select_all_areas" : "حدد كل المجالات!",
     "selected" : "المحدد",
-    "deselect" : "انقر لإلغاء التحديد"
+    "deselect" : "انقر لإلغاء التحديد",
+    "company_details" : "تفاصيل الشركة"
 }

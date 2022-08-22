@@ -1,5 +1,9 @@
 @extends('site.layout.master')
 
+@php
+    $side = app()->getLocale() === 'en' ? 'r' : 'l';
+@endphp
+
 @section('title' , __('add_ad_title'))
 
 @php
@@ -7,7 +11,7 @@
 @endphp
 
 @section('content')
-@dd($advertising)
+{{--    @dd($advertising)--}}
     <!-- Start listing Details Area -->
     <section class="listing-details-area pt-100 pb-70 bg-f7fafd">
         <div class="container">
@@ -25,16 +29,8 @@
 
                 <div class="page-drawer-container single-property mt-3">
                     <div class="page-sidenav-content">
-                        <div class="mdc-card p-3 mt-3">
+                        <div class="mdc-card p-3">
                             <div class="main-carousel mb-3">
-                                <div class="control-icons">
-                                    <button class="mdc-button add-to-favorite" title="Add To Favorite">
-                                        <i class="material-icons">favorite_border</i>
-                                    </button>
-                                    <button class="mdc-button" title="Add To Compare">
-                                        <i class="material-icons">compare_arrows</i>
-                                    </button>
-                                </div>
                                 <div class="swiper-container">
                                     <div class="swiper-wrapper">
                                         <div class="swiper-slide">
@@ -99,10 +95,23 @@
 
                         </div>
                         <div class="mdc-card p-3 mt-3">
-                            <h2 class="uppercase text-center fw-500 mb-2">Description</h2>
+                            <h3 class="uppercase fw-600 mb-2">{{__('Description')}}</h3>
+                            <div class="flex-container mb-2 sm-justify-evenly">
+                                <span class="flex flex-container m{{$side}}-5">
+                                    <i class="material-icons mat-icon-sm text-muted m{{$side}}-1 mb-1 text-gray">calendar_month</i>
+                                    <span class="text-sm text-gray">{{$advertising->created_at}}</span>
+                                </span>
+                                <span class="flex flex-container m{{$side}}-5">
+                                    <i class="material-icons mat-icon-sm text-muted m{{$side}}-1 mb-1 text-gray">place</i>
+                                    <span class="text-sm text-gray">{{app()->getLocale() == 'en' ? $advertising->area->name_en : $advertising->area->name_ar}}</span>
+                                </span>
+                                <span class="flex flex-container">
+                                    <i class="material-icons-outlined mat-icon-sm text-muted m{{$side}}-1 text-gray">visibility</i>
+                                    <span class="text-sm text-gray">{{$advertising->view_count}}</span>
+                                </span>
+                            </div>
+                            
                             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis, suscipit, numquam accusantium eligendi veniam dolor placeat earum illo corporis esse nulla facere sunt assumenda? Perferendis omnis magni quos fugiat explicabo.</p>
-                            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odit laboriosam voluptates dignissimos? Dolorum sed culpa repellat, itaque quas nostrum, eos qui nemo fugit reiciendis laboriosam vero magnam nam, dolorem officia.</p>
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Natus voluptas assumenda ab, quos sequi rerum. Quos iusto ab alias, exercitationem autem a doloribus non. Vel porro tenetur omnis ut numquam.</p>
                         </div>
                     </div>
                     <aside class="mdc-drawer mdc-drawer--modal page-sidenav">
@@ -111,21 +120,22 @@
                             <div class="widget">
                                 <div class="mdc-card o-hidden">
                                     <a href="agent.html">
-                                        <img src="assets/images/agents/a-4.jpg" alt="agent-4" class="d-block mw-100">
+                                        <img src="{{asset($advertising->user->image_profile)}}" alt="agent-4" class="d-block mw-100">
                                     </a>
+
+                                    @php
+                                        $tel = \Illuminate\Support\Str::startsWith($advertising->phone_number, '+') ? $advertising->phone_number : "+{$advertising->phone_number}";
+                                        $tel = \Illuminate\Support\Str::startsWith($tel, '+965') ? $tel : str_replace('+', '+965', $tel);
+                                        $tel = str_replace(' ', '', $tel);
+                                    @endphp
+
                                     <div class="p-3">
-                                        <h2 class="fw-600">Michael Blair</h2>
-                                        <div class="row start-xs middle-xs ratings" title="15">
-                                            <i class="material-icons mat-icon-sm">star</i>
-                                            <i class="material-icons mat-icon-sm">star</i>
-                                            <i class="material-icons mat-icon-sm">star</i>
-                                            <i class="material-icons mat-icon-sm">star</i>
-                                            <i class="material-icons mat-icon-sm">star_half</i>
-                                        </div>
-                                        <p class="mt-3 text-muted fw-500">Phasellus sed metus leo. Donec laoreet, lacus ut suscipit convallis, erat enim eleifend nulla, at sagittis enim urna et lacus.</p>
-                                        <p class="row middle-xs"><i class="material-icons primary-color" title="Organization">business</i><span class="mx-2 text-muted fw-500">HouseKey</span></p>
-                                        <p class="row middle-xs"><i class="material-icons primary-color">email</i><span class="mx-2 text-muted fw-500">michael.b@housekey.com</span></p>
-                                        <p class="row middle-xs"><i class="material-icons primary-color">call</i><span class="mx-2 text-muted fw-500">(267) 388-1637</span></p>
+                                        <h2 class="fw-600 mb-3">{{$advertising->user->isCompany ? $advertising->user->company_name : $advertising->user->name}}</h2>
+                                        <p class="row middle-xs"><i class="material-icons primary-color" title="Organization">business</i><span class="mx-2 text-muted fw-500">{{app()->getLocale() == 'en' ? $advertising->venue->title_en : $advertising->venue->title_ar}}</span></p>
+                                        <p class="row middle-xs"><i class="material-icons primary-color" title="Organization">place</i><span class="mx-2 text-muted fw-500">{{app()->getLocale() == 'en' ? $advertising->area->name_en : $advertising->area->name_ar}}</span></p>
+                                        <p class="row middle-xs"><i class="material-icons primary-color">calendar_month</i><span class="mx-2 text-muted fw-500">{{$advertising->created_at}}</span></p>
+                                        <p class="row middle-xs"><i class="material-icons primary-color">visibility</i><span class="mx-2 text-muted fw-500">{{$advertising->view_count}}</span></p>
+                                        <a href="tel:{{$tel}}" class="row middle-xs mb-3 decoration-none"><i class="material-icons primary-color">call</i><span class="mx-2 text-muted fw-500">{{$advertising->phone_number}}</span></a>
                                         <div class="row pb-3 p-relative">
                                             <div class="divider"></div>
                                         </div>
@@ -157,10 +167,12 @@
                                                     </svg>
                                                 </a>
                                             </div>
-                                            <a href="javascript:void(0);" class="mdc-button">
+                                            @if($advertising->user->isCompany)
+                                            <a href="{{route('companies.info', [app()->getLocale(),$advertising->user->company_phone,$advertising->user->company_name])}}" class="mdc-button">
                                                 <span class="mdc-button__ripple"></span>
-                                                <span class="mdc-button__label">View Profile</span>
+                                                <span class="mdc-button__label">{{__('company_details')}}</span>
                                             </a>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

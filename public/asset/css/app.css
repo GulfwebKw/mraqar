@@ -199,6 +199,10 @@ body {
   width: 60%;
 }
 
+.text-gray {
+  color: #a5a5a5 !important;
+}
+
 @media screen and (min-width: 1280px) {
   .d-lg-more-block {
     display: block !important;
@@ -222,6 +226,9 @@ body {
   }
   .company-container {
     width: 90%;
+  }
+  .sm-justify-evenly {
+    justify-content: space-evenly;
   }
 }
 @media screen and (min-width: 960px) {

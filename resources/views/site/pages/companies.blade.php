@@ -69,7 +69,7 @@ $side = app()->getLocale() === 'en' ? 'r' : 'l';
                                     $tel = \Illuminate\Support\Str::startsWith($tel, '+965') ? $tel : str_replace('+', '+965', $tel);
                                     $tel = str_replace(' ', '', $tel);
                                 @endphp
-                                <a href="{{route('companies.info', [app()->getLocale(),auth()->user()->company_phone,auth()->user()->company_name])}}" class="my-1 fw-600 text-body links company-name">{{ $company->company_name }}</a>
+                                <a href="{{route('companies.info', [app()->getLocale(),$company->company_phone,$company->company_name])}}" class="my-1 fw-600 text-body links company-name">{{ $company->company_name }}</a>
 
                                 <a href="tel:{{ $tel }}" class="mdc-button mdc-button--raised mb-2">
                                     <span class="mdc-button__ripple"></span>
