@@ -239,5 +239,6 @@
     "venue_filter" : "filter property type",
     "no_result" : "no result",
     "select_all_areas" : "select all areas!",
-    "selected" : "selected"
+    "selected" : "selected",
+    "deselect" : "Click to deselect"
 }

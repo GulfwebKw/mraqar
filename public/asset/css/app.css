@@ -195,6 +195,10 @@ body {
   justify-content: center;
 }
 
+.company-container {
+  width: 60%;
+}
+
 @media screen and (min-width: 1280px) {
   .d-lg-more-block {
     display: block !important;
@@ -215,6 +219,9 @@ body {
   }
   .w-sm4\/5 {
     max-width: 80%;
+  }
+  .company-container {
+    width: 90%;
   }
 }
 @media screen and (min-width: 960px) {

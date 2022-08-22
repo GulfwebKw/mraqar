@@ -35,7 +35,12 @@ export default {
         axios
             .get(window.url + 'get-search-property')
             .then(response => {
-                this.venue_types  = response.data.data.type;
+                this.venue_types = [{
+                    id: null,
+                    title_en: "All",
+                    title_ar: "كل",
+                }];
+                this.venue_types.push(...response.data.data.type);
             })
     }
 }
@@ -55,7 +60,12 @@ export default {
     white-space: nowrap;
     overflow: hidden;
     max-width: 100%;
-    text-overflow: ellipsis
+    text-overflow: ellipsis;
+}
+.multiselect__tags {
+    max-height: 180px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 .multiselect__option--highlight {
     background: var(--mdc-theme-primary) !important;
@@ -66,6 +76,13 @@ export default {
     content: attr(data-select);
     background: var(--mdc-theme-primary) !important;
     color: #fff
+}
+/* multiselect__option multiselect__option--highlight multiselect__option--selected */
+.multiselect__option.multiselect__option--highlight.multiselect__option--selected{
+    background: var(--mdc-theme-error) !important;
+}
+.multiselect__tag-icon:focus, .multiselect__tag-icon:hover {
+    background: var(--mdc-theme-error) !important;
 }
 .multiselect__spinner:after, .multiselect__spinner:before {
     position: absolute;

@@ -65,6 +65,7 @@ class AdvertisingController extends Controller
            $expireDate=date("Y-m-d",$date);
 
            $advertising->expire_at=$expireDate;
+           $advertising->hash_number = Advertising::makeHashNumber();
            $this->updateAdvertising($request,$advertising);
            if($user->type_usage=="company"){
                $route="advertising.indexCompanies";

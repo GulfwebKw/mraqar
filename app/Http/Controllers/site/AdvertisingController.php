@@ -221,7 +221,7 @@ class AdvertisingController extends Controller
 
 
     public function details($locale,$hashNumber)
-    {dd('yoo');
+    {
         $this->addView($hashNumber);
         $advertising = Advertising::where('hash_number', $hashNumber)->with(['user','city','area', 'advertisingView', 'area', 'city'])->first();
 //          dd(collect(json_decode($advertising->other_image))->toArray());

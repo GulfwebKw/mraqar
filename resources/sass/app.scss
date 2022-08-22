@@ -169,6 +169,9 @@ body {
 .justify-center {
     justify-content: center;
 }
+.company-container {
+    width: 60%;
+}
 // md: 960 - 1280
 // lg: 1280 - 1919
 // responsive:
@@ -192,6 +195,9 @@ body {
     }
     .w-sm4\/5 {
         max-width: 80%;
+    }
+    .company-container {
+        width: 90%;
     }
 }
 @media screen and (min-width: 960px) {
