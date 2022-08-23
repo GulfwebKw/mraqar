@@ -1,17 +1,29 @@
 @extends('site.layout.master')
+
+@isset($company)
+    @section('title', $company->company_name . ' | ' . $company->company_phone)
+@endif
 @php
 $side = app()->getLocale() === 'en' ? 'r' : 'l';
 @endphp
 @section('content')
 
     <main>
+        @isset($company)
+            @include('site.sections.company-info')
+        @endisset
         <div class="px-3">
-            <div class="theme-container" id="app" data-company="0" data-requiredPage="{{ isset($required_for_rent) ? '1' : '0' }}"  data-locale="{{app()->getLocale()}}">
+            <div class="theme-container" id="app" @isset($company) data-company="{{$company->id}}" @endisset data-requiredPage="{{ isset($required_for_rent) ? '1' : '0' }}"  data-locale="{{app()->getLocale()}}">
+
+                @isset($company)
+                        <h2>{{__('company_ads')}}</h2>
+                @endisset
 
                 <div class="mt-5"></div>
 
-
-                @include('site.sections.search')
+                @if(! isset($company))
+                    @include('site.sections.search')
+                @endif
 
                 @include('site.sections.card')
 

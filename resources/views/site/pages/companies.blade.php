@@ -31,7 +31,7 @@ $side = app()->getLocale() === 'en' ? 'r' : 'l';
                                 <p class="my-0 fw-600 mx-auto">{!! $cardMessage !!}</p>
                             @else
                                 <div class="col-md-4 col-xs-5 p-0">
-                                    <img src="https://placehold.jp/150x150.png" alt="agent-image" class="w-100 d-block rounded">
+                                    <img src="{{route('image.upgrade-company', '')}}" alt="upgrade" class="w-100 d-block rounded">
                                 </div>
                                 <div class="col-md-8 col-xs-7 center-xs p-0 pl-3 company-card-body">
                                     <p class="mb-3 fw-600">{{__('upgrade_account')}}</p>
@@ -47,10 +47,10 @@ $side = app()->getLocale() === 'en' ? 'r' : 'l';
                 </div>
             </div>
         </div>
-        @endauth
         <div class="row">
             <a href="{{ '/'.app()->getLocale().'/contact' }}" class="fw-500 text-muted mx-auto">{{__('call_for_assist')}}</a>
         </div>
+            @endauth
         <div class="row">
             <h1 class="fw-600 mx-auto py-3">{{__('companies_list')}}</h1>
         </div>
@@ -60,7 +60,9 @@ $side = app()->getLocale() === 'en' ? 'r' : 'l';
                     <div class="card-body p-3">
                         <div class="row">
                             <div class="col-md-4 col-xs-5 col-md-12 p-0">
-                                <img src="{{ is_file(public_path($company->image_profile)) ? asset($company->image_profile) : asset('asset/assets/images/others/user.jpg') }}" alt="agent-image" class="mw-100 md:w-100 d-block rounded small-only-max-height max-height">
+                                <a href="{{route('companies.info', [app()->getLocale(),$company->company_phone,$company->company_name])}}">
+                                    <img src="{{ is_file(public_path($company->image_profile)) ? asset($company->image_profile) : asset('asset/assets/images/others/user.jpg') }}" alt="agent-image" class="mw-100 md:w-100 d-block rounded small-only-max-height max-height">
+                                </a>
                             </div>
                             <div class="col-md-8 col-xs-7 col-md-12 center-xs p-0">
 

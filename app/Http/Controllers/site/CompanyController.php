@@ -29,7 +29,7 @@ class CompanyController extends Controller
             ->where('company_phone', $phone)
             ->with('socials')
             ->firstOrFail();
-        return view('site.pages.company-info', compact('company'));
+        return view('site.pages.main', compact('company'));
     }
 
     public function new()

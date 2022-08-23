@@ -241,5 +241,7 @@
     "select_all_areas" : "select all areas!",
     "selected" : "selected",
     "deselect" : "Click to deselect",
-    "company_details" : "Company details"
+    "company_details" : "Company details",
+    "social_media" : "Social media",
+    "company_ads" : "Company ads"
 }

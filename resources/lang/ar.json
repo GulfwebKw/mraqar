@@ -447,5 +447,7 @@
     "select_all_areas" : "حدد كل المجالات!",
     "selected" : "المحدد",
     "deselect" : "انقر لإلغاء التحديد",
-    "company_details" : "تفاصيل الشركة"
+    "company_details" : "تفاصيل الشركة",
+    "social_media" : "وسائل التواصل الاجتماعي",
+    "company_ads" : "إعلانات الشركة"
 }
