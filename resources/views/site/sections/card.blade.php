@@ -4,7 +4,7 @@
         <div :class="card.advertising_type === 'premium' ? 'bg-blue' : ''" class="border p-2">
             <div class="row">
                 <div class="p-relative col-sm-2 w-sm1/5 p-0 p{{$side}}-2">
-                    <img class="w-100 m{{$side}}-2 rounded-xs" :src="card.main_image ? card.main_image : '{{url('')}}/images/main/panel/noimage.png'" alt="">
+                    <img class="w-100 m{{$side}}-2 rounded-xs" :src="card.main_image ? card.main_image : '{{route('image.noimage', '')}}'" alt="">
                     <div class="row property-status p-absolute top-0" v-if="card.advertising_type === 'premium'">
                         <span class="red badge-sm">{{__('premium_short')}}</span>
                     </div>

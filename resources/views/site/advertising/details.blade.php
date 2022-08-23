@@ -258,7 +258,7 @@
             if(navigator.share) {
                 navigator.share({
                     title: '{{$name}}',
-                    text: '{{$text}}',
+                    text: '{{$advertising->description}}',
                     url: '{{url()->current()}}'
                 })
                     .then(() => console.log('Share complete'))
