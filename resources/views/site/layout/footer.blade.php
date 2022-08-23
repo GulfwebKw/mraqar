@@ -11,7 +11,7 @@
                         <div class="col-6">
                             @include('site.sections.socials', [
                                 'classes' => ' start-xs middle-xs desc',
-                                'size' => 'lg'
+                                'icon_classes' => 'mat-icon-lg'
                             ])
                         </div>
                     </div>
