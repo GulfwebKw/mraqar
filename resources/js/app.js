@@ -18,9 +18,12 @@ var filter = function(text, length, clamp){
     var content = node.textContent;
     return content.length > length ? content.slice(0, length) + clamp : content;
 };
-
 Vue.filter('truncate', filter);
 
+var filter = function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+Vue.filter('commaSeparate', filter);
 
 new Vue({
     el: '#app',

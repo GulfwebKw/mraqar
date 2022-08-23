@@ -13,7 +13,7 @@
                     <h2 class="text-lg mb-2" v-text="`${purpose_lang[card.purpose]} ${card.venue.title_{{app()->getLocale()}} } {{__('in')}} ${card.area.name_{{app()->getLocale()}} }`"></h2>
 
                     <div class="flex-container mb-2">
-                        <span class="primary-color fw-600 d-inline-block m{{$side}}-2" v-if="card.price">@{{card.price}} {{__('kd_title')}}</span>
+                        <span class="primary-color fw-600 d-inline-block m{{$side}}-2" v-if="card.price">@{{card.price | commaSeparate }} {{__('kd_title')}}</span>
                         <span class="flex flex-container m{{$side}}-2">
                                             <i class="material-icons mat-icon-sm text-muted m{{$side}}-1 mb-1">calendar_month</i>
                                             <span class="text-sm">@{{ card.created_at }}</span>

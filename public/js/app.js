@@ -2620,6 +2620,12 @@ var filter = function filter(text, length, clamp) {
 };
 
 vue__WEBPACK_IMPORTED_MODULE_3__["default"].filter('truncate', filter);
+
+var filter = function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
+vue__WEBPACK_IMPORTED_MODULE_3__["default"].filter('commaSeparate', filter);
 new vue__WEBPACK_IMPORTED_MODULE_3__["default"]({
   el: '#app',
   data: function data() {

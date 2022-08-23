@@ -216,7 +216,7 @@
                                         </div>
                                         @php
                                         $text = $name;
-                                        $text = empty($advertising->price) ? $text : $text . ' ' . $advertising->price . __('kd_title');
+                                        $text = empty($advertising->price) ? $text : $text . ' ' . number_format($advertising->price , env('NUMFORMAT' , 0 )) . __('kd_title');
                                         @endphp
                                         <div class="row between-xs middle-xs">
                                             <div class="row start-xs middle-xs">

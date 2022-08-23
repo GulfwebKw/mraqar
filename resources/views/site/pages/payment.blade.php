@@ -10,7 +10,7 @@
                     <h4 class="card-title">{{optional($payment->package)->title_en}}</h4>
 
                     <p class="card-text">
-                        {{__('price')}}: {{number_format( optional($payment)->price , 3 )}} {{__('kd_title')}}
+                        {{__('price')}}: {{number_format(optional($payment)->price , env('NUMFORMAT' , 0 ))}} {{__('kd_title')}}
                     </p>
                     <p class="card-text">
                         {{__('result')}}: <strong  @if($message=="CAPTURED")style="color:green;"  @else style="color:red;" @endif > {{$message}}</strong>

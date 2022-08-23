@@ -32,7 +32,7 @@
                 <td class="mdc-data-table__cell">{{$i++}}</td>
                 <td class="mdc-data-table__cell">{{ app()->getLocale()==='en'?$payment->title_en:$payment->title_ar }} @if( $payment->count > 1 ) (x {{ $payment->count }}) @endif</td>
 {{--                <td class="mdc-data-table__cell">{{ $payment->count }}</td>--}}
-                <td class="mdc-data-table__cell">{{!empty($payment->price)?number_format($payment->price * $payment->count ,3):'0.000'}}</td>
+                <td class="mdc-data-table__cell">{{!empty($payment->price)? number_format($payment->price * $payment->count , env('NUMFORMAT' , 0 )) : number_format(0 , env('NUMFORMAT' , 0 ))}}</td>
                 <td class="mdc-data-table__cell">{{ $payment->date }}</td>
                 <td class="mdc-data-table__cell" style="min-width: 240px;">
                     <div>{{__('remain_regular_ads')}}:<a href="javascript:;" style="float: {{ $float }}; text-decoration: none; color: var(--theme-base-color);">{{($payment->is_payed == 1)?($payment->count_advertising - $payment->count_usage):0}} / {{$payment->count_advertising * $payment->count  }}</a></div>
