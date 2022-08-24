@@ -9,6 +9,7 @@
 
 @php
 $side = app()->getLocale() === 'en' ? 'r' : 'l';
+$unSide = app()->getLocale() === 'en' ? 'l' : 'r';
 @endphp
 @section('content')
 
