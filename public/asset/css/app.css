@@ -293,6 +293,22 @@ body {
   .pr-image {
     padding-right: 0.5rem !important;
   }
+  .sm-button-mobile {
+    width: 100% !important;
+    padding-right: 0.4rem;
+    padding-left: 0.4rem;
+    font-size: 0.71rem;
+  }
+  header.main-toolbar-fixed .mdc-top-app-bar {
+    position: fixed !important;
+    z-index: 9999 !important;
+  }
+  header.main-toolbar-fixed #main-toolbar {
+    position: fixed;
+    top: 36px !important;
+    width: 100%;
+    z-index: 999;
+  }
 }
 @media screen and (min-width: 960px) {
   .md\:px-5 {

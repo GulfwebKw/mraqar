@@ -23,88 +23,103 @@
         </div>
     @endif
 
+    <div class="mdc-data-table border-0 w-100 mt-3">
+        <table class="mdc-data-table__table" aria-label="Dessert calories">
+            <thead>
+                <tr class="mdc-data-table__header-row">
+                    <th class="mdc-data-table__header-cell">{{ __('image') }}</th>
+                    <th class="mdc-data-table__header-cell">{{__('ADVERTISE_TYPE')}}</th>
+                    <th class="mdc-data-table__header-cell">{{ __('location_title') }}</th>
+                    <th class="mdc-data-table__header-cell">{{ __('action_title') }}</th>
+                    <th class="mdc-data-table__header-cell">{{ __('auto_extend_title') }}</th>
+                </tr>
+            </thead>
+            <tbody class="mdc-data-table__content">
 
-    <table class="mdc-data-table__table" aria-label="Dessert calories">
-        <thead>
-        <tr class="mdc-data-table__header-row">
-            <th class="mdc-data-table__header-cell">{{ __('image') }}</th>
-            <th class="mdc-data-table__header-cell">{{__('ADVERTISE_TYPE')}}</th>
-            <th class="mdc-data-table__header-cell">{{ __('location_title') }}</th>
-            <th class="mdc-data-table__header-cell">{{ __('action_title') }}</th>
-            <th class="mdc-data-table__header-cell">{{ __('auto_extend_title') }}</th>
-        </tr>
-        </thead>
-        <tbody class="mdc-data-table__content">
-
-        @foreach($ads as $ad)
-        <tr class="mdc-data-table__row">
-            <td class="mdc-data-table__cell">
-                <a href="{{route('site.ad.detail', [app()->getLocale(), $ad->hash_number])}}">
-                    <img src="{{ $ad->main_image ? asset($ad->main_image) : route('image.noimage', '')  }}" width="100" class="d-block py-3">
-                </a>
-            </td>
-            <td class="mdc-data-table__cell">
-                @if($ad->advertising_type == "premium") {{__('premium_title')}}
-                @elseif($ad->advertising_type == "normal") {{__('normal_title')}}
-                @endif
-            </td>
-            <td class="mdc-data-table__cell">
-                {{ app()->getLocale()==='en'?$ad->city->name_en . " - " . $ad->area->name_en:$ad->city->name_ar . " - " . $ad->area->name_ar }}
-            </td>
-            <td class="mdc-data-table__cell">
-                <form id="delete-form-{{$ad->id}}" class="d-inline-block" method="post"
-                      action="{{ route('site.advertising.destroy',app()->getLocale()) }}">
-                    @csrf
-                    <input type="hidden" name="id" value="{{ $ad->id }}">
-                    <a href="{{ route('site.advertising.edit',[app()->getLocale(),$ad->hash_number]) }}" class="mdc-icon-button material-icons primary-color">edit</a>
-                    <button type="button" id="delete-btn" onclick="showModal({{ $ad->id }})"
-                            class="mdc-icon-button material-icons warn-color">delete</button>
-                </form>
-                @if ($ad->advertising_type == 'normal')
-                    <form action="{{ route('site.advertising.upgrade_premium',app()->getLocale()) }}" method="post" id="upgrade{{$ad->id}}" class="d-none">
-                        @csrf
-                        <input type="hidden" name="advertise_id" value="{{$ad->id}}">
-                    </form>
-                    <a type="button" id="delete-btn" class="mdc-icon-button material-icons d-inline-block" style="color: #c7a014;"
-                       onclick="showUpgradeModal('{{$ad->id}}')">workspace_premium</a>
-                @endif
-            </td>
-            <td>
-                <div class="col-xs-12 py-3 row middle-xs">
-                    <div class="mdc-switch">
-                        <div class="mdc-switch__track"></div>
-                        <div class="mdc-switch__thumb-underlay">
-                            <div class="mdc-switch__thumb">
-                                <input type="checkbox" id="extend{{$ad->id}}" class="mdc-switch__native-control"
-                                       {{ !$ad->auto_extend ?: 'checked'}}>
+                @foreach($ads as $ad)
+                    <tr class="mdc-data-table__row">
+                        <td class="mdc-data-table__cell">
+                            <a href="{{route('site.ad.detail', [app()->getLocale(), $ad->hash_number])}}">
+                                <img src="{{ $ad->main_image ? asset($ad->main_image) : route('image.noimage', '')  }}"
+                                     width="100" class="d-block py-3">
+                            </a>
+                        </td>
+                        <td class="mdc-data-table__cell">
+                            @if($ad->advertising_type == "premium")
+                                {{__('premium_title')}}
+                            @elseif($ad->advertising_type == "normal")
+                                {{__('normal_title')}}
+                            @endif
+                        </td>
+                        <td class="mdc-data-table__cell">
+                            {{ app()->getLocale()==='en'?$ad->city->name_en . " - " . $ad->area->name_en:$ad->city->name_ar . " - " . $ad->area->name_ar }}
+                        </td>
+                        <td class="mdc-data-table__cell">
+                            <form id="delete-form-{{$ad->id}}" class="d-inline-block" method="post"
+                                  action="{{ route('site.advertising.destroy',app()->getLocale()) }}">
+                                @csrf
+                                <input type="hidden" name="id" value="{{ $ad->id }}">
+                                <a href="{{ route('site.advertising.edit',[app()->getLocale(),$ad->hash_number]) }}"
+                                   class="mdc-icon-button material-icons primary-color">edit</a>
+                                <button type="button" id="delete-btn" onclick="showModal({{ $ad->id }})"
+                                        class="mdc-icon-button material-icons warn-color">delete
+                                </button>
+                            </form>
+                            @if ($ad->advertising_type == 'normal')
+                                <form action="{{ route('site.advertising.upgrade_premium',app()->getLocale()) }}"
+                                      method="post" id="upgrade{{$ad->id}}" class="d-none">
+                                    @csrf
+                                    <input type="hidden" name="advertise_id" value="{{$ad->id}}">
+                                </form>
+                                <a type="button" id="delete-btn" class="mdc-icon-button material-icons d-inline-block"
+                                   style="color: #c7a014;"
+                                   onclick="showUpgradeModal('{{$ad->id}}')">workspace_premium</a>
+                            @endif
+                        </td>
+                        <td>
+                            <div class="col-xs-12 py-3 row middle-xs">
+                                <div class="mdc-switch">
+                                    <div class="mdc-switch__track"></div>
+                                    <div class="mdc-switch__thumb-underlay">
+                                        <div class="mdc-switch__thumb">
+                                            <input type="checkbox" id="extend{{$ad->id}}"
+                                                   class="mdc-switch__native-control"
+                                                {{ !$ad->auto_extend ?: 'checked'}}>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <script type="text/javascript">
-                    var checkbox = document.getElementById('extend{{$ad->id}}')
+                            <script type="text/javascript">
+                                var checkbox = document.getElementById('extend{{$ad->id}}')
 
-                    checkbox.addEventListener('change', (event) => {
-                        if (event.currentTarget.checked) {
-                            $.post('/{{app()->getLocale()}}/advertising/auto_extend', {id: {{$ad->id}}, extend: 'enable'}, function(data, status){
-                                if (status === 'success') {
-                                    alert(data)
-                                }
-                            })
-                        } else {
-                            $.post('/{{app()->getLocale()}}/advertising/auto_extend', {id: {{$ad->id}}, extend: 'disable'}, function(data, status){
-                                if (status === 'success') {
-                                    alert(data)
-                                }
-                            })
-                        }
-                    })
-                </script>
-            </td>
-        </tr>
-        @endforeach
-        </tbody>
-    </table>
+                                checkbox.addEventListener('change', (event) => {
+                                    if (event.currentTarget.checked) {
+                                        $.post('/{{app()->getLocale()}}/advertising/auto_extend', {
+                                            id: {{$ad->id}},
+                                            extend: 'enable'
+                                        }, function (data, status) {
+                                            if (status === 'success') {
+                                                alert(data)
+                                            }
+                                        })
+                                    } else {
+                                        $.post('/{{app()->getLocale()}}/advertising/auto_extend', {
+                                            id: {{$ad->id}},
+                                            extend: 'disable'
+                                        }, function (data, status) {
+                                            if (status === 'success') {
+                                                alert(data)
+                                            }
+                                        })
+                                    }
+                                })
+                            </script>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 
     <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">

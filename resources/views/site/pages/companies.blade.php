@@ -36,7 +36,7 @@ $side = app()->getLocale() === 'en' ? 'r' : 'l';
                                 <div class="col-md-8 col-xs-7 center-xs p-0 pl-3 company-card-body">
                                     <p class="mb-3 fw-600">{{__('upgrade_account')}}</p>
 
-                                    <a href="{{ route('companies.new', app()->getLocale()) }}" class="mdc-button mdc-button--raised w-90 mx-auto">
+                                    <a href="{{ route('companies.new', app()->getLocale()) }}" class="mdc-button mdc-button--raised w-90 mx-auto sm-button-mobile">
                                         <span class="mdc-button__ripple"></span>
                                         <span class="mdc-button__label">{{__('do_upgrade')}}</span>
                                     </a>
