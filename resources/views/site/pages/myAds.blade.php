@@ -39,7 +39,9 @@
         @foreach($ads as $ad)
         <tr class="mdc-data-table__row">
             <td class="mdc-data-table__cell">
-                <img src="{{ file_exists(public_path(urldecode($ad->main_image))) ? asset($ad->main_image) : route('image.noimage', '')  }}" width="100" class="d-block py-3">
+                <a href="{{route('site.ad.detail', [app()->getLocale(), $ad->hash_number])}}">
+                    <img src="{{ $ad->main_image ? asset($ad->main_image) : route('image.noimage', '')  }}" width="100" class="d-block py-3">
+                </a>
             </td>
             <td class="mdc-data-table__cell">
                 @if($ad->advertising_type == "premium") {{__('premium_title')}}

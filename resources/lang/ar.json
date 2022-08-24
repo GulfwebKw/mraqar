@@ -449,5 +449,7 @@
     "deselect" : "انقر لإلغاء التحديد",
     "company_details" : "تفاصيل الشركة",
     "social_media" : "وسائل التواصل الاجتماعي",
-    "company_ads" : "إعلانات الشركة"
+    "company_ads" : "إعلانات الشركة",
+    "required_for_rent_page_title" : "مطلوب للإيجار الإعلانات",
+    "deselect_areas" : "انقر لإلغاء التحديد"
 }

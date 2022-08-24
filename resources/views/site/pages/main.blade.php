@@ -2,7 +2,11 @@
 
 @isset($company)
     @section('title', $company->company_name . ' | ' . $company->company_phone)
-@endif
+@endisset
+@isset($required_for_rent)
+    @section('title', __('required_for_rent_page_title'))
+@endisset
+
 @php
 $side = app()->getLocale() === 'en' ? 'r' : 'l';
 @endphp

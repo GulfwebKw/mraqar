@@ -155,7 +155,7 @@
                             }
                             @endphp
                             <div class="ad-description w-100 fw-600 mt-1" dir="{{$advertising->description && ! empty($advertising->description) ? (is_arabic($advertising->description) ? 'rtl' : 'ltr') : ''}}">
-                                {{$advertising->description}}
+                                {!! nl2br(e($advertising->description))!!}
                             </div>
                             @if($advertising->price)
                                 <div class="w-100 fw-600 mt-4 primary-color center-xs">
@@ -258,7 +258,7 @@
             if(navigator.share) {
                 navigator.share({
                     title: '{{$name}}',
-                    text: '{{$advertising->description}}',
+                    text: '{{ \Illuminate\Support\Str::limit($advertising->description, 100, $end='...')}}',
                     url: '{{url()->current()}}'
                 })
                     .then(() => console.log('Share complete'))

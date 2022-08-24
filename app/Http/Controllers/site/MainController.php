@@ -226,6 +226,7 @@ if ($ignoreGift){
 
         if (auth()->user()->type_usage == 'individual') {
             $normals = Package::where('type', 'normal')
+                ->where('title_en', '!=', 'gift credit')
                 ->where('user_type', 'individual')
                 ->where('is_enable', 1)
                 ->where('is_visible', 1)->get();
@@ -235,6 +236,7 @@ if ($ignoreGift){
                 ->where('is_visible', 1)->get();
         } elseif (auth()->user()->type_usage == 'company') {
             $normals = Package::where('type', 'normal')
+                ->where('title_en', '!=', 'gift credit')
                 ->where('user_type', 'company')
                 ->where('is_enable', 1)
                 ->where('is_visible', 1)->get();

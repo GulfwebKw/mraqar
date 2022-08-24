@@ -139,6 +139,16 @@
                                     @enderror
                                 </div>
                             </div>
+
+                            <div class="form-group row">
+                                <label for="mobile" class="col-sm-2 col-form-label" style="margin-top: 20px"><span class="text-danger"></span> {{__('Description')}}</label>
+                                <div class="col-sm-6">
+                                    <textarea name="description" class="form-control  @error('description') is-invalid @enderror" rows="4" >{{ $advertising->description }}</textarea>
+                                    @error('description')
+                                    <div class="help-block text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
 <?php /*
                             <div class="form-group row">
                                 <label for="mobile" class="col-sm-2 col-form-label"><span class="text-danger"></span> {{__('Surface(M2)')}}</label>
