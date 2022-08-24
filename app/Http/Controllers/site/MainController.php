@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use mysql_xdevapi\Exception;
 
 class MainController extends Controller
 {
@@ -263,7 +264,7 @@ if ($ignoreGift){
                 'package_id' => 'required|numeric',
                 'type' => 'required|in:static,normal',
                 'count' => 'nullable|numeric',
-                'payment_type' => 'required|in:Cash,Knet',
+                'payment_type' => 'required|in:Cash,MyFatoorah',
             ]);
             if ($validate->fails()) {
                 return redirect()->route('Main.buyPackage',app()->getLocale())->with(['status' => 'validation_failed']);
@@ -339,11 +340,8 @@ if ($ignoreGift){
             $payment->save();
 
 
-            if ($request->get('payment_type') == "Knet" and $price > 0 ) {
-                $response = $this->sendRequestForPayment($price, $ref, $user->id, $request->type, $package->id);
-                $responseObject = json_decode($response);
-                $payUrl = $responseObject->payUrl;
-
+            if ($request->get('payment_type') == "MyFatoorah" and $price > 0 ) {
+                $payUrl = $this->sendRequestForPayment($price, $ref, $package , $count , $payment);
                 return redirect($payUrl) ;
             }
             else{ // if payment type is cash
@@ -369,53 +367,135 @@ if ($ignoreGift){
         return substr(time(), 5, 4) . rand(1000, 9999) . $userId;
     }
 
-    private function sendRequestForPayment($price, $refId, $user_id = null, $type = null, $package_id = null)
+    private function sendRequestForPayment($price, $orderid, $package, $quantity , $payment)
     {
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://payment.ajrnii.com/paymentInit.php?token=66a08c59-3ef4-44bb-9fbf-c6206d785f04&refid=" . $refId . "&amount=" . $price . "&user_id=" . $user_id . "&type=" . $type . "&package_id=" . $package_id . "&returnUrl=" . route('callback',app()->getLocale()),
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_HTTPHEADER => array(
-                "Cookie: __cfduid=d40b460b35a430341a1efef90bc437b2a1599411044; PHPSESSID=aeb4fca473e3ab09a3782d12083737df"
-            ),
-        ));
-        $response = curl_exec($curl);
-        curl_close($curl);
-        return $response;
+        $post_string = '{
+            "InvoiceValue":"' . $price . '",
+            "CustomerName":"' . auth()->user()->name . '",
+            "CustomerReference":"' . $orderid . '",
+            "DisplayCurrencyIsoAlpha":"KWD",
+            "CountryCodeId":"+965",
+            "CustomerMobile":"' . auth()->user()->mobile . '",
+            "CustomerEmail":"' . auth()->user()->email . '",
+            "DisplayCurrencyId": 3,
+            "SendInvoiceOption": 1,
+            "InvoiceItemsCreate": [
+              {
+                "ProductId":null,
+                "ProductName": "Purchasing from Online Store Kuwait Kash5astore",
+                "Quantity":' . $quantity . ',
+                "UnitPrice": "' . ( $price / $quantity ) . '"
+              }
+            ],
+                "CallBackUrl":  "' . route('callback',[app()->getLocale() , 'accept' => true]) . '",
+                 "Language": "2",
+                 "ExpireDate": "2062-12-31T13:30:17.812Z",
+                 "ApiCustomFileds": "",
+                 "ErrorUrl": "' . route('callback',[app()->getLocale() , 'accept' => false]) . '"
+          }';
+        $soap_do = curl_init();
+        curl_setopt($soap_do, CURLOPT_URL, env('ISLIVE', true) ? 'https://apikw.myfatoorah.com/ApiInvoices/CreateInvoiceIso' : 'https://apidemo.myfatoorah.com/ApiInvoices/CreateInvoiceIso');
+        curl_setopt($soap_do, CURLOPT_CONNECTTIMEOUT, 10);
+        curl_setopt($soap_do, CURLOPT_TIMEOUT, 10);
+        curl_setopt($soap_do, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($soap_do, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($soap_do, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($soap_do, CURLOPT_POST, true);
+        curl_setopt($soap_do, CURLOPT_POSTFIELDS, $post_string);
+        curl_setopt($soap_do, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=utf-8', 'Content-Length: ' . strlen($post_string), 'Accept: application/json', 'Authorization: Bearer ' . $this->MYFToken()));
+        $result1 = curl_exec($soap_do);
+        //dd($result1);
+        // echo "<pre>";print_r($result1);die;
+        $err = curl_error($soap_do);
+        $json1 = json_decode($result1, true);
+        if (isset($json1['IsSuccess']) && $json1['IsSuccess'] == true) {
+            $RedirectUrl = $json1['RedirectUrl'];
+            if (is_array($json1['PaymentMethods'])) {
+                $ref_Ex = $json1['PaymentMethods'][0];
+                if (array_key_exists('PaymentMethodUrl', $ref_Ex)) {
+                    $t = explode("?", $ref_Ex["PaymentMethodUrl"]);
+                    if (is_array($t)) {
+                        $res = str_replace("invoiceKey=", "", explode("&", $t[1]));
+                        $referenceId = $res[0];
+                        curl_close($soap_do);
+                        $payment->pay_id = $referenceId ;
+                        $payment->save();
+                        $paymentTransaction =  new \App\Models\OrderTransaction();
+                        $paymentTransaction->user_id = $payment->user_id;
+                        $paymentTransaction->package_id = $payment->package_id;
+                        $paymentTransaction->api_ref_id = $payment->ref_id;
+                        $paymentTransaction->payment_id = $payment->id;
+                        $paymentTransaction->trackid = $payment->pay_id;
+                        $paymentTransaction->tranid = $payment->pay_id;
+                        $paymentTransaction->type = $package->type;
+                        $paymentTransaction->save();
+                        return $RedirectUrl;
+                    }
+                }
+            }
+        } else {
+            throw new \Exception($json1['Message'] .' '. $result1);
+        }
     }
 
+    private function MYFToken(){
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, env('ISLIVE', true) ? 'https://apikw.myfatoorah.com/Token' : 'https://apidemo.myfatoorah.com/Token');
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query(array('grant_type' => 'password', 'username' => env('MF_USERNAME'), 'password' => env('MF_PASSWORD'))));
+        $result = curl_exec($curl);
+        curl_close($curl);
+        $json = json_decode($result, true);
+        if (isset($json['access_token']) && !empty($json['access_token'])) {
+            return $json['access_token'];
+        } else
+            throw new \Exception(__('throttle' , ['seconds' => 30 ]));
+    }
     public function paymentResult(Request $request)
     {
-        $message = $request->get('message');
-        $refId = $request->get('refid');
-        $trackid = $request->get('trackid');
-        $payment = Payment::with(['package', 'packageHistory', 'user'])->where('ref_id', $request->get('refid'))->first();
-        $order = DB::table('tbl_transaction_api')->where("api_ref_id", $request->get('refid'))->first();
-
+        if (empty($request->paymentId)) {
+            return redirect('/'.app()->getLocale(). '/');
+        }
+        $url =  ( env('ISLIVE', true) ? 'https://apikw.myfatoorah.com/ApiInvoices/Transaction/' :'https://apidemo.myfatoorah.com/ApiInvoices/Transaction/' ) .$request->paymentId;
+        $soap_do1 = curl_init();
+        curl_setopt($soap_do1, CURLOPT_URL,$url );
+        curl_setopt($soap_do1, CURLOPT_CONNECTTIMEOUT, 10);
+        curl_setopt($soap_do1, CURLOPT_TIMEOUT, 10);
+        curl_setopt($soap_do1, CURLOPT_RETURNTRANSFER, true );
+        curl_setopt($soap_do1, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($soap_do1, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($soap_do1, CURLOPT_POST, false );
+        curl_setopt($soap_do1, CURLOPT_POST, 0);
+        curl_setopt($soap_do1, CURLOPT_HTTPGET, 1);
+        curl_setopt($soap_do1, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=utf-8', 'Accept: application/json','Authorization: Bearer '. $this->MYFToken()));
+        $result_in = curl_exec($soap_do1);
+        $err_in = curl_error($soap_do1);
+        $file_contents = htmlspecialchars(curl_exec($soap_do1));
+        curl_close($soap_do1);
+        $getRecorById = json_decode($result_in, true);
+        $payment = Payment::with(['package', 'packageHistory', 'user'])->where('pay_id', $getRecorById['InvoiceId'])->first();
+        $order = DB::table('tbl_transaction_api')->where("trackid", $getRecorById['InvoiceId'])->first();
+        $refId = null;
+        $message = $getRecorById['Error'];
+        $trackid = $getRecorById['InvoiceId'];
         if ($payment) {
-
-            if ($message == "CAPTURED") {
+            $refId = $payment->ref_id;
+            if (!empty($getRecorById['TransactionStatus']) && $getRecorById['TransactionStatus']==2) {
                 $payment->status = "completed";
                 $payment->packageHistory->accept_by_admin = 1;
                 $payment->packageHistory->is_payed = 1;
                 \App\User::find($payment->user->id)->update(['package_id' => intval($payment->package_id)]);
-
             } else {
                 $payment->status = "failed";
                 $payment->packageHistory->accept_by_admin = 0;
             }
-            $payment->description = $message;
+            $payment->description = $getRecorById['Error'];
             $payment->update();
             $payment->packageHistory->update();
-        }
-        if ($payment) {
-            event(new \App\Events\Payment($message, $payment, $refId, $trackid));
+            //event(new \App\Events\Payment($message, $payment, $refId, $trackid));
 
         }
         return view("site.pages.payment", compact('message', 'refId', 'trackid', 'payment', 'order'));

@@ -85,7 +85,7 @@
 
                                             <form method="post" action="{{ route('Main.buyPackageOrCredit',app()->getLocale()) }}" >
                                                 @csrf
-                                                <input type="hidden" class="form-control" name="payment_type" value="Knet" >
+                                                <input type="hidden" class="form-control" name="payment_type" value="MyFatoorah" >
                                                 <input type="hidden" name="type" value="normal" >
                                                 <input type="hidden" name="package_id" value="{{ $normal->id }}">
                                                 <button type="submit" class="mdc-button mdc-button--raised">
@@ -114,7 +114,7 @@
                                             <form method="post" action="{{ route('Main.buyPackageOrCredit',app()->getLocale()) }}" >
                                                 @csrf
                                                 <div>
-                                                    <input type="hidden" class="form-control" name="payment_type" value="Knet">
+                                                    <input type="hidden" class="form-control" name="payment_type" value="MyFatoorah">
                                                     <div class="mdc-text-field mdc-text-field--outlined w-100 custom-field mb-3">
                                                         <input type="number" value="1" min="1" class="mdc-text-field__input" placeholder="{{__('noofads')}}" name="count" id="{{ "static-num-" . $static->id }}" required>
                                                         <div class="mdc-notched-outline mdc-notched-outline--upgraded">
