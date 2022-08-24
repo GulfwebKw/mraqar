@@ -14,31 +14,31 @@
                             <hr class="mdc-list-divider m-0">
                             <ul class="mdc-list">
                                 <li>
-                                    <a href="{{ route('Main.buyPackage',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "buypackage") background-color: #088dd3; color: white; @endif">
+                                    <a href="{{ route('Main.buyPackage',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "buypackage") background-color: var(--mdc-theme-primary); color: white; @endif">
                                         <i class="mdc-list-item__graphic material-icons text-muted mx-3">add_circle</i>
                                         <span class="mdc-list-item__text">{{__('buy_package_title')}}</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('Main.myAds',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "myads") background-color: #088dd3; color: white; @endif">
+                                    <a href="{{ route('Main.myAds',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "myads") background-color: var(--mdc-theme-primary); color: white; @endif">
                                         <i class="mdc-list-item__graphic material-icons text-muted mx-3">home</i>
                                         <span class="mdc-list-item__text">{{__('my_ads_title')}}</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('Main.paymentHistory',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "paymenthistory") background-color: #088dd3; color: white; @endif">
+                                    <a href="{{ route('Main.paymentHistory',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "paymenthistory") background-color: var(--mdc-theme-primary); color: white; @endif">
                                         <i class="mdc-list-item__graphic material-icons text-muted mx-3">compare_arrows</i>
                                         <span class="mdc-list-item__text">{{__('package_history_title')}}</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('Main.profile',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "profile") background-color: #088dd3; color: white; @endif">
+                                    <a href="{{ route('Main.profile',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "profile") background-color: var(--mdc-theme-primary); color: white; @endif">
                                         <i class="mdc-list-item__graphic material-icons text-muted mx-3">edit</i>
                                         <span class="mdc-list-item__text">{{__('edit_profile_title')}}</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('Main.changePassword',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "changepassword") background-color: #088dd3; color: white; @endif">
+                                    <a href="{{ route('Main.changePassword',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "changepassword") background-color: var(--mdc-theme-primary); color: white; @endif">
                                         <i class="mdc-list-item__graphic material-icons text-muted mx-3">lock</i>
                                         <span class="mdc-list-item__text">{{__('change_password_title')}}</span>
                                     </a>

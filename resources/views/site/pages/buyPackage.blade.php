@@ -48,7 +48,7 @@
                                 <div class="mdc-tab-scroller__scroll-content">
                                     <button class="mdc-tab mdc-tab--active" tabindex="0">
                                 <span class="mdc-tab__content">
-                                <span class="mdc-tab__text-label">{{__('longtermsubscribe')}}</span>
+                                <span class="mdc-tab__text-label text-xs fw-600">{{__('longtermsubscribe')}}</span>
                                 </span>
                                         <span class="mdc-tab-indicator mdc-tab-indicator--active">
                                 <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
@@ -57,7 +57,7 @@
                                     </button>
                                     <button class="mdc-tab mdc-tab" tabindex="0">
                                 <span class="mdc-tab__content">
-                                <span class="mdc-tab__text-label">{{__('payasyougo')}}</span>
+                                <span class="mdc-tab__text-label text-xs fw-600">{{__('payasyougo')}}</span>
                                 </span>
                                         <span class="mdc-tab-indicator mdc-tab-indicator">
                                 <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>

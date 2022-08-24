@@ -53,31 +53,31 @@
         <div class="mdc-drawer__content">
             <div class="vertical-menu">
                 <div>
-                    <a href="{{'/'.app()->getLocale(). '/' }}" class="mdc-button">
+                    <a href="{{'/'.app()->getLocale(). '/' }}" class="mdc-button" style="{{Route::currentRouteName() == 'Main.index' ? 'background-color: var(--mdc-theme-primary); color: #fff;' : ''}}">
                         <span class="mdc-button__ripple"></span>
                         <span class="mdc-button__label">{{__('home_title')}}</span>
                     </a>
                 </div>
                 <div>
-                    <a href="{{'/'.app()->getLocale(). '/required' }}" class="mdc-button">
+                    <a href="{{'/'.app()->getLocale(). '/required' }}" class="mdc-button" style="{{Route::currentRouteName() == 'required_for_rent' ? 'background-color: var(--mdc-theme-primary); color: #fff;' : ''}}">
                         <span class="mdc-button__ripple"></span>
                         <span class="mdc-button__label">{{__('required_for_rent')}}</span>
                     </a>
                 </div>
                 <div>
-                    <a href="{{ route('companies', app()->getLocale()) }}" class="mdc-button">
+                    <a href="{{ route('companies', app()->getLocale()) }}" class="mdc-button" style="{{Route::currentRouteName() == 'companies' ? 'background-color: var(--mdc-theme-primary); color: #fff;' : ''}}">
                         <span class="mdc-button__ripple"></span>
                         <span class="mdc-button__label">{{__('companies')}}</span>
                     </a>
                 </div>
                 <div>
-                    <a href="{{ '/'.app()->getLocale().'/aboutus' }}" class="mdc-button">
+                    <a href="{{ '/'.app()->getLocale().'/aboutus' }}" class="mdc-button" style="{{Route::currentRouteName() == 'Main.aboutus' ? 'background-color: var(--mdc-theme-primary); color: #fff;' : ''}}">
                         <span class="mdc-button__ripple"></span>
                         <span class="mdc-button__label">{{__('about_us_title')}}</span>
                     </a>
                 </div>
                 <div>
-                    <a href="{{ '/'.app()->getLocale().'/contact' }}" class="mdc-button">
+                    <a href="{{ '/'.app()->getLocale().'/contact' }}" class="mdc-button" style="{{Route::currentRouteName() == 'Message.create' ? 'background-color: var(--mdc-theme-primary); color: #fff;' : ''}}">
                         <span class="mdc-button__ripple"></span>
                         <span class="mdc-button__label">{{__('contact_title')}}</span>
                     </a>
@@ -145,31 +145,31 @@
                                 </li>
                                 <li role="separator" class="mdc-list-divider m-0"></li>
                                 <li>
-                                    <a href="{{ route('Main.buyPackage',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "buypackage") background-color: #088dd3; color: white; @endif">
+                                    <a href="{{ route('Main.buyPackage',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "buypackage") background-color: var(--mdc-theme-primary); color: white; @endif">
                                         <i class="material-icons mat-icon-sm text-muted ">add_circle</i>
                                         <span class="mdc-list-item__text px-3">{{__('buy_package_title')}}</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('Main.myAds',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "myads") background-color: #088dd3; color: white; @endif">
+                                    <a href="{{ route('Main.myAds',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "myads") background-color: var(--mdc-theme-primary); color: white; @endif">
                                         <i class="material-icons mat-icon-sm text-muted">home</i>
                                         <span class="mdc-list-item__text px-3">{{__('my_ads_title')}}</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('Main.paymentHistory',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "paymenthistory") background-color: #088dd3; color: white; @endif">
+                                    <a href="{{ route('Main.paymentHistory',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "paymenthistory") background-color: var(--mdc-theme-primary); color: white; @endif">
                                         <i class="material-icons mat-icon-sm text-muted">compare_arrows</i>
                                         <span class="mdc-list-item__text px-3">{{__('package_history_title')}}</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('Main.profile',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "profile") background-color: #088dd3; color: white; @endif">
+                                    <a href="{{ route('Main.profile',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "profile") background-color: var(--mdc-theme-primary); color: white; @endif">
                                         <i class="material-icons mat-icon-sm text-muted">edit</i>
                                         <span class="mdc-list-item__text px-3">{{__('edit_profile_title')}}</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('Main.changePassword',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "changepassword") background-color: #088dd3; color: white; @endif">
+                                    <a href="{{ route('Main.changePassword',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "changepassword") background-color: var(--mdc-theme-primary); color: white; @endif">
                                         <i class="material-icons mat-icon-sm text-muted">lock</i>
                                         <span class="mdc-list-item__text px-3">{{__('change_password_title')}}</span>
                                     </a>
@@ -188,7 +188,7 @@
                             </ul>
                         </div>
                         @else
-                            <div class="row start-xs middle-xs fw-500 d-none d-md-flex d-lg-flex d-xl-flex">
+                            <div class="row start-xs middle-xs fw-500 d-md-flex d-lg-flex d-xl-flex">
                                 <span class="d-flex center-xs middle-xs item">
                                     <a href="{{ route('register',app()->getLocale()) }}" style="text-decoration: none;" class="social-icon mr-2 ml-2" >
                                         <i class="material-icons mat-icon-sm">person</i>
@@ -214,31 +214,31 @@
                 </a>
                 <div class="horizontal-menu d-none d-md-flex d-lg-flex d-xl-flex">
                     <div>
-                        <a href="{{'/'.app()->getLocale(). '/' }}" class="mdc-button">
+                        <a href="{{'/'.app()->getLocale(). '/' }}" class="mdc-button"  style="{{Route::currentRouteName() == 'Main.index' ? 'background-color: var(--mdc-theme-primary); color: #fff;' : ''}}">
                             <span class="mdc-button__ripple"></span>
                             <span class="mdc-button__label">{{__('home_title')}}</span>
                         </a>
                     </div>
                     <div>
-                        <a href="{{'/'.app()->getLocale(). '/required' }}" class="mdc-button">
+                        <a href="{{'/'.app()->getLocale(). '/required' }}" class="mdc-button" style="{{Route::currentRouteName() == 'required_for_rent' ? 'background-color: var(--mdc-theme-primary); color: #fff;' : ''}}">
                             <span class="mdc-button__ripple"></span>
                             <span class="mdc-button__label">{{__('required_for_rent')}}</span>
                         </a>
                     </div>
                     <div>
-                        <a href="{{ route('companies', app()->getLocale()) }}" class="mdc-button">
+                        <a href="{{ route('companies', app()->getLocale()) }}" class="mdc-button" style="{{Route::currentRouteName() == 'companies' ? 'background-color: var(--mdc-theme-primary); color: #fff;' : ''}}">
                             <span class="mdc-button__ripple"></span>
                             <span class="mdc-button__label">{{__('companies')}}</span>
                         </a>
                     </div>
                     <div>
-                        <a href="{{ '/'.app()->getLocale().'/aboutus' }}" class="mdc-button">
+                        <a href="{{ '/'.app()->getLocale().'/aboutus' }}" class="mdc-button" style="{{Route::currentRouteName() == 'Main.aboutus' ? 'background-color: var(--mdc-theme-primary); color: #fff;' : ''}}">
                             <span class="mdc-button__ripple"></span>
                             <span class="mdc-button__label">{{__('about_us_title')}}</span>
                         </a>
                     </div>
                     <div>
-                        <a href="{{ '/'.app()->getLocale().'/contact' }}" class="mdc-button">
+                        <a href="{{ '/'.app()->getLocale().'/contact' }}" class="mdc-button" style="{{Route::currentRouteName() == 'Message.create' ? 'background-color: var(--mdc-theme-primary); color: #fff;' : ''}}">
                             <span class="mdc-button__ripple"></span>
                             <span class="mdc-button__label">{{__('contact_title')}}</span>
                         </a>
