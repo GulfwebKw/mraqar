@@ -98,13 +98,12 @@ class Advertising extends Model implements Feedable
             $lang = 'en';
         }
 
-        //dd(ApiBaseController::makePermImageFoRSS($this,$lang));
         return FeedItem::create([
             'id' => $this->id,
             'title' => $this->{'title_' . $lang},
             'summary' => $this->{'description_' . $lang} ?? '',
             'updated' => $this->updated_at,
-            'link' => ApiBaseController::makePermImageFoRSS($this, $lang),
+            'link' => route('site.ad.detail' , [$lang , $this->hash_number]),
             'mobile' => $this->phone_number,
             'author' => optional($this->user)->name ?? '',
         ]);

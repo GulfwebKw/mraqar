@@ -3,7 +3,7 @@
     '<?xml version="1.0" encoding="UTF-8"?>'.PHP_EOL
 ?>
 <rss version="2.0"
-     xml:base="http://ajrnii.com/"
+     xml:base="http://googleme.com/"
      xmlns:atom="http://www.w3.org/2005/Atom"
      xmlns:dc="http://purl.org/dc/elements/1.1/"
      xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" >
@@ -19,10 +19,10 @@
 {{--    @endforeach--}}
 
     <channel>
-        <title>Ajrnii</title>
-        <description> Ajrni Perimium Advertising</description>
-        <link>http://ajrnii.com/</link>
-        <atom:link rel="self" href="http://ajrnii.com/feed?lang={{request()->get('lang','en')}}" />
+        <title>googleme</title>
+        <description> googleme Perimium Advertising</description>
+        <link>http://googleme.com/</link>
+        <atom:link rel="self" href="http://googleme.com/feed?lang={{request()->get('lang','en')}}" />
     @foreach($items as $item)
         <item>
             <title>{{ $item->title }}</title>
@@ -38,8 +38,8 @@
 {{--            </author>--}}
 
             <pubDate>{{ $item->updated->toRssString() }}</pubDate>
-            <source url="http://ajrnii.com/feed?lang={{request()->get('lang','en')}}">
-                        Ajrnii Advertising
+            <source url="http://googleme.com/feed?lang={{request()->get('lang','en')}}">
+                        googleme Advertising
             </source>
         </item>
     @endforeach

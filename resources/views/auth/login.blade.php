@@ -11,7 +11,7 @@
                         <div class="column center-xs middle-xs text-center">
                             <h1 class="uppercase">{{__('welcome_back')}}</h1>
                             <a href="{{ route('register',app()->getLocale()) }}" class="mdc-button mdc-ripple-surface mdc-ripple-surface--primary normal w-100">
-                                {{__('new_to_ajrnii')}}
+                                {{__('new_to_site')}}
                                 {{__('sign_up')}}
                             </a>
                         </div>

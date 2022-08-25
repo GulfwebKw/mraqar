@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="{{ asset('css/main/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main/responsive.css') }}">
 
-    <title>Ajrnii - Buy & Sell Properties</title>
+    <title>googleme - Buy & Sell Properties</title>
 
     <link rel="icon" type="image/png" href="{{ asset('images/main/favicon.png') }}">
 </head>
@@ -51,7 +51,7 @@
                             </div>
 
                             <h3>Reset Password</h3>
-                           
+
                             <form method="POST" action="{{route('password.token',['locale'=>app()->getLocale(),'token'=>request()->token])}}">
                                 @csrf
                                 <input type="hidden" name="token" value="{{ request()->token }}">

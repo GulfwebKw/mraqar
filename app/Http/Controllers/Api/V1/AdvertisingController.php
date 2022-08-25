@@ -652,23 +652,7 @@ class AdvertisingController extends ApiBaseController
     }
     private function sendRequestForPayment($price,$refId,$user_id=null,$type=null,$package_id=null)
     {
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://payment.ajrnii.com/paymentInit.php?token=66a08c59-3ef4-44bb-9fbf-c6206d785f04&refid=".$refId."&amount=".$price."&user_id=".$user_id."&type=".$type."&package_id=".$package_id."&returnUrl=".route('api.callback'),
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_HTTPHEADER => array(
-                "Cookie: __cfduid=d40b460b35a430341a1efef90bc437b2a1599411044; PHPSESSID=aeb4fca473e3ab09a3782d12083737df"
-            ),
-        ));
-        $response = curl_exec($curl);
-        curl_close($curl);
-        return $response;
+        return null;
     }
     public function makeRefId($userId)
     {

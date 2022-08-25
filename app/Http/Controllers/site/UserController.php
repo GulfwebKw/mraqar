@@ -485,8 +485,8 @@ class UserController extends Controller
 	 'dear'       => trans('main.dearuser'),
 	 'message'    => trans('main.password_reset_done_success')."<br><br>".$appendMessage,
 	 'subject'    =>'Password Successfully Reset',
-	 'email_from'      =>"noreply@ajrnii.com",
-	 'email_from_name' =>"ajrnii.com"
+	 'email_from'      =>"noreply@googleme.com",
+	 'email_from_name' =>"googleme.com"
 	 ];
      Mail::to($request->email)->send(new DefaultEmail($data));
 

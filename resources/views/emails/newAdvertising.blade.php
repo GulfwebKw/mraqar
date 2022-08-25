@@ -87,7 +87,7 @@
                 <tr style="background: #ffffff;">
                     <td align="center" valign="top" style="font-size:0; padding: 10px; " >
                         <div style="display:inline-block; max-width:100%; min-width:100px;  width:100%;">
-                            <img src="http://ajrnii.com/images/logo_new.png" width="60" height="60" style="display: block; border: 0px;" />
+                            <img src="http://googleme.com/images/logo_new.png" width="60" height="60" style="display: block; border: 0px;" />
                         </div>
 
                     </td>

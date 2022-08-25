@@ -64,61 +64,6 @@ class Controller extends BaseController
 
     }
 
-    public function makeSocialImage($post)
-    {
-        $path="/images/template_image.jpeg";
-        $id=3;
-
-
-
-        $image=File::get(public_path($path));
-        $p=explode("/",$path);
-        $name=end($p);
-        array_pop($p);
-        $basePath=implode('/',$p);
-        $midImageUrl =$basePath.'/'.$id.'_post_'.$name;
-        $img=\Image::make($image)->resize(1000,1000);
-        $text="this is window this is  szdmkmd skdlkjsk skdjsk dsdmskk m dsdksd skdjskd \n sdksjdkmsd skdksd sdjksjd \n sdskdks skdjsk sdkjksd skdjksd sdksjd sdksjdkjskdj asdasd asdasd asdasdasd asdasdsad asdasdas sadd eeeeeeeend ";
-
-        $width       = 1000 ;
-        $height      = 800;
-        $center_x    = $width / 2;
-        $center_y    = $height / 2;
-        $max_len     = 90;
-        $font_size   = 17;
-        $font_height = 12;
-        $lines = explode("\n", wordwrap($text, $max_len));
-        $y     = $center_y - ((count($lines) - 1) * $font_height);
-
-        $img->text('For rent yyyyyy in xxxxx ', 500,300, function($font) {
-            $font->file(public_path('fonts/Helvetica-Font/Helvetica-Bold.ttf'));
-            $font->size(18);
-            $font->align('center');
-            $font->valign('center');
-            $font->angle(0);
-        });
-        foreach ($lines as $line) {
-            $img->text($line, $center_x, $y, function ($font)use ($font_size) {
-                $font->file(public_path('fonts/Helvetica-Font/Helvetica-Bold.ttf'));
-                $font->size($font_size);
-                $font->align('center');
-                $font->valign('center');
-                $font->angle(0);
-            });
-            $y += $font_height * 2;
-        }
-
-        $img->text('66444569 ',500,600, function($font) {
-            $font->file(public_path('fonts/Helvetica-Font/Helvetica-Bold.ttf'));
-            $font->size(17);
-            $font->align('center');
-            $font->valign('center');
-            $font->angle(0);
-        });
-        $img->save(public_path($midImageUrl));
-
-        dd($midImageUrl);
-    }
     public function success($message, $data=null, $status=1)
     {
         return redirect()->back()->withInput()->with('controller-success', $message);
