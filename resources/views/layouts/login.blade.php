@@ -9,7 +9,7 @@
     <meta name="author" content="pixelstrap">
     <link rel="icon" href="{{asset('images/favicon.png')}}" type="image/x-icon" />
     <link rel="shortcut icon" href="{{asset('images/favicon.png')}}" type="image/x-icon" />
-    <title>{{ config('app.name','ajarni') }}</title>
+    <title>{{ config('app.name') }}</title>
 
     <!--Google font-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet">
