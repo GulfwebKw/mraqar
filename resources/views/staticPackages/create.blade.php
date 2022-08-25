@@ -11,7 +11,7 @@
                     <div class="col">
 
                         <div class="form-group row">
-                            <label for="name" class="col-sm-3 col-form-label"><span class="text-danger">*</span> {{__('Title Er')}}</label>
+                            <label for="name" class="col-sm-3 col-form-label"><span class="text-danger">*</span> {{__('Title En')}}</label>
                             <div class="col-sm-6">
                                 <input type="text" name="title_en" class="form-control  @error('title_en') is-invalid @enderror" id="title_en" placeholder="{{__('Title En')}}" value="{{ old('title_en') }}" required>
                                 @error('title_en')
