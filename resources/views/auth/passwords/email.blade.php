@@ -31,7 +31,7 @@
                                 <input type="hidden" name="codeValidation" value="{{ old("codeValidation") }}">
                                 <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon w-100 mt-3 custom-field ">
                                     <i class="material-icons mdc-text-field__icon text-muted">terminal</i>
-                                    <input id="code" type="number" placeholder="{{__('passcode')}}" class="mdc-text-field__input @error('code') is-invalid @enderror @if($errors->any()) is-invalid @endif" name="code" value="{{ old('code') }}" autofocus>
+                                    <input id="code" type="number" placeholder="{{__('passcode')}}" class="mdc-text-field__input @error('code') is-invalid @enderror @if($errors->any()) is-invalid @endif" name="code" value="" autofocus>
                                     <div class="mdc-notched-outline">
                                         <div class="mdc-notched-outline__leading"></div>
                                         <div class="mdc-notched-outline__notch">
