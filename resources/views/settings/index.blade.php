@@ -45,7 +45,7 @@
                                 {{--                                @else--}}
                                 {{--                                <td>{{$setting->setting_key}}</td>--}}
                                 {{--                            @endif--}}
-                                <td>{{$setting->setting_placeholder ? $setting->setting_placeholder  : $setting->setting_key }}</td>
+                                <td>{{($setting->setting_placeholder && $setting->setting_placeholder !== 'undefined') ? $setting->setting_placeholder  : $setting->setting_key }}</td>
                                 <td  style="width:50%">
                                     @if($setting->setting_type=="text")
                                         <input type="text" class="form-control " id="input_{{$setting->id}}" value="{{$setting->setting_value}}" name="{{$setting->id}}_value">

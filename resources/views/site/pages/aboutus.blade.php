@@ -36,15 +36,15 @@
                 <div class="services-wrapper row">
                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 p-2">
                         <div class="mdc-card h-100 w-100 text-center middle-xs p-3">
-                            <i class="material-icons mat-icon-xlg primary-color">supervisor_account</i>
+                            <i class="material-icons mat-icon-xlg primary-color">history_edu</i>
                             <h2 class="capitalize fw-600 my-3">{{__('ourstory')}}</h2>
 {{--                            <p class="text-muted fw-500">When you make it easy to do business, your business grows.</p>--}}
-                            <div class="row text-left">
-                                @if(app()->getLocale()=="en"){!!!empty($our_story_en)?$our_story_en:''!!}@else{!!!empty($our_story_ar)?$our_story_ar:''!!}@endif
-                                <!-- <div class="col-xs-12">
-                                    <i class="material-icons mat-icon-sm primary-color">check</i>
-                                    <span class="mx-2">Listing for all seasons</span>
-                                </div> -->
+                            <div class="row">
+                                <div class="text-muted fw-500">
+                                    @if(app()->getLocale()=="en")
+                                        {!!!empty($our_story_en)?$our_story_en:''!!}@else{!!!empty($our_story_ar)?$our_story_ar:''!!}
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -52,17 +52,21 @@
                         <div class="mdc-card h-100 w-100 text-center middle-xs p-3">
                             <i class="material-icons mat-icon-xlg primary-color">format_list_bulleted</i>
                             <h2 class="capitalize fw-600 my-3">{{__('ourvalues')}}</h2>
-                            <div class="row text-left">
-                                @if(app()->getLocale()=="en"){!!!empty($our_value_en)?$our_value_en:''!!}@else{!!!empty($our_value_ar)?$our_value_ar:''!!}@endif
+                            <div class="row">
+                                <div class="text-muted fw-500">
+                                    @if(app()->getLocale()=="en"){!!!empty($our_value_en)?$our_value_en:''!!}@else{!!!empty($our_value_ar)?$our_value_ar:''!!}@endif
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 p-2">
                         <div class="mdc-card h-100 w-100 text-center middle-xs p-3">
-                            <i class="material-icons mat-icon-xlg primary-color">location_on</i>
+                            <i class="material-icons mat-icon-xlg primary-color">handshake</i>
                             <h2 class="capitalize fw-600 my-3">{{__('ourpromise')}}</h2>
-                            <div class="row text-left">
-                                @if(app()->getLocale()=="en"){!!!empty($our_promise_en)?$our_promise_en:''!!}@else{!!!empty($our_promise_ar)?$our_promise_ar:''!!}@endif
+                            <div class="row">
+                                <div class="text-muted fw-500">
+                                    @if(app()->getLocale()=="en"){!!!empty($our_promise_en)?$our_promise_en:''!!}@else{!!!empty($our_promise_ar)?$our_promise_ar:''!!}@endif
+                                </div>
                             </div>
                         </div>
                     </div>
