@@ -104,7 +104,7 @@
         </div>
     </aside>
     <div class="mdc-drawer-scrim sidenav-scrim"></div>
-    <header class="toolbar-1 {{ ($header ?? '') !== 'transparent' ?: 'has-bg-image' }}" dir="ltr">
+    <header class="toolbar-1 {{ ($header ?? '') !== 'transparent' ?: 'has-bg-image' }}" dir="{{ app()->getLocale() == 'en' ? 'ltr' : 'rtl' }}">
         <div id="top-toolbar" class="mdc-top-app-bar">
             <div class="theme-container row between-xs middle-xs h-100">
                 <div class="row d-lg-none start-xs middle-xs">

@@ -1,11 +1,11 @@
 <Search inline-template>
     <div class="mdc-card main-content-header mb-3">
         <form action="javascript:void(0);" id="filters" class="search-wrapper">
-            <div class="row md-flex-no-wrap justify-content-center">
-                <div class="col-xs-12 col-sm-6 col-md-3 p-2">
+            <div class="row md-flex-no-wrap justify-content-center" style="align-items: flex-end;">
+                <div class="col-xs-12 col-sm-6 col-md-3 p-0">
                     <multiselect v-model="areas" :options="options" placeholder="{{__('areas_filter')}}" selected-label="{{__('selected')}}" deselect-group-label="{{__('deselect_areas')}}" select-group-label="{{__('select_all_areas')}}" select-label="" deselect-label="{{__('deselect')}}" :multiple="true" group-values="areas" group-label="name_{{ app()->getLocale() }}" :group-select="true" track-by="id" label="name_{{ app()->getLocale() }}" maxHeight="300"><span slot="noResult">{{__('no_result')}}</span></multiselect>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-3 p-2">
+                <div class="col-xs-12 col-sm-6 col-md-3 p-0">
                     <multiselect v-model="venue_type" :options="venue_types" placeholder="{{__('venue_filter')}}" selected-label="{{__('selected')}}" select-label="" deselect-label="{{__('deselect')}}" track-by="id" label="title_{{ app()->getLocale() }}"><span slot="noResult">{{__('no_result')}}</span></multiselect>
                 </div>
                 @if( ! isset($required_for_rent) )

@@ -74,7 +74,7 @@ export default {
 }
 .multiselect__option--highlight:after {
     content: attr(data-select);
-    background: var(--mdc-theme-primary) !important;
+    background: var(--mdc-theme-primary);
     color: #fff
 }
 /* multiselect__option multiselect__option--highlight multiselect__option--selected */
@@ -104,5 +104,15 @@ export default {
 }
 .multiselect__option--group:before {
     content: "--- ";
+}
+.multiselect__select::before {
+    top: 85%;
+}
+.multiselect__placeholder{
+    margin-bottom: 0;
+}
+.multiselect__tags {
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
 }
 </style>

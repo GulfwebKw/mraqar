@@ -18,8 +18,12 @@ class Authenticate extends Middleware
             return route('unAuthorize',app()->getLocale());
         }
         if (! $request->expectsJson()) {
+            if (in_array($request->segments()[0], ['ar', 'en']))
+                $lang = $request->segments()[0];
+            else
+                $lang = 'en';
 
-            return route('login', app()->getLocale());
+            return route('login', $lang);
 
         }
     }
