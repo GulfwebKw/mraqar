@@ -463,10 +463,12 @@ class AdvertisingController extends ApiBaseController
         }
         if (  $request->isRequiredPage )
             $advertising = $advertising->where("purpose", 'required_for_rent');
-        else
+        else {
+            $advertising = $advertising->where("purpose", "!=" , 'required_for_rent');
             if (isset($request->purpose) && $request->purpose != null and $request->purpose != "" and $request->purpose != "all") {
                 $advertising = $advertising->where("purpose", $request->purpose);
             }
+        }
 
         if($request->company_id){
             $advertising = $advertising->where("user_id", $request->company_id);
