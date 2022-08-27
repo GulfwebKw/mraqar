@@ -22,9 +22,9 @@
                         @endif
                         <form method="post" action="{{ route('login',app()->getLocale()) }}">
                             @csrf
-                            <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon w-100 mt-3 custom-field ">
+                            <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon w-100 mt-3 custom-field @error('password') mdc-text-field--invalid @enderror">
                                 <i class="material-icons mdc-text-field__icon text-muted">phone</i>
-                                <input id="mobile" type="tel" placeholder="{{__('phone_number_title')}}" class="mdc-text-field__input @error('mobile') is-invalid @enderror" name="mobile" value="{{ old('mobile') }}" required autofocus>
+                                <input id="mobile" type="tel" placeholder="{{__('phone_number_title')}}" class="mdc-text-field__input" name="mobile" value="{{ old('mobile') }}" required autofocus>
                                 <div class="mdc-notched-outline">
                                     <div class="mdc-notched-outline__leading"></div>
                                     <div class="mdc-notched-outline__notch">
@@ -38,10 +38,10 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
-                            <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon mdc-text-field--with-trailing-icon w-100 custom-field mt-4 custom-field">
+                            <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon mdc-text-field--with-trailing-icon w-100 custom-field mt-4 custom-field @error('password') mdc-text-field--invalid @enderror">
                                 <i class="material-icons mdc-text-field__icon text-muted">lock</i>
                                 <i class="material-icons mdc-text-field__icon text-muted password-toggle" tabindex="1">visibility_off</i>
-                                <input  name="password" id="password" type="password" placeholder="{{__('password')}}" class="mdc-text-field__input @error('password') is-invalid @enderror" required autocomplete="current-password">
+                                <input  name="password" id="password" type="password" placeholder="{{__('password')}}" class="mdc-text-field__input" required autocomplete="current-password">
                                 <div class="mdc-notched-outline">
                                     <div class="mdc-notched-outline__leading"></div>
                                     <div class="mdc-notched-outline__notch">

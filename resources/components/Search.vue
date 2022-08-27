@@ -11,7 +11,8 @@ export default {
             areas: [],
             venue_types: [],
             venue_type: null,
-            purpose: 'all'
+            purpose: 'all',
+            addSpanTimes: 0,
         }
     },
     methods: {
@@ -24,16 +25,32 @@ export default {
                 venue_type: this.venue_type ? this.venue_type.id : null ,
                 purpose: this.purpose
             }
+        },
+        onSelect(selected) {
+            this.addSpan()
+            console.log(this.options);
+        },
+        addSpan() {
+            if (this.addSpanTimes++ < 1) {
+                // let txt = document.querySelector('.multiselect__placeholder').innerText
+
+                let placeholder = `<span class="multiselect__placeholder d-block pb-3 pt-1 helper_placeholder">${this.filter_areas_title}</span>`
+                document.querySelector('#select_areas .multiselect .multiselect__tags').insertAdjacentHTML("afterbegin", placeholder);
+            }
         }
     },
     mounted () {
-        axios
-            .get(window.url + 'cities')
+        axios.get(window.url + 'cities')
             .then(response => {
                 this.options  = response.data.data;
+
+                // this.options = [{areas: [{}], id: 200, name_en: 'remove all', name_ar: 'الحذف'}, ...this.options]
+
+                // let item = `<li class="multiselect__element"><!----> <span data-select="حدد كل المجالات!" data-deselect="انقر لإلغاء التحديد" class="multiselect__option multiselect__option--group multiselect__option--highlight"><span>الحذف</span></span></li>`
+                // document.querySelector('.multiselect__content').insertAdjacentHTML("afterbegin", item);
             })
-        axios
-            .get(window.url + 'get-search-property')
+
+        axios.get(window.url + 'get-search-property')
             .then(response => {
                 this.venue_types = [{
                     id: null,
@@ -42,6 +59,18 @@ export default {
                 }];
                 this.venue_types.push(...response.data.data.type);
             })
+
+        if (document.querySelector('.multiselect__placeholder')) {
+            this.filter_areas_title = document.querySelector('.multiselect__placeholder').innerText
+        }
+    },
+    watch: {
+        areas() {
+            if (this.areas.length === 0) {
+                document.querySelector('.helper_placeholder').remove()
+                this.addSpanTimes = 0
+            }
+        }
     }
 }
 </script>

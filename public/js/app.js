@@ -2538,7 +2538,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       areas: [],
       venue_types: [],
       venue_type: null,
-      purpose: 'all'
+      purpose: 'all',
+      addSpanTimes: 0
     };
   },
   methods: {
@@ -2552,13 +2553,26 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         venue_type: this.venue_type ? this.venue_type.id : null,
         purpose: this.purpose
       };
+    },
+    onSelect: function onSelect(selected) {
+      this.addSpan();
+      console.log(this.options);
+    },
+    addSpan: function addSpan() {
+      if (this.addSpanTimes++ < 1) {
+        // let txt = document.querySelector('.multiselect__placeholder').innerText
+        var placeholder = "<span class=\"multiselect__placeholder d-block pb-3 pt-1 helper_placeholder\">".concat(this.filter_areas_title, "</span>");
+        document.querySelector('#select_areas .multiselect .multiselect__tags').insertAdjacentHTML("afterbegin", placeholder);
+      }
     }
   },
   mounted: function mounted() {
     var _this = this;
 
     axios.get(window.url + 'cities').then(function (response) {
-      _this.options = response.data.data;
+      _this.options = response.data.data; // this.options = [{areas: [{}], id: 200, name_en: 'remove all', name_ar: 'الحذف'}, ...this.options]
+      // let item = `<li class="multiselect__element"><!----> <span data-select="حدد كل المجالات!" data-deselect="انقر لإلغاء التحديد" class="multiselect__option multiselect__option--group multiselect__option--highlight"><span>الحذف</span></span></li>`
+      // document.querySelector('.multiselect__content').insertAdjacentHTML("afterbegin", item);
     });
     axios.get(window.url + 'get-search-property').then(function (response) {
       var _this$venue_types;
@@ -2571,6 +2585,18 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
       (_this$venue_types = _this.venue_types).push.apply(_this$venue_types, _toConsumableArray(response.data.data.type));
     });
+
+    if (document.querySelector('.multiselect__placeholder')) {
+      this.filter_areas_title = document.querySelector('.multiselect__placeholder').innerText;
+    }
+  },
+  watch: {
+    areas: function areas() {
+      if (this.areas.length === 0) {
+        document.querySelector('.helper_placeholder').remove();
+        this.addSpanTimes = 0;
+      }
+    }
   }
 });
 
@@ -4685,7 +4711,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.multiselect__tag {\n    position: relative;\n    display: inline-block;\n    padding: 4px 26px 4px 10px;\n    border-radius: 5px;\n    margin-right: 10px;\n    color: #fff;\n    line-height: 1;\n    background: var(--mdc-theme-primary) !important;\n    margin-bottom: 5px;\n    white-space: nowrap;\n    overflow: hidden;\n    max-width: 100%;\n    text-overflow: ellipsis;\n}\n.multiselect__tags {\n    max-height: 180px;\n    overflow-y: auto;\n    overflow-x: hidden;\n}\n.multiselect__option--highlight {\n    background: var(--mdc-theme-primary) !important;\n    outline: none;\n    color: #fff\n}\n.multiselect__option--highlight:after {\n    content: attr(data-select);\n    background: var(--mdc-theme-primary);\n    color: #fff\n}\n/* multiselect__option multiselect__option--highlight multiselect__option--selected */\n.multiselect__option.multiselect__option--highlight.multiselect__option--selected{\n    background: var(--mdc-theme-error) !important;\n}\n.multiselect__tag-icon:focus, .multiselect__tag-icon:hover {\n    background: var(--mdc-theme-error) !important;\n}\n.multiselect__spinner:after, .multiselect__spinner:before {\n    position: absolute;\n    content: \"\";\n    top: 50%;\n    left: 50%;\n    margin: -8px 0 0 -8px;\n    width: 16px;\n    height: 16px;\n    border-radius: 100%;\n    border: 2px solid transparent;\n    border-top-color: var(--mdc-theme-primary) !important;\n    box-shadow: 0 0 0 1px transparent\n}\n.multiselect__option--group {\n    background: var(--mdc-theme-secondary);\n    color: white;\n}\n.multiselect__option--group:before {\n    content: \"--- \";\n}\n.multiselect__select::before {\n    top: 85%;\n}\n.multiselect__placeholder{\n    margin-bottom: 0;\n}\n.multiselect__tags {\n    padding-top: 6px !important;\n    padding-bottom: 6px !important;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.multiselect__tag {\r\n    position: relative;\r\n    display: inline-block;\r\n    padding: 4px 26px 4px 10px;\r\n    border-radius: 5px;\r\n    margin-right: 10px;\r\n    color: #fff;\r\n    line-height: 1;\r\n    background: var(--mdc-theme-primary) !important;\r\n    margin-bottom: 5px;\r\n    white-space: nowrap;\r\n    overflow: hidden;\r\n    max-width: 100%;\r\n    text-overflow: ellipsis;\n}\n.multiselect__tags {\r\n    max-height: 180px;\r\n    overflow-y: auto;\r\n    overflow-x: hidden;\n}\n.multiselect__option--highlight {\r\n    background: var(--mdc-theme-primary) !important;\r\n    outline: none;\r\n    color: #fff\n}\n.multiselect__option--highlight:after {\r\n    content: attr(data-select);\r\n    background: var(--mdc-theme-primary);\r\n    color: #fff\n}\r\n/* multiselect__option multiselect__option--highlight multiselect__option--selected */\n.multiselect__option.multiselect__option--highlight.multiselect__option--selected{\r\n    background: var(--mdc-theme-error) !important;\n}\n.multiselect__tag-icon:focus, .multiselect__tag-icon:hover {\r\n    background: var(--mdc-theme-error) !important;\n}\n.multiselect__spinner:after, .multiselect__spinner:before {\r\n    position: absolute;\r\n    content: \"\";\r\n    top: 50%;\r\n    left: 50%;\r\n    margin: -8px 0 0 -8px;\r\n    width: 16px;\r\n    height: 16px;\r\n    border-radius: 100%;\r\n    border: 2px solid transparent;\r\n    border-top-color: var(--mdc-theme-primary) !important;\r\n    box-shadow: 0 0 0 1px transparent\n}\n.multiselect__option--group {\r\n    background: var(--mdc-theme-secondary);\r\n    color: white;\n}\n.multiselect__option--group:before {\r\n    content: \"--- \";\n}\n.multiselect__select::before {\r\n    top: 85%;\n}\n.multiselect__placeholder{\r\n    margin-bottom: 0;\n}\n.multiselect__tags {\r\n    padding-top: 6px !important;\r\n    padding-bottom: 6px !important;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

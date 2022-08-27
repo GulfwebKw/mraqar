@@ -67,36 +67,36 @@ class RegisterController extends Controller
      */
     public function register(Request $request)
     {
-//       dd($request->all());
-        try{
+        $this->registerValidation();
+        try {
 
             DB::beginTransaction();
-            if ( $request->has('resend') ){
+            if ($request->has('resend')) {
                 $otp = rand(10000, 99999);
                 $this->sendOtp($otp, $request->mobile);
-                $request->merge(['code' => $otp ,'codeValidation' => Hash::make($otp . " : Erfan Ebrahimi : ".$request->mobile )]);
+                $request->merge(['code' => $otp, 'codeValidation' => Hash::make($otp . " : Erfan Ebrahimi : " . $request->mobile)]);
                 return redirect()->back()->withInput()->with('success', __('validate_resend'));
             }
-            if ( ! $request->has('code') ){
+            if (!$request->has('code')) {
                 $otp = rand(10000, 99999);
                 $this->sendOtp($otp, $request->mobile);
-                $request->merge(['code' => $otp ,'codeValidation' => Hash::make($otp . " : Erfan Ebrahimi : ".$request->mobile )]);
+                $request->merge(['code' => $otp, 'codeValidation' => Hash::make($otp . " : Erfan Ebrahimi : " . $request->mobile)]);
                 return redirect()->back()->withInput()->with('success', __('validate_send'));
-            } elseif ( ! Hash::check($request->code ." : Erfan Ebrahimi : ".$request->mobile  , $request->codeValidation) )
+            } elseif (!Hash::check($request->code . " : Erfan Ebrahimi : " . $request->mobile, $request->codeValidation))
                 return redirect()->back()->withInput()->withErrors(__('invalidOTP'));
 
 
             $request->merge(['type_usage' => 'individual']);
-            $package = Package::where("title_en", "gift credit")->where('is_enable' , 1)->where('user_type' , $request->type_usage)->first();
+            $package = Package::where("title_en", "gift credit")->where('is_enable', 1)->where('user_type', $request->type_usage)->first();
 
-            $user= User::makeUser([
-                'name'=>$request->name,
-                'email'=>$request->email,
-                'password'=>bcrypt($request->password),
-                'type_usage'=>$request->type_usage,
-                'mobile'=>$request->mobile,
-                'lang'=>'en',
-                'image_profile'=>'/images/main/profile.jpg'
+            $user = User::makeUser([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+                'type_usage' => $request->type_usage,
+                'mobile' => $request->mobile,
+                'lang' => 'en',
+                'image_profile' => '/images/main/profile.jpg'
             ]);
             /*
             if($request->verified_office==1){
@@ -105,29 +105,29 @@ class RegisterController extends Controller
             }
             */
 
-            if(isset($package)){
-                $countDay=optional($package)->count_day;
-                $today=   date("Y-m-d");
+            if (isset($package)) {
+                $countDay = optional($package)->count_day;
+                $today = date("Y-m-d");
                 $date = strtotime("+$countDay day", strtotime($today));
-                $expireDate=date("Y-m-d",$date);
-                $countNormal= $package->count_advertising ;
-                $countPremium= $package->count_premium ;
+                $expireDate = date("Y-m-d", $date);
+                $countNormal = $package->count_advertising;
+                $countPremium = $package->count_premium;
                 PackageHistory::create([
-                    'title_en'=>$package->title_en,
-                    'title_ar'=>$package->title_ar,
-                    'user_id'=>$user->id,
-                    'type'=>"static",
-                    'package_id'=>$package->id,
-                    'date'=>date('Y-m-d'),
-                    'is_payed'=>1,
-                    'price'=>$package->price,
-                    'count_day'=>$package->count_day,
-                    'count_show_day'=>$package->count_show_day,
-                    'count_advertising'=>$countNormal,
-                    'count_premium'=>$countPremium,
-                    'count'=>1,
-                    'accept_by_admin'=>1,
-                    'expire_at'=>$expireDate
+                    'title_en' => $package->title_en,
+                    'title_ar' => $package->title_ar,
+                    'user_id' => $user->id,
+                    'type' => "static",
+                    'package_id' => $package->id,
+                    'date' => date('Y-m-d'),
+                    'is_payed' => 1,
+                    'price' => $package->price,
+                    'count_day' => $package->count_day,
+                    'count_show_day' => $package->count_show_day,
+                    'count_advertising' => $countNormal,
+                    'count_premium' => $countPremium,
+                    'count' => 1,
+                    'accept_by_admin' => 1,
+                    'expire_at' => $expireDate
                 ]);
             }
             DB::commit();
@@ -140,15 +140,17 @@ class RegisterController extends Controller
         }
 
     }
-    public function registerValidation(array $data)
+
+    public function registerValidation()
     {
-        return Validator::make($data, [
-            'name' => 'required',
+        return $this->validate(request(), [
+            // 'name' => 'required',
             'mobile' => 'required|digits:8|unique:users',
             'password' => 'required|min:8|confirmed',
-            'email' => 'required|email|unique:users',
-            'type_usage'=>'required|in:company,individual',
-            'language'=>'required|in:ar,en',
+            // 'email' => 'required|email|unique:users',
+            // 'type_usage'=>'required|in:company,individual',
+            'type_usage'=>'required|in:individual',
+            // 'language'=>'required|in:ar,en',
         ]);
     }
 
@@ -162,7 +164,7 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
 
@@ -181,7 +183,7 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param array $data
      * @return \App\User
      */
     protected function create(array $data)
@@ -194,25 +196,26 @@ class RegisterController extends Controller
     }
 
 
-    public  static function sendOtp($otp, $mobile) {
+    public static function sendOtp($otp, $mobile)
+    {
         $client = new Client(); //GuzzleHttp\Client
-//        $res = $client->get('http://smsbox.com/smsgateway/services/messaging.asmx/Http_SendSMS', [
-//            'headers' => [
-//                'Content-Type' => 'application/x-www-form-urlencoded'
-//            ],
-//            'query' => [
-//                'username' => env('SMS_USERNAME'),
-//                'password' => env('SMS_PASSWORD'),
-//                'customerid' => env('SMS_CUSTOMERID'),
-//                'sendertext' => env('SMS_SENDERTEXT'),
-//                'messagebody' => $otp,
-//                'recipientnumbers' => \Illuminate\Support\Str::startsWith($mobile, '965') ? $mobile : '965' . $mobile,
-//                'defdate' => "",
-//                'isblink' => false,
-//                'isflash' => false,
-//            ],
-//        ]);
-//      $xml = $res->getBody()->getContents();
+        //        $res = $client->get('http://smsbox.com/smsgateway/services/messaging.asmx/Http_SendSMS', [
+        //            'headers' => [
+        //                'Content-Type' => 'application/x-www-form-urlencoded'
+        //            ],
+        //            'query' => [
+        //                'username' => env('SMS_USERNAME'),
+        //                'password' => env('SMS_PASSWORD'),
+        //                'customerid' => env('SMS_CUSTOMERID'),
+        //                'sendertext' => env('SMS_SENDERTEXT'),
+        //                'messagebody' => $otp,
+        //                'recipientnumbers' => \Illuminate\Support\Str::startsWith($mobile, '965') ? $mobile : '965' . $mobile,
+        //                'defdate' => "",
+        //                'isblink' => false,
+        //                'isflash' => false,
+        //            ],
+        //        ]);
+        //      $xml = $res->getBody()->getContents();
         //$json = json_decode($xml, true);
         //return $json['Message'];
     }

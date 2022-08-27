@@ -293,7 +293,7 @@
                                                     </div>
                                                 @endif
                                                 @forelse( (array)  json_decode( $advertising->other_image , true) as $i1 =>  $files )
-                                                        @forelse( $files as $i2 =>  $file )
+                                                        @forelse( (array) $files as $i2 =>  $file )
                                                             @if ( $file )
                                                                 <div class="col-xs-6 col-sm-4 col-md-2" id="fileOld1_{{ $i1 }}_{{ $i2 }}">
                                                                     <input type="hidden" name="other_image[]" value="{{ $file }}">
@@ -309,7 +309,7 @@
                                                         @endforelse
                                                 @empty
                                                 @endforelse
-                                                @forelse( old('other_images_link' , [] ) as $files )
+                                                @forelse( (array) old('other_images_link' , [] ) as $files )
                                                     <div class="col-xs-6 col-sm-4 col-md-2" id="fileOld_{{ $loop->index }}">
                                                         <input type="hidden" name="other_images_link[]" value="{{ $files }}">
                                                         <img src="{{ asset('/resources/tempUploads/' .$files ) }}" width="100%">
