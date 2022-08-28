@@ -72,7 +72,7 @@ class AdvertisingController extends Controller
            }else{
                $route="advertising.index";
            }
-           return redirect()->route($route);
+           return redirect()->route($route)->with("success",true);
 
     }
     public function view($id)
@@ -190,7 +190,7 @@ class AdvertisingController extends Controller
         $advertising=Advertising::find($request->id);
         if(isset($advertising)){
             $this->updateAdvertising($request, $advertising);
-            return redirect()->back();
+            return redirect()->route('advertising.index')->with("success",true);
         }
 
 

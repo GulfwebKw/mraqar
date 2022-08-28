@@ -77,8 +77,9 @@
                             <label for="user_type" class="col-sm-3 col-form-label"><span class="text-danger"></span> {{__('UserType')}}</label>
                             <div class="col-sm-6">
                                 <select id="user_type" class="form-control " name="user_type">
-                                    <option  selected="office" value="company">Company</option>
-                                    <option  selected="user" value="individual">Individual</option>
+                                    <option  selected disabled>{{__('Select user type')}}</option>
+                                    <option value="company">Company</option>
+                                    <option value="individual">Individual</option>
                                 </select>
                                 @error('user_type')
                                 <div class="help-block text-danger">{{ $message }}</div>

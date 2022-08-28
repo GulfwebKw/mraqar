@@ -45,6 +45,7 @@
                                 <label for="user" class="col-sm-2 col-form-label"><span class="text-danger"></span> {{__('User')}}</label>
                                 <div class="col-sm-6">
                                     <select id="user"  style="width:100%;height:100%"  name="user_id" class="form-control">
+                                        <option selected disabled>{{__('Select an user')}}</option>
                                         @foreach($users as $u)
                                             <option value="{{$u->id}}">{{$u->name}}</option>
                                         @endforeach
@@ -60,6 +61,7 @@
                                 <label for="area" class="col-sm-2 col-form-label"><span class="text-danger"></span> {{__('Area')}}</label>
                                 <div class="col-sm-6">
                                     <select name="area_id" style="width:100%;height:100%" id="area" class="form-control">
+                                        <option selected disabled>{{__('Select an area')}}</option>
                                         @foreach($area as $area)
                                             <option value="{{$area->id}}">{{$area->name_en}}</option>
                                         @endforeach
@@ -112,7 +114,8 @@
                             <div class="form-group row">
                                 <label for="venue_type" class="col-sm-2 col-form-label"><span class="text-danger"></span> {{__('Venue Type')}}</label>
                                 <div class="col-sm-6">
-                                    <select id="venue_type" name="venue_type" class="form-control  ">
+                                    <select id="venue_type" name="venue_type" class="form-control">
+                                        <option selected disabled>{{__('Select a venue type')}}</option>
                                         @foreach($venueType as $venType)
                                             <option  value="{{$venType->id}}">{{$venType->title_en}}</option>
                                         @endforeach
@@ -127,6 +130,7 @@
                                 <label for="purpose" class="col-sm-2 col-form-label"><span class="text-danger"></span> {{__('purpose')}}</label>
                                 <div class="col-sm-6">
                                     <select id="purpose" name="purpose" class="form-control  ">
+                                        <option selected disabled>{{__('Select a purpose')}}</option>
                                         <option  value="rent">{{__('rent')}}</option>
                                         <option  value="sell">{{__('sell')}}</option>
                                         <option  value="exchange">{{__('exchange')}}</option>
@@ -143,6 +147,7 @@
                                 <label for="mobile" class="col-sm-2 col-form-label"><span class="text-danger"></span> {{__('Advertising Type')}}</label>
                                 <div class="col-sm-6">
                                     <select name="advertising_type" class="form-control ">
+                                        <option selected disabled>{{__('Select an advertising type')}}</option>
                                         <option  value="normal">Normal</option>
                                         <option value="premium">Premium</option>
                                     </select>

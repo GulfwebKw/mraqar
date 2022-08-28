@@ -82,8 +82,8 @@
                             <label for="user_type" class="col-sm-3 col-form-label"><span class="text-danger"></span> {{__('UserType')}}</label>
                             <div class="col-sm-6">
                                 <select id="user_type" class="form-control " name="user_type">
-                                    <option   @if($package->user_type=="company")     selected  @endif value="company">Company</option>
-                                    <option   @if($package->user_type=="individual")  selected  @endif value="individual">Individual</option>
+                                    <option   @if($package->user_type=="company")     selected  @endif {{old('user_type' == 'company' ? 'selected' : '')}} value="company">Company</option>
+                                    <option   @if($package->user_type=="individual")  selected  @endif {{old('user_type' == 'individual' ? 'selected' : '')}} value="individual">Individual</option>
                                 </select>
                                 @error('user_type')
                                 <div class="help-block text-danger">{{ $message }}</div>

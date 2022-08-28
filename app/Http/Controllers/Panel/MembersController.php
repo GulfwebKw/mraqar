@@ -251,7 +251,7 @@ class MembersController extends Controller
             CompanyController::insertSocials($request, $userId);
         }
 
-        return redirect()->back()->with("success",true);
+        return redirect()->route('members.index')->with("success",true);
     }
 
     public function destroy($user)

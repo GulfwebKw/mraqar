@@ -6,12 +6,12 @@
         <div class="card">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-sm-4">
-                        <a class="btn btn-primary" href="{{route('members.create')}}">
-                            <i class="fa fa-fw fa-plus"></i>
-                            {{__('Create New User')}}
-                        </a>
-                    </div>
+{{--                    <div class="col-sm-4">--}}
+{{--                        <a class="btn btn-primary" href="{{route('members.create')}}">--}}
+{{--                            <i class="fa fa-fw fa-plus"></i>--}}
+{{--                            {{__('Create New User')}}--}}
+{{--                        </a>--}}
+{{--                    </div>--}}
 
                     <div class="col-sm-3">
                         <input type="text" name="search_table" class="form-control  " id="search_table" placeholder="Search Name Or Mobile" value="{{request('search')}}" required="" autocomplete="off">

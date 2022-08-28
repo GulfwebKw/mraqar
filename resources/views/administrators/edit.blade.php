@@ -1,6 +1,6 @@
 @extends('layouts.admin', ['crumbs' => [
     __('Users') => route('administrators.index'),
-    __('Edit Admin User Account') => route('administrators.edit', auth()->user())]
+    __('Edit Admin User Account') => route('administrators.edit', $user)]
 , 'title' => __('Edit User Account')])
 @section('content')
     @if ($errors->any())
@@ -15,7 +15,7 @@
 
     <div class="card col-md-12 mx-auto">
 
-        <form method="POST" action="{{route('administrators.update',auth()->user()->id )}}" accept-charset="UTF-8" class="form theme-form">
+        <form method="POST" action="{{route('administrators.update',$user->id )}}" accept-charset="UTF-8" class="form theme-form">
             <input name="_method" type="hidden" value="PUT"/>
             @csrf
             <div class="card-body">
@@ -25,7 +25,7 @@
                         <div class="form-group row">
                             <label for="name" class="col-sm-3 col-form-label"><span class="text-danger">*</span> {{__('Full Name')}}</label>
                             <div class="col-sm-6">
-                                <input type="text" name="name" class="form-control  @error('name') is-invalid @enderror" id="name" placeholder="{{__('Full Name')}}" value="{{ auth()->user()->name }}" required>
+                                <input type="text" name="name" class="form-control  @error('name') is-invalid @enderror" id="name" placeholder="{{__('Full Name')}}" value="{{ $user->name }}" required>
                                 @error('name')
                                 <div class="help-block text-danger">{{ $message }}</div>
                                 @enderror
@@ -34,7 +34,7 @@
                         <div class="form-group row">
                             <label for="email" class="col-sm-3 col-form-label">{{__('Email Address')}}</label>
                             <div class="col-sm-6">
-                                <input type="text" name="email" class="form-control  @error('email') is-invalid @enderror" id="email" placeholder="{{__('Email Address')}}" value="{{ auth()->user()->email }}" >
+                                <input type="text" name="email" class="form-control  @error('email') is-invalid @enderror" id="email" placeholder="{{__('Email Address')}}" value="{{ $user->email }}" >
                                 @error('email')
                                 <div class="help-block text-danger">{{ $message }}</div>
                                 @enderror
@@ -43,7 +43,7 @@
                         <div class="form-group row">
                             <label for="mobile" class="col-sm-3 col-form-label"><span class="text-danger">*</span> {{__('Mobile')}}</label>
                             <div class="col-sm-6">
-                                <input type="text" name="mobile" class="form-control  @error('mobile') is-invalid @enderror" id="mobile" placeholder="{{__('Mobile')}}" value="{{ auth()->user()->mobile }}" required size="8">
+                                <input type="text" name="mobile" class="form-control  @error('mobile') is-invalid @enderror" id="mobile" placeholder="{{__('Mobile')}}" value="{{ $user->mobile }}" required size="8">
                                 @error('mobile')
                                 <div class="help-block text-danger">{{ $message }}</div>
                                 @enderror

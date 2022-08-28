@@ -70,8 +70,8 @@
                             <div class="form-group row">
 
                                 <div class="col-lg-4">
-                                    <label for="fromDate"  class=" col-form-label">{{__('Area')}}</label>
                                     <select name="area_id"  id="area" class="form-control">
+                                        <option value="" selected disabled>{{__('Select an area')}}</option>
                                         <option value="all">all</option>
                                         @foreach($area as $area)
                                             <option value="{{$area->id}}" @if(Request()->area_id==$area->id) selected @endif>{{$area->name_en}}</option>
@@ -90,8 +90,8 @@
 {{--                                </div>--}}
                                   -->
                                 <div class="col-lg-4">
-                                    <label for="fromDate"  class=" col-form-label">{{__('User')}}</label>
                                     <select id="user"  name="user_id" class="form-control">
+                                        <option value="" selected disabled>{{__('Select an user')}}</option>
                                         <option value="all">all</option>
                                         @if(!empty($users) && count($users)>0)
                                         @foreach($users as $user)
