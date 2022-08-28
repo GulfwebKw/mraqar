@@ -45,7 +45,7 @@
             </div>
         </div>
     </div>
-    <aside class="mdc-drawer mdc-drawer--modal sidenav" {!! app()->getLocale() === 'ar' ? ' dir="rtl"' : '' !!}>
+    <aside class="mdc-drawer mdc-drawer--modal sidenav" {!! app()->getLocale() === 'ar' ? ' dir="rtl"' : '' !!} style="z-index: 9999">
         <div class="row end-xs middle-xs py-1 px-3">
             <button id="sidenav-close" class="mdc-icon-button material-icons warn-color">close</button>
         </div>

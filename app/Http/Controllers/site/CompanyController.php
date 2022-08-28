@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\site;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\site\CompanyRequest;
+use App\Http\Requests\Site\CompanyRequest;
 use App\Models\Package;
 use App\Models\PackageHistory;
 use App\Models\Setting;
