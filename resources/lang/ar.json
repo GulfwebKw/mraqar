@@ -449,5 +449,10 @@
     "social_media" : "وسائل التواصل الاجتماعي",
     "company_ads" : "إعلانات الشركة",
     "required_for_rent_page_title" : "مطلوب للإيجار الإعلانات",
-    "deselect_areas" : "انقر لإلغاء التحديد"
+    "deselect_areas" : "انقر لإلغاء التحديد",
+    "search_to" : "لل",
+    "search_kuwait" : "کویت",
+    "search_in" : "بال",
+    "search_ad" : "اعلان",
+    "search_and_more" : "و :count مناطق أخرى"
 }

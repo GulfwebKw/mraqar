@@ -243,5 +243,10 @@
     "social_media" : "Social media",
     "company_ads" : "Company ads",
     "required_for_rent_page_title" : "Required for rent ads",
-    "deselect_areas" : "Click to deselect"
+    "deselect_areas" : "Click to deselect",
+    "search_to" : "for ",
+    "search_kuwait" : "Kuwait",
+    "search_in" : "in ",
+    "search_ad" : "ad",
+    "search_and_more" : "and :count more areas"
 }

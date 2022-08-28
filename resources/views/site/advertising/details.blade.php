@@ -85,7 +85,7 @@
                                 <h3 class="uppercase fw-600 mb-2 d-inline">{{$name}}</h3>
                             </div>
 
-                            <div class="row flex-container mt-3">
+                            <div class="row flex-container mt-3 w-100 mx-auto">
                                 @if($advertising->user->isCompany)
                                 <a href="{{route('companies.info', [app()->getLocale(),$advertising->user->company_phone,$advertising->user->company_name])}}"
                                    class="col-xs-2 p-0">
@@ -109,7 +109,7 @@
                         </div>
 
 
-                        <div class="mdc-card p-3 mt-3 ad-description-box w-100">
+                        <div class="mdc-card p-3 mt-3 ad-description-box w-100" style="overflow: hidden;">
                             <h3 class="uppercase fw-600 mb-2 d-inline-block">{{__('Description')}}</h3>
                             <div class="flex-container mb-2 sm-justify-evenly md-float-{{$side == 'r' ? 'right' : 'left'}}">
                                 <span class="flex flex-container m{{$side}}-5">

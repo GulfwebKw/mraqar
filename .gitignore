@@ -19,6 +19,7 @@ yarn-error.log
 /bootstrap/cache
 /.idea
 /.vagrant
+package-lock.json
 resources/views/website2/
 
 public/resources

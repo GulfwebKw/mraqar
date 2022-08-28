@@ -37,6 +37,7 @@ new Vue({
             companyId: 0,
             isRequiredPage: 0,
             notFound: false,
+            count: null,
         }
     },
     components: {
@@ -50,11 +51,15 @@ new Vue({
             searchData.company_id = this.companyId;
             searchData.isRequiredPage = this.isRequiredPage;
 
+            if (this.$refs.search)
+                this.$refs.search.changeSearchTitle()
+
             axios
                 .post(window.url + `search-advertising?page=${this.page}`, searchData )
                 .then(response => {
                     this.maxPage = response.data.data.last_page;
                     this.nothingFound(response);
+                    this.count = response.data.data.total;
                     this.cards.push(...response.data.data.data);
                     this.isLoading = false ;
                 })
@@ -79,9 +84,10 @@ new Vue({
     },
     watch: {
         searchVariables() {
-            this.page = 1 ;
-            this.maxPage = null ;
+            this.page = 1
+            this.maxPage = null
             this.getAds()
+
         }
     },
     mounted() {

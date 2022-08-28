@@ -1,7 +1,7 @@
 <card lang="{{app()->getLocale()}}" :purpose_lang="{rent: '{{ __('rent') }}' ,sell: '{{ __('sell') }}' ,exchange: '{{ __('exchange') }}' ,required_for_rent: '{{ __('required_for_rent') }}' , }" :card="card" v-for="card in cards" inline-template>
     <a :href="href" style="text-decoration: none;" class="text-body">
     <div class="col-xs-12 rounded-sm b-gray p-0 mb-3">
-        <div :class="card.advertising_type === 'premium' ? 'bg-blue' : ''" class="border p-2">
+        <div :class="card.advertising_type === 'premium' ? 'bg-blue' : ''" class="border p-2" style="overflow: hidden;">
             <div class="row">
                 <div class="p-relative col-sm-2 w-sm1/5 p{{$side}}-image p-0">
                     <img class="w-100 m{{$side}}-2 rounded-xs" :src="card.main_image ? card.main_image : '{{route('image.noimage', '')}}'" alt="">

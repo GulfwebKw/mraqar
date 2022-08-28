@@ -4,7 +4,12 @@ import Multiselect from 'vue-multiselect'
 export default {
     name: 'Search',
     components: { Multiselect },
-    props: {lang: null},
+    props: {
+        purpose_lang: null,
+        lang: null,
+        trans: null,
+        areas_count: null
+    },
     data () {
         return {
             options: [],
@@ -13,6 +18,7 @@ export default {
             venue_type: null,
             purpose: 'all',
             addSpanTimes: 0,
+            searchTitle: '',
         }
     },
     methods: {
@@ -28,7 +34,6 @@ export default {
         },
         onSelect(selected) {
             this.addSpan()
-            console.log(this.options);
         },
         addSpan() {
             if (this.addSpanTimes++ < 1) {
@@ -37,6 +42,48 @@ export default {
                 let placeholder = `<span class="multiselect__placeholder d-block pb-3 pt-1 helper_placeholder">${this.filter_areas_title}</span>`
                 document.querySelector('#select_areas .multiselect .multiselect__tags').insertAdjacentHTML("afterbegin", placeholder);
             }
+        },
+        changeSearchTitle() {
+            if (this.areas_count == 0)
+                return this.searchTitle = ''
+
+            let type = this.venue_type === null || this.venue_type.id == null ? '' : this.venue_type['title_' + this.lang];
+
+            let to = ''
+
+            let purpose = ''
+            if (this.purpose !== 'all') {
+                purpose = this.purpose_lang[this.purpose]
+                to = this.trans.to
+            }
+
+            let areas = ''
+            let i = 0
+            this.areas.forEach(area => {
+                if(i++ < this.areas_count)
+                    areas += area['name_' + this.lang] + ', '
+            });
+            if (areas === '')
+                areas = this.trans.kuwait
+            else
+                areas = areas.slice(0, -2);
+            if (this.areas.length > this.areas_count) {
+
+                areas += ' ' + this.trans.search_and_more.replace(':count', this.areas.length - this.areas_count)
+            }
+
+            let fee = this.trans.in
+
+            let count = this.$root.count !== null ? this.$root.count : ''
+
+            let ad = this.trans.ad
+
+            if (purpose == '' && type == '' && this.areas.length < 1) {
+                this.searchTitle = ''
+                return
+            }
+
+            this.searchTitle = `${type} ${to}${purpose} ${fee}${areas} (${count} ${ad})`
         }
     },
     mounted () {
@@ -71,7 +118,7 @@ export default {
                 this.addSpanTimes = 0
             }
         }
-    }
+    },
 }
 </script>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
