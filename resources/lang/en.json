@@ -248,5 +248,6 @@
     "search_kuwait" : "Kuwait",
     "search_in" : "in ",
     "search_ad" : "ad",
-    "search_and_more" : "and :count more areas"
+    "search_and_more" : "and :count more areas",
+    "and" : "and"
 }

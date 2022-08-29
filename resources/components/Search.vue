@@ -58,18 +58,32 @@ export default {
             }
 
             let areas = ''
-            let i = 0
+            let i = 1
             this.areas.forEach(area => {
-                if(i++ < this.areas_count)
-                    areas += area['name_' + this.lang] + ', '
+                if ( i  <=  this.areas_count - 1 || ( i === this.areas_count && this.areas.length <= this.areas_count ) ) {
+                    if (i < this.areas_count - 1) {
+                        areas += area['name_' + this.lang]
+                        if ( this.areas.length === i + 1  && this.areas.length > 1 )
+                            areas +=  " " + this.trans.and + " "
+                        else if ( this.areas.length > i  && this.areas.length > 1 )
+                            areas +=  ', '
+                    }else if (i === this.areas_count - 1) {
+                        areas += area['name_' + this.lang]
+                        if ( this.areas.length === i + 1  && this.areas.length > 1 )
+                            areas +=  " " + this.trans.and + " "
+                        else if ( this.areas.length > i  && this.areas.length > 1 )
+                            areas +=  ', '
+                    } else
+                        areas += area['name_' + this.lang]
+
+                }
+                i++;
             });
             if (areas === '')
                 areas = this.trans.kuwait
-            else
-                areas = areas.slice(0, -2);
             if (this.areas.length > this.areas_count) {
-
-                areas += ' ' + this.trans.search_and_more.replace(':count', this.areas.length - this.areas_count)
+                areas = areas.slice(0, -2);
+                areas += ' ' + this.trans.search_and_more.replace(':count', (this.areas.length - this.areas_count) + 1)
             }
 
             let fee = this.trans.in

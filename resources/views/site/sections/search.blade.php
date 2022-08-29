@@ -1,5 +1,5 @@
 <Search ref="search"
-        :trans="{to: '{{__('search_to')}}', kuwait: '{{__('search_kuwait')}}', in: '{{__('search_in')}}', ad: '{{__('search_ad')}}', search_and_more: '{{__('search_and_more')}}'}"
+        :trans="{to: '{{__('search_to')}}', kuwait: '{{__('search_kuwait')}}', in: '{{__('search_in')}}', ad: '{{__('search_ad')}}', search_and_more: '{{__('search_and_more')}}', and: '{{__('and')}}'}"
         lang="{{app()->getLocale()}}"
         :purpose_lang="{rent: '{{ __('rent') }}' ,sell: '{{ __('sell') }}' ,exchange: '{{ __('exchange') }}' ,required_for_rent: '{{ __('required_for_rent') }}', all: '{{__('all')}}' }"
         :areas_count="{{env('SEARCH_AREAS', 2)}}"

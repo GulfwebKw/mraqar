@@ -51,8 +51,6 @@ new Vue({
             searchData.company_id = this.companyId;
             searchData.isRequiredPage = this.isRequiredPage;
 
-            if (this.$refs.search)
-                this.$refs.search.changeSearchTitle()
 
             axios
                 .post(window.url + `search-advertising?page=${this.page}`, searchData )
@@ -60,6 +58,8 @@ new Vue({
                     this.maxPage = response.data.data.last_page;
                     this.nothingFound(response);
                     this.count = response.data.data.total;
+                    if (this.$refs.search)
+                        this.$refs.search.changeSearchTitle()
                     this.cards.push(...response.data.data.data);
                     this.isLoading = false ;
                 })

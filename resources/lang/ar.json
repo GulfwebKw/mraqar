@@ -454,5 +454,6 @@
     "search_kuwait" : "کویت",
     "search_in" : "بال",
     "search_ad" : "اعلان",
-    "search_and_more" : "و :count مناطق أخرى"
+    "search_and_more" : "و :count مناطق أخرى",
+    "and" : "و"
 }
