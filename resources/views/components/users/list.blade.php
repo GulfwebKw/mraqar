@@ -10,8 +10,8 @@
                     <th scope="col">{{__('Full Name')}}</th>
                     <th scope="col">{{__('Mobile')}}</th>
                     <th scope="col">{{__('Email Address')}}</th>
-                    <th scope="col">{{__('Is Verified')}}</th>
-                    <th scope="col">{{__('Is Active')}}</th>
+{{--                    <th scope="col">{{__('Is Verified')}}</th>--}}
+{{--                    <th scope="col">{{__('Is Active')}}</th>--}}
                     <th scope="col">{{__('Count Advertising')}}</th>
                     <th scope="col">{{__('Type')}}</th>
                     <th scope="col">{{__('Package')}}</th>
@@ -28,8 +28,8 @@
                         <td>{{$member->name}}</td>
                         <td>{{$member->mobile}}</td>
                         <td>{{$member->email}}</td>
-                        <td> @if($member->type_usage!="company") {{$member->verified==1||$member->verified=="1"?"Yes":"No"}} @else {{$member->verified_office==1?"Yes":"No"}} @endif  </td>
-                        <td>{{$member->is_enable==1?"Yes":"No"}}</td>
+{{--                        <td> @if($member->type_usage!="company") {{$member->verified==1||$member->verified=="1"?"Yes":"No"}} @else {{$member->verified_office==1?"Yes":"No"}} @endif  </td>--}}
+{{--                        <td>{{$member->is_enable==1?"Yes":"No"}}</td>--}}
                         <td>{{$member->advertising->count()}}</td>
                         <td>{{$member->type}}</td>
                         <td>{{$member->package?$member->package->title_en:"----"}}</td>

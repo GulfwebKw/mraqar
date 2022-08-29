@@ -455,5 +455,6 @@
     "search_in" : "بال",
     "search_ad" : "اعلان",
     "search_and_more" : "و :count مناطق أخرى",
-    "and" : "و"
+    "and" : "و",
+    "dont_have_premium_package" : "you don't have any premium packages"
 }

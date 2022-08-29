@@ -1,7 +1,7 @@
 <button type="button" class="btn btn-outline-secondary-2x dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{__('Actions')}}</button>
 <div class="dropdown-menu">
     @if(isset($routeEdit))<a class="dropdown-item text-primary" href="{{ $routeEdit }}"><i class="fa fa-fw fa-edit"></i> {{__('Edit')}}</a>@endif
-    @if(isset($routeVerify))<a class="dropdown-item text-primary" href="{{ $routeVerify }}"><i class="fa fa-fw fa-check"></i> {{__('Verify')}}</a>@endif
+{{--    @if(isset($routeVerify))<a class="dropdown-item text-primary" href="{{ $routeVerify }}"><i class="fa fa-fw fa-check"></i> {{__('Verify')}}</a>@endif--}}
     @if(isset($routeView))<a class="dropdown-item text-dark" href="{{ $routeView }}"><i class="fa fa-fw fa-share"></i> {{__('View')}}</a>@endif
     @if(isset($routeChangePassword))<a class="dropdown-item text-danger" href="{{ $routeChangePassword }}"><i class="fa fa-fw fa-key"></i> {{__('Change Password')}}</a>@endif
     @if(isset($routeJobDetails))<a class="dropdown-item text-success" href="{{ $routeJobDetails }}"><i class="fa fa-fw fa-list-alt"></i> {{__('Job Details')}}</a>@endif

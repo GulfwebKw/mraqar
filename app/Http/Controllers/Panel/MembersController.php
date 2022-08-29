@@ -203,6 +203,12 @@ class MembersController extends Controller
     public function update(Request $request, $userId)
     {
         $user = User::find($userId);
+        if ($user->isCompany) {
+            $this->validate($request, [
+                'company_name' => 'required',
+                'company_phone' => 'required|digits:8|unique:users,company_phone,' . $user->id,
+            ]);
+        }
         $this->validator($request->only(['name', 'email', 'mobile']))->validate();
         $errors = $this->customValidator($request->only(['email', 'mobile']), $user->id);
 
@@ -242,6 +248,11 @@ class MembersController extends Controller
         $user->name=$request->name;
         $user->email=$request->email;
         $user->mobile=$request->mobile;
+
+        if ($user->isCompany) {
+            $user->company_name=$request->company_name;
+            $user->company_phone=$request->company_phone;
+        }
 
         $user->password= $request->password ? Hash::make($request->password) : $user->password;
         $user->save();

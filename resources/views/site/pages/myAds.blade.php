@@ -21,6 +21,10 @@
         <div class="alert alert-success">
             <strong>{{__('success_title')}}!</strong> {{__('upgraded_premium')}} !
         </div>
+    @elseif((session('status')) == 'dont_have_premium_package')
+        <div class="alert alert-success">
+            <strong>{{__('un_success_title')}}!</strong> {{__('dont_have_premium_package')}} !
+        </div>
     @endif
 
     <div class="mdc-data-table border-0 w-100 mt-3">

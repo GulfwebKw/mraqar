@@ -42,12 +42,12 @@
                                     <label class="col-form-label text-info">{{ $user->company_nam }}</label>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="name" class="col-sm-1 col-form-label"> {{__('Is Verified Company')}}</label>
-                                <div class="col-sm-3">
-                                    <label class="col-form-label  {{$user->verified_office==1?'text-success':'text-danger'}}">{{ $user->verified_office==1?"Yes":"No" }}</label>
-                                </div>
-                            </div>
+{{--                            <div class="form-group row">--}}
+{{--                                <label for="name" class="col-sm-1 col-form-label"> {{__('Is Verified Company')}}</label>--}}
+{{--                                <div class="col-sm-3">--}}
+{{--                                    <label class="col-form-label  {{$user->verified_office==1?'text-success':'text-danger'}}">{{ $user->verified_office==1?"Yes":"No" }}</label>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
 
 
                         @endif
@@ -86,24 +86,36 @@
                         @endif
 
 
-                        @if($user->type_usage=="company")
-                           <div class="form-group row">
-                            <label for="name" class="col-sm-1 col-form-label"> {{__('Image Licence')}}</label>
-                            <div class="col-sm-3">
-                                @if($user->licence!=null && $user->licence!="")
-                                   <img    src="{{$user->licence}}" style="width:150px;height: 150px"/>
-                                    @else
-                                    <label class="col-form-label text-danger">Not Uploaded</label>
-                                @endif
-                            </div>
-                        </div>
-                        @endif
+{{--                        @if($user->type_usage=="company")--}}
+{{--                           <div class="form-group row">--}}
+{{--                            <label for="name" class="col-sm-1 col-form-label"> {{__('Image Licence')}}</label>--}}
+{{--                            <div class="col-sm-3">--}}
+{{--                                @if($user->licence!=null && $user->licence!="")--}}
+{{--                                   <img    src="{{$user->licence}}" style="width:150px;height: 150px"/>--}}
+{{--                                    @else--}}
+{{--                                    <label class="col-form-label text-danger">Not Uploaded</label>--}}
+{{--                                @endif--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        @endif--}}
 
 
                         @if($user->isCompany)
                             @php
                                 $socials = $user->socials()->get();
                             @endphp
+                            <div class="form-group row">
+                                <label for="name" class="col-sm-1 col-form-label"> {{__('Company name')}}</label>
+                                <div class="col-sm-3">
+                                    <label class="col-form-label text-info">{{ $user->company_name }}</label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="name" class="col-sm-1 col-form-label"> {{__('Company phone')}}</label>
+                                <div class="col-sm-3">
+                                    <label class="col-form-label text-info">{{ $user->company_phone }}</label>
+                                </div>
+                            </div>
                             <div class="form-group row">
                                 <label for="name" class="col-sm-1 col-form-label"> {{__('Company email')}}</label>
                                 <div class="col-sm-3">

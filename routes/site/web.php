@@ -136,9 +136,10 @@ Route::get("/test",function (){
 })->name("test");
 
 
-Route::get('/{phone}/{name}', 'CompanyController@show')->name('companies.info');
 // Route::get('/images/main/profile.jpg')->name('user-image');
 Route::get('/asset/images/others/user.jpg')->name('image.user');
 Route::get('/asset/images/others/default-bg.png')->name('image.upgrade-company');
 Route::get('/images/main/panel/noimage.png')->name('image.noimage');
 Route::get('/images/main/panel/noimagebig.png')->name('image.noimagebig');
+
+Route::get('/{phone?}/{name?}', 'CompanyController@show')->name('companies.info');

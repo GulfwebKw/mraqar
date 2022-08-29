@@ -74,50 +74,50 @@
 
                         </div>
 
-                        @if($user->type_usage=="company")
-                                  <div class="form-group row">
-                                    <label for="mobile" class="col-sm-3 col-form-label"><span class="text-danger"></span> {{__('Licence')}}</label>
-                                    <div class="col-sm-6">
-                                        <input name="licence" type="file" accept="image/*" class="form-control  @error('licence') is-invalid @enderror " value="{{old('licence')}}" >
-                                        @error('licence')
-                                        <div class="help-block text-danger">{{ $message }}</div>
-                                        @else
-                                            <div class="help-block text-info hint"><i class="fa fa-exclamation-circle"></i> <small>supported
-                                                    file types: all image files (max size 800Kb)</small></div>
-                                            @enderror
-                                    </div>
-                                      <div class="col-sm-3">
-                                          @if($user->licence!=null && $user->licence!="")
-                                              <img    src="{{$user->licence}}" style="width:150px;height: 150px"/>
-                                          @else
-                                              <label class="col-form-label text-danger">Not Uploaded</label>
-                                          @endif
-                                      </div>
+{{--                        @if($user->type_usage=="company")--}}
+{{--                                  <div class="form-group row">--}}
+{{--                                    <label for="mobile" class="col-sm-3 col-form-label"><span class="text-danger"></span> {{__('Licence')}}</label>--}}
+{{--                                    <div class="col-sm-6">--}}
+{{--                                        <input name="licence" type="file" accept="image/*" class="form-control  @error('licence') is-invalid @enderror " value="{{old('licence')}}" >--}}
+{{--                                        @error('licence')--}}
+{{--                                        <div class="help-block text-danger">{{ $message }}</div>--}}
+{{--                                        @else--}}
+{{--                                            <div class="help-block text-info hint"><i class="fa fa-exclamation-circle"></i> <small>supported--}}
+{{--                                                    file types: all image files (max size 800Kb)</small></div>--}}
+{{--                                            @enderror--}}
+{{--                                    </div>--}}
+{{--                                      <div class="col-sm-3">--}}
+{{--                                          @if($user->licence!=null && $user->licence!="")--}}
+{{--                                              <img    src="{{$user->licence}}" style="width:150px;height: 150px"/>--}}
+{{--                                          @else--}}
+{{--                                              <label class="col-form-label text-danger">Not Uploaded</label>--}}
+{{--                                          @endif--}}
+{{--                                      </div>--}}
 
-                                </div>
-                        @endif
+{{--                                </div>--}}
+{{--                        @endif--}}
 
 
 
-                        <div class="row">
-                            <label for="mobile" class="col-sm-3 col-form-label"></label>
-                            <div class="col">
-                                <div class="checkbox">
-                                    <input type="checkbox" @if($user->is_enable=1) checked  @endif  value="1" name="is_enable" id="is_enable">
-                                    <label for="is_enable">Is Enable</label>
-                                </div>
-                                <div class="checkbox">
-                                    <input type="checkbox" @if($user->verified==1) checked  @endif value="1" name="verified" id="verified">
-                                    <label for="verified">Is Verify</label>
-                                </div>
-                                @if($user->type_usage=="company")
-                                    <div class="checkbox">
-                                        <input type="checkbox" @if($user->verified_office==1) checked  @endif value="1" name="verified_office" id="verified_office">
-                                        <label for="verified_office">Is Verified Office</label>
-                                    </div>
-                                 @endif
-                            </div>
-                        </div>
+{{--                        <div class="row">--}}
+{{--                            <label for="mobile" class="col-sm-3 col-form-label"></label>--}}
+{{--                            <div class="col">--}}
+{{--                                <div class="checkbox">--}}
+{{--                                    <input type="checkbox" @if($user->is_enable=1) checked  @endif  value="1" name="is_enable" id="is_enable">--}}
+{{--                                    <label for="is_enable">Is Enable</label>--}}
+{{--                                </div>--}}
+{{--                                <div class="checkbox">--}}
+{{--                                    <input type="checkbox" @if($user->verified==1) checked  @endif value="1" name="verified" id="verified">--}}
+{{--                                    <label for="verified">Is Verify</label>--}}
+{{--                                </div>--}}
+{{--                                @if($user->type_usage=="company")--}}
+{{--                                    <div class="checkbox">--}}
+{{--                                        <input type="checkbox" @if($user->verified_office==1) checked  @endif value="1" name="verified_office" id="verified_office">--}}
+{{--                                        <label for="verified_office">Is Verified Office</label>--}}
+{{--                                    </div>--}}
+{{--                                 @endif--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
 
 
 
@@ -127,6 +127,24 @@
                             @php
                                 $socials = $user->socials()->get();
                             @endphp
+                            <div class="form-group row">
+                                <label for="company_name" class="col-sm-3 col-form-label"><span class="text-danger">*</span> {{__('Company name')}}</label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="company_name" class="form-control  @error('company_name') is-invalid @enderror" id="company_name" placeholder="{{__('Company name')}}" value="{{ old('company_name', $user->company_name) }}">
+                                    @error('company_name')
+                                    <div class="help-block text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="company_phone" class="col-sm-3 col-form-label"><span class="text-danger">*</span> {{__('Company phone')}}</label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="company_phone" class="form-control  @error('company_phone') is-invalid @enderror" id="company_phone" placeholder="{{__('Company phone')}}" value="{{ old('company_phone', $user->company_phone) }}">
+                                    @error('company_phone')
+                                    <div class="help-block text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
                             <div class="form-group row">
                                 <label for="social_email" class="col-sm-3 col-form-label"><span class="text-danger">*</span> {{__('Company email')}}</label>
                                 <div class="col-sm-6">

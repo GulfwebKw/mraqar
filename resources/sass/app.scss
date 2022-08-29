@@ -214,6 +214,17 @@ body {
 .align-items-center {
     align-items: center;
 }
+.gallery-badge {
+    position: absolute;
+    top: 0;
+    z-index: 2;
+}
+.left-0 {
+    left: 0
+}
+.right-0 {
+    right: 0
+}
 // md: 960 - 1280
 // lg: 1280 - 1919
 // responsive:

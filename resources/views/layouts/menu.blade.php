@@ -36,7 +36,7 @@
                 <ul>
                     <li><a href="{{route("administrators.index")}}">{{__('Admin Users')}}</a></li>
                     <li><a href="{{route("members.index")}}">{{__('Members')}}</a></li>
-                    <li><a href="{{route("members.notActiveIndividual")}}">{{__('Members( Waiting for Verify)')}}</a></li>
+{{--                    <li><a href="{{route("members.notActiveIndividual")}}">{{__('Members( Waiting for Verify)')}}</a></li>--}}
                 </ul>
             </li>
 

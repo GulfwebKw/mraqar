@@ -344,7 +344,8 @@ class AdvertisingController extends Controller
         $advertising->type = 'residential';
         $advertising->venue_type = $request->venue_type;
         $advertising->purpose = $request->purpose;
-        $advertising->advertising_type = $request->advertising_type;
+        if (! in_array($request->method(), ['PUT', 'PATCH']))
+            $advertising->advertising_type = $request->advertising_type;
         $advertising->description = $request->description;
         $advertising->price = $request->price;
         $advertising->title_en = $request->title_en;
@@ -483,7 +484,10 @@ class AdvertisingController extends Controller
     public function upgrade_premium(Request $request)
     {
         $isValid = $this->isValidCreateAdvertising(Auth::user()->id, 'premium');
-        if ($request->advertise_id && $isValid) {
+        if (!$isValid) {
+            return $this->fail(trans('dont_have_premium_package'));
+        }
+        if ($request->advertise_id) {
             $advertising = Advertising::whereId($request->advertise_id)->where('user_id', Auth::user()->id)->firstOrFail();
             // decrease one from user premium packages count
             User::where('id', Auth::user()->id)->update(['last_activity' => date("Y-m-d")]);

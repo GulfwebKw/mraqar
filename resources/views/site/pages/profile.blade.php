@@ -193,12 +193,12 @@
 @endif
         <div class="row mt-3">
             <div class="col-lg-6 col-md-6">
-                <div class="mdc-text-field--outlined w-100">
-                    <label class="text-muted w-100">{{__('get_verified_profile_title')}}</label>
-                    <input type="file" name="licence" id="licence"
-                           class="mdc-text-field__input @error('licence') is-invalid @enderror"
-                           placeholder="{{__('get_verified_profile_title')}}">
-                </div>
+{{--                <div class="mdc-text-field--outlined w-100">--}}
+{{--                    <label class="text-muted w-100">{{__('get_verified_profile_title')}}</label>--}}
+{{--                    <input type="file" name="licence" id="licence"--}}
+{{--                           class="mdc-text-field__input @error('licence') is-invalid @enderror"--}}
+{{--                           placeholder="{{__('get_verified_profile_title')}}">--}}
+{{--                </div>--}}
                 @error('licence')
                 <span class="invalid-feedback warn-color">
                                 <strong>{{ $message }}</strong>

@@ -260,6 +260,20 @@ body {
   align-items: center;
 }
 
+.gallery-badge {
+  position: absolute;
+  top: 0;
+  z-index: 2;
+}
+
+.left-0 {
+  left: 0;
+}
+
+.right-0 {
+  right: 0;
+}
+
 @media screen and (min-width: 1280px) {
   .d-lg-more-block {
     display: block !important;
