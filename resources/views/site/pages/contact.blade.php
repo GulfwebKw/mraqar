@@ -57,11 +57,11 @@
                     <h3 class="w-100 text-center pt-3">{{__('dropaline')}}</h3>
                     <p class="mt-2">{{__('dropaline_note')}}</p>
                     @if((session('status')) == 'success')
-                        <div class="alert alert-success">
+                        <div class="alert alert-success center-xs w-100">
                             <strong>{{ __('success_title') }}!</strong> {{__('contact_success')}}!
                         </div>
                     @elseif((session('status')) == 'unsuccess')
-                        <div class="alert alert-danger">
+                        <div class="alert alert-danger center-xs w-100">
                             <strong>{{ __('un_success_title') }}!</strong> {{__('contact_unsuccess')}}!
                         </div>
                     @endif
@@ -120,7 +120,7 @@
                         </div>
                         <div class="col-xs-12 p-2">
                             <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--textarea w-100">
-                                <textarea class="mdc-text-field__input" name="message" id="message" rows="5" required data-error="Please enter your message"  placeholder="{{__('write_your_message')}}"></textarea>
+                                <textarea class="mdc-text-field__input" name="message" id="message" rows="5" required data-error="Please enter your message"  placeholder="{{__('write_your_message')}}">{{ old('message') }}</textarea>
                                 <div class="mdc-notched-outline mdc-notched-outline--upgraded">
                                     <div class="mdc-notched-outline__leading"></div>
                                     <div class="mdc-notched-outline__notch">

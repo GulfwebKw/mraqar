@@ -33,7 +33,7 @@ $unSide = app()->getLocale() === 'en' ? 'l' : 'r';
                 @include('site.sections.card')
 
                 <div class="center-xs" id="pageEnd">
-                    <img v-if="isLoading !== false" src="{{asset('images/main/loading.gif')}}" alt="loading" style="width: 180px;">
+                    <img v-if="isLoading !== false" src="{{asset('images/main/loading.gif')}}" alt="loading" style="width: 10vw;">
 {{--                    <h3 v-else-if="noMore" class="mt-2">{{__('no_more_ads')}}</h3>--}}
                     <h3 v-else-if="notFound" class="alert alert-danger text-center mt-2"><strong>{{__('norecord')}}</strong></h3>
                 </div>
@@ -42,5 +42,5 @@ $unSide = app()->getLocale() === 'en' ? 'l' : 'r';
         </div>
     </main>
 
-    <script src="{{ mix('js/app.js') }}"></script>
+    <script src="{{ mix('js/app.js') }}" defer></script>
 @endsection

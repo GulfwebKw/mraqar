@@ -33,11 +33,13 @@
                     <div class="page-sidenav-content">
                         <div class="mdc-card p-3">
                             <div class="main-carousel mb-3">
-                                <div class="gallery-badge {{$side == 'r' ? 'right-0' : 'left-0'}}">
-                                    <div class="row property-status" v-if="card.advertising_type === 'premium'">
-                                        <span class="red text-md">{{__('premium_short')}}</span>
+                                @if($advertising->advertising_type === 'premium')
+                                    <div class="gallery-badge {{$side == 'r' ? 'right-0' : 'left-0'}}">
+                                        <div class="row property-status" v-if="card.advertising_type === 'premium'">
+                                            <span class="red text-md">{{__('premium_short')}}</span>
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
                                 <div class="swiper-container">
                                     <div class="swiper-wrapper">
                                         <div class="swiper-slide center-xs">

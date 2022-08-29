@@ -46,7 +46,8 @@ class CompanyController extends Controller
             $file= $request->file('image');
             $filename = uniqid(time()).$file->getClientOriginalName();
             $path ='/resources/uploads/images/avatars/'.$filename;
-            $file->move(public_path('company_images'), $filename);
+            $file->move(public_path('/resources/uploads/images/avatars'), $filename);
+            $filename = '/resources/uploads/images/avatars/' . $filename;
 
             if ($user->image_profile && file_exists($path = public_path('resources/uploads/images/avatars'). '/' . $user->image_profile))
                 unlink($path);

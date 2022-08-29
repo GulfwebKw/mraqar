@@ -93,7 +93,7 @@ class RegisterController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
-                'type_usage' => $request->type_usage,
+                'type_usage' => 'individual',
                 'mobile' => $request->mobile,
                 'lang' => 'en',
                 'image_profile' => '/images/main/profile.jpg'
@@ -136,7 +136,7 @@ class RegisterController extends Controller
 
         } catch (\Exception $exception) {
             DB::rollback();
-            return $this->fail("");
+            return $this->fail($exception->getMessage());
         }
 
     }
@@ -149,7 +149,7 @@ class RegisterController extends Controller
             'password' => 'required|min:8|confirmed',
             // 'email' => 'required|email|unique:users',
             // 'type_usage'=>'required|in:company,individual',
-            'type_usage'=>'required|in:individual',
+            //'type_usage'=>'required|in:individual',
             // 'language'=>'required|in:ar,en',
         ]);
     }
@@ -199,24 +199,24 @@ class RegisterController extends Controller
     public static function sendOtp($otp, $mobile)
     {
         $client = new Client(); //GuzzleHttp\Client
-        //        $res = $client->get('http://smsbox.com/smsgateway/services/messaging.asmx/Http_SendSMS', [
-        //            'headers' => [
-        //                'Content-Type' => 'application/x-www-form-urlencoded'
-        //            ],
-        //            'query' => [
-        //                'username' => env('SMS_USERNAME'),
-        //                'password' => env('SMS_PASSWORD'),
-        //                'customerid' => env('SMS_CUSTOMERID'),
-        //                'sendertext' => env('SMS_SENDERTEXT'),
-        //                'messagebody' => $otp,
-        //                'recipientnumbers' => \Illuminate\Support\Str::startsWith($mobile, '965') ? $mobile : '965' . $mobile,
-        //                'defdate' => "",
-        //                'isblink' => false,
-        //                'isflash' => false,
-        //            ],
-        //        ]);
-        //      $xml = $res->getBody()->getContents();
-        //$json = json_decode($xml, true);
-        //return $json['Message'];
+        $res = $client->get('http://smsbox.com/smsgateway/services/messaging.asmx/Http_SendSMS', [
+            'headers' => [
+                'Content-Type' => 'application/x-www-form-urlencoded'
+            ],
+            'query' => [
+                'username' => env('SMS_USERNAME'),
+                'password' => env('SMS_PASSWORD'),
+                'customerid' => env('SMS_CUSTOMERID'),
+                'sendertext' => env('SMS_SENDERTEXT'),
+                'messagebody' => $otp,
+                'recipientnumbers' => \Illuminate\Support\Str::startsWith($mobile, '965') ? $mobile : '965' . $mobile,
+                'defdate' => "",
+                'isblink' => false,
+                'isflash' => false,
+            ],
+        ]);
+        $xml = $res->getBody()->getContents();
+        $json = json_decode($xml, true);
+        return $json['Message'];
     }
 }
