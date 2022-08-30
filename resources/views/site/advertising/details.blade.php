@@ -34,7 +34,7 @@
                         <div class="mdc-card p-3">
                             <div class="main-carousel mb-3">
                                 @if($advertising->advertising_type === 'premium')
-                                    <div class="gallery-badge {{$side == 'r' ? 'right-0' : 'left-0'}}">
+                                    <div class="gallery-badge {{$side == 'l' ? 'right-0' : 'left-0'}}">
                                         <div class="row property-status" v-if="card.advertising_type === 'premium'">
                                             <span class="red text-md">{{__('premium_short')}}</span>
                                         </div>
@@ -99,7 +99,7 @@
                                 @else
                                     <span class="col-xs-2 p-0">
                                 @endif
-                                    <img src="{{asset($advertising->user->image_profile ? $advertising->user->image_profile : route('image.user', ''))}}" class="mw-100 d-inline" alt="whatsapp call" style="border-radius: 50%">
+                                    <img src="{{asset($advertising->user->image_profile ? $advertising->user->image_profile : route('image.user', ''))}}" class="mw-100 d-inline" alt="profile" style="border-radius: 50%">
                                 @if($advertising->user->isCompany)
                                 </a>
                                 @else
@@ -177,7 +177,7 @@
                                     <i class="material-icons mdc-button__icon d-mobile-none">phone</i>
                                     <span class="mdc-button__label">{{$advertising->phone_number}}</span>
                                 </a>
-                                <a href="https://api.whatsapp.com/send?phone={{$tel}}"
+                                <a href="https://api.whatsapp.com/send?phone={{str_replace('+', '', $tel)}}"
                                    class="col-xs-2 p{{$side}}-0">
                                     <img src="{{asset('images/main/whatsapp.webp')}}" class="mw-100 d-flex sm-small-button" alt="whatsapp call">
                                 </a>
@@ -213,7 +213,7 @@
                                                 <i class="material-icons mdc-button__icon">phone</i>
                                                 <span class="mdc-button__label">{{$advertising->phone_number}}</span>
                                             </a>
-                                            <a href="https://api.whatsapp.com/send?phone={{$tel}}"
+                                            <a href="https://api.whatsapp.com/send?phone={{str_replace('+', '', $tel)}}"
                                                class="col-md-2">
                                                 <img src="{{asset('images/main/whatsapp.webp')}}" class="mw-100" alt="whatsapp call">
                                             </a>
