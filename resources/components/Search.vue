@@ -54,7 +54,7 @@ export default {
             let purpose = ''
             if (this.purpose !== 'all') {
                 purpose = this.purpose_lang[this.purpose]
-                to = this.trans.to
+                to = this.lang == 'en' ? this.trans.to : ''
             }
 
             let areas = ''

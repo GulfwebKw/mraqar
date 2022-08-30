@@ -3,12 +3,12 @@
             <div class="theme-container">
                 <div class="py-5 content">
                     <div class="row between-xs">
-                        <div class="col-6">
+                        <div class="col-6 sm:mx-auto">
                             <a href="{{ route('Main.index', ['locale' => app()->getLocale()]) }}" class="logo">
                                 <img src="{{ asset('images/main/logo.png') }}" style="max-width: 275px;" alt="image">
                             </a>
                         </div>
-                        <div class="col-6">
+                        <div class="col-6 sm:mx-auto">
                             @include('site.sections.socials', [
                                 'classes' => ' start-xs middle-xs desc',
                                 'icon_classes' => 'mat-icon-lg'
