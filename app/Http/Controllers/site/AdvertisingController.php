@@ -438,7 +438,7 @@ class AdvertisingController extends Controller
 
     public function edit($locale,$hashNumber)
     {
-        $advertising = Advertising::where('hash_number', $hashNumber)->firstOrFail();
+        $advertising = Advertising::where('hash_number', $hashNumber)->whereDate('expire_at' , '>=' , Carbon::now())->firstOrFail();
 //        $photo=collect(json_decode($advertising->other_image))->toArray();
 //         dd($photo['other_image1']);
 
@@ -508,7 +508,7 @@ class AdvertisingController extends Controller
     {
         $status = $request->extend === 'enable' ? true : false;
         if($request->id) {
-            Advertising::whereId($request->id)->update(['auto_extend' => $status]);
+            Advertising::whereId($request->id)->whereDate('expire_at' , '>=' , Carbon::now())->update(['auto_extend' => $status]);
             return $status ? trans('enable_auto_extend') : trans('disable_auto_extend');
         }
         return trans('un_success_alert_title');

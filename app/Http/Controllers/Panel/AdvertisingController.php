@@ -156,11 +156,15 @@ class AdvertisingController extends Controller
         }
 
         if(isset($request->type) && $request->type!="all"){
-                $advertising=$advertising->where('type',$request->type);
+            $advertising=$advertising->where('type',$request->type);
         }
 
         if(isset($request->purpose) && $request->purpose!="all"){
-                $advertising=$advertising->where('purpose',$request->purpose);
+            $advertising=$advertising->where('purpose',$request->purpose);
+        }
+
+        if(isset($request->hash_number)){
+            $advertising=$advertising->where('hash_number', $request->hash_number);
         }
 	  /*
       if(isset($request->venue_type) && $request->venue_type!="all"){

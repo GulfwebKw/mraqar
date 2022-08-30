@@ -16,9 +16,10 @@ class Admin
     public function handle($request, Closure $next)
     {
 
-        if (\auth()->check() && \auth()->user()->type == 'admin')
+        if (\auth()->check() && \auth()->user()->type == 'admin') {
+            app()->setLocale('en');
             return $next($request);
-        else
+        } else
             abort(403);
     }
 }

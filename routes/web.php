@@ -25,7 +25,7 @@ Route::get('/testP',function (){
 });
 
 
-Route::redirect('/', 'en/');
+Route::redirect('/', app()->getLocale().'/');
 
 
 Route::group(['middleware'=>['auth','Admin'],'prefix'=>"admin",'namespace'=>"Panel"],function (){

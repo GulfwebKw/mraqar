@@ -16,9 +16,9 @@ class CheckLng
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->lng){
-            app()->setLocale(Auth::user()->lng);
-        }
+        // if (Auth::check() && Auth::user()->lng){
+        //     app()->setLocale(Auth::user()->lng);
+        // }
         if ($request['locale']){
             app()->setLocale($request['locale']);
         }

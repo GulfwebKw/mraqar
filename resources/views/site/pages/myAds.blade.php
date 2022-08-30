@@ -63,8 +63,12 @@
                                   action="{{ route('site.advertising.destroy',app()->getLocale()) }}">
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $ad->id }}">
-                                <a href="{{ route('site.advertising.edit',[app()->getLocale(),$ad->hash_number]) }}"
-                                   class="mdc-icon-button material-icons primary-color">edit</a>
+
+                                @if(! $ad->expire_at)
+                                    <a href="{{ route('site.advertising.edit',[app()->getLocale(),$ad->hash_number]) }}"
+                                       class="mdc-icon-button material-icons primary-color">edit</a>
+                                @endif
+
                                 <button type="button" id="delete-btn" onclick="showModal({{ $ad->id }})"
                                         class="mdc-icon-button material-icons warn-color">delete
                                 </button>
@@ -80,6 +84,7 @@
                                    onclick="showUpgradeModal('{{$ad->id}}')">workspace_premium</a>
                             @endif
                         </td>
+                        @if(! $ad->expire_at)
                         <td>
                             <div class="col-xs-12 py-3 row middle-xs">
                                 <div class="mdc-switch">
@@ -119,6 +124,7 @@
                                 })
                             </script>
                         </td>
+                        @endif
                     </tr>
                 @endforeach
             </tbody>

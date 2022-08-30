@@ -40,7 +40,7 @@
                 </div>
                 <ul class="profile-dropdown onhover-show-div p-20">
                     <li>
-                        <a href="{{ route('administrators.edit',app()->getLocale(),[auth()->user()->id]) }}">
+                        <a href="{{ route('administrators.edit',app()->getLocale(),[auth()->user()->id]) . '?user=myself' }}">
                             <i class="icon-user"></i>
                             {{__('Edit Profile')}}
                         </a>

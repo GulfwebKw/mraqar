@@ -101,6 +101,10 @@ class AdministratorController extends Controller
     public function edit($user)
     {
         $user = User::find($user);
+
+        if (request()->user === 'myself')
+            $user = auth()->user();
+
         return view('administrators.edit', compact('user'));
     }
 

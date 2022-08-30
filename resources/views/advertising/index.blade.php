@@ -31,7 +31,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-sm-12">
-                        <form method="get" action="{{route('advertising.index')}}">
+                        <form method="get" action="{{ request()->route()->getName() == "advertising.index" ? route('advertising.index') : route('advertising.indexCompanies')}}">
                             <div class="form-group row">
 
 
@@ -69,7 +69,11 @@
                             </div>
                             <div class="form-group row">
 
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
+                                        <input type="text" @if(isset(request()->hash_number)) value="{{request()->hash_number}}"  @endif class="form-control" name="hash_number" placeholder="{{__('Hash number')}}..." >
+                                </div>
+
+                                <div class="col-lg-3">
                                     <select name="area_id"  id="area" class="form-control">
                                         <option value="" selected disabled>{{__('Select an area')}}</option>
                                         <option value="all">all</option>
@@ -89,7 +93,9 @@
 {{--                                    </select>--}}
 {{--                                </div>--}}
                                   -->
-                                <div class="col-lg-4">
+
+
+                                <div class="col-lg-3">
                                     <select id="user"  name="user_id" class="form-control">
                                         <option value="" selected disabled>{{__('Select an user')}}</option>
                                         <option value="all">all</option>
@@ -112,7 +118,7 @@
 
                                 -->
 
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <button type="submit"  class="btn btn-secondary"><i class="fa fa-fw fa-search"></i> {{__('Filter')}}</button>
                                     <button type="button" class="btn btn-light" onclick="window.location.href='{{$type=="individual"?"/admin/advertising-list/individual":"/admin/advertising-list/companies"}}'"><i class="fa fa-fw fa-close"></i> {{__('Cancel')}}</button>
 
