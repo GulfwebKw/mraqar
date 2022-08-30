@@ -250,5 +250,7 @@
     "search_ad" : "ad",
     "search_and_more" : "and :count more areas",
     "and" : "and",
-    "dont_have_premium_package" : "you don't have any premium packages"
+    "dont_have_premium_package" : "you don't have any premium packages",
+    "number_of_premium_ads" : "Number of premium ads",
+    "number_of_normal_ads" : "Number of normal ads"
 }
