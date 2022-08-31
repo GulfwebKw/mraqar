@@ -1,14 +1,15 @@
 // Fonts
 //@import url('https://fonts.googleapis.com/css?family=Nunito');
-
 // Variables
 //@import 'variables';
-
 // Bootstrap
 //@import '~bootstrap/scss/bootstrap';
 
 :root {
     --mdc-theme-primary: #1976D3 !important;
+    --badge: #E91E63;
+}
+.my-search-box {
     --mdc-theme-secondary: #575757 !important; // radio buttons
 }
 @font-face {
@@ -230,6 +231,52 @@ body {
 }
 .overflow-hidden {
     overflow: hidden !important;
+}
+//.red {
+//    background-color: var(--badge) !important;
+//    border-color: var(--badge) !important;
+//}
+//.foobox::before {
+//    content: "";
+//    position: absolute;
+//    right: -11px;
+//    top: 1rem;
+//    border-top: 11px solid transparent;
+//    border-bottom: 11px solid transparent;
+//    border-left: 11px solid #ce3552;
+//    font-size: .875rem;
+//}
+//.foobox::after {
+//    content: "مميز";
+//    position: absolute;
+//    right: -11px;
+//    top: 0;
+//    background: #e54b66;
+//    border-radius: 2px 2px 0 2px;
+//    padding: .2rem .9rem;
+//    color: #fff;
+//    font-size: .875rem;
+//}
+.foobox::before {
+    content: "";
+    position: absolute;
+    left: -11px;
+    top: 1rem;
+    border-top: 11px solid transparent;
+    border-bottom: 11px solid transparent;
+    border-right: 11px solid #ce3552;
+    font-size: .875rem;
+}
+.foobox::after {
+    content: "مميز";
+    position: absolute;
+    left: -11px;
+    top: 0;
+    background: #e54b66;
+    border-radius: 2px 2px 0 2px;
+    padding: .2rem .9rem;
+    color: #fff;
+    font-size: .875rem;
 }
 // sm: ... - 600
 // md: 960 - 1280

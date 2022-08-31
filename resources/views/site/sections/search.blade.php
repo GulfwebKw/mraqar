@@ -5,7 +5,7 @@
         :areas_count="{{env('SEARCH_AREAS', 2)}}"
         inline-template>
     <div>
-        <div class="mdc-card main-content-header mb-3">
+        <div class="mdc-card main-content-header mb-3 my-search-box">
             <form action="javascript:void(0);" id="filters" class="search-wrapper">
                 <div class="row md-flex-no-wrap justify-content-center">
                     <div class="col-xs-12 col-sm-6 col-md-3 p-2 d-flex align-items-center" id="select_areas">

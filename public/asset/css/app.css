@@ -1,5 +1,10 @@
+@charset "UTF-8";
 :root {
   --mdc-theme-primary: #1976D3 !important;
+  --badge: #E91E63;
+}
+
+.my-search-box {
   --mdc-theme-secondary: #575757 !important;
 }
 
@@ -280,6 +285,29 @@ body {
 
 .overflow-hidden {
   overflow: hidden !important;
+}
+
+.foobox::before {
+  content: "";
+  position: absolute;
+  left: -11px;
+  top: 1rem;
+  border-top: 11px solid transparent;
+  border-bottom: 11px solid transparent;
+  border-right: 11px solid #ce3552;
+  font-size: 0.875rem;
+}
+
+.foobox::after {
+  content: "مميز";
+  position: absolute;
+  left: -11px;
+  top: 0;
+  background: #e54b66;
+  border-radius: 2px 2px 0 2px;
+  padding: 0.2rem 0.9rem;
+  color: #fff;
+  font-size: 0.875rem;
 }
 
 @media screen and (min-width: 1280px) {

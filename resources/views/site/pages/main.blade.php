@@ -43,4 +43,57 @@ $unSide = app()->getLocale() === 'en' ? 'l' : 'r';
     </main>
 
     <script src="{{ mix('js/app.js') }}" defer></script>
+
+    <style>
+        @if(app()->getLocale() === 'en')
+
+        .image-box::before {
+            content: "";
+            position: absolute;
+            left: -11px;
+            top: 1rem;
+            border-top: 11px solid transparent;
+            border-bottom: 11px solid transparent;
+            border-right: 11px solid var(--badge);
+            font-size: .875rem;
+        }
+        .image-box::after {
+            content: "{{__('premium_short')}}";
+            position: absolute;
+            left: -11px;
+            top: 0;
+            background: var(--badge);
+            border-radius: 2px 2px 0 2px;
+            padding: .2rem .8rem;
+            color: #fff;
+            font-size: .875rem;
+        }
+
+        @else
+
+        .image-box::before {
+            content: "";
+            position: absolute;
+            right: -11px;
+            top: 1rem;
+            border-top: 11px solid transparent;
+            border-bottom: 11px solid transparent;
+            border-left: 11px solid var(--badge);
+            font-size: .875rem;
+        }
+        .image-box::after {
+            content: "مميز";
+            position: absolute;
+            right: -11px;
+            top: 0;
+            background: var(--badge);
+            border-radius: 2px 2px 0 2px;
+            padding: .2rem .8rem;
+            color: #fff;
+            font-size: .875rem;
+        }
+
+        @endif
+    </style>
+
 @endsection
