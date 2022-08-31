@@ -317,6 +317,10 @@ body {
   .d-lg-more-none {
     display: none !important;
   }
+  .col-lg-4-image {
+    flex-basis: 29%;
+    max-width: 29%;
+  }
 }
 @media screen and (max-width: 600px) {
   .badge-sm {
@@ -378,6 +382,10 @@ body {
   .sm\:width-110 {
     width: 108% !important;
   }
+  .sm\:py-4 {
+    padding-bottom: 1.5rem !important;
+    padding-top: 1.5rem !important;
+  }
 }
 @media screen and (min-width: 960px) {
   .md\:px-5 {
@@ -408,6 +416,25 @@ body {
     padding-top: 7px;
   }
 }
+@media screen and (max-width: 960px) {
+  .small-only-max-height {
+    max-height: 140px;
+  }
+  .height-150 {
+    height: 90px !important;
+    width: auto;
+  }
+  .d-mobile-none {
+    display: none !important;
+  }
+  .sm-small-button {
+    height: 31px;
+  }
+  .md\:py-4 {
+    padding-bottom: 1.5rem !important;
+    padding-top: 1.5rem !important;
+  }
+}
 @media screen and (min-width: 600px) {
   .sm\:mr-2 {
     margin-right: 0.5rem !important;
@@ -423,20 +450,5 @@ body {
   }
   .card-height {
     height: 150px;
-  }
-}
-@media screen and (max-width: 960px) {
-  .small-only-max-height {
-    max-height: 140px;
-  }
-  .height-150 {
-    height: 90px !important;
-    width: auto;
-  }
-  .d-mobile-none {
-    display: none !important;
-  }
-  .sm-small-button {
-    height: 31px;
   }
 }

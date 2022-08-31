@@ -5,7 +5,7 @@
                     <div class="row between-xs">
                         <div class="col-6 sm:mx-auto">
                             <a href="{{ route('Main.index', ['locale' => app()->getLocale()]) }}" class="logo">
-                                <img src="{{ asset('images/main/logo.png') }}" style="max-width: 275px;" alt="image">
+                                <img src="{{ asset('images/main/logo_footer_' . app()->getLocale() . '.png') }}" style="max-width: 275px;" alt="image">
                             </a>
                         </div>
                         <div class="col-6 sm:mx-auto">

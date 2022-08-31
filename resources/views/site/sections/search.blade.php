@@ -5,6 +5,11 @@
         :areas_count="{{env('SEARCH_AREAS', 2)}}"
         inline-template>
     <div>
+
+        <div v-if="searchTitle" class="blue-search bg-primary blue-search center-xs p-4" style="height: 25px;">
+            <span v-text="searchTitle" class="mb-3 text-lg fw-600"></span>
+        </div>
+
         <div class="mdc-card main-content-header mb-3 my-search-box">
             <form action="javascript:void(0);" id="filters" class="search-wrapper">
                 <div class="row md-flex-no-wrap justify-content-center">
@@ -72,7 +77,5 @@
                 </div>
             </form>
         </div>
-
-        <h2 v-text="searchTitle" class="mb-3 text-lg"></h2>
     </div>
 </Search>

@@ -210,7 +210,7 @@
         <div id="main-toolbar" class="mdc-elevation--z2">
             <div class="theme-container row between-xs middle-xs h-100">
                 <a href="{{ route('Main.index', ['locale' => app()->getLocale()]) }}" class="logo">
-                    <img src="{{ asset('images/main/logo.png') }}" alt="image" style="max-height: 62px;margin: 5px 0;">
+                    <img src="{{ asset('images/main/logo_header_' . app()->getLocale() . '.png') }}" alt="image" style="max-height: 60px;margin: 5px 0;">
                 </a>
                 <div class="horizontal-menu d-none d-md-flex d-lg-flex d-xl-flex">
                     <div>
