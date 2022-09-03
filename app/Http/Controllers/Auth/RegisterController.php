@@ -199,26 +199,7 @@ class RegisterController extends Controller
     public static function sendOtp($otp, $mobile)
     {
         $message="Verification code: ".$otp;
-        return parent::sendSms($otp,$mobile);
-        $client = new Client(); //GuzzleHttp\Client
-        $res = $client->get('http://smsbox.com/smsgateway/services/messaging.asmx/Http_SendSMS', [
-            'headers' => [
-                'Content-Type' => 'application/x-www-form-urlencoded'
-            ],
-            'query' => [
-                'username' => env('SMS_USERNAME'),
-                'password' => env('SMS_PASSWORD'),
-                'customerid' => env('SMS_CUSTOMERID'),
-                'sendertext' => env('SMS_SENDERTEXT'),
-                'messagebody' => $otp,
-                'recipientnumbers' => \Illuminate\Support\Str::startsWith($mobile, '965') ? $mobile : '965' . $mobile,
-                'defdate' => "",
-                'isblink' => false,
-                'isflash' => false,
-            ],
-        ]);
-        $xml = $res->getBody()->getContents();
-        $json = json_decode($xml, true);
-        return $json['Message'];
+        $mobile = \Illuminate\Support\Str::startsWith($mobile, '965') ? substr($mobile,3) : $mobile ;
+        return parent::sendSms($message,$mobile);
     }
 }

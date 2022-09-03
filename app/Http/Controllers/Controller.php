@@ -56,6 +56,31 @@ class Controller extends BaseController
                 unset($result);
                 return true;
             }
+            if($result==100){
+                $message =   "SMS has been sent successfully";
+            }else if($result==101){
+                $message =   "This is Invalid user";
+            }else if($result==102){
+                $message =   "Invalid authentication key!";
+            }else if($result==103){
+                $message =   "Mobile number OR Message is required!";
+            }else if($result==104){
+                $message =   "You can send upto 200 maximum mobile numbers at once.";
+            }else if($result==105){
+                $message =   "SMS Sending failed.Please contact with your SMS provider.";
+            }else if($result==106){
+                $message =   "Arabic text should not be greater than 258";
+            }else if($result==107){
+                $message =   "English text should not be greater than 526";
+            }else if($result==108){
+                $message =   "Your account is not activeted";
+            }else if($result==109){
+                $message =   "Your account has been expired.";
+            }else if($result==110){
+                $message =   "SMS point is not enough to send sms";
+            }else if($result==111){
+                $message =  "Invalid Mobile number";
+            }
             return false;
         }catch (\Exception $exception){
             return false;
