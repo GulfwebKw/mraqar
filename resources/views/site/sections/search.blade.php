@@ -27,7 +27,7 @@
                         <multiselect v-model="venue_type" :options="venue_types" placeholder="{{__('venue_filter')}}"
                                      selected-label="{{__('selected')}}" select-label=""
                                      deselect-label="{{__('deselect')}}" track-by="id"
-                                     label="title_{{ app()->getLocale() }}"><span
+                                     label="title_{{ app()->getLocale() }}" :searchable="false"><span
                                 slot="noResult">{{__('no_result')}}</span></multiselect>
                     </div>
                     @if( ! isset($required_for_rent) )
