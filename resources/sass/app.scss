@@ -232,52 +232,6 @@ body {
 .overflow-hidden {
     overflow: hidden !important;
 }
-//.red {
-//    background-color: var(--badge) !important;
-//    border-color: var(--badge) !important;
-//}
-//.foobox::before {
-//    content: "";
-//    position: absolute;
-//    right: -11px;
-//    top: 1rem;
-//    border-top: 11px solid transparent;
-//    border-bottom: 11px solid transparent;
-//    border-left: 11px solid #ce3552;
-//    font-size: .875rem;
-//}
-//.foobox::after {
-//    content: "مميز";
-//    position: absolute;
-//    right: -11px;
-//    top: 0;
-//    background: #e54b66;
-//    border-radius: 2px 2px 0 2px;
-//    padding: .2rem .9rem;
-//    color: #fff;
-//    font-size: .875rem;
-//}
-.foobox::before {
-    content: "";
-    position: absolute;
-    left: -11px;
-    top: 1rem;
-    border-top: 11px solid transparent;
-    border-bottom: 11px solid transparent;
-    border-right: 11px solid #ce3552;
-    font-size: .875rem;
-}
-.foobox::after {
-    content: "مميز";
-    position: absolute;
-    left: -11px;
-    top: 0;
-    background: #e54b66;
-    border-radius: 2px 2px 0 2px;
-    padding: .2rem .9rem;
-    color: #fff;
-    font-size: .875rem;
-}
 // sm: ... - 600
 // md: 960 - 1280
 // lg: 1280 - 1919
@@ -292,6 +246,9 @@ body {
     .col-lg-4-image {
         flex-basis: 29%;
         max-width: 29%;
+    }
+    .h-100-img {
+        height: 100%
     }
 }
 @media screen and (max-width: 600px) {
@@ -358,6 +315,9 @@ body {
         padding-bottom: 1.5rem !important;
         padding-top: 1.5rem !important;
     }
+    .h-100-img {
+        height: 100%
+    }
 }
 @media screen and (min-width: 960px) {
     .md\:px-5{
@@ -405,6 +365,13 @@ body {
     .md\:py-4 {
         padding-bottom: 1.5rem !important;
         padding-top: 1.5rem !important;
+    }
+    .image-box::before {
+        top: .43rem !important;
+    }
+    .image-box::after {
+        font-size: .63rem !important;
+        padding: 0.08rem 0.43rem !important;
     }
 }
 @media screen and (min-width: 600px) {
