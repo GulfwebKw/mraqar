@@ -45,14 +45,16 @@
                                         <div class="swiper-slide center-xs">
                                             <img src="/asset/assets/images/others/transparent-bg.png" alt="slide image"
                                                  data-src="{{$advertising->main_image ? asset($advertising->main_image) : route('image.noimagebig', '') }}"
-                                                 class="slide-item swiper-lazy max-hight-500">
+                                                 zoom="{{$advertising->main_image ? asset($advertising->main_image) : route('image.noimagebig', '') }}"
+                                                 class="slide-item swiper-lazy max-hight-500 zoomable">
                                             <div class="swiper-lazy-preloader"></div>
                                         </div>
                                         @foreach((array) optional(json_decode($advertising->other_image))->other_image as $other_image)
                                             <div class="swiper-slide center-xs">
                                                 <img src="/asset/assets/images/others/transparent-bg.png"
                                                      alt="slide image" data-src="{{asset($other_image)}}"
-                                                     class="slide-item swiper-lazy max-hight-500">
+                                                     zoom="{{asset($other_image)}}"
+                                                     class="slide-item swiper-lazy max-hight-500 zoomable">
                                                 <div class="swiper-lazy-preloader"></div>
                                             </div>
                                         @endforeach
@@ -312,19 +314,12 @@
             }
         });
     </script>
-    <script type="module">
-        $(document).ready(() =>$(document).off('keydown'))
-
-        let el = $('.slide-item')
-        ezoom.onInit(el, {
-            onClose: function (result) {
-                $(document).off('keydown')
-            }
-        });
+    <script>
+        window.ViewImage && ViewImage.init('.zoomable');
     </script>
 @endsection
 
 @section('header')
     <link rel="stylesheet" href="{{ asset('asset/css/libs/dropzone.css') }}">
-    <script src="{{asset('/asset/js/libs/ezoom.js')}}"></script>
+    <script src="{{asset('/asset/js/libs/view-image.js')}}"></script>
 @endsection
