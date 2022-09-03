@@ -39,4 +39,7 @@
             background-color: #d1ecf1;
             border-color: #bee5eb;
         }
+        footer::before {
+            background-image: url("/images/main/footer.jpg") !important;
+        }
     </style>

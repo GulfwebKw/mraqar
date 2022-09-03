@@ -97,7 +97,7 @@ export default {
                 return
             }
 
-            this.searchTitle = `${type} ${to}${purpose} ${fee}${areas} (${count} ${ad})`
+            this.searchTitle = `${purpose} ${type} ${fee}${areas} (${count} ${ad})`
         }
     },
     mounted () {

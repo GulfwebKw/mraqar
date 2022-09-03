@@ -2612,7 +2612,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         return;
       }
 
-      this.searchTitle = "".concat(type, " ").concat(to).concat(purpose, " ").concat(fee).concat(areas, " (").concat(count, " ").concat(ad, ")");
+      this.searchTitle = "".concat(purpose, " ").concat(type, " ").concat(fee).concat(areas, " (").concat(count, " ").concat(ad, ")");
     }
   },
   mounted: function mounted() {
