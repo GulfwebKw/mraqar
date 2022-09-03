@@ -20,7 +20,7 @@ Route::prefix('{locale}')
 Route::any("/payment-result",'Api\V1\PaymentController@paymentResult');
 //Route::redirect("/",'login');
 Route::get('/testP',function (){
-    Auth::loginUsingId(1);
+    \App\Http\Controllers\Auth\RegisterController::sendOtp('test' , '96566444569');
    return view("test");
 });
 
