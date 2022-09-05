@@ -99,7 +99,7 @@
         </div>
         <hr class="mdc-list-divider m-0">
         <div class="row center-xs middle-xs py-3">
-            @include('site.sections.socials', ['icon_classes' => 'mat-icon-xlg primary-color'])
+            @include('site.sections.socials', ['icon_classes' => 'mat-icon-md primary-color'])
 
         </div>
     </aside>
@@ -210,7 +210,7 @@
         <div id="main-toolbar" class="mdc-elevation--z2">
             <div class="theme-container row between-xs middle-xs h-100">
                 <a href="{{ route('Main.index', ['locale' => app()->getLocale()]) }}" class="logo">
-                    <img src="{{ asset('images/main/logo_header_' . app()->getLocale() . '.png') }}" alt="image" style="max-height: 60px;margin: 5px 0;">
+                    <img src="{{ asset('images/main/logo_header_' . app()->getLocale() . '.png') }}" alt="image" style="max-height: 60px;margin: 5px 0;" id="logo_header">
                 </a>
                 <div class="horizontal-menu d-none d-md-flex d-lg-flex d-xl-flex">
                     <div>

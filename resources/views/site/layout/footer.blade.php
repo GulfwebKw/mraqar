@@ -1,17 +1,17 @@
     <footer class="mt-4">
         <div class="px-3">
             <div class="theme-container">
-                <div class="py-5 content">
+                <div class="py-4 content">
                     <div class="row between-xs">
-                        <div class="col-6 sm:mx-auto">
+                        <div class="col-6 sm:mx-auto d-flex align-items-end">
                             <a href="{{ route('Main.index', ['locale' => app()->getLocale()]) }}" class="logo">
-                                <img src="{{ asset('images/main/logo_footer_' . app()->getLocale() . '.png') }}" style="max-width: 275px;" alt="image">
+                                <img src="{{ asset('images/main/logo_footer_' . app()->getLocale() . '.png') }}" style="max-width: 275px;" id="logo_footer" alt="image">
                             </a>
                         </div>
                         <div class="col-6 sm:mx-auto">
                             @include('site.sections.socials', [
                                 'classes' => ' start-xs middle-xs desc',
-                                'icon_classes' => 'mat-icon-lg'
+                                'icon_classes' => 'mat-icon-md'
                             ])
                         </div>
                     </div>
