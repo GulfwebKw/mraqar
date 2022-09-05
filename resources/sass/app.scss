@@ -290,6 +290,12 @@ span.multiselect__placeholder {
     }
 }
 @media screen and (max-width: 600px) {
+    .sm\:mr-1{
+        margin-right: 0.25rem !important;
+    }
+    .sm\:ml-1{
+        margin-left: 0.25rem !important;
+    }
     .badge-sm {
         font-size: 9px !important;
         margin: 2px !important;
@@ -364,6 +370,21 @@ span.multiselect__placeholder {
     }
     #logo_footer {
         width: 40vw;
+    }
+    .sm\:p-1\.5 {
+        padding: .35rem !important;
+    }
+    .line-height-sm {
+        line-height: 1.4;
+    }
+    .company-card-button {
+        padding-right: 7px;
+        padding-left: 7px;
+        height: 28px;
+        font-size: .7rem;
+    }
+    .company-card-button .material-icons{
+        font-size: 1rem;
     }
 }
 @media screen and (min-width: 600px) and (max-width: 960px) {
@@ -468,6 +489,10 @@ span.multiselect__placeholder {
     .radios-padding {
         padding-right: 4% !important;
         padding-left: 4% !important;
+    }
+    .card-desc-pc {
+        max-width: 88% !important;
+        flex-basis:88% !important;
     }
 }
 @media screen and (min-width: 500px) and (max-width: 700px) {

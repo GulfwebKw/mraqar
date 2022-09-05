@@ -8,7 +8,7 @@
 
                     </div>
                 </div>
-                <div class="col-sm-10 w-sm4/5 p-0">
+                <div class="col-sm-10 w-sm4/5 p-0 card-desc-pc">
                     <h2 class="text-md mb-2 sm:width-110" v-text="`${purpose_lang[card.purpose]} ${card.venue.title_{{app()->getLocale()}} } {{__('in')}} ${card.area.name_{{app()->getLocale()}} }`"></h2>
 
                     <div class="flex-container mb-2">

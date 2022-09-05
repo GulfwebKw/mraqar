@@ -56,9 +56,9 @@ $side = app()->getLocale() === 'en' ? 'r' : 'l';
         </div>
         <div class="row md:px-5 justify-content-center col-">
             @foreach($companies as $company)
-                <div class="px-1 col-xs-6 col-sm-3 col-md-2 card-mobile-tablet">
-                    <div class="card card-subscribe card-buy shadow companies-card rounded  p-0 sm:m{{$side}}-2 mb-3" style="height: 94%">
-                        <div class="card-body p-3">
+                <div class="px-1 col-xs-4 col-sm-3 col-md-2 card-mobile-tablet">
+                    <div class="card card-subscribe card-buy shadow companies-card rounded  p-0 sm:m{{$side}}-2 mb-3" style="height: 93%">
+                        <div class="card-body p-3 sm:p-1.5">
                             <div class="row justify-content-center">
                                 <div class="col-md-4 col-md-12 p-0">
                                     <a href="{{route('companies.info', [app()->getLocale(),$company->company_phone,$company->company_name])}}">
@@ -76,11 +76,11 @@ $side = app()->getLocale() === 'en' ? 'r' : 'l';
                                         $tel = str_replace(' ', '', $tel);
                                     @endphp
                                     <a href="{{route('companies.info', [app()->getLocale(),$company->company_phone,$company->company_name])}}"
-                                       class="my-1 fw-600 text-body links company-name d-flex align-items-center justify-content-center">{{ $company->company_name }}</a>
+                                       class="my-1 fw-600 text-body links company-name d-flex align-items-center justify-content-center line-height-sm">{{ $company->company_name }}</a>
 
-                                    <a href="tel:{{ $tel }}" class="mdc-button mdc-button--raised mb-2">
+                                    <a href="tel:{{ $tel }}" class="mdc-button mdc-button--raised mb-2 company-card-button bg-whatsapp">
                                         <span class="mdc-button__ripple"></span>
-                                        <i class="material-icons mdc-button__icon">phone</i>
+                                        <i class="material-icons mdc-button__icon sm:m{{$side}}-1">phone</i>
                                         <span class="mdc-button__label">{{ $company->company_phone }}</span>
                                     </a>
                                     @if(count($company->socials))
