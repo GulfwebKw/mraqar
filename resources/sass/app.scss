@@ -230,30 +230,22 @@ body {
     right: 0
 }
 .card-height {
-    height: 127px;
+    height: 140px;
 }
 .overflow-hidden {
     overflow: hidden !important;
 }
+.card-image {
+    width: 20vw;
+    height: 20vw;
+    background-repeat: no-repeat, repeat;
+    background-size: cover;
+    background-position: center;
+}
 // sm: ... - 600
 // md: 960 - 1280
 // lg: 1280 - 1919
-// responsive:
-@media screen and (min-width: 1280px) {
-    .d-lg-more-block {
-        display: block !important;
-    }
-    .d-lg-more-none {
-        display: none !important;
-    }
-    .col-lg-4-image {
-        flex-basis: 29%;
-        max-width: 29%;
-    }
-    .h-100-img {
-        height: 100%
-    }
-}
+
 @media screen and (min-width: 600px) {
     .sm\:mr-2{
         margin-right: 0.5rem !important;
@@ -268,7 +260,11 @@ body {
         display: inline-flex !important;
     }
     .card-height {
-        height: 130px;
+        height: 127px;
+    }
+    .card-image {
+        width: 14vw;
+        height: 14vw;
     }
 }
 @media screen and (max-width: 600px) {
@@ -381,6 +377,13 @@ body {
         border-color: #a5a5a5;
         padding-top: 7px;
     }
+    .card-image {
+        width: 12vw;
+        height: 12vw;
+    }
+    .card-image-width-pc {
+        flex-basis: content;
+    }
 }
 @media screen and (max-width: 960px) {
     .small-only-max-height{
@@ -406,6 +409,29 @@ body {
     .image-box::after {
         font-size: .63rem !important;
         padding: 0.08rem 0.43rem !important;
+    }
+}
+@media screen and (min-width: 1280px) {
+    .d-lg-more-block {
+        display: block !important;
+    }
+    .d-lg-more-none {
+        display: none !important;
+    }
+    .col-lg-4-image {
+        flex-basis: 29%;
+        max-width: 29%;
+    }
+    .h-100-img {
+        height: 100%
+    }
+    .card-image {
+        aspect-ratio: 1 / 1;
+        height: 100%;
+        width: auto;
+    }
+    .card-image-width-pc {
+        flex-basis: 11%;
     }
 }
 @media screen and (min-width: 500px) and (max-width: 700px) {
