@@ -257,7 +257,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="row middle-xs">
+                <div class="row middle-xs" @if(in_array(request()->route()->getName(), ['Main.aboutus', 'Message.create', 'companies.info', 'site.ad.detail'])) style="visibility: hidden" @endif>
                     <a href="{{route('site.advertising.create', app()->getLocale())}}" class="mdc-fab mdc-fab--mini primary d-sm-flex d-md-none d-lg-none d-xl-none">
                         <span class="mdc-fab__ripple"></span>
                         <span class="mdc-fab__icon material-icons">add</span>

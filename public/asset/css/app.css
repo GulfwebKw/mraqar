@@ -298,6 +298,10 @@ body {
   background-position: center;
 }
 
+.bg-whatsapp {
+  background-color: #4caf50 !important;
+}
+
 @media screen and (min-width: 600px) {
   .sm\:mr-2 {
     margin-right: 0.5rem !important;

@@ -33,13 +33,13 @@
                     <div class="page-sidenav-content">
                         <div class="mdc-card p-3">
                             <div class="main-carousel mb-3">
-                                @if($advertising->advertising_type === 'premium')
-                                    <div class="gallery-badge {{$side == 'l' ? 'right-0' : 'left-0'}}">
-                                        <div class="row property-status" v-if="card.advertising_type === 'premium'">
-                                            <span class="red text-md">{{__('premium_short')}}</span>
-                                        </div>
-                                    </div>
-                                @endif
+{{--                                @if($advertising->advertising_type === 'premium')--}}
+{{--                                    <div class="gallery-badge {{$side == 'l' ? 'right-0' : 'left-0'}}">--}}
+{{--                                        <div class="row property-status" v-if="card.advertising_type === 'premium'">--}}
+{{--                                            <span class="red text-md">{{__('premium_short')}}</span>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                @endif--}}
                                 <div class="swiper-container">
                                     <div class="swiper-wrapper">
                                         <div class="swiper-slide center-xs">
@@ -122,7 +122,7 @@
                                 @endif
                                 <h4 class="m{{$unSide}}-2">{{$advertising->user->isCompany ? $advertising->user->company_name : $advertising->user->name}}</h4>
                                 <a href="tel:{{$tel}}"
-                                   class="mdc-button mdc-button--raised mdc-ripple-upgraded col-xs-5 m{{$unSide}}-auto sm-small-button">
+                                   class="mdc-button mdc-button--raised mdc-ripple-upgraded col-xs-5 m{{$unSide}}-auto sm-small-button bg-whatsapp">
                                     <span class="mdc-button__ripple"></span>
                                     <i class="material-icons mdc-button__icon d-mobile-none">phone</i>
                                     <span class="mdc-button__label">{{$advertising->phone_number}}</span>
@@ -190,7 +190,7 @@
 
                             <div class="row flex-container mt-3 justify-content-center d-md-none d-lg-none">
                                 <a href="tel:{{$tel}}"
-                                   class="mdc-button mdc-button--raised mdc-ripple-upgraded sm-small-button">
+                                   class="mdc-button mdc-button--raised mdc-ripple-upgraded sm-small-button bg-whatsapp">
                                     <span class="mdc-button__ripple"></span>
                                     <i class="material-icons mdc-button__icon d-mobile-none">phone</i>
                                     <span class="mdc-button__label">{{$advertising->phone_number}}</span>
@@ -240,7 +240,7 @@
                                     {{--                                        <a href="tel:{{$tel}}" class="row middle-xs mb-3 decoration-none"><i class="material-icons primary-color">call</i><span class="mx-2 fw-500">{{$advertising->phone_number}}</span></a>--}}
                                     <div class="row">
                                         <a href="tel:{{$tel}}"
-                                           class="mdc-button mdc-button--raised mdc-ripple-upgraded mb-3 col-md-10">
+                                           class="mdc-button mdc-button--raised mdc-ripple-upgraded mb-3 col-md-10 bg-whatsapp">
                                             <span class="mdc-button__ripple"></span>
                                             <i class="material-icons mdc-button__icon">phone</i>
                                             <span class="mdc-button__label">{{$advertising->phone_number}}</span>
