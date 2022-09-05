@@ -33,7 +33,7 @@ $unSide = app()->getLocale() === 'en' ? 'l' : 'r';
                 @include('site.sections.card')
 
                 <div class="center-xs" id="pageEnd">
-                    <img v-if="isLoading !== false" src="{{asset('images/main/loading.gif')}}" alt="loading" style="width: 10vw;">
+                    <img v-if="isLoading !== false" src="{{asset('images/main/loading.gif')}}" alt="loading" class="loading">
 {{--                    <h3 v-else-if="noMore" class="mt-2">{{__('no_more_ads')}}</h3>--}}
                     <h3 v-else-if="notFound" class="alert alert-danger text-center mt-2"><strong>{{__('norecord')}}</strong></h3>
                 </div>
@@ -74,23 +74,23 @@ $unSide = app()->getLocale() === 'en' ? 'l' : 'r';
         .image-box::before {
             content: "";
             position: absolute;
-            right: -11px;
-            top: 1rem;
-            border-top: 11px solid transparent;
-            border-bottom: 11px solid transparent;
-            border-left: 11px solid var(--badge);
+            right: -5px;
+            top: 1.27rem;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 5px solid var(--badge);
             font-size: .875rem;
         }
         .image-box::after {
             content: "مميز";
             position: absolute;
-            right: -11px;
+            right: -5px;
             top: 0;
             background: var(--badge);
             border-radius: 2px 2px 0 2px;
-            padding: .2rem .8rem;
+            padding: .09rem .6rem;
             color: #fff;
-            font-size: .875rem;
+            font-size: .8rem;
         }
 
         @endif

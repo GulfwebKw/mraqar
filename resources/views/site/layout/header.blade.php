@@ -22,24 +22,7 @@
         <div class="spinner-container">
             <div class="spinner-outer">
                 <div class="spinner">
-                    <div class="left mask">
-                        <div class="plane"></div>
-                    </div>
-                    <div class="top mask">
-                        <div class="plane"></div>
-                    </div>
-                    <div class="right mask">
-                        <div class="plane"></div>
-                    </div>
-                    <div class="triangle">
-                        <div class="triangle-plane"></div>
-                    </div>
-                    <div class="top-left mask">
-                        <div class="plane"></div>
-                    </div>
-                    <div class="top-right mask">
-                        <div class="plane"></div>
-                    </div>
+                    <img src="{{asset('images/main/loading.gif')}}" alt="loading" style="width: 100%;">
                 </div>
                 <p class="spinner-text">{{ __('PageTitle') }}</p>
             </div>

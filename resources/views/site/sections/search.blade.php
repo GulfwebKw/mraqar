@@ -31,7 +31,7 @@
                                 slot="noResult">{{__('no_result')}}</span></multiselect>
                     </div>
                     @if( ! isset($required_for_rent) )
-                        <div class="col-xs-12 col-md-4 mb-2 p-0 d-flex justify-center">
+                        <div class="col-xs-12 col-md-4 mb-2 p-0 d-flex justify-evenly radios-padding">
                             <div class="mdc-form-field">
                                 <div class="mdc-radio">
                                     <input class="mdc-radio__native-control" type="radio" v-model="purpose" id="rent"
@@ -41,7 +41,7 @@
                                         <div class="mdc-radio__inner-circle"></div>
                                     </div>
                                 </div>
-                                <label for="rent">{{__('rent')}}</label>
+                                <label class="p-0-important" style="padding: 0 !important;" for="rent">{{__('rent')}}</label>
                             </div>
                             <div class="mdc-form-field">
                                 <div class="mdc-radio">
@@ -52,7 +52,7 @@
                                         <div class="mdc-radio__inner-circle"></div>
                                     </div>
                                 </div>
-                                <label for="sell">{{__('sell')}}</label>
+                                <label class="p-0-important" style="padding: 0 !important;" for="sell">{{__('sell')}}</label>
                             </div>
                             <div class="mdc-form-field">
                                 <div class="mdc-radio">
@@ -63,7 +63,7 @@
                                         <div class="mdc-radio__inner-circle"></div>
                                     </div>
                                 </div>
-                                <label for="exchange">{{__('exchange')}}</label>
+                                <label class="p-0-important" style="padding: 0 !important;" for="exchange">{{__('exchange')}}</label>
                             </div>
                         </div>
                     @endif

@@ -207,6 +207,10 @@ body {
   justify-content: center;
 }
 
+.justify-evenly {
+  justify-content: space-evenly;
+}
+
 .company-container {
   width: 50%;
 }
@@ -300,6 +304,27 @@ body {
 
 .bg-whatsapp {
   background-color: #4caf50 !important;
+}
+
+.swipe-arrow {
+  width: 35px;
+  height: 35px;
+}
+
+span.multiselect__placeholder {
+  color: var(--theme-base-color);
+}
+
+.my-search-box .mdc-radio {
+  padding: 5px;
+}
+
+.primary-card {
+  border: solid 3px var(--mdc-theme-primary);
+}
+
+.loading {
+  width: 15%;
 }
 
 @media screen and (min-width: 600px) {
@@ -404,6 +429,10 @@ body {
   #logo_footer {
     width: 28vw;
   }
+  .radios-padding {
+    padding-right: 30% !important;
+    padding-left: 30% !important;
+  }
 }
 @media screen and (min-width: 960px) {
   .md\:px-5 {
@@ -440,6 +469,9 @@ body {
   .card-image-width-pc {
     flex-basis: content;
   }
+  .loading {
+    width: 6%;
+  }
 }
 @media screen and (max-width: 960px) {
   .small-only-max-height {
@@ -460,11 +492,14 @@ body {
     padding-top: 1.5rem !important;
   }
   .image-box::before {
-    top: 0.43rem !important;
+    top: 0.9rem !important;
   }
   .image-box::after {
-    font-size: 0.63rem !important;
-    padding: 0.08rem 0.43rem !important;
+    font-size: 0.61rem !important;
+    padding: 0.075rem 0.4rem !important;
+  }
+  .swipe-arrow {
+    display: none;
   }
 }
 @media screen and (min-width: 1280px) {
@@ -488,6 +523,10 @@ body {
   }
   .card-image-width-pc {
     flex-basis: 11%;
+  }
+  .radios-padding {
+    padding-right: 4% !important;
+    padding-left: 4% !important;
   }
 }
 @media screen and (min-width: 500px) and (max-width: 700px) {
