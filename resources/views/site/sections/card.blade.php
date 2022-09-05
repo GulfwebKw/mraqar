@@ -24,7 +24,7 @@
                         </span>
                     </div>
 
-                    <div :dir="isArabic(card.description) ? 'rtl' : 'ltr'" :class="card.advertising_type === 'premium' ? 'fw-600' : ''" class="d-none d-sm-block d-md-block d-lg-more-block mb-2 text-sm">
+                    <div :dir="isArabic(card.description) ? 'rtl' : 'ltr'" :class="card.advertising_type === 'premium' ? 'fw-600' : ''" class="d-none d-sm-block d-md-block d-lg-more-block mb-2 text-sm" v-snip:js="1">
                         @{{card.description  | truncate(180, '...')}}
                     </div>
 
@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="row">
-                <div :dir="isArabic(card.description) ? 'rtl' : 'ltr'" :class="card.advertising_type === 'premium' ? 'fw-600' : ''" class="col-xs-12 p-0 d-sm-none d-md-none d-lg-more-none text-sm">
+                <div :dir="isArabic(card.description) ? 'rtl' : 'ltr'" :class="card.advertising_type === 'premium' ? 'fw-600' : ''" class="col-xs-12 p-0 d-sm-none d-md-none d-lg-more-none text-sm" v-snip:css="3">
                     @{{card.description  | truncate(180, '...')}}
                 </div>
             </div>

@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Card from './../components/Card.vue';
 import Search from './../components/Search.vue';
 import axios from 'axios';
+import VueSnip from 'vue-snip'
 
 window.Vue = require('vue');
 
@@ -10,6 +11,8 @@ window.axios = require('axios');
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 axios.defaults.headers.common['X-localization'] = document.getElementById("app").getAttribute('data-locale');
 
+
+Vue.use(VueSnip)
 
 var filter = function(text, length, clamp){
     clamp = clamp || '...';

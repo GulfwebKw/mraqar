@@ -2,7 +2,7 @@
 <script src="{{ asset('asset/js/libs/material-components-web.min.js') }}"></script>
 <script src="{{ asset('asset/js/libs/swiper.min.js') }}"></script>
 <script src="{{ asset('asset/js/scripts.js') }}"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1rF9bttCxRmsNdZYjW7FzIoyrul5jb-s&callback=initMap" async defer></script>
+{{--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1rF9bttCxRmsNdZYjW7FzIoyrul5jb-s&callback=initMap" async defer></script>--}}
 
 <script>
     $('#search').on('click',function () {
