@@ -37,8 +37,6 @@ export default {
         },
         addSpan() {
             if (this.addSpanTimes++ < 1) {
-                // let txt = document.querySelector('.multiselect__placeholder').innerText
-
                 let placeholder = `<span class="multiselect__placeholder d-block pb-3 pt-1 helper_placeholder">${this.filter_areas_title}</span>`
                 document.querySelector('#select_areas .multiselect .multiselect__tags').insertAdjacentHTML("afterbegin", placeholder);
             }
@@ -98,6 +96,18 @@ export default {
             }
 
             this.searchTitle = `${purpose} ${type} ${fee}${areas} (${count} ${ad})`
+        },
+        selectOpened () {
+            document.querySelector('#select_header').classList.remove('d-none')
+            document.querySelector('#select_areas').classList.add('select_in_header')
+            document.body.classList.add('overflow-hidden-safe')
+            this.showHelper = false
+        },
+        closeSelect () {
+            document.querySelector('#select_header').classList.add('d-none')
+            document.querySelector('#select_areas').classList.remove('select_in_header')
+            document.body.classList.remove('overflow-hidden-safe')
+            this.showHelper = true
         }
     },
     mounted () {
@@ -130,7 +140,9 @@ export default {
             if (this.areas.length === 0) {
                 document.querySelector('.helper_placeholder').remove()
                 this.addSpanTimes = 0
-            }
+                document.querySelector('#select_areas .multiselect__content-wrapper').classList.remove('areas_are_selected')
+            } else
+                document.querySelector('#select_areas .multiselect__content-wrapper').classList.add('areas_are_selected')
         }
     },
 }

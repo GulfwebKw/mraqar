@@ -294,6 +294,10 @@ body {
   overflow: hidden !important;
 }
 
+.overflow-hidden-safe {
+  overflow: hidden;
+}
+
 .card-image {
   width: 20vw;
   height: 20vw;
@@ -346,6 +350,9 @@ span.multiselect__placeholder {
   .card-image {
     width: 14vw;
     height: 14vw;
+  }
+  body {
+    overflow-y: auto !important;
   }
 }
 @media screen and (max-width: 600px) {
@@ -444,6 +451,46 @@ span.multiselect__placeholder {
   }
   .company-card-button .material-icons {
     font-size: 1rem;
+  }
+  #select_areas .multiselect__content-wrapper {
+    z-index: 99999;
+    height: calc(86vh - 40px);
+    max-height: none !important;
+  }
+  #select_areas .multiselect__content-wrapper.areas_are_selected {
+    height: calc(67vh - 40px);
+  }
+  .main-content-header {
+    z-index: unset !important;
+  }
+  #select_header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: white;
+    height: 40px;
+    width: 100vw;
+    z-index: 99999;
+  }
+  #select_header_items {
+    box-sizing: border-box !important;
+    height: 40px;
+  }
+  .select_in_header {
+    z-index: 999;
+  }
+  .select_in_header .helper_placeholder {
+    display: none !important;
+  }
+  .select_in_header .multiselect {
+    position: fixed;
+    width: 100vw;
+    height: calc(100vh - 40px);
+    max-height: none !important;
+    top: 40px;
+    left: 0;
+    z-index: 999;
+    background: white;
   }
 }
 @media screen and (min-width: 600px) and (max-width: 960px) {

@@ -6,7 +6,7 @@
         inline-template>
     <div>
 
-        <div v-if="searchTitle" class="blue-search bg-primary blue-search center-xs p-4" style="height: 25px;">
+        <div v-if="searchTitle" class="blue-search bg-primary blue-search center-xs p-4">
             <span v-text="searchTitle" class="mb-3 text-lg fw-600"></span>
         </div>
 
@@ -14,8 +14,14 @@
             <form action="javascript:void(0);" id="filters" class="search-wrapper">
                 <div class="row md-flex-no-wrap justify-content-center">
                     <div class="col-xs-12 col-sm-6 col-md-3 p-2 d-flex align-items-center" id="select_areas">
-                        <multiselect v-model="areas" :options="options" @select="onSelect"
-                                     placeholder="{{__('areas_filter')}}" selected-label="{{__('selected')}}"
+
+                        <div id="select_header" class="d-lg-none d-md-none d-sm-none d-none">
+                            <div class="d-flex align-items-center px-2 py-1" id="select_header_items">
+                                <span class="material-icons-outlined">{{$side == 'l' ? 'arrow_forward_ios' : 'arrow_back_ios'}}</span>
+                            </div>
+                        </div>
+                        <multiselect ref="select_area" @open="selectOpened" @close="closeSelect" v-model="areas" :options="options"
+                                     @select="onSelect" placeholder="{{__('areas_filter')}}" selected-label="{{__('selected')}}"
                                      deselect-group-label="{{__('deselect_areas')}}"
                                      select-group-label="{{__('select_all_areas')}}" select-label=""
                                      deselect-label="{{__('deselect')}}" :multiple="true" group-values="areas"
