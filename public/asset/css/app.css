@@ -358,6 +358,9 @@ span.multiselect__placeholder {
   body {
     overflow-y: auto !important;
   }
+  .mobile-description-box {
+    display: none;
+  }
 }
 @media screen and (max-width: 600px) {
   .sm\:mr-1 {
@@ -497,6 +500,28 @@ span.multiselect__placeholder {
     left: 0;
     z-index: 99999;
     background: white;
+  }
+  .ad-details-container {
+    display: grid;
+    grid-auto-columns: 100%;
+  }
+  .mobile-description-box {
+    margin: 1rem 0;
+    line-height: 1.6rem;
+  }
+  .ad-details-description {
+    order: 2;
+    margin-bottom: 1rem;
+    display: none;
+  }
+  .ad-details-gallery {
+    order: 3;
+  }
+  .ad-details-company {
+    order: 4;
+  }
+  .ad-details-description .description-box-icons {
+    display: none;
   }
 }
 @media screen and (min-width: 600px) and (max-width: 960px) {

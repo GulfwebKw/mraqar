@@ -30,14 +30,93 @@
             <div class="theme-container">
 
                 <div class="page-drawer-container single-property mt-3">
-                    <div class="page-sidenav-content">
+                    <div class="page-sidenav-content ad-details-container">
 
-{{--                            <div v-if="searchTitle" class="blue-search bg-primary blue-search center-xs p-4 mb-3">--}}
-{{--                                <span class="mb-3 text-lg fw-600">this is some text for title</span>--}}
-{{--                            </div>--}}
+                            <div class="blue-search bg-primary blue-search center-xs p-4 d-md-none d-lg-none d-xl-none">
+                                <span class="mb-3 text-lg fw-600">{{$name}}</span>
+                                @if($advertising->price || $advertising->price == 0)
+                                    <div class="w-100 fw-600 mt-2 center-xs">
+                                        {{number_format($advertising->price , env('NUMFORMAT' , 0 ))}} {{__('kd_title')}}
+                                    </div>
+                                @endif
+
+                                <div
+                                    class="flex-container mb-2 sm-justify-evenly md-float-{{$side == 'r' ? 'right' : 'left'}} w-100 justify-evenly mt-2">
+                                <span class="flex flex-container">
+                                    <i class="material-icons mat-icon-sm text-muted m{{$side}}-1 mb-1 text-white">calendar_month</i>
+                                    <span class="text-sm text-white">{{$advertising->created_at}}</span>
+                                </span>
+                                    <span class="flex flex-container">
+                                    <i class="material-icons mat-icon-sm text-muted m{{$side}}-1 mb-1 text-white">place</i>
+                                    <span
+                                        class="text-sm text-white">{{app()->getLocale() == 'en' ? $advertising->area->name_en : $advertising->area->name_ar}}</span>
+                                </span>
+                                    <span class="flex flex-container">
+                                    <i class="material-icons-outlined mat-icon-sm text-muted m{{$side}}-1 text-white" style="font-size: 22px">visibility</i>
+                                    <span class="text-sm text-white">{{$advertising->view_count}}</span>
+                                </span>
+                                </div>
+                            </div>
 
 
-                        <div class="mdc-card p-3">
+                        <div class="mobile-description-box">
+                            @php
+                                function uniord($u) {
+                                    $k = mb_convert_encoding($u, 'UCS-2LE', 'UTF-8');
+                                    $k1 = ord(substr($k, 0, 1));
+                                    $k2 = ord(substr($k, 1, 1));
+                                    return $k2 * 256 + $k1;
+                                }
+                                function is_arabic($str) {
+                                    if(mb_detect_encoding($str) !== 'UTF-8') {
+                                        $str = mb_convert_encoding($str,mb_detect_encoding($str),'UTF-8');
+                                    }
+                                    preg_match_all('/.|\n/u', $str, $matches);
+                                    $chars = $matches[0];
+                                    $arabic_count = 0;
+                                    $latin_count = 0;
+                                    $total_count = 0;
+                                    foreach($chars as $char) {
+                                        $pos = uniord($char);
+                                        if($pos >= 1536 && $pos <= 1791)
+                                            $arabic_count++;
+                                        else if($pos > 123 && $pos < 123)
+                                            $latin_count++;
+                                        $total_count++;
+                                    }
+                                    if(($arabic_count/$total_count) > 0.6) {
+                                        return true;
+                                    }
+                                }
+                            @endphp
+                            <div class="ad-description w-100 fw-600 mt-1"
+                                 dir="{{$advertising->description && ! empty($advertising->description) ? (is_arabic($advertising->description) ? 'rtl' : 'ltr') : ''}}">
+                                {!! nl2br(e($advertising->description))!!}
+                            </div>
+                            @if($advertising->price || $advertising->price == 0)
+                                <div
+                                    class="w-100 fw-600 mt-4 primary-color center-xs d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                                    {{number_format($advertising->price , env('NUMFORMAT' , 0 ))}} {{__('kd_title')}}
+                                </div>
+                            @endif
+
+
+                            <div class="row flex-container mt-3 justify-content-center d-md-none d-lg-none w-100">
+                                <a href="tel:{{$tel}}"
+                                   class="mdc-button mdc-button--raised mdc-ripple-upgraded sm-small-button bg-whatsapp">
+                                    <span class="mdc-button__ripple"></span>
+                                    <i class="material-icons mdc-button__icon d-mobile-none">phone</i>
+                                    <span class="mdc-button__label">{{$advertising->phone_number}}</span>
+                                </a>
+                                <a href="https://api.whatsapp.com/send?phone={{str_replace('+', '', $tel)}}"
+                                   class="col-xs-2 p{{$side}}-0">
+                                    <img src="{{asset('images/main/whatsapp.webp')}}"
+                                         class="mw-100 d-flex sm-small-button" alt="whatsapp call">
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="mdc-card p-3 ad-details-gallery">
                             <div class="main-carousel mb-3">
 {{--                                @if($advertising->advertising_type === 'premium')--}}
 {{--                                    <div class="gallery-badge {{$side == 'l' ? 'right-0' : 'left-0'}}">--}}
@@ -98,7 +177,7 @@
                             </div>
                         </div>
 
-                        <div class="mdc-card p-3 mt-3 ad-description-box w-100 d-md-none d-lg-none">
+                        <div class="mdc-card p-3 mt-3 ad-description-box w-100 d-md-none d-lg-none ad-details-company">
                             <div>
                                 <span class="social-icon flex-container rounded-sm border-gray primary-color" id="share"
                                       style="background: #E8E8E7; padding: 2px">
@@ -137,10 +216,10 @@
                         </div>
 
 
-                        <div class="mdc-card p-3 mt-3 ad-description-box w-100" style="overflow: hidden;">
+                        <div class="mdc-card p-3 mt-3 ad-description-box w-100 ad-details-description" style="overflow: hidden;">
                             <h3 class="uppercase fw-600 mb-2 d-inline-block">{{__('Description')}}</h3>
                             <div
-                                class="flex-container mb-2 sm-justify-evenly md-float-{{$side == 'r' ? 'right' : 'left'}}">
+                                class="flex-container mb-2 sm-justify-evenly md-float-{{$side == 'r' ? 'right' : 'left'}} description-box-icons">
                                 <span class="flex flex-container m{{$side}}-5">
                                     <i class="material-icons mat-icon-sm text-muted m{{$side}}-1 mb-1 text-gray">calendar_month</i>
                                     <span class="text-sm text-gray">{{$advertising->created_at}}</span>
@@ -155,41 +234,41 @@
                                     <span class="text-sm text-gray">{{$advertising->view_count}}</span>
                                 </span>
                             </div>
-                            @php
-                                function uniord($u) {
-                                    $k = mb_convert_encoding($u, 'UCS-2LE', 'UTF-8');
-                                    $k1 = ord(substr($k, 0, 1));
-                                    $k2 = ord(substr($k, 1, 1));
-                                    return $k2 * 256 + $k1;
-                                }
-                                function is_arabic($str) {
-                                    if(mb_detect_encoding($str) !== 'UTF-8') {
-                                        $str = mb_convert_encoding($str,mb_detect_encoding($str),'UTF-8');
-                                    }
-                                    preg_match_all('/.|\n/u', $str, $matches);
-                                    $chars = $matches[0];
-                                    $arabic_count = 0;
-                                    $latin_count = 0;
-                                    $total_count = 0;
-                                    foreach($chars as $char) {
-                                        $pos = uniord($char);
-                                        if($pos >= 1536 && $pos <= 1791)
-                                            $arabic_count++;
-                                        else if($pos > 123 && $pos < 123)
-                                            $latin_count++;
-                                        $total_count++;
-                                    }
-                                    if(($arabic_count/$total_count) > 0.6) {
-                                        return true;
-                                    }
-                                }
-                            @endphp
+{{--                            @php--}}
+{{--                                function uniord($u) {--}}
+{{--                                    $k = mb_convert_encoding($u, 'UCS-2LE', 'UTF-8');--}}
+{{--                                    $k1 = ord(substr($k, 0, 1));--}}
+{{--                                    $k2 = ord(substr($k, 1, 1));--}}
+{{--                                    return $k2 * 256 + $k1;--}}
+{{--                                }--}}
+{{--                                function is_arabic($str) {--}}
+{{--                                    if(mb_detect_encoding($str) !== 'UTF-8') {--}}
+{{--                                        $str = mb_convert_encoding($str,mb_detect_encoding($str),'UTF-8');--}}
+{{--                                    }--}}
+{{--                                    preg_match_all('/.|\n/u', $str, $matches);--}}
+{{--                                    $chars = $matches[0];--}}
+{{--                                    $arabic_count = 0;--}}
+{{--                                    $latin_count = 0;--}}
+{{--                                    $total_count = 0;--}}
+{{--                                    foreach($chars as $char) {--}}
+{{--                                        $pos = uniord($char);--}}
+{{--                                        if($pos >= 1536 && $pos <= 1791)--}}
+{{--                                            $arabic_count++;--}}
+{{--                                        else if($pos > 123 && $pos < 123)--}}
+{{--                                            $latin_count++;--}}
+{{--                                        $total_count++;--}}
+{{--                                    }--}}
+{{--                                    if(($arabic_count/$total_count) > 0.6) {--}}
+{{--                                        return true;--}}
+{{--                                    }--}}
+{{--                                }--}}
+{{--                            @endphp--}}
                             <div class="ad-description w-100 fw-600 mt-1"
                                  dir="{{$advertising->description && ! empty($advertising->description) ? (is_arabic($advertising->description) ? 'rtl' : 'ltr') : ''}}">
                                 {!! nl2br(e($advertising->description))!!}
                             </div>
-                            @if($advertising->price)
-                                <div class="w-100 fw-600 mt-4 primary-color center-xs">
+                            @if($advertising->price || $advertising->price == 0)
+                                <div class="w-100 fw-600 mt-4 primary-color center-xs d-none d-sm-block d-md-block d-lg-block d-xl-block">
                                     {{number_format($advertising->price , env('NUMFORMAT' , 0 ))}} {{__('kd_title')}}
                                 </div>
                             @endif
