@@ -34,6 +34,11 @@ export default {
         },
         onSelect(selected) {
             this.addSpan()
+            setTimeout(() => {
+                let tagsVh = document.querySelector('.multiselect__tags-wrap').offsetHeight * 0.01
+                tagsVh = tagsVh > 1.3 ? 1.3 : tagsVh
+                document.documentElement.style.setProperty('--tags-vh', `${tagsVh}px`)
+            }, 500)
         },
         addSpan() {
             if (this.addSpanTimes++ < 1) {
@@ -102,6 +107,8 @@ export default {
             document.querySelector('#select_areas').classList.add('select_in_header')
             document.body.classList.add('overflow-hidden-safe')
             this.showHelper = false
+            if (this.areas.length)
+                document.querySelector('#select_areas .multiselect__content-wrapper').classList.add('areas_are_selected')
         },
         closeSelect () {
             document.querySelector('#select_header').classList.add('d-none')
@@ -140,6 +147,7 @@ export default {
             if (this.areas.length === 0) {
                 document.querySelector('.helper_placeholder').remove()
                 this.addSpanTimes = 0
+                console.log('here i am ')
                 document.querySelector('#select_areas .multiselect__content-wrapper').classList.remove('areas_are_selected')
             } else
                 document.querySelector('#select_areas .multiselect__content-wrapper').classList.add('areas_are_selected')

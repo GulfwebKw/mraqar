@@ -392,16 +392,22 @@ span.multiselect__placeholder {
     .company-card-button .material-icons{
         font-size: 1rem;
     }
+    .sm\:justify-content-center {
+        justify-content: center;
+    }
     #select_areas .multiselect__content-wrapper {
         z-index: 99999;
-        height: calc(86vh - 40px);
+        //height: calc(((var(--vh, 1vh) * 100) - 40px) - 56px);
+        //height: calc((((var(--vh, 1vh) * 100) - ((var(--tags-vh, 0px) * 100) + var(--vh, 1vh) * 1)) - 40px) - 56px);
+        height: calc((((var(--vh, 1vh) * 100) - 40px) - 56px) - (var(--tags-vh, 0px) * 100));
         max-height: none !important;
         position: fixed;
+        bottom: inherit !important;
         //top: 40px;
     }
-    #select_areas .multiselect__content-wrapper.areas_are_selected {
-        height: calc(67vh - 40px)
-    }
+    //#select_areas .multiselect__content-wrapper.areas_are_selected {
+    //    height: calc((((var(--vh, 1vh) * 100) - ((var(--tags-vh) * 100) + var(--vh, 1vh) * 30)) - 40px) - 56px)
+    //}
     //#select_areas .multiselect__content-wrapper {
     //    position: fixed;
     //    width: 100vw;
@@ -442,9 +448,6 @@ span.multiselect__placeholder {
         left: 0;
         z-index: 99999;
         background: white;
-    }
-    .sm\:justify-content-center {
-        justify-content: center;
     }
 }
 @media screen and (min-width: 600px) and (max-width: 960px) {

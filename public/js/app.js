@@ -2560,6 +2560,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     onSelect: function onSelect(selected) {
       this.addSpan();
+      setTimeout(function () {
+        var tagsVh = document.querySelector('.multiselect__tags-wrap').offsetHeight * 0.01;
+        tagsVh = tagsVh > 1.3 ? 1.3 : tagsVh;
+        document.documentElement.style.setProperty('--tags-vh', "".concat(tagsVh, "px"));
+      }, 500);
     },
     addSpan: function addSpan() {
       if (this.addSpanTimes++ < 1) {
@@ -2618,6 +2623,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       document.querySelector('#select_areas').classList.add('select_in_header');
       document.body.classList.add('overflow-hidden-safe');
       this.showHelper = false;
+      if (this.areas.length) document.querySelector('#select_areas .multiselect__content-wrapper').classList.add('areas_are_selected');
     },
     closeSelect: function closeSelect() {
       document.querySelector('#select_header').classList.add('d-none');
@@ -2655,6 +2661,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       if (this.areas.length === 0) {
         document.querySelector('.helper_placeholder').remove();
         this.addSpanTimes = 0;
+        console.log('here i am ');
         document.querySelector('#select_areas .multiselect__content-wrapper').classList.remove('areas_are_selected');
       } else document.querySelector('#select_areas .multiselect__content-wrapper').classList.add('areas_are_selected');
     }
@@ -2792,6 +2799,12 @@ new vue__WEBPACK_IMPORTED_MODULE_4__["default"]({
     });
     observer.observe(document.getElementById("pageEnd"));
     this.getAds();
+    var vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', "".concat(vh, "px"));
+    window.addEventListener('resize', function () {
+      var vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', "".concat(vh, "px"));
+    });
   },
   computed: {
     noMore: function noMore() {
