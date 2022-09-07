@@ -31,6 +31,12 @@
 
                 <div class="page-drawer-container single-property mt-3">
                     <div class="page-sidenav-content">
+
+{{--                            <div v-if="searchTitle" class="blue-search bg-primary blue-search center-xs p-4 mb-3">--}}
+{{--                                <span class="mb-3 text-lg fw-600">this is some text for title</span>--}}
+{{--                            </div>--}}
+
+
                         <div class="mdc-card p-3">
                             <div class="main-carousel mb-3">
 {{--                                @if($advertising->advertising_type === 'premium')--}}

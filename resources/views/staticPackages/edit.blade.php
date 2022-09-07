@@ -52,25 +52,25 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="description" class="col-sm-3 col-form-label">{{__('Note En')}}</label>
-                            <div class="col-sm-6">
-                                <textarea  name="note_en" class="form-control  @error('note_en') is-invalid @enderror " rows="2" >{!! $package->note_en !!}</textarea>
-                                @error('note_en')
-                                <div class="help-block text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
+{{--                        <div class="form-group row">--}}
+{{--                            <label for="description" class="col-sm-3 col-form-label">{{__('Note En')}}</label>--}}
+{{--                            <div class="col-sm-6">--}}
+{{--                                <textarea  name="note_en" class="form-control  @error('note_en') is-invalid @enderror " rows="2" >{!! $package->note_en !!}</textarea>--}}
+{{--                                @error('note_en')--}}
+{{--                                <div class="help-block text-danger">{{ $message }}</div>--}}
+{{--                                @enderror--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
 
-                        <div class="form-group row">
-                            <label for="description" class="col-sm-3 col-form-label">{{__('Note Ar')}}</label>
-                            <div class="col-sm-6">
-                                <textarea  name="note_ar" class="form-control  @error('note_ar') is-invalid @enderror" rows="2" >{!! $package->note_ar !!}</textarea>
-                                @error('note_ar')
-                                <div class="help-block text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
+{{--                        <div class="form-group row">--}}
+{{--                            <label for="description" class="col-sm-3 col-form-label">{{__('Note Ar')}}</label>--}}
+{{--                            <div class="col-sm-6">--}}
+{{--                                <textarea  name="note_ar" class="form-control  @error('note_ar') is-invalid @enderror" rows="2" >{!! $package->note_ar !!}</textarea>--}}
+{{--                                @error('note_ar')--}}
+{{--                                <div class="help-block text-danger">{{ $message }}</div>--}}
+{{--                                @enderror--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
 
 
 
@@ -101,7 +101,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="price" class="col-sm-3 col-form-label"><span class="text-danger">*</span> {{__('Old Price')}}</label>
+                            <label for="price" class="col-sm-3 col-form-label">{{__('Old Price')}}</label>
                             <div class="col-sm-6">
                                 <input type="text" name="old_price" class="form-control  @error('old_price') is-invalid @enderror" id="old_price" placeholder="{{__('Old Price')}}" value="{{ $package->old_price }}" >
                                 @error('old_price')
