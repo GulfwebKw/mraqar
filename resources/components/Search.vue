@@ -209,8 +209,9 @@ export default {
 }
 
 .multiselect__option--group {
-    background: var(--mdc-theme-secondary);
-    color: white;
+    /* background: var(--mdc-theme-secondary); */
+    font-weight: 900;
+    /* color: white; */
 }
 .multiselect__option--group:before {
     content: "--- ";

@@ -262,10 +262,13 @@ span.multiselect__placeholder {
     padding: 5px;
 }
 .primary-card {
-    border: solid 3px var(--mdc-theme-primary);
+    border: solid 1px var(--mdc-theme-primary);
 }
 .loading {
     width: 15%;
+}
+.card-description {
+    color: #575757;
 }
 // sm: ... - 600
 // md: 960 - 1280

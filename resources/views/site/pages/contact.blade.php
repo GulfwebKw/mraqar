@@ -4,15 +4,15 @@
 @section('content')
 
 <main class="content-offset-to-top">
-    <div class="header-image-wrapper">
-        <div class="bg" style="background-image: url('{{ url('') }}/asset/images/others/contact.jpg');"></div>
-        <div class="mask"></div>
-        <div class="header-image-content offset-bottom">
-            <h1 class="title">{{__('contact_us_title')}}</h1>
-            <p class="desc">{{__('heretohelp_note')}}</p>
-        </div>
-    </div>
-    <div class="px-3">
+{{--    <div class="header-image-wrapper">--}}
+{{--        <div class="bg" style="background-image: url('{{ url('') }}/asset/images/others/contact.jpg');"></div>--}}
+{{--        <div class="mask"></div>--}}
+{{--        <div class="header-image-content offset-bottom">--}}
+{{--            <h1 class="title">{{__('contact_us_title')}}</h1>--}}
+{{--            <p class="desc">{{__('heretohelp_note')}}</p>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+    <div class="px-3 mt-7">
         <div class="theme-container">
             <div class="mdc-card main-content-header mb-5">
                 <div class="row around-xs">
