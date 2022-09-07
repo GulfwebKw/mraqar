@@ -429,13 +429,13 @@ span.multiselect__placeholder {
     height: 100%;
   }
   #logo_header {
-    width: 40vw;
+    width: 38vw;
   }
   .main-toolbar {
     height: 63px;
   }
   #logo_footer {
-    width: 40vw;
+    width: 37vw;
   }
   .sm\:p-1\.5 {
     padding: 0.35rem !important;
@@ -456,6 +456,7 @@ span.multiselect__placeholder {
     z-index: 99999;
     height: calc(86vh - 40px);
     max-height: none !important;
+    position: fixed;
   }
   #select_areas .multiselect__content-wrapper.areas_are_selected {
     height: calc(67vh - 40px);
@@ -477,7 +478,7 @@ span.multiselect__placeholder {
     height: 40px;
   }
   .select_in_header {
-    z-index: 999;
+    z-index: 99999;
   }
   .select_in_header .helper_placeholder {
     display: none !important;
@@ -489,8 +490,11 @@ span.multiselect__placeholder {
     max-height: none !important;
     top: 40px;
     left: 0;
-    z-index: 999;
+    z-index: 99999;
     background: white;
+  }
+  .sm\:justify-content-center {
+    justify-content: center;
   }
 }
 @media screen and (min-width: 600px) and (max-width: 960px) {

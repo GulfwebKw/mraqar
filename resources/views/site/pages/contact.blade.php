@@ -1,4 +1,4 @@
-@extends('site.layout.master', ['header' => 'transparent'])
+@extends('site.layout.master')
 @section('title' , __('contact_title'))
 
 @section('content')
@@ -16,17 +16,17 @@
         <div class="theme-container">
             <div class="mdc-card main-content-header mb-5">
                 <div class="row around-xs">
-                    <div class="col-xs-12 col-sm-3">
-                        <div class="column center-xs middle-xs text-center">
-                            <i class="material-icons mat-icon-lg primary-color">location_on</i>
-                            <h3 class="primary-color py-1">{{__('location_title')}} :</h3>
-                            @if (app()->getLocale()=='en')
-                                <span class="text-muted fw-500">{!! $address !!}</span>
-                            @else
-                                <span class="text-muted fw-500">{!! $address_ar !!}</span>
-                            @endif
-                        </div>
-                    </div>
+{{--                    <div class="col-xs-12 col-sm-3">--}}
+{{--                        <div class="column center-xs middle-xs text-center">--}}
+{{--                            <i class="material-icons mat-icon-lg primary-color">location_on</i>--}}
+{{--                            <h3 class="primary-color py-1">{{__('location_title')}} :</h3>--}}
+{{--                            @if (app()->getLocale()=='en')--}}
+{{--                                <span class="text-muted fw-500">{!! $address !!}</span>--}}
+{{--                            @else--}}
+{{--                                <span class="text-muted fw-500">{!! $address_ar !!}</span>--}}
+{{--                            @endif--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                     <div class="col-xs-12 col-sm-3">
                         <div class="column center-xs middle-xs text-center">
                             <i class="material-icons mat-icon-lg primary-color">call</i>
@@ -143,17 +143,17 @@
                         </div>
                     </form>
                 </div>
-                <div class="mt-5">
-                    <iframe
-                        width="100%"
-                        height="400"
-                        style="border:0"
-                        loading="lazy"
-                        allowfullscreen
-                        referrerpolicy="no-referrer-when-downgrade"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8269.381942820617!2d47.979978215795796!3d29.374774147096584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3fcf9c83ce455983%3A0xc3ebaef5af09b90e!2sKuwait%20City!5e0!3m2!1sen!2skw!4v1600156454756!5m2!1sen!2skw">
-                    </iframe>
-                </div>
+{{--                <div class="mt-5">--}}
+{{--                    <iframe--}}
+{{--                        width="100%"--}}
+{{--                        height="400"--}}
+{{--                        style="border:0"--}}
+{{--                        loading="lazy"--}}
+{{--                        allowfullscreen--}}
+{{--                        referrerpolicy="no-referrer-when-downgrade"--}}
+{{--                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8269.381942820617!2d47.979978215795796!3d29.374774147096584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3fcf9c83ce455983%3A0xc3ebaef5af09b90e!2sKuwait%20City!5e0!3m2!1sen!2skw!4v1600156454756!5m2!1sen!2skw">--}}
+{{--                    </iframe>--}}
+{{--                </div>--}}
             </div>
         </div>
     </div>
