@@ -40,6 +40,7 @@ new Vue({
             companyId: 0,
             isRequiredPage: 0,
             notFound: false,
+            newAds: false,
             count: null,
         }
     },
@@ -76,6 +77,22 @@ new Vue({
         nothingFound(response) {
             if (response.data.data.current_page === 1 && response.data.data.data.length === 0) {
                 this.notFound = true;
+
+                if (this.companyId)
+                    return
+
+                axios
+                    .post(window.url + `search-advertising?page=${this.page}`, {
+                        area_id : [],
+                        venue_type: [],
+                        purpose: 'all'
+                    })
+                    .then(response => {
+                        this.maxPage = response.data.data.last_page;
+                        this.cards.push(...response.data.data.data);
+                        this.newAds = true;
+                        this.isLoading = false;
+                    })
             }
         },
         reset(){
@@ -90,7 +107,6 @@ new Vue({
             this.page = 1
             this.maxPage = null
             this.getAds()
-
         }
     },
     mounted() {

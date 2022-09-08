@@ -383,7 +383,7 @@
     "sell": "للبيع",
     "exchange": "للبدل",
     "required_for_rent": "مطلوب للایجار",
-    "companies": "الشرکات",
+    "companies": "قائمة المكاتب",
     "TITLE": "عنوان",
     "CATEGORY": "الفئة",
     "ADVERTISE_TYPE": "نوع الإعلان",
@@ -459,5 +459,6 @@
     "dont_have_premium_package" : "ليس لديك أي باقات مميزة",
     "number_of_premium_ads" : "عدد الإعلانات المميزة",
     "number_of_normal_ads" : "عدد الإعلانات العادية",
-    "price" : "السعر"
+    "price" : "السعر",
+    "showing_new_ads" : "أحدث الإعلانات المرسلة:"
 }

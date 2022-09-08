@@ -252,5 +252,6 @@
     "and" : "and",
     "dont_have_premium_package" : "you don't have any premium packages",
     "number_of_premium_ads" : "Number of premium ads",
-    "number_of_normal_ads" : "Number of normal ads"
+    "number_of_normal_ads" : "Number of normal ads",
+    "showing_new_ads" : "latest posted ads:"
 }

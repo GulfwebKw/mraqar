@@ -30,12 +30,17 @@ $unSide = app()->getLocale() === 'en' ? 'l' : 'r';
                     @include('site.sections.search')
                 @endif
 
+                <div class="center-xs" id="pageEnd">
+                    <h3 v-if="notFound && newAds" class="alert alert-danger text-center mt-2"><strong>{{__('norecord')}}</strong></h3>
+                    <h3 v-if="notFound && newAds" class="alert text-center mt-2"><strong>{{__('showing_new_ads')}}</strong></h3>
+                </div>
+
                 @include('site.sections.card')
 
                 <div class="center-xs" id="pageEnd">
                     <img v-if="isLoading !== false" src="{{asset('images/main/loading.gif')}}" alt="loading" class="loading">
 {{--                    <h3 v-else-if="noMore" class="mt-2">{{__('no_more_ads')}}</h3>--}}
-                    <h3 v-else-if="notFound" class="alert alert-danger text-center mt-2"><strong>{{__('norecord')}}</strong></h3>
+                    <h3 v-else-if="notFound && !newAds" class="alert alert-danger text-center mt-2"><strong>{{__('norecord')}}</strong></h3>
                 </div>
 
             </div>

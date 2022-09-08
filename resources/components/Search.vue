@@ -209,7 +209,7 @@ export default {
 }
 
 .multiselect__option--group {
-    /* background: var(--mdc-theme-secondary); */
+    background: white;
     font-weight: 900;
     /* color: white; */
 }
