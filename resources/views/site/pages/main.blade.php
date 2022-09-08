@@ -30,7 +30,7 @@ $unSide = app()->getLocale() === 'en' ? 'l' : 'r';
                     @include('site.sections.search')
                 @endif
 
-                <div class="center-xs" id="pageEnd">
+                <div class="center-xs">
                     <h3 v-if="notFound && newAds" class="alert alert-danger text-center mt-2"><strong>{{__('norecord')}}</strong></h3>
                     <h3 v-if="notFound && newAds" class="alert text-center mt-2"><strong>{{__('showing_new_ads')}}</strong></h3>
                 </div>

@@ -71,28 +71,20 @@ new Vue({
         pageEnd() {
             if ( this.page < this.maxPage && ! this.isLoading ) {
                 this.page++;
+                if (this.newAds)
+                    this.nothingFound('')
+                else
                 this.getAds();
             }
         },
         nothingFound(response) {
-            if (response.data.data.current_page === 1 && response.data.data.data.length === 0) {
+            if (response === '' ||
+                (response.data.data.current_page === 1 && response.data.data.data.length === 0)
+            ) {
                 this.notFound = true;
 
-                if (this.companyId)
-                    return
-
-                axios
-                    .post(window.url + `search-advertising?page=${this.page}`, {
-                        area_id : [],
-                        venue_type: [],
-                        purpose: 'all'
-                    })
-                    .then(response => {
-                        this.maxPage = response.data.data.last_page;
-                        this.cards.push(...response.data.data.data);
-                        this.newAds = true;
-                        this.isLoading = false;
-                    })
+                if (! this.companyId)
+                    this.getLatestAds()
             }
         },
         reset(){
@@ -100,6 +92,22 @@ new Vue({
             this.cards = [];
             this.page = 1;
             this.maxPage = null;
+            this.newAds = false;
+        },
+        getLatestAds() {
+            this.isLoading = true ;
+            axios
+                .post(window.url + `search-advertising?page=${this.page}`, {
+                    area_id : [],
+                    venue_type: [],
+                    purpose: 'all'
+                })
+                .then(response => {
+                    this.maxPage = response.data.data.last_page;
+                    this.cards.push(...response.data.data.data);
+                    this.newAds = true;
+                    this.isLoading = false;
+                })
         }
     },
     watch: {

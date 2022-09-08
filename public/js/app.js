@@ -2770,29 +2770,13 @@ new vue__WEBPACK_IMPORTED_MODULE_4__["default"]({
     pageEnd: function pageEnd() {
       if (this.page < this.maxPage && !this.isLoading) {
         this.page++;
-        this.getAds();
+        if (this.newAds) this.nothingFound('');else this.getAds();
       }
     },
     nothingFound: function nothingFound(response) {
-      var _this2 = this;
-
-      if (response.data.data.current_page === 1 && response.data.data.data.length === 0) {
+      if (response === '' || response.data.data.current_page === 1 && response.data.data.data.length === 0) {
         this.notFound = true;
-        if (this.companyId) return;
-        axios__WEBPACK_IMPORTED_MODULE_2___default().post(window.url + "search-advertising?page=".concat(this.page), {
-          area_id: [],
-          venue_type: [],
-          purpose: 'all'
-        }).then(function (response) {
-          var _this2$cards;
-
-          _this2.maxPage = response.data.data.last_page;
-
-          (_this2$cards = _this2.cards).push.apply(_this2$cards, _toConsumableArray(response.data.data.data));
-
-          _this2.newAds = true;
-          _this2.isLoading = false;
-        });
+        if (!this.companyId) this.getLatestAds();
       }
     },
     reset: function reset() {
@@ -2800,6 +2784,26 @@ new vue__WEBPACK_IMPORTED_MODULE_4__["default"]({
       this.cards = [];
       this.page = 1;
       this.maxPage = null;
+      this.newAds = false;
+    },
+    getLatestAds: function getLatestAds() {
+      var _this2 = this;
+
+      this.isLoading = true;
+      axios__WEBPACK_IMPORTED_MODULE_2___default().post(window.url + "search-advertising?page=".concat(this.page), {
+        area_id: [],
+        venue_type: [],
+        purpose: 'all'
+      }).then(function (response) {
+        var _this2$cards;
+
+        _this2.maxPage = response.data.data.last_page;
+
+        (_this2$cards = _this2.cards).push.apply(_this2$cards, _toConsumableArray(response.data.data.data));
+
+        _this2.newAds = true;
+        _this2.isLoading = false;
+      });
     }
   },
   watch: {
