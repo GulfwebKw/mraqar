@@ -13,6 +13,7 @@ use App\User;
 use GuzzleHttp\Client;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -131,8 +132,9 @@ class RegisterController extends Controller
                 ]);
             }
             DB::commit();
-            event(new UserRegistered($user));
-            return $this->success(trans('main.register_success'));
+            // event(new UserRegistered($user));
+            Auth::loginUsingId($user->id);
+            return redirect()->route('Main.index', app()->getLocale())->with('controller-success', trans('main.register_success'));
 
         } catch (\Exception $exception) {
             DB::rollback();

@@ -52,7 +52,7 @@
                                     <input type="checkbox" name="resend" id="resend" value="1" style="display: none;">
                                 </div>
 
-                                <div class="col-xs-12 w-100 py-3 text-center" style="min-width: 450px;">
+                                <div class="col-xs-12 w-100 py-3 text-center" style="min-width: 35vw;">
                                     <button class="mdc-button mdc-button--raised" type="submit">
                                         <span class="mdc-button__ripple"></span>
                                         <span class="mdc-button__label">{{__('sign_up_title')}}</span>
