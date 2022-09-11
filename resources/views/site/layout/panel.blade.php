@@ -25,12 +25,14 @@
                                         <span class="mdc-list-item__text">{{__('my_ads_title')}}</span>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="{{ route('Main.paymentHistory',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "paymenthistory") background-color: var(--mdc-theme-primary); color: white; @endif">
-                                        <i class="mdc-list-item__graphic material-icons text-muted mx-3">compare_arrows</i>
-                                        <span class="mdc-list-item__text">{{__('package_history_title')}}</span>
-                                    </a>
-                                </li>
+                                @if(env('PACKAGE_HISTORY', false))
+                                    <li>
+                                        <a href="{{ route('Main.paymentHistory',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "paymenthistory") background-color: var(--mdc-theme-primary); color: white; @endif">
+                                            <i class="mdc-list-item__graphic material-icons text-muted mx-3">compare_arrows</i>
+                                            <span class="mdc-list-item__text">{{__('package_history_title')}}</span>
+                                        </a>
+                                    </li>
+                                @endif
                                 <li>
                                     <a href="{{ route('Main.profile',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "profile") background-color: var(--mdc-theme-primary); color: white; @endif">
                                         <i class="mdc-list-item__graphic material-icons text-muted mx-3">edit</i>
@@ -59,10 +61,10 @@
                     </aside>
                     <div class="mdc-drawer-scrim page-sidenav-scrim"></div>
                     <div class="page-sidenav-content">
-                        <div class="row mdc-card between-xs middle-xs w-100 p-2 mdc-elevation--z1 text-muted d-md-none d-lg-none d-xl-none mb-3">
-                            <button id="page-sidenav-toggle" class="mdc-icon-button material-icons">more_vert</button>
-                            <h3 class="fw-500">{{ __('my_account_title') }}</h3>
-                        </div>
+{{--                        <div class="row mdc-card between-xs middle-xs w-100 p-2 mdc-elevation--z1 text-muted d-md-none d-lg-none d-xl-none mb-3">--}}
+{{--                            <button id="page-sidenav-toggle" class="mdc-icon-button material-icons">more_vert</button>--}}
+{{--                            <h3 class="fw-500">{{ __('my_account_title') }}</h3>--}}
+{{--                        </div>--}}
                         <div class="mdc-card p-3">
                             @yield('panel-content')
                         </div>

@@ -72,10 +72,12 @@
                             <span class="mdc-button__label">العربیه</span>
                         </span>
                     @else
-                        <span onclick="changeLng('en')" class="mdc-button">
-                            <span class="mdc-button__ripple"></span>
-                            <span class="mdc-button__label">English</span>
-                        </span>
+                        @if(env('ENGLISH_BUTTON', false))
+                            <span onclick="changeLng('en')" class="mdc-button">
+                                <span class="mdc-button__ripple"></span>
+                                <span class="mdc-button__label">English</span>
+                            </span>
+                        @endif
                     @endif
                 </div>
             </div>
@@ -139,12 +141,14 @@
                                         <span class="mdc-list-item__text px-3">{{__('my_ads_title')}}</span>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="{{ route('Main.paymentHistory',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "paymenthistory") background-color: var(--mdc-theme-primary); color: white; @endif">
-                                        <i class="material-icons mat-icon-sm text-muted">compare_arrows</i>
-                                        <span class="mdc-list-item__text px-3">{{__('package_history_title')}}</span>
-                                    </a>
-                                </li>
+                                @if(env('PACKAGE_HISTORY', false))
+                                    <li>
+                                        <a href="{{ route('Main.paymentHistory',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "paymenthistory") background-color: var(--mdc-theme-primary); color: white; @endif">
+                                            <i class="material-icons mat-icon-sm text-muted">compare_arrows</i>
+                                            <span class="mdc-list-item__text px-3">{{__('package_history_title')}}</span>
+                                        </a>
+                                    </li>
+                                @endif
                                 <li>
                                     <a href="{{ route('Main.profile',app()->getLocale()) }}" class="mdc-list-item" role="menuitem" style="@if(collect(request()->segments())->last() == "profile") background-color: var(--mdc-theme-primary); color: white; @endif">
                                         <i class="material-icons mat-icon-sm text-muted">edit</i>
@@ -233,10 +237,12 @@
                                 <span class="mdc-button__label">العربیه</span>
                             </span>
                         @else
-                            <span onclick="changeLng('en')" class="mdc-button">
-                                <span class="mdc-button__ripple"></span>
-                                <span class="mdc-button__label">English</span>
-                            </span>
+                            @if(env('ENGLISH_BUTTON', false))
+                                <span onclick="changeLng('en')" class="mdc-button">
+                                    <span class="mdc-button__ripple"></span>
+                                    <span class="mdc-button__label">English</span>
+                                </span>
+                            @endif
                         @endif
                     </div>
                 </div>
