@@ -31,6 +31,11 @@ $edge = app()->getLocale() == 'en' ? 'left' : 'right';
             <strong>{{__('un_success_title')}}!</strong> {{__('dont_have_premium_package')}} !
         </div>
     @endif
+    @if((session('status')) == 'package_bought')
+        <div class="alert alert-success">
+            <strong>{{ __('success_title') }}!</strong> {{ __('packageSuccess') }} !
+        </div>
+    @endif
 
     <div class="mdc-data-table border-0 w-100 mt-3">
         <table class="mdc-data-table__table sm:compress" aria-label="Dessert calories">

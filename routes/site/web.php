@@ -53,7 +53,7 @@ Route::group(['middleware'=>['auth']],function (){
     Route::get('/changepassword', 'MainController@changePassword')->name('Main.changePassword');
     Route::post('/changepassword', 'UserController@changePassword')->name('User.changePassword');
     Route::get('/wishlist', 'MainController@wishList')->name('Main.wishList');
-    Route::get('/paymenthistory', 'MainController@paymentHistory')->name('Main.paymentHistory');
+    // Route::get('/paymenthistory', 'MainController@paymentHistory')->name('Main.paymentHistory');
 	Route::get('/paymentdetails/{paymentid}', 'MainController@paymentDetails')->name('Main.paymentDetails');
     Route::get('/myads', 'MainController@myAds')->name('Main.myAds');
     Route::delete('/ad/delete/{advertising}', 'AdvertisingController@delete')->name('Advertising.delete');

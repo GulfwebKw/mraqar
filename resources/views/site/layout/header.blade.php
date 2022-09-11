@@ -114,7 +114,7 @@
                                 <li class="user-info row start-xs middle-xs">
                                     <img src="{{ is_file(public_path(auth()->user()->image_profile)) ? asset(auth()->user()->image_profile) : asset('asset/assets/images/others/user.jpg') }}" alt="user-image" width="50">
                                     <p class="m-0">@if(auth()->user()->name){{ auth()->user()->name }}@else<a href="{{ route('Main.profile',app()->getLocale()) }}">{{ __('update_name') }}</a>@endif<br>
-                                        <a href="{{url(app()->getLocale().'/paymenthistory')}}" class="text_blue" style="color:#088dd3;text-decoration:none;">
+{{--                                        <a href="{{url(app()->getLocale().'/paymenthistory')}}" class="text_blue" style="color:#088dd3;text-decoration:none;">--}}
                                             @if($balance == 0) 0 {{__('ads_title')}}
                                             @else
                                                     <span class="">
@@ -124,7 +124,7 @@
                                                         {{ $balance['available_premium'] }} {{__('premium_short')}}
                                                     </span>
                                             @endif
-                                        </a>
+{{--                                        </a>--}}
                                     </p>
 
                                 </li>

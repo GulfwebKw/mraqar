@@ -115,6 +115,8 @@ class AdvertisingController extends Controller
         $credit = $this->getCreditUser(auth()->id());
         if ($credit === [])
             $credit = ['count_premium_advertising' => 0, 'count_normal_advertising' => 0];
+        if ($credit['count_premium_advertising'] === 0 && $credit['count_normal_advertising'] === 0)
+            return redirect()->route('Main.buyPackage', app()->getLocale())->with(['status' => 'have_no_package']);
 
         return view('site.advertising.create', compact('cities', 'types', 'purposes', 'credit'));
     }

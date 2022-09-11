@@ -353,7 +353,8 @@ if ($ignoreGift){
                 $user->save() ;
                 $res->save();
 
-                return redirect(app()->getLocale().'/paymenthistory#result')->with(['status' => 'package_bought']);
+                return redirect()->route('Main.myAds', app()->getLocale())->with(['status' => 'package_bought']);
+                // return redirect(app()->getLocale().'/paymenthistory#result')->with(['status' => 'package_bought']);
                 //return redirect('/paymenthistory#result',app()->getLocale())->with(['status' => 'package_bought']);
 
             }

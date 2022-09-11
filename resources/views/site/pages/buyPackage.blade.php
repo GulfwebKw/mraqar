@@ -26,6 +26,10 @@
     <div class="alert alert-danger">
         <strong>{{__('un_success_title')}}!</strong> {{__('un_success_alert_title')}}!
     </div>
+@elseif((session('status')) == 'have_no_package')
+    <div class="alert alert-success">
+        <strong>{{ __('success_title') }}!</strong> {{ __('have_no_package') }} !
+    </div>
 @endif
 <style>
     :root{
