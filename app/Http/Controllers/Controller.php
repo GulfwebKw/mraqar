@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
+
+// use Intervention\Image\ImageManager;
 
 class Controller extends BaseController
 {
@@ -180,17 +183,33 @@ class Controller extends BaseController
             return $listBalance->count_show_day;
         }
     }
-    public function saveImage($image)
+    public function saveImage($image, $watermark = false)
     {
         $mainImageFile = $image;
         $fileName = $mainImageFile->getClientOriginalName();
         $storeName = uniqid(time()).$fileName;
-        $path ='/resources/uploads/images/'.$storeName;
+        $path ='/resources/uploads/images/originals'.$storeName;
 //        $mainImageFile->store('/resources/uploads/images/',config('filesystems.public'));
 //        Storage::put(('public/resources/uploads/images/'),$mainImageFile  );
-        $mainImageFile->move(public_path('resources/uploads/images/'), $storeName);
+
+        $mainImageFile->move(public_path($path), $storeName);
+
+        if ($watermark)
+            $this->watermark($mainImageFile);
+        else
+            $mainImageFile->move(public_path('resources/uploads/images/'), $storeName);
+
         return $path;
     }
+
+    public function watermark($image, $to = 'resources/uploads/images/')
+    {
+        $img = Image::make($image);
+        $watermark = Image::make(public_path('/images/main/watermark.png'));
+        $img->insert($watermark, 'bottom-right', 10, 10);
+        return $img->save(public_path($to . basename($image)));
+    }
+
     public function saveVideo($video)
     {
         $extension = $video->getClientOriginalExtension();

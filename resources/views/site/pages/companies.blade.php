@@ -47,9 +47,9 @@ $side = app()->getLocale() === 'en' ? 'r' : 'l';
                 </div>
             </div>
         </div>
-        <div class="row">
-            <a href="{{ '/'.app()->getLocale().'/contact' }}" class="fw-500 text-muted mx-auto">{{__('call_for_assist')}}</a>
-        </div>
+{{--        <div class="row">--}}
+{{--            <a href="{{ '/'.app()->getLocale().'/contact' }}" class="fw-500 text-muted mx-auto">{{__('call_for_assist')}}</a>--}}
+{{--        </div>--}}
             @endauth
         <div class="row">
             <h1 class="fw-600 mx-auto py-3">{{__('companies_list')}}</h1>

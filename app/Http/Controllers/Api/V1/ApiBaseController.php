@@ -104,7 +104,7 @@ class ApiBaseController extends Controller
        }
        return false;
     }
-    public function saveImage($image)
+    public function saveImage($image, $watermark = false)
     {
         $mainImageFile = $image;
         $fileName = $mainImageFile->getClientOriginalName();

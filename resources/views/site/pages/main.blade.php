@@ -57,7 +57,7 @@ $unSide = app()->getLocale() === 'en' ? 'l' : 'r';
             top: 1.27rem;
             border-top: 5px solid transparent;
             border-bottom: 5px solid transparent;
-            border-left: 5px solid var(--badge);
+            border-{{app()->getLocale() === 'en' ? 'right' : 'left' }}: 5px solid var(--badge);
             font-size: .875rem;
         }
         .image-box::after {

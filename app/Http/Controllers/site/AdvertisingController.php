@@ -364,12 +364,13 @@ class AdvertisingController extends Controller
         $advertising->security = $request->security;
         $advertising->location_lat = $request->location_lat;
         $advertising->location_long = $request->location_long;
-        $advertising->hash_number = Advertising::makeHashNumber();
+        if (! in_array($request->method(), ['PUT', 'PATCH']))
+            $advertising->hash_number = Advertising::makeHashNumber();
         $advertising->floor_plan = "";
         $advertising->main_image = "" ;
         $advertising->other_image = "" ;
         if ($request->hasFile('main_image')) {
-            $advertising->main_image = $this->saveImage($request->main_image);
+            $advertising->main_image = $this->saveImage($request->main_image, true);
         } else  {
             //dd($request);
             $advertising->main_image = $request->main_image;
@@ -389,7 +390,7 @@ class AdvertisingController extends Controller
         if (is_array($request["other_image"] ) and count($request["other_image"])  > 0 ) {
             foreach ( $request["other_image"] as $i => $file){
                 if ($request->hasFile("other_image.".  $i)) {
-                    $path = $this->saveImage($request->file("other_image." . $i));
+                    $path = $this->saveImage($request->file("other_image." . $i), true);
                 } elseif (is_string($file)) {
                     $path = $file;
                 } else {
@@ -400,7 +401,8 @@ class AdvertisingController extends Controller
         }
         if ($request->other_images_link) {
             foreach ($request->other_images_link as $i => $link) {
-                rename(public_path('/resources/tempUploads/' . $link), public_path('resources/uploads/images/' . $link));
+                rename(public_path('/resources/tempUploads/' . $link), public_path('resources/uploads/images/originals/' . $link));
+                $this->watermark(public_path('resources/uploads/images/originals/' . $link));
                 if ($i == 0 and ! ( $request->hasFile('main_image') or $request->exists('main_image') ) )
                     $advertising->main_image = '/resources/uploads/images/' . $link;
                 else
