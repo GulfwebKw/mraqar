@@ -335,6 +335,11 @@ span.multiselect__placeholder {
   color: #575757;
 }
 
+.center-xs-important {
+  justify-content: center !important;
+  text-align: center !important;
+}
+
 @media screen and (min-width: 600px) {
   .sm\:mr-2 {
     margin-right: 0.5rem !important;
@@ -522,6 +527,24 @@ span.multiselect__placeholder {
   }
   .ad-details-description .description-box-icons {
     display: none;
+  }
+  .my-ads-image {
+    aspect-ratio: 1/1;
+    width: 16vw !important;
+  }
+  .sm\:px-2 {
+    padding-right: 0.5rem !important;
+    padding-left: 0.5rem !important;
+  }
+  .sm\:px-3 {
+    padding-right: 0.75rem !important;
+    padding-left: 0.75rem !important;
+  }
+  .mdc-data-table__table.sm\:compress {
+    white-space: normal;
+  }
+  .display-table-control {
+    display: none !important;
   }
 }
 @media screen and (min-width: 600px) and (max-width: 960px) {

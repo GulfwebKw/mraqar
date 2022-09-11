@@ -1,5 +1,10 @@
 @extends('site.layout.panel')
 @section('title' , __('my_ads_title'))
+
+@php
+$edge = app()->getLocale() == 'en' ? 'left' : 'right';
+@endphp
+
 @section('panel-content')
     @if((session('status')) == 'success')
         <div class="alert alert-success">
@@ -28,37 +33,64 @@
     @endif
 
     <div class="mdc-data-table border-0 w-100 mt-3">
-        <table class="mdc-data-table__table" aria-label="Dessert calories">
+        <table class="mdc-data-table__table sm:compress" aria-label="Dessert calories">
             <thead>
                 <tr class="mdc-data-table__header-row">
-                    <th class="mdc-data-table__header-cell">{{ __('image') }}</th>
-                    <th class="mdc-data-table__header-cell">{{__('ADVERTISE_TYPE')}}</th>
-                    <th class="mdc-data-table__header-cell">{{ __('location_title') }}</th>
-                    <th class="mdc-data-table__header-cell">{{ __('action_title') }}</th>
-                    <th class="mdc-data-table__header-cell">{{ __('auto_extend_title') }}</th>
+                    <th class="mdc-data-table__header-cell uppercase sm:px-2 center-xs-important" style="padding-{{$edge}}: 0 !important;">{{ __('image') }}</th>
+                    <th class="mdc-data-table__header-cell uppercase sm:px-2 center-xs-important">{{__('ADVERTISE_TYPE')}}</th>
+                    <th class="mdc-data-table__header-cell uppercase sm:px-2 center-xs-important">{{ __('location_title') }}</th>
+                    <th class="mdc-data-table__header-cell uppercase sm:px-2 center-xs-important display-table-control">{{ __('action_title') }}</th>
+                    <th class="mdc-data-table__header-cell uppercase sm:px-2 center-xs-important">{{ __('auto_extend_title') }}</th>
                 </tr>
             </thead>
             <tbody class="mdc-data-table__content">
 
                 @foreach($ads as $ad)
                     <tr class="mdc-data-table__row">
-                        <td class="mdc-data-table__cell">
+                        <td class="mdc-data-table__cell sm:px-2 center-xs-important" style="padding-{{$edge}}: 0 !important;">
                             <a href="{{route('site.ad.detail', [app()->getLocale(), $ad->hash_number])}}">
                                 <img src="{{ $ad->main_image ? asset($ad->main_image) : route('image.noimage', '')  }}"
-                                     width="100" class="d-block py-3">
+                                     width="100" class="d-block py-3 my-ads-image">
                             </a>
                         </td>
-                        <td class="mdc-data-table__cell">
+                        <td class="mdc-data-table__cell sm:px-2 center-xs-important">
                             @if($ad->advertising_type == "premium")
                                 {{__('premium_title')}}
                             @elseif($ad->advertising_type == "normal")
                                 {{__('normal_title')}}
                             @endif
                         </td>
-                        <td class="mdc-data-table__cell">
+                        <td class="mdc-data-table__cell sm:px-2 center-xs-important text-xs text-truncate">
                             {{ app()->getLocale()==='en'?$ad->city->name_en . " - " . $ad->area->name_en:$ad->city->name_ar . " - " . $ad->area->name_ar }}
+
+                            <div class="d-sm-none d-md-none d-lg-none d-xl-none">
+                                <form id="delete-form-{{$ad->id}}" class="d-inline-block" method="post"
+                                      action="{{ route('site.advertising.destroy',app()->getLocale()) }}">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{ $ad->id }}">
+
+                                    @if(! $ad->expire_at)
+                                        <a href="{{ route('site.advertising.edit',[app()->getLocale(),$ad->hash_number]) }}"
+                                           class="mdc-icon-button material-icons primary-color sm:px-2">edit</a>
+                                    @endif
+
+                                    <button type="button" id="delete-btn" onclick="showModal({{ $ad->id }})"
+                                            class="mdc-icon-button material-icons warn-color sm:px-2">delete
+                                    </button>
+                                </form>
+                                @if ($ad->advertising_type == 'normal')
+                                    <form action="{{ route('site.advertising.upgrade_premium',app()->getLocale()) }}"
+                                          method="post" id="upgrade{{$ad->id}}" class="d-none">
+                                        @csrf
+                                        <input type="hidden" name="advertise_id" value="{{$ad->id}}">
+                                    </form>
+                                    <a type="button" id="delete-btn"
+                                       class="mdc-icon-button material-icons d-inline-block" style="color: #c7a014;"
+                                       onclick="showUpgradeModal('{{$ad->id}}')">workspace_premium</a>
+                                @endif
+                            </div>
                         </td>
-                        <td class="mdc-data-table__cell">
+                        <td class="mdc-data-table__cell sm:px-2 center-xs-important display-table-control">
                             <form id="delete-form-{{$ad->id}}" class="d-inline-block" method="post"
                                   action="{{ route('site.advertising.destroy',app()->getLocale()) }}">
                                 @csrf
@@ -66,11 +98,11 @@
 
                                 @if(! $ad->expire_at)
                                     <a href="{{ route('site.advertising.edit',[app()->getLocale(),$ad->hash_number]) }}"
-                                       class="mdc-icon-button material-icons primary-color">edit</a>
+                                       class="mdc-icon-button material-icons primary-color sm:px-2">edit</a>
                                 @endif
 
                                 <button type="button" id="delete-btn" onclick="showModal({{ $ad->id }})"
-                                        class="mdc-icon-button material-icons warn-color">delete
+                                        class="mdc-icon-button material-icons warn-color sm:px-2">delete
                                 </button>
                             </form>
                             @if ($ad->advertising_type == 'normal')
@@ -85,8 +117,8 @@
                             @endif
                         </td>
                         @if(! $ad->expire_at)
-                        <td>
-                            <div class="col-xs-12 py-3 row middle-xs">
+                        <td class="sm:px-2 center-xs-important">
+                            <div class="col-xs-12 py-3 row middle-xs justify-content-center">
                                 <div class="mdc-switch">
                                     <div class="mdc-switch__track"></div>
                                     <div class="mdc-switch__thumb-underlay">

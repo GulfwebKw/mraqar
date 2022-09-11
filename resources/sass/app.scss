@@ -270,6 +270,10 @@ span.multiselect__placeholder {
 .card-description {
     color: #575757;
 }
+.center-xs-important {
+    justify-content: center !important;
+    text-align: center !important;
+}
 // sm: ... - 600
 // md: 960 - 1280
 // lg: 1280 - 1919
@@ -476,6 +480,24 @@ span.multiselect__placeholder {
     }
     .ad-details-description .description-box-icons {
         display: none;
+    }
+    .my-ads-image {
+        aspect-ratio: 1/1;
+        width: 16vw !important;
+    }
+    .sm\:px-2{
+        padding-right: .5rem !important;
+        padding-left: .5rem !important;
+    }
+    .sm\:px-3{
+        padding-right: .75rem !important;
+        padding-left: .75rem !important;
+    }
+    .mdc-data-table__table.sm\:compress {
+        white-space: normal;
+    }
+    .display-table-control {
+        display: none !important;
     }
 }
 @media screen and (min-width: 600px) and (max-width: 960px) {

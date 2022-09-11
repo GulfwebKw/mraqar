@@ -65,7 +65,7 @@
 {{--                            <button id="page-sidenav-toggle" class="mdc-icon-button material-icons">more_vert</button>--}}
 {{--                            <h3 class="fw-500">{{ __('my_account_title') }}</h3>--}}
 {{--                        </div>--}}
-                        <div class="mdc-card p-3">
+                        <div class="mdc-card p-3 sm:px-2">
                             @yield('panel-content')
                         </div>
                         @hasSection('pagination')
