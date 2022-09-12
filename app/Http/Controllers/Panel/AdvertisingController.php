@@ -187,6 +187,7 @@ class AdvertisingController extends Controller
 
     public function update(Request $request)
     {
+        // dd($request->all());
 // dd($request->request);
         // Validator::make($request->all(), [
         //     'title_en' => ['required'],
@@ -194,7 +195,7 @@ class AdvertisingController extends Controller
         $advertising=Advertising::find($request->id);
         if(isset($advertising)){
             $this->updateAdvertising($request, $advertising);
-            return redirect()->route('advertising.index')->with("success",true);
+            return redirect()->back()->with("success",true);
         }
 
 
@@ -302,6 +303,14 @@ class AdvertisingController extends Controller
         } elseif(isset($new_other_images)) {
             $advertising->other_image = json_encode(['other_image' => $new_other_images]);
         }
+
+        // delete main image if $request->delete_main
+        if ($request->delete_main == 1) {
+            $other_images = json_decode($advertising->other_image, true)['other_image'];
+            $advertising->main_image = array_shift($other_images); // pop the first other_image to main_image
+            $advertising->other_image = json_encode(['other_image' => $other_images]);
+        }
+
         $advertising->save();
     }
 

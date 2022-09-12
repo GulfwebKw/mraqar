@@ -404,7 +404,7 @@
 
         }
         function clearImage(type) {
-            var url = "/images/noimage.png";
+            var url = "{{route('image.noimage', '')}}";
             $("#" + type + "_image_path").attr('src', url);
 
         }

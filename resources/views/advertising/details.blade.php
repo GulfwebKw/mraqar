@@ -33,7 +33,7 @@
 
                 </div>
             </div>
-            <form method="post" action="{{route('advertising.update')}}">
+            <form method="post" action="{{route('advertising.update')}}" id="advertising-edit-form">
                 <div class="card-body">
 
 
@@ -417,9 +417,14 @@
 
         }
         function clearImage(type) {
-            var url = "/images/noimage.png";
+            var url = "{{route('image.noimage', '')}}";
             $("#" + type + "_image_path").attr('src', url);
 
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'delete_main',
+                value: 1,
+            }).appendTo('form#advertising-edit-form')
         }
         function clearVideo(){
             $("#video").val("");
