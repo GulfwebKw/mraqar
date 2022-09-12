@@ -51,9 +51,9 @@
                                             <label for="normal">
                                                 {{__('normal_title')}}
                                                 @if($credit['count_normal_advertising'] > 0)
-                                                    <span class="text-success m{{$unSide}}-5">{{$credit['count_normal_advertising']}} ad remaining</span>
+                                                    <span class="text-success m{{$unSide}}-5">{{$credit['count_normal_advertising']}} {{__('remaining_title')}}</span>
                                                 @else
-                                                    <span class="text-danger m{{$unSide}}-5">{{$credit['count_normal_advertising']}} ad remaining</span>
+                                                    <span class="text-danger m{{$unSide}}-5">{{$credit['count_normal_advertising']}} {{__('remaining_title')}}</span>
                                                 @endif
                                             </label>
                                         </div>
@@ -69,9 +69,9 @@
                                             </div>
                                             <label for="premium">{{__('premium_title')}}</label>
                                             @if($credit['count_premium_advertising'] > 0)
-                                                <span class="text-success m{{$unSide}}-5">{{$credit['count_premium_advertising']}} ad remaining</span>
+                                                <span class="text-success m{{$unSide}}-5">{{$credit['count_premium_advertising']}} {{__('remaining_title')}}</span>
                                             @else
-                                                <span class="text-danger m{{$unSide}}-5">{{$credit['count_premium_advertising']}} ad remaining</span>
+                                                <span class="text-danger m{{$unSide}}-5">{{$credit['count_premium_advertising']}} {{__('remaining_title')}}</span>
                                             @endif
                                         </div>
                                         <br>
@@ -81,6 +81,9 @@
                                             </span>
                                         @enderror
                                     </div>
+                                    <a href="{{ route('Main.buyPackage',app()->getLocale()) }}" class="w-100 px-2 mb-3 primary-color links">
+                                        {{__('buy_package_title')}}
+                                    </a>
 
 
                                     <div class="col-xs-12 col-sm-6 p-2">

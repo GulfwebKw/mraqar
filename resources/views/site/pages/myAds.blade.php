@@ -42,7 +42,7 @@ $edge = app()->getLocale() == 'en' ? 'left' : 'right';
             <thead>
                 <tr class="mdc-data-table__header-row">
                     <th class="mdc-data-table__header-cell uppercase sm:px-2 center-xs-important" style="padding-{{$edge}}: 0 !important;">{{ __('image') }}</th>
-                    <th class="mdc-data-table__header-cell uppercase sm:px-2 center-xs-important">{{__('ADVERTISE_TYPE')}}</th>
+                    <th class="mdc-data-table__header-cell uppercase sm:px-2 center-xs-important d-none-mobile">{{__('ADVERTISE_TYPE')}}</th>
                     <th class="mdc-data-table__header-cell uppercase sm:px-2 center-xs-important">{{ __('location_title') }}</th>
                     <th class="mdc-data-table__header-cell uppercase sm:px-2 center-xs-important display-table-control">{{ __('action_title') }}</th>
                     <th class="mdc-data-table__header-cell uppercase sm:px-2 center-xs-important">{{ __('auto_extend_title') }}</th>
@@ -50,15 +50,32 @@ $edge = app()->getLocale() == 'en' ? 'left' : 'right';
             </thead>
             <tbody class="mdc-data-table__content">
 
+                <style>
+                    @media screen and (max-width: 600px) {
+                        .image-box::after {
+                            content: "{{__('premium_short')}}";
+                            position: absolute;
+                            @if(app()->getLocale() === 'en')  left @else  right @endif : 0;
+                            top: 0;
+                            background: var(--badge);
+                            border-radius: 2px 2px 0 2px;
+                            padding: .09rem .6rem;
+                            color: #fff;
+                            font-size: .8rem;
+                        }
+                    }
+                </style>
                 @foreach($ads as $ad)
                     <tr class="mdc-data-table__row">
                         <td class="mdc-data-table__cell sm:px-2 center-xs-important" style="padding-{{$edge}}: 0 !important;">
                             <a href="{{route('site.ad.detail', [app()->getLocale(), $ad->hash_number])}}">
-                                <img src="{{ $ad->main_image ? asset($ad->main_image) : route('image.noimage', '')  }}"
-                                     width="100" class="d-block py-3 my-ads-image">
+                                <div class="{{ $ad->advertising_type == "normal" ?: 'image-box' }}" style="position: relative">
+                                    <img src="{{ $ad->main_image ? asset($ad->main_image) : route('image.noimage', '')  }}"
+                                        width="100" class="d-block my-ads-image">
+                                </div>
                             </a>
                         </td>
-                        <td class="mdc-data-table__cell sm:px-2 center-xs-important">
+                        <td class="mdc-data-table__cell sm:px-2 center-xs-important d-none-mobile">
                             @if($ad->advertising_type == "premium")
                                 {{__('premium_title')}}
                             @elseif($ad->advertising_type == "normal")
@@ -121,8 +138,8 @@ $edge = app()->getLocale() == 'en' ? 'left' : 'right';
                                    onclick="showUpgradeModal('{{$ad->id}}')">workspace_premium</a>
                             @endif
                         </td>
-                        @if(! $ad->expire_at)
                         <td class="sm:px-2 center-xs-important">
+                            @if(! $ad->expire_at)
                             <div class="col-xs-12 py-3 row middle-xs justify-content-center">
                                 <div class="mdc-switch">
                                     <div class="mdc-switch__track"></div>
@@ -160,8 +177,8 @@ $edge = app()->getLocale() == 'en' ? 'left' : 'right';
                                     }
                                 })
                             </script>
+                            @endif
                         </td>
-                        @endif
                     </tr>
                 @endforeach
             </tbody>

@@ -546,6 +546,14 @@ span.multiselect__placeholder {
   .display-table-control {
     display: none !important;
   }
+  .d-none-mobile {
+    display: none;
+  }
+  .modal-content {
+    box-sizing: border-box;
+    width: 100% !important;
+    margin-top: 33vh !important;
+  }
 }
 @media screen and (min-width: 600px) and (max-width: 960px) {
   #logo_footer {
