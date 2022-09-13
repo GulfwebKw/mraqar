@@ -58,7 +58,7 @@
 
 {{--                    <li><a href="{{route('amenties')}}">{{__('Amenties')}}</a></li>--}}
                     <li><a href="{{route('venueType')}}">{{__('Venue Type')}}</a></li>
-                    <li><a href="{{route('settings.invalidKeywords')}}">{{__('Invalid Keywords')}}</a></li>
+{{--                    <li><a href="{{route('settings.invalidKeywords')}}">{{__('Invalid Keywords')}}</a></li>--}}
 {{--                    <li><a href="">{{__('Translation')}}</a></li>--}}
                     <li><a href="{{route("settings.index")}}">{{__('Settings')}}</a></li>
                 </ul>

@@ -88,6 +88,7 @@
                                         return true;
                                     }
                                 }
+                                $message = urlencode("السلام عليكم\nاذا ممكن ترسل تفاصيل هذا الإعلان في مستر عقار وشكرا\n" ). url()->current();
                             @endphp
                             <div class="ad-description w-100 fw-600 mt-1"
                                  dir="{{$advertising->description && ! empty($advertising->description) ? (is_arabic($advertising->description) ? 'rtl' : 'ltr') : ''}}">
@@ -108,7 +109,7 @@
                                     <i class="material-icons mdc-button__icon d-mobile-none">phone</i>
                                     <span class="mdc-button__label">{{$advertising->phone_number}}</span>
                                 </a>
-                                <a href="https://api.whatsapp.com/send?phone={{str_replace('+', '', $tel)}}"
+                                <a href="https://api.whatsapp.com/send?phone={{str_replace('+', '', $tel)}}&text={{$message}}"
                                    class="col-xs-2 p{{$side}}-0">
                                     <img src="{{asset('images/main/whatsapp.webp')}}"
                                          class="mw-100 d-flex sm-small-button" alt="whatsapp call">
@@ -218,8 +219,7 @@
 
                         <div class="mdc-card p-3 mt-3 ad-description-box w-100 ad-details-description" style="overflow: hidden;">
                             <h3 class="uppercase fw-600 mb-2 d-inline-block">{{__('Description')}}</h3>
-                            <div
-                                class="flex-container mb-2 sm-justify-evenly md-float-{{$side == 'r' ? 'right' : 'left'}} description-box-icons">
+                            <div class="flex-container mb-2 sm-justify-evenly md-float-{{$side == 'r' ? 'right' : 'left'}} description-box-icons">
                                 <span class="flex flex-container m{{$side}}-5">
                                     <i class="material-icons mat-icon-sm text-muted m{{$side}}-1 mb-1 text-gray">calendar_month</i>
                                     <span class="text-sm text-gray">{{$advertising->created_at}}</span>
@@ -234,35 +234,6 @@
                                     <span class="text-sm text-gray">{{$advertising->view_count}}</span>
                                 </span>
                             </div>
-{{--                            @php--}}
-{{--                                function uniord($u) {--}}
-{{--                                    $k = mb_convert_encoding($u, 'UCS-2LE', 'UTF-8');--}}
-{{--                                    $k1 = ord(substr($k, 0, 1));--}}
-{{--                                    $k2 = ord(substr($k, 1, 1));--}}
-{{--                                    return $k2 * 256 + $k1;--}}
-{{--                                }--}}
-{{--                                function is_arabic($str) {--}}
-{{--                                    if(mb_detect_encoding($str) !== 'UTF-8') {--}}
-{{--                                        $str = mb_convert_encoding($str,mb_detect_encoding($str),'UTF-8');--}}
-{{--                                    }--}}
-{{--                                    preg_match_all('/.|\n/u', $str, $matches);--}}
-{{--                                    $chars = $matches[0];--}}
-{{--                                    $arabic_count = 0;--}}
-{{--                                    $latin_count = 0;--}}
-{{--                                    $total_count = 0;--}}
-{{--                                    foreach($chars as $char) {--}}
-{{--                                        $pos = uniord($char);--}}
-{{--                                        if($pos >= 1536 && $pos <= 1791)--}}
-{{--                                            $arabic_count++;--}}
-{{--                                        else if($pos > 123 && $pos < 123)--}}
-{{--                                            $latin_count++;--}}
-{{--                                        $total_count++;--}}
-{{--                                    }--}}
-{{--                                    if(($arabic_count/$total_count) > 0.6) {--}}
-{{--                                        return true;--}}
-{{--                                    }--}}
-{{--                                }--}}
-{{--                            @endphp--}}
                             <div class="ad-description w-100 fw-600 mt-1"
                                  dir="{{$advertising->description && ! empty($advertising->description) ? (is_arabic($advertising->description) ? 'rtl' : 'ltr') : ''}}">
                                 {!! nl2br(e($advertising->description))!!}
@@ -280,7 +251,7 @@
                                     <i class="material-icons mdc-button__icon d-mobile-none">phone</i>
                                     <span class="mdc-button__label">{{$advertising->phone_number}}</span>
                                 </a>
-                                <a href="https://api.whatsapp.com/send?phone={{str_replace('+', '', $tel)}}"
+                                <a href="https://api.whatsapp.com/send?phone={{str_replace('+', '', $tel)}}&text={{$message}}"
                                    class="col-xs-2 p{{$side}}-0">
                                     <img src="{{asset('images/main/whatsapp.webp')}}"
                                          class="mw-100 d-flex sm-small-button" alt="whatsapp call">
@@ -330,7 +301,7 @@
                                             <i class="material-icons mdc-button__icon">phone</i>
                                             <span class="mdc-button__label">{{$advertising->phone_number}}</span>
                                         </a>
-                                        <a href="https://api.whatsapp.com/send?phone={{str_replace('+', '', $tel)}}"
+                                        <a href="https://api.whatsapp.com/send?phone={{str_replace('+', '', $tel)}}&text={{$message}}"
                                            class="col-md-2">
                                             <img src="{{asset('images/main/whatsapp.webp')}}" class="mw-100"
                                                  alt="whatsapp call">

@@ -108,7 +108,8 @@ Route::group(['middleware'=>['auth','Admin'],'prefix'=>"admin",'namespace'=>"Pan
 
     //settings
     Route::get('settings', 'SettingController@index')->name('settings.index');
-    Route::get('settings/invalid-keywords', 'SettingController@invalidKeywords')->name('settings.invalidKeywords');
+    // Route::get('settings/invalid-keywords', 'SettingController@invalidKeywords')->name('settings.invalidKeywords');
+    Route::get('settings/invalid-keywords', function() {return abort(404);})->name('settings.invalidKeywords');
     Route::post('settings/update-invalid-keywords', 'SettingController@updateInvalidKeywords')->name('settings.updateInvalidKeywords');
     Route::post('settings/createAjax', 'SettingController@createAjax')->name('createAjax');
     Route::post('settings/updateAjax', 'SettingController@updateAjax')->name('updateAjax');
