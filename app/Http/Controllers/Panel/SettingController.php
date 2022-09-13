@@ -62,9 +62,9 @@ class SettingController extends Controller
         try {
             $setting = Setting::find($request->key);
             $setting->setting_value=$request->value;
-            if(isset($request->placeholder)){
-                $setting->setting_placeholder=$request->placeholder;
-            }
+            // if(isset($request->placeholder)){
+            //     $setting->setting_placeholder=$request->placeholder;
+            // }
             if(isset($request->is_enable)){
                 $setting->is_enable=$request->is_enable=="true"??0;
             }

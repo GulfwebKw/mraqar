@@ -247,10 +247,15 @@ if ($ignoreGift){
                 ->where('is_visible', 1)->get();
         }
 
+        $credit = $this->getCreditUser(auth()->id());
+        if ($credit === [])
+            $credit = ['count_premium_advertising' => 0, 'count_normal_advertising' => 0];
+
         return view('site.pages.buyPackage', [
             'balance' => $record,
             'normals' => $normals,
             'statics' => $statics,
+            'credit' => $credit,
         ]);
     }
 

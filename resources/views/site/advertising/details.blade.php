@@ -11,6 +11,11 @@
 
 @section('title' , $name)
 
+@section('meta')
+{{--    <meta name="description" content="{{Str::limit($advertising->description, 300, '...')}}">--}}
+    <meta name="description" content="{{$advertising->description}}">
+@endsection
+
 
 @section('content')
     {{--    @dd($advertising)--}}

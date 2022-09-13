@@ -554,6 +554,9 @@ span.multiselect__placeholder {
     width: 100% !important;
     margin-top: 33vh !important;
   }
+  .pricing-header {
+    min-height: auto !important;
+  }
 }
 @media screen and (min-width: 600px) and (max-width: 960px) {
   #logo_footer {

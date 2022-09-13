@@ -32,6 +32,8 @@ class AppServiceProvider extends ServiceProvider
             $snapchat  = MessageController::getSettingDetails('snapchat');
             $youtube   = MessageController::getSettingDetails('youtube');
             $whatsapp  = MessageController::getSettingDetails('whatsapp');
+            $title = app()->getLocale() == 'en' ? MessageController::getSettingDetails('title_en') :
+                MessageController::getSettingDetails('title_ar');
 
             if (auth()->check()) {
                 $balance = \App\Http\Controllers\site\MainController::getBalance();
@@ -44,7 +46,8 @@ class AppServiceProvider extends ServiceProvider
                 ->with('snapchat', $snapchat)
                 ->with('youtube', $youtube)
                 ->with('whatsapp', $whatsapp)
-                ->with('balance', $balance);
+                ->with('balance', $balance)
+                ->with('title', $title);
         });
     }
 }
