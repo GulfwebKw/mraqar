@@ -437,7 +437,7 @@ class AdvertisingController extends ApiBaseController
     {
         $advertisingId=$request->advertising_id;
         $user_id=$request->user_id;
-        $device_token=$request->device_token;
+        $device_token= empty($request->device_token) ? 'null' : $request->device_token;
         if(isset($user_id)&& $user_id!="" && $user_id!=null){
             LogVisitAdvertising::updateOrCreate(
                 ['user_id' =>$user_id, 'advertising_id'=>$advertisingId],

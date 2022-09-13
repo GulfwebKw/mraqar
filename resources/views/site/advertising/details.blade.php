@@ -109,13 +109,13 @@
 
                             <div class="row flex-container mt-3 justify-content-center d-md-none d-lg-none w-100">
                                 <a href="tel:{{$tel}}"
-                                   class="mdc-button mdc-button--raised mdc-ripple-upgraded sm-small-button bg-whatsapp">
+                                   class="mdc-button mdc-button--raised mdc-ripple-upgraded sm-small-button bg-whatsapp incrementClick">
                                     <span class="mdc-button__ripple"></span>
                                     <i class="material-icons mdc-button__icon d-mobile-none">phone</i>
                                     <span class="mdc-button__label">{{$advertising->phone_number}}</span>
                                 </a>
                                 <a href="https://api.whatsapp.com/send?phone={{str_replace('+', '', $tel)}}&text={{$message}}"
-                                   class="col-xs-2 p{{$side}}-0">
+                                   class="col-xs-2 p{{$side}}-0 incrementClick">
                                     <img src="{{asset('images/main/whatsapp.webp')}}"
                                          class="mw-100 d-flex sm-small-button" alt="whatsapp call">
                                 </a>
@@ -213,7 +213,7 @@
                                 @endif
                                 <h4 class="m{{$unSide}}-2">{{$advertising->user->isCompany ? $advertising->user->company_name : $advertising->user->name}}</h4>
                                 <a href="tel:{{$tel}}"
-                                   class="mdc-button mdc-button--raised mdc-ripple-upgraded col-xs-5 m{{$unSide}}-auto sm-small-button bg-whatsapp">
+                                   class="mdc-button mdc-button--raised mdc-ripple-upgraded col-xs-5 m{{$unSide}}-auto sm-small-button bg-whatsapp incrementClick">
                                     <span class="mdc-button__ripple"></span>
                                     <i class="material-icons mdc-button__icon d-mobile-none">phone</i>
                                     <span class="mdc-button__label">{{$advertising->phone_number}}</span>
@@ -251,13 +251,13 @@
 
                             <div class="row flex-container mt-3 justify-content-center d-md-none d-lg-none">
                                 <a href="tel:{{$tel}}"
-                                   class="mdc-button mdc-button--raised mdc-ripple-upgraded sm-small-button bg-whatsapp">
+                                   class="mdc-button mdc-button--raised mdc-ripple-upgraded sm-small-button bg-whatsapp incrementClick">
                                     <span class="mdc-button__ripple"></span>
                                     <i class="material-icons mdc-button__icon d-mobile-none">phone</i>
                                     <span class="mdc-button__label">{{$advertising->phone_number}}</span>
                                 </a>
                                 <a href="https://api.whatsapp.com/send?phone={{str_replace('+', '', $tel)}}&text={{$message}}"
-                                   class="col-xs-2 p{{$side}}-0">
+                                   class="col-xs-2 p{{$side}}-0 incrementClick">
                                     <img src="{{asset('images/main/whatsapp.webp')}}"
                                          class="mw-100 d-flex sm-small-button" alt="whatsapp call">
                                 </a>
@@ -301,13 +301,13 @@
                                     {{--                                        <a href="tel:{{$tel}}" class="row middle-xs mb-3 decoration-none"><i class="material-icons primary-color">call</i><span class="mx-2 fw-500">{{$advertising->phone_number}}</span></a>--}}
                                     <div class="row">
                                         <a href="tel:{{$tel}}"
-                                           class="mdc-button mdc-button--raised mdc-ripple-upgraded mb-3 col-md-10 bg-whatsapp">
+                                           class="mdc-button mdc-button--raised mdc-ripple-upgraded mb-3 col-md-10 bg-whatsapp incrementClick">
                                             <span class="mdc-button__ripple"></span>
                                             <i class="material-icons mdc-button__icon">phone</i>
                                             <span class="mdc-button__label">{{$advertising->phone_number}}</span>
                                         </a>
                                         <a href="https://api.whatsapp.com/send?phone={{str_replace('+', '', $tel)}}&text={{$message}}"
-                                           class="col-md-2">
+                                           class="col-md-2 incrementClick">
                                             <img src="{{asset('images/main/whatsapp.webp')}}" class="mw-100"
                                                  alt="whatsapp call">
                                         </a>
@@ -374,9 +374,27 @@
                     .error((error) => console.error('Could not share at this time', error))
             }
         });
+
+
+
     </script>
     <script>
         window.ViewImage && ViewImage.init('.zoomable');
+    </script>
+    <script type="module">
+        $('.incrementClick').click(function(event) {
+            event.preventDefault();
+
+            let payload = {
+                advertising_id: {{$advertising->id}},
+                user_id: {{optional(auth())->user ?? 'null'}}
+            }
+            $.post("/api/v1/user/logVisitAdvertising", payload, function(data) {
+                $(".result").html( data )
+            }).done(() => {
+                location.href = event.target.closest('a').href
+            });
+        });
     </script>
 @endsection
 

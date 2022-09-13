@@ -104,9 +104,9 @@ class DashboardController extends Controller
           $date=$this->getFirstAndEndDayFormat();
           $dateWeek=$this->getFirstAndEndWeekDay();
           $dateMonth=$this->getFirstAndEndMonthDay();
-          $userCountDay=   User::where("type_usage","company")->where('created_at','>=',$date[0])->where('created_at','<=',$date[1])->count();
-          $userCountWeek=   User::where("type_usage","company")->where('created_at','<=',$dateWeek[0])->where('created_at','>=',$dateWeek[1])->count();
-          $userCountMonth=   User::where("type_usage","company")->where('created_at','<=',$dateMonth[0])->where('created_at','>=',$dateMonth[1])->count();
+          $userCountDay=   User::where("type_usage","company")->where('companied_at','>=',$date[0])->where('companied_at','<=',$date[1])->count();
+          $userCountWeek=   User::where("type_usage","company")->where('companied_at','<=',$dateWeek[0])->where('companied_at','>=',$dateWeek[1])->count();
+          $userCountMonth=   User::where("type_usage","company")->where('companied_at','<=',$dateMonth[0])->where('companied_at','>=',$dateMonth[1])->count();
           return[$userCountDay,$userCountWeek,$userCountMonth];
 
       });
