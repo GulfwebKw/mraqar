@@ -24,7 +24,7 @@ class DashboardController extends Controller
                 $days[]=Carbon::now()->subDay($i)->englishDayOfWeek;
             }
 
-            $jobs=Advertising::where('status','1');
+            $jobs=Advertising::where('status','accepted');
             $daysCount=[];
             for ($i=6; $i >=0 ; $i--) {
                 $job=clone $jobs;
@@ -40,21 +40,25 @@ class DashboardController extends Controller
 
             $month=[];
             $monthCount=[];
-            for($i=12; $i >0 ; $i--){
-                $month[]=Carbon::now()->subMonth($i)->englishMonth;
+            // for($i=12; $i >0 ; $i--){
+            //     $month[]=Carbon::now()->subMonth($i)->englishMonth;
+            //     $monthCount[]=0;
+            // }
+            for($i=1; $i <=12 ; $i++){
+                $month[]=Carbon::now()->subMonths($i)->englishMonth;
                 $monthCount[]=0;
+            }
+            $dates=$this->getAdvertisingCurrentYar();
+            foreach ($dates as $day) {
+                $mo=date("F",strtotime($day->created_at));
+                // $mo=Carbon::now()->subMonth(intval($mo))->englishMonth;
+                $index= array_search($mo,$month);
+                $monthCount[$index]=$monthCount[$index]+1;
             }
             $totalChart = [
                 'labels' =>  $month,
                 'chartData' => $monthCount
             ];
-            $dates=$this->getAdvertisingCurrentYar();
-            foreach ($dates as $day) {
-                $mo=date("F",strtotime($day->created_at));
-                $mo=Carbon::now()->subMonth(intval($mo))->englishMonth;
-                $index= array_search($mo,$month);
-                $monthCount[$index]=$monthCount[$index]+1;
-            }
 
             return response()->json([
                 'status' => 'success',
@@ -166,10 +170,10 @@ class DashboardController extends Controller
 
     public function getAdvertisingCurrentYar()
     {
-        return Cache::remember('IndividualUserCounts',200,function() {
+        return Cache::remember('IndividualUserCounts',1,function() {
           $start=date('Y-m-d h:i:s',strtotime(date('Y')."-01-01 00:00:00"));
           $end=date('Y-m-d h:i:s',strtotime(date('Y')."-12-30 23:59:59"));
-           return   DB::table('advertisings')->where('created_at','>=',$start)->where('created_at','<=',$end)->select('created_at')->get();
+           return   Advertising::where('status','accepted')->whereBetween('created_at',[$start,$end])->select('created_at')->get();
         });
     }
 
