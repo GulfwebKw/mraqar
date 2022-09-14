@@ -28,7 +28,7 @@ $unSide = app()->getLocale() === 'en' ? 'l' : 'r';
                         <h2>{{__('company_ads')}}</h2>
                 @endisset
 
-                <div class="mt-5"></div>
+{{--                <div class="mt-5"></div>--}}
 
                 @if(! isset($company))
                     @include('site.sections.search')

@@ -33,9 +33,21 @@
         <div class="row end-xs middle-xs py-1 px-3">
             <button id="sidenav-close" class="mdc-icon-button material-icons warn-color">close</button>
         </div>
+        <style>
+            .mdc-drawer__content * {
+                direction: rtl !important;
+            }
+        </style>
         <hr class="mdc-list-divider m-0">
         <div class="mdc-drawer__content">
             <div class="vertical-menu">
+                <div>
+                    <a href="{{route('site.advertising.create', app()->getLocale())}}" class="mdc-button mdc-button--raised mb-4" style="color: white">
+                        <span class="mdc-button__ripple"></span>
+                        <span class="mdc-button__label">{{ __('add_listing_title') }}</span>
+                        <i class="material-icons mdc-button__icon">add</i>
+                    </a>
+                </div>
                 <div>
                     <a href="{{'/'.app()->getLocale(). '/' }}" class="mdc-button" style="{{Route::currentRouteName() == 'Main.index' ? 'background-color: var(--mdc-theme-primary); color: #fff;' : ''}}">
                         <span class="mdc-button__ripple"></span>
@@ -54,18 +66,18 @@
                         <span class="mdc-button__label">{{__('companies')}}</span>
                     </a>
                 </div>
-                <div>
-                    <a href="{{ '/'.app()->getLocale().'/aboutus' }}" class="mdc-button" style="{{Route::currentRouteName() == 'Main.aboutus' ? 'background-color: var(--mdc-theme-primary); color: #fff;' : ''}}">
-                        <span class="mdc-button__ripple"></span>
-                        <span class="mdc-button__label">{{__('about_us_title')}}</span>
-                    </a>
-                </div>
-                <div>
-                    <a href="{{ '/'.app()->getLocale().'/contact' }}" class="mdc-button" style="{{Route::currentRouteName() == 'Message.create' ? 'background-color: var(--mdc-theme-primary); color: #fff;' : ''}}">
-                        <span class="mdc-button__ripple"></span>
-                        <span class="mdc-button__label">{{__('contact_title')}}</span>
-                    </a>
-                </div>
+{{--                <div>--}}
+{{--                    <a href="{{ '/'.app()->getLocale().'/aboutus' }}" class="mdc-button" style="{{Route::currentRouteName() == 'Main.aboutus' ? 'background-color: var(--mdc-theme-primary); color: #fff;' : ''}}">--}}
+{{--                        <span class="mdc-button__ripple"></span>--}}
+{{--                        <span class="mdc-button__label">{{__('about_us_title')}}</span>--}}
+{{--                    </a>--}}
+{{--                </div>--}}
+{{--                <div>--}}
+{{--                    <a href="{{ '/'.app()->getLocale().'/contact' }}" class="mdc-button" style="{{Route::currentRouteName() == 'Message.create' ? 'background-color: var(--mdc-theme-primary); color: #fff;' : ''}}">--}}
+{{--                        <span class="mdc-button__ripple"></span>--}}
+{{--                        <span class="mdc-button__label">{{__('contact_title')}}</span>--}}
+{{--                    </a>--}}
+{{--                </div>--}}
                 <div>
                     @if ( app()->getLocale() == "en")
                         <span onclick="changeLng('ar')" class="mdc-button">
@@ -85,7 +97,7 @@
         </div>
         <hr class="mdc-list-divider m-0">
         <div class="row center-xs middle-xs py-3">
-            @include('site.sections.socials', ['icon_classes' => 'mat-icon-md primary-color'])
+            @include('site.sections.socials', ['icon_classes' => 'mat-icon-md primary-color', 'sidebar' => true])
 
         </div>
     </aside>
@@ -248,10 +260,10 @@
                     </div>
                 </div>
                 <div class="row middle-xs" @if(in_array(request()->route()->getName(), ['Main.aboutus', 'Message.create', 'companies.info', 'site.ad.detail'])) style="visibility: hidden" @endif>
-                    <a href="{{route('site.advertising.create', app()->getLocale())}}" class="mdc-fab mdc-fab--mini primary d-sm-flex d-md-none d-lg-none d-xl-none">
-                        <span class="mdc-fab__ripple"></span>
-                        <span class="mdc-fab__icon material-icons">add</span>
-                    </a>
+{{--                    <a href="{{route('site.advertising.create', app()->getLocale())}}" class="mdc-fab mdc-fab--mini primary d-sm-flex d-md-none d-lg-none d-xl-none">--}}
+{{--                        <span class="mdc-fab__ripple"></span>--}}
+{{--                        <span class="mdc-fab__icon material-icons">add</span>--}}
+{{--                    </a>--}}
                     <a href="{{route('site.advertising.create', app()->getLocale())}}" class="mdc-button mdc-button--raised d-none d-sm-none d-md-flex d-lg-flex d-xl-flex">
                         <span class="mdc-button__ripple"></span>
                         <span class="mdc-button__label">{{ __('add_listing_title') }}</span>
