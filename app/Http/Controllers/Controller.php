@@ -205,7 +205,21 @@ class Controller extends BaseController
     public function watermark($image, $to = 'resources/uploads/images/')
     {
         $img = Image::make($image);
-        $watermark = Image::make(public_path('/images/main/watermark.png'));
+        // get width and height
+        $w = $img->width();
+        $h = $img->height();
+        // check image is tall or wide
+        // resize watermark based on it
+        // give watermark a min-width and min-height (maybe)
+        $watermark = Image::make(public_path('/images/main/watermark.png'))->opacity(65);
+        // dd($w, $h, ($h / 10) * 2);
+        if ($w > ($h * 2))
+            $watermark->heighten((int) ($h / 10) * 2); // 20%
+        elseif ($h > ($w * 2))
+            $watermark->widen((int) ($w / 10) * 4); // 40%
+        else
+            $watermark->widen((int) ($w / 10) * 1.5); // 15%
+
         $img->insert($watermark, 'bottom-right', 10, 10);
         return $img->save(public_path($to . basename($image)));
     }

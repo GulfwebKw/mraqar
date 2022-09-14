@@ -340,6 +340,10 @@ span.multiselect__placeholder {
   text-align: center !important;
 }
 
+.aspect-ratio {
+  aspect-ratio: 1/1;
+}
+
 @media screen and (min-width: 600px) {
   .sm\:mr-2 {
     margin-right: 0.5rem !important;

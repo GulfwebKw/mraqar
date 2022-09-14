@@ -320,7 +320,7 @@
                                                 @forelse( old('other_images_link' ) as $files )
                                                     <div class="col-xs-6 col-sm-4 col-md-2" id="fileOld_{{ $loop->index }}">
                                                         <input type="hidden" name="other_images_link[]" value="{{ $files }}">
-                                                        <img src="{{ asset('/resources/tempUploads/' .$files ) }}" width="100%">
+                                                        <img src="{{ asset('/resources/tempUploads/' .$files ) }}" width="100%" class="aspect-ratio">
                                                         <div>
                                                             <button onclick="$('#fileOld_{{ $loop->index }}').remove()" class="bg-warn border-0">
                                                                 <span class="material-icons-outlined">delete</span>

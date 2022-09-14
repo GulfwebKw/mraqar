@@ -284,7 +284,7 @@
                                                 @if( $advertising->main_image)
                                                     <div class="col-xs-6 col-sm-4 col-md-2" id="main_image">
                                                         <input type="hidden" name="main_image" value="{{ $advertising->main_image }}">
-                                                        <img src="{{ asset($advertising->main_image ) }}" width="100%">
+                                                        <img src="{{ asset($advertising->main_image ) }}" width="100%" class="aspect-ratio">
                                                         <div>
                                                             <button onclick="$('#main_image').remove(); deletedImage('{{$advertising->main_image}}')" type="button" class="bg-warn border-0">
                                                                 <span class="material-icons-outlined">delete</span>
@@ -297,7 +297,7 @@
                                                             @if ( $file )
                                                                 <div class="col-xs-6 col-sm-4 col-md-2" id="fileOld1_{{ $i1 }}_{{ $i2 }}">
                                                                     <input type="hidden" name="other_image[]" value="{{ $file }}">
-                                                                    <img src="{{ asset($file ) }}" width="100%">
+                                                                    <img src="{{ asset($file ) }}" width="100%" class="aspect-ratio">
                                                                     <div>
                                                                         <button onclick="$('#fileOld1_{{ $i1 }}_{{ $i2 }}').remove(); deletedImage('{{ $file }}')" type="button" class="bg-warn border-0">
                                                                             <span class="material-icons-outlined">delete</span>
@@ -312,7 +312,7 @@
                                                 @forelse( (array) old('other_images_link' , [] ) as $files )
                                                     <div class="col-xs-6 col-sm-4 col-md-2" id="fileOld_{{ $loop->index }}">
                                                         <input type="hidden" name="other_images_link[]" value="{{ $files }}">
-                                                        <img src="{{ asset('/resources/tempUploads/' .$files ) }}" width="100%">
+                                                        <img src="{{ asset('/resources/tempUploads/' .$files ) }}" width="100%" class="aspect-ratio">
                                                         <div>
                                                             <button onclick="$('#fileOld_{{ $loop->index }}').remove(); deletedImage('{{ $files }}')" type="button" class="bg-warn border-0">
                                                                 <span class="material-icons-outlined">delete</span>

@@ -71,7 +71,7 @@ $edge = app()->getLocale() == 'en' ? 'left' : 'right';
                             <a href="{{route('site.ad.detail', [app()->getLocale(), $ad->hash_number])}}">
                                 <div class="{{ $ad->advertising_type == "normal" ?: 'image-box' }}" style="position: relative">
                                     <img src="{{ $ad->main_image ? asset($ad->main_image) : route('image.noimage', '')  }}"
-                                        width="100" class="d-block my-ads-image">
+                                        width="100" class="d-block my-ads-image aspect-ratio">
                                 </div>
                             </a>
                         </td>
